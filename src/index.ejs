@@ -1,0 +1,174 @@
+<!doctype html>
+<script src="template.v2.js"></script>
+<d-front-matter>
+  <script type="text/json">{
+  "title": "Article Title",
+  "description": "Description of the post",
+  "authors": [
+    {
+      "author":"Authors",
+      "authorURL": "test",
+      "affiliation":"Google Brain",
+      "affiliationURL":"https://g.co/brain"
+    },
+
+  ]
+  }</script>
+</d-front-matter>
+
+<style>
+</style>
+
+
+
+
+
+<d-article>
+  
+  <h1>Putting the Pieces of Interpretability Together</h1>
+
+  <d-byline></d-byline>
+  
+  <p>
+    Over the last couple of years, researchers have developed fundamental building blocks for understanding the inner workings of neural networks.
+    We believe that transparency research is now at a point where -- if we bring these building blocks together in the right way -- we can provide meaningful interfaces into how neural networks come to the decisions they do.
+  </p>
+
+  <p>  
+    In particular, significant progress has been made on feature visualization, which gives us examples of what neurons are looking for, and attribution, which tells us how neurons affect the outputs. These two techniques can be very powerful when combined.
+  </p>
+
+  
+  <h2>Activations & Feature Visualization</h2>
+  
+  <br>
+  
+  <figure id="VectorExplain" class="l-body" style="height: 256px;"></figure>
+  
+  <!--<figure class="l-body">
+    <img src="images/vector-explain.png"></img>
+  </figure>-->
+  <p>
+    We can also visualize the activation vector as a whole
+    instead of visualizing individual neurons.
+    Instead of creating an input to maximize a single neuron,
+    we create an input that maximizes the combination of neurons that fired
+    for a particular input, so we can understand what that combination represents.
+  </p>
+
+  <figure class="l-page">
+    <img src="images/vector-eq.png"  style="width:100%"></img>
+  </figure>
+  
+  <p>
+    By applying this technique to each activation vector,
+    we can see how the network understands a particular input
+    -- and how that understanding evolves as we move through the layers of the 
+    network.
+  </p>
+
+  <figure class="l-page">
+    <img src="images/activation-grid.png"></img>
+  </figure>
+
+  <p>
+    One weakness of this visualization is that it doesn't really show the magnitude the activations.
+    It shows us what was detected at each position, but not how strongly it was detected.
+    To better show magnitudes, let's gray out parts of the image with low magnitude activation vectors:
+  </p>
+  
+  <figure class="l-page">
+    <img src="images/activation-grid-mag.png"></img>
+  </figure>
+
+  <p>
+    We can also get more a less noisy "overview" of the activations vectors for
+    an image by computing the first three principal components of the
+    activations and coloring the image base on those. These principal components
+    are directions in activation space, and having meaning by themselves.
+  </p>
+
+
+  <figure class="l-body">
+    <img src="images/activation-pca.png" ></img>
+  </figure>
+
+  <p>
+    In the end, we have three ways of thinking about an activation vector:
+    what it represents as a whole, the principal components, and the individual
+    neurons.
+  </p>
+
+  <figure class="l-page">
+    <img src="images/vector-eq-full.png"  style="width:100%"></img>
+  </figure>
+
+  <h2>Attribution</h2>
+
+  <p>
+    Attribution is normally used to make <i>saliency maps</i>, visualizations
+    describing what part of an input was important in making a decision.
+    While saliency maps can be helpful, limiting attribution to them is a
+    terrible waste.
+    Attribution can be used
+    to explore how any neuron effects any other neuron in a network.<d-footnote>
+      It's worth noting that attribution to hidden units like this may be more
+      natural than trying to attribute all the way back to pixels. It isn't
+      entirely clear what attribution to pixels really means. The meaning of a 
+      pixel is extremely entangled with other pixels, very far removed from
+      high-level ideas like output class. And neural networks need to be invariant
+      to things like generic brightening of the image.
+    </d-footnote>
+    We need only make interfaces that take advantage of this flexibility.
+  </p>
+
+
+  <p>
+    For example, consider the PCA of activations from earlier. 
+    Attribution can tell us how each principal component tends to effect
+    the probability of likely classes, and how each position actually does.
+    Note that, unlike a saliency map which only shows how one output is
+    effected, this visualization shows how multiple outputs are impacted.
+  </p>
+
+
+  <figure class="l-body">
+    <img src="images/attribution-multi.png" ></img>
+  </figure>
+  
+  <p>
+    While attribution is usually focused on spatial locations, as above,
+    we can just as easily point it at channels.
+    Combined with feature visualization, this can allow us to "stand in the
+    middle of the network" and observe what is being detected at a hidden layer 
+    and how that influences the final outcome.
+  </p>
+
+  <figure class="l-page">
+    <img src="images/attribution-channels.png" ></img>
+  </figure>
+  
+  <p>
+    
+  </p>
+
+  <h2>Groups</h2>
+
+  <figure class="l-page-outset">
+    <img src="images/groups.png" ></img>
+  </figure>
+
+</d-article>
+
+
+
+<d-appendix>
+  <h3>Acknowledgments</h3>
+  <p>
+  </p>
+
+  <h3>Author Contributions</h3>
+  <p>
+  </p>
+  <d-bibliography src="bibliography.bib"></d-bibliography>
+</d-appendix>

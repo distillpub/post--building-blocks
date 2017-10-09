@@ -1,0 +1,175 @@
+<div class="outer">
+  <div class="image-container">
+    <img src="images/cat-dog.jpeg" />
+  </div>
+  <svg class="pointer-container" viewBox="0 0 {{300.0/256.0*N[0]}} {{N[1]}}">
+    <filter id="background-rect-blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
+    </filter>
+    {{#each range(N[0]) as x}}
+    {{#each range(N[1]) as y}}
+      <!--<g data-x={{x}} data-y={{y}}></g>-->
+      <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
+        class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}
+        >
+      </rect>
+      <rect x={{x}} y={{y}} width=1 height=1
+        class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
+        on:mouseover='set({pos: [x,y]})'
+        >
+      </rect>
+    {{/each}}
+    {{/each}}
+    <path  d="{{pointer_line_path}}" class="pointer-line-background"   />
+    <path  d="{{pointer_line_path}}" class="pointer-line"  />
+  </svg>
+  <div class="explain-container">
+    <p>
+      We usually think of activations as abstract vectors:
+    </p>
+    <div class="abstract-vector">
+      {{present_vector_str}}
+    </div>
+    <p>
+      Feature visualization makes activations <b>meaningful</b><br> by showing us what
+      each neuron is looking for:
+    </p>
+    <div class="vis-vector">
+      {{#each present_vector_tops as top}}
+        <div style="width: 75px; height: 100px; display: inline-block; margin-right: 15px;">
+          <div style="display: inline-block; background-color: #557; width: 20px; height: {{top[1]/40.0}}px; margin-right: 2px; margin-bottom: -2px;"></div>
+          <div style="display: inline-block; background-color: #FFF; width: 2px; height: 35px;"></div>
+          <span style="font-size; 80%;">{{((x) => ("" + top[1]).slice(0,4))(pos)}} </span>
+          <Sprite size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<style>
+.outer {
+  position: relative;
+  width: 100%;
+  height: 256px;
+}
+
+
+.image-container, .pointer-container, .explain-container { 
+  position: absolute;
+  height: 256px;
+}
+.image-container {
+  width: 256px;
+}
+.pointer-container {
+  width: 300px;
+}
+.explain-container{
+  width: calc(784px - 300px);
+  left: 300px;
+  top: -8px;
+}
+.explain-container p {
+  margin-bottom: 0px;
+}
+.pointer-container rect {
+  opacity: 0;
+}
+.pointer-container .selected {
+  opacity: 1;
+  fill: white;
+  fill: rgba(255, 255, 255, 0.5);
+  stroke: black;
+  stroke-width: 0.01px;
+}
+.pointer-container .background{
+  opacity: 0.8;
+  fill: none;
+  stroke: white;
+  stroke-width: 0.03px;
+  filter: url(#background-rect-blur);
+}
+.pointer-container .pointer-line-background {
+  opacity: 1;
+  stroke: white;
+  stroke-width: 0.04px;
+  filter: url(#background-rect-blur);
+  fill: none;
+}
+.pointer-container .pointer-line {
+  opacity: 1;
+  fill: none;
+  stroke: black;
+  stroke-width: 0.02px;
+}
+.abstract-vector, .vis-vector {
+  margin: 10px;
+  margin-left: 0px;
+  color: #666;
+}
+
+
+.mixed4d { background: url("images/mixed4d_sprite_200.jpeg")}
+</style>
+
+<script>
+  import Sprite from "./Sprite.html";
+  
+  
+  function range(n){
+    return Array(n).fill().map((_, i) => i);
+  }
+  
+  function random_string() {
+    var s = "[";
+    for (var n = 0; n < 12; n++) {
+       if (n > 0) s += ", ";
+       s += ("" + 100*Math.random()).slice(0, 3);
+    }
+    return s + "... ]"
+  }
+  
+  export default {
+    data() {
+      return {
+        N: [14, 14],
+        pos: [2,3],
+        activations: undefined,
+      };
+    },
+    computed: {
+      pointer_line_path: (N, pos) => {
+        var top_y = 2.5;
+        var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
+        var y_dist = Math.abs(start_y - top_y);
+        var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);  
+        return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1} ${top_y}`
+      },
+      /*present_vector: (pos) => range(527).map( n => Math.max(0.0, 50*Math.random() + 50*Math.random() + 50*Math.random() + 50*Math.random()  -100) ),*/
+      present_vector: (N, pos, activations) => {
+        if (activations == undefined) return [];
+        return range(activations.shape[3]).map(n =>
+          activations.get(0, pos[1], activations.shape[2] -  pos[0], n))
+      },
+      present_vector_str: (present_vector) => {
+        var s = "[";
+        for (var n = 0; n < Math.min(12, present_vector.length); n++) {
+           if (n > 0) s += ", ";
+           s += ("" + present_vector[n]).slice(0, 3);
+        }
+        return s + "... ]"
+      },
+      present_vector_tops: (present_vector) => {
+        var sorted_ns = range(present_vector.length).sort((a,b) => present_vector[b] - present_vector[a])
+        var ret = [];
+        for (var n of sorted_ns.slice(0, 5)) {
+          ret.push([n, present_vector[n]])
+        }
+        return ret;
+      }
+    },
+    components: { Sprite },
+    helpers: { range, random_string },
+  }
+</script>
