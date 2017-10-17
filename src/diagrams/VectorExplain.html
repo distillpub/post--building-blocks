@@ -1,7 +1,16 @@
 <div class="outer">
   <div class="image-container">
-    <img src="images/cat-dog.jpeg" />
+    <img src="examples/{{selected}}.png" />
   </div>
+      
+  <div id="example-picker">
+    {{#each examples as ex}}
+    <img src="examples/{{ex}}.png" alt="{{ex}}" 
+      class="{{selected === ex ? 'selected' : ''}}" 
+      on:click="set({selected: ex})" />
+    {{/each}}
+  </div>
+
   <svg class="pointer-container" viewBox="0 0 {{300.0/256.0*N[0]}} {{N[1]}}">
     <filter id="background-rect-blur">
       <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
@@ -23,6 +32,7 @@
     <path  d="{{pointer_line_path}}" class="pointer-line-background"   />
     <path  d="{{pointer_line_path}}" class="pointer-line"  />
   </svg>
+
   <div class="explain-container">
     <p>
       We usually think of activations as abstract vectors:
@@ -37,9 +47,9 @@
     <div class="vis-vector">
       {{#each present_vector_tops as top}}
         <div style="width: 75px; height: 100px; display: inline-block; margin-right: 15px;">
-          <div style="display: inline-block; background-color: #557; width: 20px; height: {{top[1]/40.0}}px; margin-right: 2px; margin-bottom: -2px;"></div>
+          <div style="display: inline-block; background-color: #557; width: 20px; height: {{top[1]/max_act*40.0}}px; margin-right: 2px; margin-bottom: -2px;"></div>
           <div style="display: inline-block; background-color: #FFF; width: 2px; height: 35px;"></div>
-          <span style="font-size; 80%;">{{((x) => ("" + top[1]).slice(0,4))(pos)}} </span>
+          <span style="font-size; 80%;">{{("" + top[1]).slice(0,4)}} </span>
           <Sprite size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
         </div>
       {{/each}}
@@ -54,14 +64,36 @@
   height: 256px;
 }
 
-
 .image-container, .pointer-container, .explain-container { 
   position: absolute;
   height: 256px;
 }
+
 .image-container {
   width: 256px;
 }
+
+#example-picker {
+  position: absolute;
+  left: -70px;
+  width: 44px;
+}
+
+#example-picker img {
+  width: 32px;
+  cursor: pointer;
+  border: 3px solid #fff
+}
+
+#example-picker img.selected {
+  border-color: #3497FF;
+}
+
+#example-picker img:hover { 
+  opacity: 0.75; 
+  border-color: #ff6600;
+}
+
 .pointer-container {
   width: 300px;
 }
@@ -115,19 +147,10 @@
 
 <script>
   import Sprite from "./Sprite.html";
-  
+  import ops from 'ndarray-ops';
   
   function range(n){
     return Array(n).fill().map((_, i) => i);
-  }
-  
-  function random_string() {
-    var s = "[";
-    for (var n = 0; n < 12; n++) {
-       if (n > 0) s += ", ";
-       s += ("" + 100*Math.random()).slice(0, 3);
-    }
-    return s + "... ]"
   }
   
   export default {
@@ -135,7 +158,9 @@
       return {
         N: [14, 14],
         pos: [2,3],
-        activations: undefined,
+        examples: undefined,
+        selected: undefined,
+        activations: undefined
       };
     },
     computed: {
@@ -146,30 +171,35 @@
         var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);  
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1} ${top_y}`
       },
-      /*present_vector: (pos) => range(527).map( n => Math.max(0.0, 50*Math.random() + 50*Math.random() + 50*Math.random() + 50*Math.random()  -100) ),*/
-      present_vector: (N, pos, activations) => {
-        if (activations == undefined) return [];
-        return range(activations.shape[3]).map(n =>
-          activations.get(0, pos[1], activations.shape[2] -  pos[0], n))
+
+      present_vector: (N, pos, selected, activations) => {
+        const acts = activations[selected];
+        if (!acts || !acts.shape) return [];
+        return range(acts.shape[3]).map(n =>
+          acts.get(0, pos[1], pos[0], n))
       },
-      present_vector_str: (present_vector) => {
+
+      present_vector_str: (pos, present_vector) => {
         var s = "[";
         for (var n = 0; n < Math.min(12, present_vector.length); n++) {
            if (n > 0) s += ", ";
            s += ("" + present_vector[n]).slice(0, 3);
         }
-        return s + "... ]"
+        return s + ", ...]"
       },
+
       present_vector_tops: (present_vector) => {
         var sorted_ns = range(present_vector.length).sort((a,b) => present_vector[b] - present_vector[a])
-        var ret = [];
-        for (var n of sorted_ns.slice(0, 5)) {
-          ret.push([n, present_vector[n]])
-        }
-        return ret;
+        return sorted_ns.slice(0, 5).map((n) => [n, present_vector[n]]);
+      },
+
+      max_act: (selected, activations) => {
+        const acts = activations[selected];
+        const am = ops.argmax(acts);
+        return acts.get(...am);
       }
     },
     components: { Sprite },
-    helpers: { range, random_string },
+    helpers: { range },
   }
 </script>

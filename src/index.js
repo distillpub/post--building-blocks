@@ -1,9 +1,22 @@
+import examples from '../static/examples';
+import VectorExplain from './diagrams/VectorExplain.html';
 
-import VectorExplain from "./diagrams/VectorExplain.html";
+let loadedVE = false;
+let activations = {};
 
-import activation_loader from "./mixed4d.npy";
-
-activation_loader.load((activations) => {
-  new VectorExplain({target: document.getElementById("VectorExplain"), data: {activations: activations}});
-  console.log("activations", activations);
-})
+examples.forEach((ex) => {
+  require(`../static/examples/${ex}_mixed4d.npy`).load((act) => {
+    activations[ex] = act;
+    if (!loadedVE && act.shape) {
+      new VectorExplain({
+        target: document.getElementById("VectorExplain"),
+        data: {
+          examples: examples,
+          selected: examples[0],
+          activations: activations
+        }
+      });
+      loadedVE = true;
+    }
+  });
+});
