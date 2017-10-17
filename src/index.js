@@ -1,22 +1,23 @@
-import examples from '../static/examples';
+import ExamplePicker from './diagrams/ExamplePicker.html';
 import VectorExplain from './diagrams/VectorExplain.html';
 
-let loadedVE = false;
-let activations = {};
+const exPick = new ExamplePicker({
+  target: document.getElementById('ExamplePicker')
+});
 
-examples.forEach((ex) => {
-  require(`../static/examples/${ex}_mixed4d.npy`).load((act) => {
-    activations[ex] = act;
-    if (!loadedVE && act.shape) {
-      new VectorExplain({
-        target: document.getElementById("VectorExplain"),
-        data: {
-          examples: examples,
-          selected: examples[0],
-          activations: activations
-        }
-      });
-      loadedVE = true;
-    }
-  });
+const vecExpl = new VectorExplain({
+  target: document.getElementById('VectorExplain')
+})
+
+// Wire components together.
+exPick.observe('selected', (selected) => {
+  vecExpl.set({example: selected});
+});
+
+exPick.observe('act', (act) => {
+  vecExpl.set({activation: act})
+});
+
+exPick.observe('max_act', (max_act) => {
+  vecExpl.set({max_act})
 });

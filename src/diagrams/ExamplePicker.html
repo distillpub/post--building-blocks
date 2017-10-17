@@ -1,0 +1,63 @@
+<div id="example-picker">
+  {{#each examples as ex}}
+  <img src="examples/{{ex}}.png" alt="{{ex}}" 
+    class="{{selected === ex ? 'selected' : ''}}" 
+    on:click="set({selected: ex})" />
+  {{/each}}
+</div>
+
+<style>
+  #example-picker {
+    position: absolute;
+    left: -70px;
+    width: 44px;
+  }
+
+  #example-picker img {
+    width: 32px;
+    cursor: pointer;
+    border: 3px solid #fff
+  }
+
+  #example-picker img.selected {
+    border-color: #3497FF;
+  }
+
+  #example-picker img:hover { 
+    opacity: 0.75; 
+    border-color: #ff6600;
+  }
+</style>
+
+<script>
+  import { setDeep } from 'svelte-extras';
+  import { argmax } from 'ndarray-ops';
+
+  export default {
+    data() {
+      return {
+        activations: {},
+        magnitudes: {}
+      };
+    },
+
+    oncreate() {
+      const examples = require('../../static/examples/index.json');
+      for (const ex of examples) {
+        require(`../../static/examples/${ex}_mixed4d.npy`)
+          .load((act) => this.setDeep('activations.' + ex, act));
+        require(`../../static/examples/${ex}_mixed4d_magnitude.npy`)
+          .load((mag) => this.setDeep('magnitudes.' + ex, mag));
+      }
+    },
+
+    computed: {
+      examples: (activations) => Object.keys(activations),
+      selected: (examples) => examples[0],
+      act: (selected, activations) => activations[selected],
+      max_act: (act) => act && act.get(...argmax(act))
+    },
+
+    methods: { setDeep }
+  }
+</script>

@@ -1,14 +1,6 @@
 <div class="outer">
   <div class="image-container">
-    <img src="examples/{{selected}}.png" />
-  </div>
-      
-  <div id="example-picker">
-    {{#each examples as ex}}
-    <img src="examples/{{ex}}.png" alt="{{ex}}" 
-      class="{{selected === ex ? 'selected' : ''}}" 
-      on:click="set({selected: ex})" />
-    {{/each}}
+    <img src="examples/{{example}}.png" />
   </div>
 
   <svg class="pointer-container" viewBox="0 0 {{300.0/256.0*N[0]}} {{N[1]}}">
@@ -72,28 +64,6 @@
 .image-container {
   width: 256px;
 }
-
-#example-picker {
-  position: absolute;
-  left: -70px;
-  width: 44px;
-}
-
-#example-picker img {
-  width: 32px;
-  cursor: pointer;
-  border: 3px solid #fff
-}
-
-#example-picker img.selected {
-  border-color: #3497FF;
-}
-
-#example-picker img:hover { 
-  opacity: 0.75; 
-  border-color: #ff6600;
-}
-
 .pointer-container {
   width: 300px;
 }
@@ -141,13 +111,11 @@
   color: #666;
 }
 
-
 .mixed4d { background: url("images/mixed4d_sprite_200.jpeg")}
 </style>
 
 <script>
   import Sprite from "./Sprite.html";
-  import ops from 'ndarray-ops';
   
   function range(n){
     return Array(n).fill().map((_, i) => i);
@@ -158,9 +126,9 @@
       return {
         N: [14, 14],
         pos: [2,3],
-        examples: undefined,
-        selected: undefined,
-        activations: undefined
+        example: undefined,
+        activation: undefined,
+        max_act: undefined
       };
     },
     computed: {
@@ -172,11 +140,9 @@
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1} ${top_y}`
       },
 
-      present_vector: (N, pos, selected, activations) => {
-        const acts = activations[selected];
-        if (!acts || !acts.shape) return [];
-        return range(acts.shape[3]).map(n =>
-          acts.get(0, pos[1], pos[0], n))
+      present_vector: (pos, activation) => {
+        return !activation ? [] : 
+          range(activation.shape[3]).map(n => activation.get(0, pos[1], pos[0], n));
       },
 
       present_vector_str: (pos, present_vector) => {
@@ -191,12 +157,6 @@
       present_vector_tops: (present_vector) => {
         var sorted_ns = range(present_vector.length).sort((a,b) => present_vector[b] - present_vector[a])
         return sorted_ns.slice(0, 5).map((n) => [n, present_vector[n]]);
-      },
-
-      max_act: (selected, activations) => {
-        const acts = activations[selected];
-        const am = ops.argmax(acts);
-        return acts.get(...am);
       }
     },
     components: { Sprite },

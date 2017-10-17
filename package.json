@@ -19,7 +19,7 @@
     "ndarray-ops": "^1.2.2",
     "numpy-loader": "^1.2.0",
     "svelte": "1.38.0",
-    "svelte-extras": "^1.4.1",
+    "svelte-extras": "^1.5.3",
     "svelte-loader": "^2.1.0",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.0"
