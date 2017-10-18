@@ -1,0 +1,70 @@
+<div class="top-neurons">
+  {{#each tops as top}}
+    <div class="neuron">
+      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+      <div class="spacer"></div>
+      <span>{{(top[1] + '').slice(0,4)}} </span>
+      <Sprite src_class="sprite_mixed4d" size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
+    </div>
+  {{/each}}
+</div>
+
+<style>
+  .top-neurons {
+    display: flex;
+    margin: 8px;
+    margin-left: 0;
+    color: #666;
+  }
+
+  .neuron {
+    width: 75px; 
+    height: 100px; 
+    margin-right: 15px;
+  }
+
+  .spacer {
+    display: inline-block;
+    background: #fff;
+    width: 1px;
+    height: 40px;
+  }
+
+  .bar {
+    display: inline-block; 
+    background-color: #999; 
+    width: 20px;  
+    margin-right: 2px; 
+    margin-bottom: -2px;
+  }
+
+  .top-neurons span {
+    font-size: 90%;
+  }
+
+  .sprite_mixed4d { background: url('images/mixed4d_sprite_200.jpeg')}
+</style>
+
+<script>
+  import Sprite from './Sprite.html'
+  import {range} from '../util';
+
+  export default {
+    data() {
+      return {
+        present_vector: undefined,
+        max_act: undefined
+      };
+    },
+
+    computed: {
+      tops: (present_vector) => {
+        const sorted_ns = range(present_vector.length)
+          .sort((a,b) => present_vector[b] - present_vector[a]);
+        return sorted_ns.slice(0, 5).map((n) => [n, present_vector[n]]);
+      }
+    },
+
+    components: { Sprite },
+  }
+</script>

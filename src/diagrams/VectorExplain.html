@@ -36,16 +36,7 @@
       Feature visualization makes activations <b>meaningful</b><br> by showing us what
       each neuron is looking for:
     </p>
-    <div class="vis-vector">
-      {{#each present_vector_tops as top}}
-        <div style="width: 75px; height: 100px; display: inline-block; margin-right: 15px;">
-          <div style="display: inline-block; background-color: #557; width: 20px; height: {{top[1]/max_act*40.0}}px; margin-right: 2px; margin-bottom: -2px;"></div>
-          <div style="display: inline-block; background-color: #FFF; width: 2px; height: 35px;"></div>
-          <span style="font-size; 80%;">{{("" + top[1]).slice(0,4)}} </span>
-          <Sprite size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
-        </div>
-      {{/each}}
-    </div>
+    <TopNeurons present_vector={{present_vector}} max_act={{max_act}}></TopNeurons>
   </div>
 </div>
 
@@ -105,21 +96,17 @@
   stroke: black;
   stroke-width: 0.02px;
 }
-.abstract-vector, .vis-vector {
+
+.abstract-vector {
   margin: 10px;
   margin-left: 0px;
   color: #666;
 }
-
-.mixed4d { background: url("images/mixed4d_sprite_200.jpeg")}
 </style>
 
 <script>
-  import Sprite from "./Sprite.html";
-  
-  function range(n){
-    return Array(n).fill().map((_, i) => i);
-  }
+  import TopNeurons from './TopNeurons.html'
+  import {range} from '../util';
   
   export default {
     data() {
@@ -152,14 +139,9 @@
            s += ("" + present_vector[n]).slice(0, 3);
         }
         return s + ", ...]"
-      },
-
-      present_vector_tops: (present_vector) => {
-        var sorted_ns = range(present_vector.length).sort((a,b) => present_vector[b] - present_vector[a])
-        return sorted_ns.slice(0, 5).map((n) => [n, present_vector[n]]);
       }
     },
-    components: { Sprite },
+    components: { TopNeurons },
     helpers: { range },
   }
 </script>

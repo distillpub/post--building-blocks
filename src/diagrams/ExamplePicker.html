@@ -1,4 +1,7 @@
-<div id="example-picker">
+<:Window bind:scrollY='scrollY'/>
+
+<div id="example-picker" style="position: {{scrollY >= 570 ? 'fixed': 'absolute'}};
+  top: {{scrollY >= 570 ? 20 : 0}}px;">
   {{#each examples as ex}}
   <img src="examples/{{ex}}.png" alt="{{ex}}" 
     class="{{selected === ex ? 'selected' : ''}}" 
@@ -8,9 +11,8 @@
 
 <style>
   #example-picker {
-    position: absolute;
-    left: -70px;
     width: 44px;
+    margin-left: -80px;
   }
 
   #example-picker img {
