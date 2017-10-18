@@ -1,26 +1,52 @@
-<div class="top-neurons">
-  {{#each tops as top}}
-    <div class="neuron">
-      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
-      <div class="spacer"></div>
-      <span>{{(top[1] + '').slice(0,4)}} </span>
-      <Sprite src_class="sprite_mixed4d" size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
-    </div>
-  {{/each}}
+<div class="outer">
+  <div class="top-neurons">
+    {{#each tops as top}}
+      <div class="neuron">
+        <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+        <div class="spacer"></div>
+        <span>{{(top[1]+'').slice(0,4)}} </span>
+        <Sprite src_class="sprite_mixed4d" size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
+      </div>
+  
+      <p class="annotation"> + </p>
+    {{/each}}
+  
+    <p class="annotation">...</p>
+  </div>
+
+  <svg width="100" height="300">
+      <defs>
+        <marker id="arrowhead" viewBox="0 0 10 10" refX="1" refY="5" 
+          markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#999" />
+        </marker>
+      </defs>
+      <path d="M35,75 C97,101 72,206 10,210" marker-end="url(#arrowhead)" 
+        stroke="#999" fill="transparent" stroke-width="2" />
+  </svg>
 </div>
 
 <style>
+  .outer { 
+    position: relative; 
+    width: 625px;
+  }
+  
   .top-neurons {
     display: flex;
-    margin: 8px;
-    margin-left: 0;
+    margin-top: 8px;
+    align-items: center;
     color: #666;
   }
 
   .neuron {
     width: 75px; 
-    height: 100px; 
-    margin-right: 15px;
+    margin-right: 10px;
+  }
+
+  .annotation {
+    margin-top: 40px;
+    margin-right: 10px;
   }
 
   .spacer {
@@ -38,11 +64,17 @@
     margin-bottom: -2px;
   }
 
-  .top-neurons span {
+  span {
     font-size: 90%;
   }
 
   .sprite_mixed4d { background: url('images/mixed4d_sprite_200.jpeg')}
+
+  svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 </style>
 
 <script>

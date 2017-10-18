@@ -9,7 +9,8 @@
  --transition_css: {{transition_css}};
  --border_css: {{border_css}};">
   <div class="mid">
-    <div class="inner {{src_class}}">
+    <div class="inner {{src_class}}" 
+      style="{{bg_img ? 'background-image: url("' + bg_img + '");' : ''}}">
     </div>
   </div>
 </div>
@@ -69,6 +70,7 @@
     data() {
       return {
         src_class: "mixed4d",
+        bg_img: undefined, // for when src_class isn't available
         sprite_size: 200,
         sprite_scale: 1.0,
         size: 100,

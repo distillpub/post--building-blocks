@@ -1,0 +1,45 @@
+<div class="outer">
+  <div class="activation-vec">
+      <Sprite bg_img="examples/{{example}}_mixed4d.jpeg" size="100" sprite_size={{size}} x={{pos[0]}} y={{pos[1]}}></Sprite>
+  </div>
+
+  <p>
+    We can also visualize the activation vector as a whole
+    instead of visualizing individual neurons.
+    Instead of creating an input to maximize a single neuron,
+    we create an input that maximizes the combination of neurons that fired
+    for a particular input, so we can understand what that combination represents.
+  </p>
+</div>
+
+
+
+<style>
+  p { 
+    margin-bottom: 0; 
+  }
+
+  .activation-vec {
+    float: right;
+    margin-left: 20px;
+    margin-right: -125px;
+  }
+</style>
+
+<script>
+  import Sprite from './Sprite.html'
+  import TopNeurons from './TopNeurons.html'
+  
+  export default {
+    data() {
+      return {
+        size: 74,
+        pos: [2, 3],
+        example: undefined,
+        present_vector: []
+      };
+    },
+
+    components: { Sprite, TopNeurons }
+  }
+</script>
