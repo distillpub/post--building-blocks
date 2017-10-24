@@ -1,0 +1,119 @@
+<:Window on:mouseup="set({downX: undefined})" bind:scrollY="scrollY"/>
+
+<div class="layers_container">
+  <div class="layer">
+      <div class="mask input_img"
+        on:mousedown="set({downX: event.pageX, downLeft: left})"
+        on:mousemove="drag(event)"
+        on:mouseup="set({downX: undefined})">
+        <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
+      </div>
+
+      <p>Input Image</p>
+  </div>
+
+  {{#each Object.keys(layers) as lname}}
+    <div class="layer">
+      <div class="mask" 
+        on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
+        on:mouseout="set({pos: undefined})">
+          <img style="margin-left: {{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
+      </div>
+
+      {{#if pos}}
+        <div class="sprite_container" style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
+          <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
+            size="74" sprite_size="{{layers[lname][1]}}"
+            x="{{ Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / img_size) }}" 
+            y="{{ Math.floor(layers[lname][0] * pos[1] / img_size) }}"></Sprite>
+        </div>
+      {{/if}}
+
+      <p>{{lname}}</p>
+    </div>
+  {{/each}}
+</div>
+
+<style>
+  .layers_container { width: 900px; }
+
+  .layer {
+    position: relative;
+    display: inline-block;
+    width: 160px;
+    height: 244px;
+    margin-right: 15px;
+  }
+
+  .mask {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .mask img {
+    width: auto;
+    height: 100%;
+  }
+
+  .input_img {
+    cursor: move;
+  }
+
+  .layer p {
+    margin-top: 5px;
+    color: #666;
+    font-size: 90%;
+  }
+
+  .sprite_container {
+    position: absolute;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    z-index: 100;
+    /* box-shadow: 9px 10px 24px 2px #ccc; */
+  }
+</style>
+
+<script>
+  import Sprite from './Sprite.html'
+  import {range} from '../util';
+  const examples = require('../../static/examples');
+  const MASK_WIDTH = 160;
+
+  function clamp(x, min, max) {
+    return Math.min(Math.max(x, min), max);
+  }
+
+  export default {
+    data() {
+      return {
+        layers: examples.layers,
+        img_size: examples.input_size,
+        example: undefined,
+        left: 0
+      };
+    },
+
+    methods: {
+      drag (event) {
+        const downX = this.get('downX');
+        if (downX === undefined) return;
+
+        const delta = event.pageX - downX;
+        let left = this.get('downLeft') || 0;
+        left = clamp(left + delta, -(examples.input_size - MASK_WIDTH), 0);
+        this.set({left});
+      },
+
+      hover_sprite (event, bb) {
+        const x = bb.left, y = bb.top + this.get('scrollY');
+        this.set({ pos: [event.pageX - x, event.pageY - y] });
+      }
+    },
+    
+
+    components: { Sprite },
+    helpers: { range, clamp }
+  }
+</script>

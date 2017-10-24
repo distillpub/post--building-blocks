@@ -3,7 +3,7 @@
     <img src="examples/{{example}}.png" />
   </div>
 
-  <svg class="pointer-container" viewBox="0 0 {{300.0/256.0*N[0]}} {{N[1]}}">
+  <svg class="pointer-container" viewBox="0 0 {{320.0/244.0*N[0]}} {{N[1]}}">
     <filter id="background-rect-blur">
       <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
     </filter>
@@ -44,19 +44,19 @@
 .outer {
   position: relative;
   width: 100%;
-  height: 256px;
+  height: 244px;
 }
 
 .image-container, .pointer-container, .explain-container { 
   position: absolute;
-  height: 256px;
+  height: 244px;
 }
 
 .image-container {
-  width: 256px;
+  width: 244px;
 }
 .pointer-container {
-  width: 300px;
+  width: 320px;
 }
 .explain-container{
   width: calc(784px - 300px);

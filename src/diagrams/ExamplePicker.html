@@ -1,7 +1,7 @@
 <:Window bind:scrollY='scrollY'/>
 
-<div id="example-picker" style="position: {{scrollY >= 570 ? 'fixed': 'absolute'}};
-  top: {{scrollY >= 570 ? 20 : 0}}px;">
+<div id="example-picker" style="position: {{scrollY >= 600 ? 'fixed': 'absolute'}};
+  top: {{scrollY >= 600 ? 20 : 0}}px;">
   {{#each examples as ex}}
   <img src="examples/{{ex}}.png" alt="{{ex}}" 
     class="{{selected === ex ? 'selected' : ''}}" 
@@ -41,18 +41,15 @@
   export default {
     data() {
       return {
-        activations: {},
-        magnitudes: {}
+        activations: {}
       };
     },
 
     oncreate() {
-      const examples = require('../../static/examples/index.json');
+      const examples = require('../../static/examples').examples;
       for (const ex of examples) {
         require(`../../static/examples/${ex}_mixed4d.npy`)
           .load((act) => this.setDeep('activations.' + ex, act));
-        require(`../../static/examples/${ex}_mixed4d_magnitude.npy`)
-          .load((mag) => this.setDeep('magnitudes.' + ex, mag));
       }
     },
 

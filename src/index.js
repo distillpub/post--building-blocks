@@ -1,6 +1,7 @@
 import ExamplePicker from './diagrams/ExamplePicker.html';
 import VectorExplain from './diagrams/VectorExplain.html';
 import ActivationVecExplain from './diagrams/ActivationVecExplain.html';
+import ActivationGrid from './diagrams/ActivationGrid.html';
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
@@ -14,10 +15,15 @@ const actVis = new ActivationVecExplain({
   target: document.getElementById('ActivationVecExplain')
 });
 
+const actGrid = new ActivationGrid({
+  target: document.getElementById('ActivationGrid')
+});
+
 // Wire components together.
 exPick.observe('selected', (example) => {
   vecExpl.set({example});
   actVis.set({example});
+  actGrid.set({example});
 });
 
 exPick.observe('act', (act) => {

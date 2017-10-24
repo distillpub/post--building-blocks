@@ -1,6 +1,6 @@
 <div class="outer">
   <div class="activation-vec">
-      <Sprite bg_img="examples/{{example}}_mixed4d.jpeg" size="100" sprite_size={{size}} x={{pos[0]}} y={{pos[1]}}></Sprite>
+      <Sprite bg_img="examples/{{example}}_mixed4d.jpeg" size="110" sprite_size={{size}} x={{pos[0]}} y={{pos[1]}}></Sprite>
   </div>
 
   <p>
@@ -22,7 +22,7 @@
   .activation-vec {
     float: right;
     margin-left: 20px;
-    margin-right: -125px;
+    margin-right: -126px;
   }
 </style>
 
@@ -33,7 +33,7 @@
   export default {
     data() {
       return {
-        size: 74,
+        size: require('../../static/examples').layers.mixed4d[1],
         pos: [2, 3],
         example: undefined,
         present_vector: []

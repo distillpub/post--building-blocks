@@ -1,4 +1,13 @@
-[
-  "dog_cat", "flowers", "chameleon", "chair", "spoonbill",
-  "trombone", "bicycle", "rooster", "sunglasses_tux"
-]
+{
+  "input_size": 244,
+  "examples": [
+    "dog_cat", "flowers", "chameleon", "chair", "spoonbill",
+    "trombone", "bicycle", "rooster", "sunglasses_tux"
+  ],
+  "layers": {
+    "mixed3a": [28, 34],
+    "mixed3b": [28, 34],
+    "mixed4d": [14, 74],
+    "mixed5a": [7, 74]
+  }
+}
