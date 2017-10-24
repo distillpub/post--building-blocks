@@ -1,9 +1,9 @@
-<div class="outer">
+<div class="outer" style="--img-size: {{sizes.img}}px; --ptr-size: {{sizes.ptr}}px;">
   <div class="image-container">
     <img src="examples/{{example}}.png" />
   </div>
 
-  <svg class="pointer-container" viewBox="0 0 {{320.0/244.0*N[0]}} {{N[1]}}">
+  <svg class="pointer-container" viewBox="0 0 {{sizes.ptr/sizes.img*N[0]}} {{N[1]}}">
     <filter id="background-rect-blur">
       <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
     </filter>
@@ -44,23 +44,24 @@
 .outer {
   position: relative;
   width: 100%;
-  height: 244px;
+  height: var(--img-size);
 }
 
 .image-container, .pointer-container, .explain-container { 
   position: absolute;
-  height: 244px;
+  height: var(--img-size);
 }
 
 .image-container {
-  width: 244px;
+  width: var(--img-size);
 }
+
 .pointer-container {
-  width: 320px;
+  width: var(--ptr-size);
 }
+
 .explain-container{
-  width: calc(784px - 300px);
-  left: 300px;
+  left: calc(var(--ptr-size) - 20px);
   top: -8px;
 }
 .explain-container p {
@@ -107,6 +108,7 @@
 <script>
   import TopNeurons from './TopNeurons.html'
   import {range} from '../util';
+  const examples = require('../../static/examples');
   
   export default {
     data() {
@@ -115,7 +117,11 @@
         pos: [2,3],
         example: undefined,
         activation: undefined,
-        max_act: undefined
+        max_act: undefined,
+        sizes: {
+          img: examples.input_size,
+          ptr: 300
+        }
       };
     },
     computed: {
@@ -124,7 +130,7 @@
         var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
         var y_dist = Math.abs(start_y - top_y);
         var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);  
-        return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1} ${top_y}`
+        return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1.5} ${top_y}`
       },
 
       present_vector: (pos, activation) => {

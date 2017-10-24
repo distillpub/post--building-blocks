@@ -1,33 +1,34 @@
 <:Window on:mouseup="set({downX: undefined})" bind:scrollY="scrollY"/>
 
-<div class="layers_container">
-  <div class="layer">
-      <div class="mask input_img"
-        on:mousedown="set({downX: event.pageX, downLeft: left})"
-        on:mousemove="drag(event)"
-        on:mouseup="set({downX: undefined})">
-        <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
-      </div>
+<div class="layers_container" 
+  style="--img-size: {{img_size}}px; --mask-width: {{mask_width}}px;">
 
-      <p>Input Image</p>
+  <div class="layer input_img">
+    <img src="examples/{{example}}.png" draggable={{false}} />
+
+    <div class="brush" style="left: {{left}}px;"
+      on:mousedown="set({downX: event.pageX, downLeft: left})"
+      on:mousemove="drag(event)"
+      on:mouseup="set({downX: undefined})"></div>
+
+    <p>Input Image</p>
   </div>
 
   {{#each Object.keys(layers) as lname}}
     <div class="layer">
       <div class="mask" 
         on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
-        on:mouseout="set({pos: undefined})">
-          <img style="margin-left: {{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
+        on:mouseout="set({pos: pos_init})">
+          <img style="margin-left: -{{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
       </div>
 
-      {{#if pos}}
-        <div class="sprite_container" style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-          <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
-            size="74" sprite_size="{{layers[lname][1]}}"
-            x="{{ Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / img_size) }}" 
-            y="{{ Math.floor(layers[lname][0] * pos[1] / img_size) }}"></Sprite>
-        </div>
-      {{/if}}
+      <div class="sprite_container" 
+        style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px; opacity: {{downX ? 0 : 1}}">
+        <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
+          size="74" sprite_size="{{layers[lname][1]}}"
+          x="{{ Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / img_size) }}" 
+          y="{{ Math.floor(layers[lname][0] * pos[1] / img_size) }}"></Sprite>
+      </div>
 
       <p>{{lname}}</p>
     </div>
@@ -35,13 +36,16 @@
 </div>
 
 <style>
-  .layers_container { width: 900px; }
+  .layers_container { 
+    display: flex;
+    width: 900px; 
+    margin-bottom: 36px;
+  }
 
   .layer {
     position: relative;
-    display: inline-block;
-    width: 160px;
-    height: 244px;
+    width: 140px;
+    height: var(--img-size);
     margin-right: 15px;
   }
 
@@ -56,7 +60,16 @@
   }
 
   .input_img {
-    cursor: move;
+    width: var(--img-size);
+  }
+
+  .brush {
+    position: absolute;
+    top: 0;
+    width: var(--mask-width);
+    height: 100%;
+    background: rgba(236, 217, 133, 0.4);
+    cursor: move;    
   }
 
   .layer p {
@@ -65,13 +78,15 @@
     font-size: 90%;
   }
 
+  .input_img p { margin-top: 0px; }
+
   .sprite_container {
     position: absolute;
     padding: 5px;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ccc;
     z-index: 100;
-    /* box-shadow: 9px 10px 24px 2px #ccc; */
+    transition: opacity .25s ease-in-out;
   }
 </style>
 
@@ -79,7 +94,8 @@
   import Sprite from './Sprite.html'
   import {range} from '../util';
   const examples = require('../../static/examples');
-  const MASK_WIDTH = 160;
+  const MASK_WIDTH = 140;
+  const POS_INIT = [52, 157]
 
   function clamp(x, min, max) {
     return Math.min(Math.max(x, min), max);
@@ -88,10 +104,13 @@
   export default {
     data() {
       return {
+        example: undefined,
         layers: examples.layers,
         img_size: examples.input_size,
-        example: undefined,
-        left: 0
+        mask_width: MASK_WIDTH,
+        left: 15,
+        pos: POS_INIT,
+        pos_init: POS_INIT
       };
     },
 
@@ -102,7 +121,7 @@
 
         const delta = event.pageX - downX;
         let left = this.get('downLeft') || 0;
-        left = clamp(left + delta, -(examples.input_size - MASK_WIDTH), 0);
+        left = clamp(left + delta, 0, examples.input_size - MASK_WIDTH);
         this.set({left});
       },
 
