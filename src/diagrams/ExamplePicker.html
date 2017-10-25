@@ -1,18 +1,22 @@
-<:Window bind:scrollY='scrollY'/>
+<:Window bind:innerWidth="winWidth" bind:scrollY='scrollY'/>
 
-<div id="example-picker" style="position: {{scrollY >= 600 ? 'fixed': 'absolute'}};
-  top: {{scrollY >= 600 ? 20 : 0}}px;">
+<div ref:picker id="example-picker" style="--left: {{left}}px;" 
+  class="{{scrollY >= 1000 ? 'three' : scrollY >= 600 ? 'two' : 'one'}}">
+  
+  <img src="examples/{{selected}}.png" alt="{{selected}}" class="selected" />
+
   {{#each examples as ex}}
-  <img src="examples/{{ex}}.png" alt="{{ex}}" 
-    class="{{selected === ex ? 'selected' : ''}}" 
-    on:click="set({selected: ex})" />
+    {{#if ex !== selected}}
+      <img src="examples/{{ex}}.png" alt="{{ex}}" on:click="set({selected: ex})" />
+    {{/if}}
   {{/each}}
 </div>
 
 <style>
   #example-picker {
-    width: 44px;
-    margin-left: -90px;
+    overflow: hidden;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
   }
 
   #example-picker img {
@@ -25,12 +29,45 @@
 
   #example-picker img.selected {
     opacity: 1;
-    border-color: #3497FF;
+    border-color: #ff6600;
   }
 
   #example-picker img:hover { 
     opacity: 1;
-    border-color: #ff6600;
+    border-color: #3497FF;
+  }
+
+  .one {
+    position: absolute;
+    top: 0;
+    height: 525px;
+    width: 50px;
+    margin-left: -90px;
+    transition-property: width, height;
+  }
+
+  .two {
+    position: fixed;
+    top: 20px;
+    left: calc(var(--left) - 90px);
+    height: 50px;
+    width: 50px;
+    transition-property: width, height, left;
+  }
+
+  .three {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    width: 50px;
+    opacity: 0.5;
+    transition-property: width, height, left;
+  }
+
+  .two:hover, .three:hover {
+    opacity: 1;
+    height: 525px;
   }
 </style>
 
@@ -46,6 +83,7 @@
     },
 
     oncreate() {
+      this.set({left: this.refs.picker.parentNode.getBoundingClientRect().left});
       const examples = require('../../static/examples').examples;
       for (const ex of examples) {
         require(`../../static/examples/${ex}_mixed4d.npy`)
@@ -57,7 +95,11 @@
       examples: (activations) => Object.keys(activations),
       selected: (examples) => examples[0],
       act: (selected, activations) => activations[selected],
-      max_act: (act) => act && act.get(...argmax(act))
+      max_act: (act) => act && act.get(...argmax(act)),
+      left: (winWidth) => {
+        const picker = document.querySelector('#example-picker');
+        return picker && picker.parentNode.getBoundingClientRect().left;
+      }
     },
 
     methods: { setDeep }

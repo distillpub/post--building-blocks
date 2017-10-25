@@ -1,34 +1,30 @@
-<:Window bind:scrollY="scrollY"
-  on:mouseup="set({downX: undefined})" on:mousemove="drag(event)" />
+<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div class="layers_container" 
-  style="--img-size: {{img_size}}px; 
-  --mask-width: {{mask_width}}px; 
-  --mask-height: {{mask_height}}px;">
+<div ref:container class="layers_container" style="--layer-size: {{layer_size}}px;">
 
   <div class="layer">
-    <div class="mask input_img" 
-      on:mousedown="set({downX: event.pageX, downLeft: left})">
-        <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
-    </div>
+    <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
 
     <p>Input Image</p>
   </div>
 
   {{#each Object.keys(layers) as lname}}
-    <div class="layer">
-      <div class="mask" 
-        on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
-        on:mouseout="set({pos: pos_init})">
-          <img style="margin-left: {{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
-      </div>
+    <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
 
-      <div class="sprite_container" 
-        style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px; opacity: {{downX ? 0 : 1}}">
-        <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
-          size="74" sprite_size="{{layers[lname][1]}}"
-          x="{{snap_x_panned[lname]}}" 
-          y="{{snap_y[lname]}}"></Sprite>
+      <img src="examples/{{example}}_{{lname}}.jpeg"
+        on:mouseover="set({layer_hover: lname})"
+        on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
+        on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
+
+      <div class="cell_hover" style="left: {{snap_x[lname] * cell_sizes[lname]}}px; 
+          top: {{snap_y[lname] * cell_sizes[lname]}}px;"></div>
+
+      <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
+        {{layer_hover === lname ? 'layer_hover' : ''}}" 
+        style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
+          <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
+            size="74" sprite_size="{{layers[lname][1]}}"
+            x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
       </div>
 
       <p>{{lname}}</p>
@@ -39,42 +35,17 @@
 <style>
   .layers_container { 
     display: flex;
-    width: 900px; 
-    margin-bottom: 36px;
+    justify-content: center;
   }
 
   .layer {
     position: relative;
-    width: 150px;
-    height: var(--mask-height);
-    margin-right: 15px;
-  }
-
-  .mask {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .mask img {
-    width: auto;
-    height: 100%;
-  }
-
-  .input_img {
-    cursor: move;
-  }
-
-  .brush {
-    position: absolute;
-    top: 0;
-    width: var(--mask-width);
-    height: 100%;
-    background: rgba(236, 217, 133, 0.4);
-    cursor: move;    
+    width: var(--layer-size);
+    margin-right: 20px;
   }
 
   .layer p {
-    margin-top: 5px;
+    margin-top: -5px;
     color: #666;
     font-size: 90%;
   }
@@ -86,8 +57,27 @@
     padding: 5px;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ccc;
-    z-index: 100;
-    transition: opacity .25s ease-in-out;
+    z-index: 1;
+  }
+
+  .sprite_container.transition {
+    transition-property: left, top;
+    transition-duration: .25s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .sprite_container.layer_hover {
+    background: rgba(247, 175, 127, 0.9);
+    border-color: rgb(247, 175, 127);
+  }
+
+  .cell_hover {
+    position: absolute;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px dashed #fff;
+    box-sizing: border-box;
+    pointer-events: none;
   }
 </style>
 
@@ -95,45 +85,62 @@
   import Sprite from './Sprite.html'
   import {range} from '../util';
   const examples = require('../../static/examples');
-  const MASK_WIDTH = 140, MASK_HEIGHT = 320;
-  const POS_INIT = [60, MASK_HEIGHT - 50]
 
   function clamp(x, min, max) {
     return Math.min(Math.max(x, min), max);
   }
 
+  function calc_layer_size(container) {
+    const MARGIN = 20, num_layers = Object.keys(examples.layers).length;
+    return !container ? 0 : 
+      (container.getBoundingClientRect().width / (num_layers + 1)) - MARGIN;
+  }
+
   export default {
     data() {
       return {
-        example: undefined,
         layers: examples.layers,
-        img_size: examples.input_size,
-        mask_width: MASK_WIDTH,
-        mask_height: MASK_HEIGHT,
-        left: 0,
-        pos: POS_INIT,
-        pos_init: POS_INIT
+        example: undefined,
+        pos_hover: undefined,
+        layer_hover: undefined
       };
     },
 
+    oncreate() {
+      this.set({layer_size: calc_layer_size(this.refs.container)});
+    },
+
     computed: {
-      snap_x (pos, layers) {
+      layer_size (winWidth) {
+        return calc_layer_size(document.querySelector('.layers_container'));
+      },
+      
+      pos_init (layer_size) {
+        return [layer_size / 3, layer_size * 4 / 5]
+      },
+
+      pos (pos_hover, pos_init) {
+        return pos_hover || pos_init;
+      },
+
+      cell_sizes (layers, layer_size) {
+        return Object.keys(layers).reduce((sizes, lname) => {
+          const sz = layers[lname];
+          sizes[lname] = layer_size / (sz[0] * sz[1]) * sz[1];
+          return sizes;
+        }, {});
+      },
+
+      snap_x (pos, layers, layer_size) {
         return Object.keys(layers).reduce((coords, lname) => {
-          coords[lname] = Math.floor(layers[lname][0] * pos[0] / MASK_HEIGHT);
+          coords[lname] = Math.floor(layers[lname][0] * pos[0] / layer_size);
           return coords;
         }, {});     
       },
 
-      snap_x_panned (pos, left, layers) {
+      snap_y (pos, layers, layer_size) {
         return Object.keys(layers).reduce((coords, lname) => {
-          coords[lname] = Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / MASK_HEIGHT);
-          return coords;
-        }, {});       
-      },
-
-      snap_y (pos, layers) {
-        return Object.keys(layers).reduce((coords, lname) => {
-          coords[lname] = Math.floor(layers[lname][0] * pos[1] / MASK_HEIGHT);
+          coords[lname] = Math.floor(layers[lname][0] * pos[1] / layer_size);
           return coords;
         }, {});
       } 
@@ -152,14 +159,12 @@
 
       hover_sprite (event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
-        this.set({ pos: [event.pageX - x, event.pageY - y] });
+        this.set({ pos_hover: [event.pageX - x, event.pageY - y] });
       }
     },
     
 
     components: { Sprite },
-    helpers: { 
-      range, clamp
-    }
+    helpers: { range, clamp }
   }
 </script>
