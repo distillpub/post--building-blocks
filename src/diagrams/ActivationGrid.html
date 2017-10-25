@@ -1,15 +1,16 @@
-<:Window on:mouseup="set({downX: undefined})" bind:scrollY="scrollY"/>
+<:Window bind:scrollY="scrollY"
+  on:mouseup="set({downX: undefined})" on:mousemove="drag(event)" />
 
 <div class="layers_container" 
-  style="--img-size: {{img_size}}px; --mask-width: {{mask_width}}px;">
+  style="--img-size: {{img_size}}px; 
+  --mask-width: {{mask_width}}px; 
+  --mask-height: {{mask_height}}px;">
 
-  <div class="layer input_img">
-    <img src="examples/{{example}}.png" draggable={{false}} />
-
-    <div class="brush" style="left: {{left}}px;"
-      on:mousedown="set({downX: event.pageX, downLeft: left})"
-      on:mousemove="drag(event)"
-      on:mouseup="set({downX: undefined})"></div>
+  <div class="layer">
+    <div class="mask input_img" 
+      on:mousedown="set({downX: event.pageX, downLeft: left})">
+        <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
+    </div>
 
     <p>Input Image</p>
   </div>
@@ -19,15 +20,15 @@
       <div class="mask" 
         on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
         on:mouseout="set({pos: pos_init})">
-          <img style="margin-left: -{{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
+          <img style="margin-left: {{left}}px;" src="examples/{{example}}_{{lname}}.jpeg" />
       </div>
 
       <div class="sprite_container" 
         style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px; opacity: {{downX ? 0 : 1}}">
         <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
           size="74" sprite_size="{{layers[lname][1]}}"
-          x="{{ Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / img_size) }}" 
-          y="{{ Math.floor(layers[lname][0] * pos[1] / img_size) }}"></Sprite>
+          x="{{snap_x_panned[lname]}}" 
+          y="{{snap_y[lname]}}"></Sprite>
       </div>
 
       <p>{{lname}}</p>
@@ -44,8 +45,8 @@
 
   .layer {
     position: relative;
-    width: 140px;
-    height: var(--img-size);
+    width: 150px;
+    height: var(--mask-height);
     margin-right: 15px;
   }
 
@@ -60,7 +61,7 @@
   }
 
   .input_img {
-    width: var(--img-size);
+    cursor: move;
   }
 
   .brush {
@@ -94,8 +95,8 @@
   import Sprite from './Sprite.html'
   import {range} from '../util';
   const examples = require('../../static/examples');
-  const MASK_WIDTH = 140;
-  const POS_INIT = [52, 157]
+  const MASK_WIDTH = 140, MASK_HEIGHT = 320;
+  const POS_INIT = [60, MASK_HEIGHT - 50]
 
   function clamp(x, min, max) {
     return Math.min(Math.max(x, min), max);
@@ -108,10 +109,34 @@
         layers: examples.layers,
         img_size: examples.input_size,
         mask_width: MASK_WIDTH,
-        left: 15,
+        mask_height: MASK_HEIGHT,
+        left: 0,
         pos: POS_INIT,
         pos_init: POS_INIT
       };
+    },
+
+    computed: {
+      snap_x (pos, layers) {
+        return Object.keys(layers).reduce((coords, lname) => {
+          coords[lname] = Math.floor(layers[lname][0] * pos[0] / MASK_HEIGHT);
+          return coords;
+        }, {});     
+      },
+
+      snap_x_panned (pos, left, layers) {
+        return Object.keys(layers).reduce((coords, lname) => {
+          coords[lname] = Math.floor(layers[lname][0] * (pos[0] + Math.abs(left)) / MASK_HEIGHT);
+          return coords;
+        }, {});       
+      },
+
+      snap_y (pos, layers) {
+        return Object.keys(layers).reduce((coords, lname) => {
+          coords[lname] = Math.floor(layers[lname][0] * pos[1] / MASK_HEIGHT);
+          return coords;
+        }, {});
+      } 
     },
 
     methods: {
@@ -121,7 +146,7 @@
 
         const delta = event.pageX - downX;
         let left = this.get('downLeft') || 0;
-        left = clamp(left + delta, 0, examples.input_size - MASK_WIDTH);
+        left = clamp(left + delta, -(examples.input_size - MASK_WIDTH), 0);
         this.set({left});
       },
 
@@ -133,6 +158,8 @@
     
 
     components: { Sprite },
-    helpers: { range, clamp }
+    helpers: { 
+      range, clamp
+    }
   }
 </script>
