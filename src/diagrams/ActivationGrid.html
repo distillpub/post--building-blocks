@@ -8,7 +8,7 @@
     <p>Input Image</p>
   </div>
 
-  {{#each Object.keys(layers) as lname}}
+  {{#each show_layers as lname}}
     <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
 
       <img src="examples/{{example}}_{{lname}}.jpeg"
@@ -23,7 +23,7 @@
         {{layer_hover === lname ? 'layer_hover' : ''}}" 
         style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
           <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
-            size="74" sprite_size="{{layers[lname][1]}}"
+            size="74" sprite_size="{{all_layers[lname][1]}}"
             x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
       </div>
 
@@ -85,13 +85,14 @@
   import Sprite from './Sprite.html'
   import {range} from '../util';
   const examples = require('../../static/examples');
+  const SHOW_LAYERS = ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'];
 
   function clamp(x, min, max) {
     return Math.min(Math.max(x, min), max);
   }
 
   function calc_layer_size(container) {
-    const MARGIN = 20, num_layers = Object.keys(examples.layers).length;
+    const MARGIN = 20, num_layers = SHOW_LAYERS.length;
     return !container ? 0 : 
       (container.getBoundingClientRect().width / (num_layers + 1)) - MARGIN;
   }
@@ -99,7 +100,8 @@
   export default {
     data() {
       return {
-        layers: examples.layers,
+        all_layers: examples.layers,
+        show_layers: SHOW_LAYERS,
         example: undefined,
         pos_hover: undefined,
         layer_hover: undefined
@@ -123,24 +125,24 @@
         return pos_hover || pos_init;
       },
 
-      cell_sizes (layers, layer_size) {
-        return Object.keys(layers).reduce((sizes, lname) => {
-          const sz = layers[lname];
+      cell_sizes (all_layers, show_layers, layer_size) {
+        return show_layers.reduce((sizes, lname) => {
+          const sz = all_layers[lname];
           sizes[lname] = layer_size / (sz[0] * sz[1]) * sz[1];
           return sizes;
         }, {});
       },
 
-      snap_x (pos, layers, layer_size) {
-        return Object.keys(layers).reduce((coords, lname) => {
-          coords[lname] = Math.floor(layers[lname][0] * pos[0] / layer_size);
+      snap_x (pos, all_layers, show_layers, layer_size) {
+        return show_layers.reduce((coords, lname) => {
+          coords[lname] = Math.floor(all_layers[lname][0] * pos[0] / layer_size);
           return coords;
         }, {});     
       },
 
-      snap_y (pos, layers, layer_size) {
-        return Object.keys(layers).reduce((coords, lname) => {
-          coords[lname] = Math.floor(layers[lname][0] * pos[1] / layer_size);
+      snap_y (pos, all_layers, show_layers, layer_size) {
+        return show_layers.reduce((coords, lname) => {
+          coords[lname] = Math.floor(all_layers[lname][0] * pos[1] / layer_size);
           return coords;
         }, {});
       } 
