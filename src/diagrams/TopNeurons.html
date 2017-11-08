@@ -5,7 +5,8 @@
         <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
         <div class="spacer"></div>
         <span>{{(top[1]+'').slice(0,4)}} </span>
-        <Sprite src_class="sprite_mixed4d" size="75" x={{2*(top[0]%100)}} y={{2*Math.floor(top[0]/100)}} sprite_size=100 />
+        <Sprite src_class="sprite_mixed4d_neuron" size="75" 
+          x={{top[0]%20}} y={{Math.floor(top[0]/20)}} sprite_size="110" />
       </div>
   
       <p class="annotation"> + </p>
@@ -67,7 +68,8 @@
     font-size: 90%;
   }
 
-  .sprite_mixed4d { background: url('images/mixed4d_sprite_200.jpeg')}
+  .sprite_mixed4d_neuron { background: url('images/sprite_mixed4d_neuron.jpeg')}
+  .sprite_mixed4d_channel { background: url('images/sprite_mixed4d_channel.jpeg')}
 
   svg {
     position: absolute;
