@@ -22,8 +22,8 @@
 
 
 
-
-<d-article>
+<!-- Padding because of /d-article hack for Chrome -->
+<d-article style="padding-bottom: 0px;">
   
   <h1>Putting the Pieces of Interpretability Together</h1>
 
@@ -56,18 +56,22 @@
     network.
   </p>
 
-  <figure id="ActivationGrid" style="grid-column: start / end; margin-left: 100px; margin-right: 20px;"></figure>
+</d-article>
 
+  <figure id="ActivationGrid" style="overflow: hidden; margin-left: 100px; margin-bottom: 36px;"></figure>
+
+<!-- Padding because of /d-article hack for Chrome -->
+<d-article style="padding-bottom: 0px;">
   <p>
     One weakness of this visualization is that it doesn't really show the magnitude the activations.
     It shows us what was detected at each position, but not how strongly it was detected.
-    To better show magnitudes, let's gray out parts of the image with low magnitude activation vectors:
+    To better show magnitudes, let's size the visualizations by the magnitude activation vectors:
   </p>
-  
-  <figure class="l-page">
-    <img src="images/activation-grid-mag.png"></img>
-  </figure>
+</d-article>
 
+  <figure id="ActivationGridMagnitude" style="overflow: hidden; margin-left: 100px; margin-bottom: 36px;"></figure>
+
+<d-article>
   <p>
     We can also get more a less noisy "overview" of the activations vectors for
     an image by computing the first three principal components of the

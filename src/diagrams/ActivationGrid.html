@@ -1,57 +1,53 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div ref:container class="layers_container" style="--layer-size: {{layer_size}}px;">
+<div ref:container class="layers_container" 
+  on:scroll="sync_scroll(event)" style="width: 100%; overflow-x: scroll; overflow-y: hidden;">
 
-  <div class="layer">
-    <img style="margin-left: {{left}}px;" src="examples/{{example}}.png" draggable={{false}} />
+  <div style="--layer-size: {{layer_size}}px;
+    width: {{(layer_size + 25) * layer_names.length}}px;">
 
-    <p>Input Image</p>
-  </div>
+    {{#each layer_names as lname}}
+      <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
 
-  {{#each show_layers as lname}}
-    <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
+        <img src="examples/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
+          on:mouseover="set({layer_hover: lname})"
+          on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
+          on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
 
-      <img src="examples/{{example}}_{{lname}}.jpeg"
-        on:mouseover="set({layer_hover: lname})"
-        on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
-        on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
+        <div class="cell_hover" style="left: {{snap_x[lname] * cell_sizes[lname]}}px; 
+            top: {{snap_y[lname] * cell_sizes[lname]}}px;
+            border-color: {{magnitude ? '#666' : '#fff'}}"></div>
 
-      <div class="cell_hover" style="left: {{snap_x[lname] * cell_sizes[lname]}}px; 
-          top: {{snap_y[lname] * cell_sizes[lname]}}px;"></div>
+        <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
+          {{layer_hover === lname ? 'layer_hover' : ''}}" 
+          style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
+            <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
+              size="74" sprite_size="{{all_layers[lname][1]}}"
+              x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
+        </div>
 
-      <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
-        {{layer_hover === lname ? 'layer_hover' : ''}}" 
-        style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-          <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
-            size="74" sprite_size="{{all_layers[lname][1]}}"
-            x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
+        <p>{{lname}}</p>
       </div>
-
-      <p>{{lname}}</p>
-    </div>
-  {{/each}}
+    {{/each}}
+  </div>
 </div>
 
 <style>
-  .layers_container { 
-    display: flex;
-    justify-content: center;
-  }
-
   .layer {
+    display: inline-block;
     position: relative;
     width: var(--layer-size);
     margin-right: 20px;
   }
 
   .layer p {
-    margin-top: -5px;
+    margin-top: 10px;
     color: #666;
     font-size: 90%;
   }
 
-  .input_img p { margin-top: 0px; }
-
+  .layer img { width: 100%; }
+  
   .sprite_container {
     position: absolute;
     padding: 5px;
@@ -75,7 +71,7 @@
     position: absolute;
     width: var(--cell-size);
     height: var(--cell-size);
-    border: 1px dashed #fff;
+    border: 1.5px dashed #fff;
     box-sizing: border-box;
     pointer-events: none;
   }
@@ -85,26 +81,26 @@
   import Sprite from './Sprite.html'
   import {range} from '../util';
   const examples = require('../../static/examples');
-  const SHOW_LAYERS = ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'];
 
   function clamp(x, min, max) {
     return Math.min(Math.max(x, min), max);
   }
 
   function calc_layer_size(container) {
-    const MARGIN = 20, num_layers = SHOW_LAYERS.length;
+    const MARGIN = 20, NUM_LAYERS = 4;
     return !container ? 0 : 
-      (container.getBoundingClientRect().width / (num_layers + 1)) - MARGIN;
+      (container.parentNode.getBoundingClientRect().width / NUM_LAYERS) - MARGIN;
   }
 
   export default {
     data() {
       return {
         all_layers: examples.layers,
-        show_layers: SHOW_LAYERS,
+        layer_names: Object.keys(examples.layers),
         example: undefined,
         pos_hover: undefined,
-        layer_hover: undefined
+        layer_hover: undefined,
+        magnitude: false
       };
     },
 
@@ -118,30 +114,30 @@
       },
       
       pos_init (layer_size) {
-        return [layer_size / 3, layer_size * 4 / 5]
+        return [layer_size / 2, layer_size * 4 / 5]
       },
 
       pos (pos_hover, pos_init) {
         return pos_hover || pos_init;
       },
 
-      cell_sizes (all_layers, show_layers, layer_size) {
-        return show_layers.reduce((sizes, lname) => {
+      cell_sizes (all_layers, layer_names, layer_size) {
+        return layer_names.reduce((sizes, lname) => {
           const sz = all_layers[lname];
           sizes[lname] = layer_size / (sz[0] * sz[1]) * sz[1];
           return sizes;
         }, {});
       },
 
-      snap_x (pos, all_layers, show_layers, layer_size) {
-        return show_layers.reduce((coords, lname) => {
+      snap_x (pos, all_layers, layer_names, layer_size) {
+        return layer_names.reduce((coords, lname) => {
           coords[lname] = Math.floor(all_layers[lname][0] * pos[0] / layer_size);
           return coords;
         }, {});     
       },
 
-      snap_y (pos, all_layers, show_layers, layer_size) {
-        return show_layers.reduce((coords, lname) => {
+      snap_y (pos, all_layers, layer_names, layer_size) {
+        return layer_names.reduce((coords, lname) => {
           coords[lname] = Math.floor(all_layers[lname][0] * pos[1] / layer_size);
           return coords;
         }, {});
@@ -162,6 +158,10 @@
       hover_sprite (event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
         this.set({ pos_hover: [event.pageX - x, event.pageY - y] });
+      },
+
+      sync_scroll (event) {
+        document.querySelectorAll('.layers_container').forEach((d) => d.scrollLeft = event.target.scrollLeft);
       }
     },
     

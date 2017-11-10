@@ -19,11 +19,17 @@ const actGrid = new ActivationGrid({
   target: document.getElementById('ActivationGrid')
 });
 
+const actGridMag = new ActivationGrid({
+  target: document.getElementById('ActivationGridMagnitude'),
+  data: {magnitude: true}
+});
+
 // Wire components together.
 exPick.observe('selected', (example) => {
   vecExpl.set({example});
   actVis.set({example});
   actGrid.set({example});
+  actGridMag.set({example});
 });
 
 exPick.observe('act', (act) => {
@@ -41,4 +47,12 @@ vecExpl.observe('pos', (pos) => {
 
 vecExpl.observe('present_vector', (present_vector) => {
   actVis.set({present_vector});
+});
+
+actGrid.observe('pos_hover', (pos_hover) => {
+  actGridMag.set({pos_hover});
+});
+
+actGridMag.observe('pos_hover', (pos_hover) => {
+  actGrid.set({pos_hover});
 });
