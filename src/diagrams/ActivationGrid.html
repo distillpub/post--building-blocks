@@ -1,7 +1,6 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div ref:container class="layers_container" 
-  on:scroll="sync_scroll(event)" style="width: 100%; overflow-x: scroll; overflow-y: hidden;">
+<div ref:container class="layers_container" on:scroll="sync_scroll(event)">
 
   <div style="--layer-size: {{layer_size}}px;
     width: {{(layer_size + 25) * layer_names.length}}px;">
@@ -33,6 +32,13 @@
 </div>
 
 <style>
+  .layers_container {
+    width: 100%; 
+    height: 460px;
+    overflow-x: scroll; 
+    overflow-y: hidden;
+  }
+
   .layer {
     display: inline-block;
     position: relative;
