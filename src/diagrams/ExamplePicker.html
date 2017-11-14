@@ -3,11 +3,11 @@
 <div ref:picker id="example-picker" style="--left: {{left}}px;" 
   class="{{scrollY >= 1000 ? 'three' : scrollY >= 600 ? 'two' : 'one'}}">
   
-  <img src="examples/{{selected}}.png" alt="{{selected}}" class="selected" />
+  <img src="examples/input_images/{{selected}}.png" alt="{{selected}}" class="selected" />
 
   {{#each examples as ex}}
     {{#if ex !== selected}}
-      <img src="examples/{{ex}}.png" alt="{{ex}}" on:click="set({selected: ex})" />
+      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" on:click="set({selected: ex})" />
     {{/if}}
   {{/each}}
 </div>
@@ -86,7 +86,7 @@
       this.set({left: this.refs.picker.parentNode.getBoundingClientRect().left});
       const examples = require('../../static/examples').examples;
       for (const ex of examples) {
-        require(`../../static/examples/${ex}_mixed4d.npy`)
+        require(`../../static/examples/act_vecs/${ex}_mixed4d.npy`)
           .load((act) => this.setDeep('activations.' + ex, act));
       }
     },
