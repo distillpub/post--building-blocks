@@ -8,7 +8,7 @@
     {{#each layer_names as lname}}
       <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
 
-        <img src="examples/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
+        <img src="examples/act_grids/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
           on:mouseover="set({layer_hover: lname})"
           on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
           on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
@@ -20,7 +20,7 @@
         <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
           {{layer_hover === lname ? 'layer_hover' : ''}}" 
           style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-            <Sprite bg_img="examples/{{example}}_{{lname}}.jpeg" 
+            <Sprite bg_img="examples/act_grids/{{example}}_{{lname}}.jpeg" 
               size="74" sprite_size="{{all_layers[lname][1]}}"
               x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
         </div>

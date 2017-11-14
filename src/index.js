@@ -1,18 +1,18 @@
 import ExamplePicker from './diagrams/ExamplePicker.html';
-import VectorExplain from './diagrams/VectorExplain.html';
-import ActivationVecExplain from './diagrams/ActivationVecExplain.html';
+import NeuronVis from './diagrams/NeuronVis.html';
+import ActivationVis from './diagrams/ActivationVis.html';
 import ActivationGrid from './diagrams/ActivationGrid.html';
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
 });
 
-const vecExpl = new VectorExplain({
-  target: document.getElementById('VectorExplain')
+const vecExpl = new NeuronVis({
+  target: document.getElementById('NeuronVis')
 });
 
-const actVis = new ActivationVecExplain({
-  target: document.getElementById('ActivationVecExplain')
+const actVis = new ActivationVis({
+  target: document.getElementById('ActivationVis')
 });
 
 const actGrid = new ActivationGrid({
