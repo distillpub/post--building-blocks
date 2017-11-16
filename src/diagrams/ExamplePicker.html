@@ -72,36 +72,26 @@
 </style>
 
 <script>
-  import { setDeep } from 'svelte-extras';
-  import { argmax } from 'ndarray-ops';
+  import {INIT_EXAMPLE} from '../util';
+  const ex = require('../../static/examples').examples;
 
   export default {
     data() {
       return {
-        activations: {}
+        examples: ex,
+        selected: INIT_EXAMPLE
       };
     },
 
     oncreate() {
       this.set({left: this.refs.picker.parentNode.getBoundingClientRect().left});
-      const examples = require('../../static/examples').examples;
-      for (const ex of examples) {
-        require(`../../static/examples/act_vecs/${ex}_mixed4d.npy`)
-          .load((act) => this.setDeep('activations.' + ex, act));
-      }
     },
 
     computed: {
-      examples: (activations) => Object.keys(activations),
-      selected: (examples) => examples[0],
-      act: (selected, activations) => activations[selected],
-      max_act: (act) => act && act.get(...argmax(act)),
       left: (winWidth) => {
         const picker = document.querySelector('#example-picker');
         return picker && picker.parentNode.getBoundingClientRect().left;
       }
-    },
-
-    methods: { setDeep }
+    }
   }
 </script>

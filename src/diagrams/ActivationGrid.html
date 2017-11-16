@@ -8,9 +8,9 @@
     {{#each layer_names as lname}}
       <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
 
-        <img src="examples/act_grids/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
+        <img src="examples/activations/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
           on:mouseover="set({layer_hover: lname})"
-          on:mousemove="hover_sprite(event, this.getBoundingClientRect())"
+          on:mousemove="set_hover_pos(event, this.getBoundingClientRect())"
           on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
 
         <div class="cell_hover" style="left: {{snap_x[lname] * cell_sizes[lname]}}px; 
@@ -20,7 +20,7 @@
         <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
           {{layer_hover === lname ? 'layer_hover' : ''}}" 
           style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-            <Sprite bg_img="examples/act_grids/{{example}}_{{lname}}.jpeg" 
+            <Sprite bg_img="examples/activations/{{example}}_{{lname}}.jpeg" 
               size="74" sprite_size="{{all_layers[lname][1]}}"
               x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
         </div>
@@ -85,7 +85,7 @@
 
 <script>
   import Sprite from './Sprite.html'
-  import {range} from '../util';
+  import {range, INIT_EXAMPLE} from '../util';
   const examples = require('../../static/examples');
 
   function clamp(x, min, max) {
@@ -103,7 +103,7 @@
       return {
         all_layers: examples.layers,
         layer_names: Object.keys(examples.layers),
-        example: undefined,
+        example: INIT_EXAMPLE,
         pos_hover: undefined,
         layer_hover: undefined,
         magnitude: false
@@ -161,7 +161,7 @@
         this.set({left});
       },
 
-      hover_sprite (event, bb) {
+      set_hover_pos (event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
         this.set({ pos_hover: [event.pageX - x, event.pageY - y] });
       },

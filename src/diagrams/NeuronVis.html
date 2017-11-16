@@ -7,36 +7,57 @@
     <filter id="background-rect-blur">
       <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
     </filter>
+
     {{#each range(N[0]) as x}}
     {{#each range(N[1]) as y}}
-      <!--<g data-x={{x}} data-y={{y}}></g>-->
       <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
-        class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}
-        >
-      </rect>
+        class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}></rect>
+
       <rect x={{x}} y={{y}} width=1 height=1
         class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
-        on:mouseover='set({pos: [x,y]})'
-        >
-      </rect>
+        on:mouseover='set({pos: [x,y]})'></rect>
     {{/each}}
     {{/each}}
-    <path  d="{{pointer_line_path}}" class="pointer-line-background"   />
-    <path  d="{{pointer_line_path}}" class="pointer-line"  />
+
+    <path d="{{pointer_line_path}}" class="pointer-line-background"   />
+    <path d="{{pointer_line_path}}" class="pointer-line"  />
   </svg>
 
   <div class="explain-container">
-    <p>
-      We usually think of activations as abstract vectors:
-    </p>
-    <div class="abstract-vector">
-      {{present_vector_str}}
-    </div>
+    <p>We usually think of activations as abstract vectors:</p>
+
+    <p id="abstract-vector">{{present_vector_str}}</p>
+
     <p>
       Feature visualization makes activations <b>meaningful</b><br> by showing us what
       each neuron is looking for:
     </p>
-    <TopNeurons present_vector={{present_vector}} max_act={{max_act}}></TopNeurons>
+
+    <div class="top-neurons">
+      <div class="neurons-sum">
+        {{#each tops as top}}
+        <div class="neuron">
+          <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+          <div class="spacer"></div>
+          <span>{{(top[1]+'').slice(0,4)}} </span>
+          <Sprite src_class="sprite_mixed4d_neuron" size="75" x={{top[0]%20}} y={{Math.floor(top[0]/20)}} sprite_size="110" />
+        </div>
+    
+        <p class="annotation"> + </p>
+        {{/each}}
+    
+        <p class="annotation">...</p>
+      </div>
+    
+      <svg width="100" height="300">
+        <defs>
+          <marker id="arrowhead" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#999" />
+          </marker>
+        </defs>
+        <path d="M35,83 C97,101 72,206 10,210" marker-end="url(#arrowhead)" stroke="#999" fill="transparent" stroke-width="2" />
+      </svg>
+    </div>
   </div>
 </div>
 
@@ -98,16 +119,65 @@
   stroke-width: 0.02px;
 }
 
-.abstract-vector {
+#abstract-vector {
   margin: 10px;
   margin-left: 0px;
   color: #666;
 }
+
+.top-neurons { 
+    position: relative; 
+    width: calc(100% + 70px);
+  }
+  
+.neurons-sum {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+.neuron {
+  width: 75px; 
+  margin-right: 10px;
+}
+
+.annotation {
+  margin-top: 40px;
+  margin-right: 10px;
+}
+
+.spacer {
+  display: inline-block;
+  background: #fff;
+  width: 1px;
+  height: 40px;
+}
+
+.bar {
+  display: inline-block; 
+  background-color: #999; 
+  width: 20px;  
+  margin-right: 2px; 
+  margin-bottom: -2px;
+}
+
+span {
+  font-size: 90%;
+}
+
+.sprite_mixed4d_neuron { background: url('images/sprite_mixed4d_neuron.jpeg')}
+
+.top-neurons svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 </style>
 
 <script>
-  import TopNeurons from './TopNeurons.html'
-  import {range} from '../util';
+  import {argmax} from 'ndarray-ops';
+  import Sprite from './Sprite.html'
+  import {INIT_EXAMPLE, present_vector, range, tops} from '../util';
   const examples = require('../../static/examples');
   
   export default {
@@ -115,8 +185,7 @@
       return {
         N: [14, 14],
         pos: [2,3],
-        example: undefined,
-        activation: undefined,
+        example: INIT_EXAMPLE,
         max_act: undefined,
         sizes: {
           img: examples.input_size,
@@ -125,6 +194,14 @@
       };
     },
     computed: {
+      activation (example) {
+        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}_mixed4d.npy`)
+      },
+
+      max_act (activation) {
+        return activation.get(...argmax(activation))
+      },
+
       pointer_line_path: (N, pos) => {
         var top_y = 2.5;
         var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
@@ -133,10 +210,7 @@
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1.5} ${top_y}`
       },
 
-      present_vector: (pos, activation) => {
-        return !activation ? [] : 
-          range(activation.shape[3]).map(n => activation.get(0, pos[1], pos[0], n));
-      },
+      present_vector: (pos, activation) => present_vector(pos, activation),
 
       present_vector_str: (pos, present_vector) => {
         var s = "[";
@@ -145,9 +219,11 @@
            s += ("" + present_vector[n]).slice(0, 3);
         }
         return s + ", ...]"
-      }
+      },
+
+      tops: (present_vector) => tops(present_vector)
     },
-    components: { TopNeurons },
-    helpers: { range },
+    components: {Sprite},
+    helpers: {range},
   }
 </script>

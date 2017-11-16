@@ -1,6 +1,6 @@
 <div class="outer">
   <div class="activation-vec">
-      <Sprite bg_img="examples/act_grids/{{example}}_mixed4d.jpeg" size="110" sprite_size={{size}} x={{pos[0]}} y={{pos[1]}}></Sprite>
+      <Sprite bg_img="examples/activations/{{example}}_mixed4d.jpeg" size="110" sprite_size={{size}} x={{pos[0]}} y={{pos[1]}}></Sprite>
   </div>
 
   <p>
@@ -25,19 +25,19 @@
 </style>
 
 <script>
-  import Sprite from './Sprite.html'
-  import TopNeurons from './TopNeurons.html'
+  import Sprite from './Sprite.html';
+  import {INIT_EXAMPLE} from '../util';
   
   export default {
     data() {
       return {
         size: require('../../static/examples').layers.mixed4d[1],
         pos: [2, 3],
-        example: undefined,
+        example: INIT_EXAMPLE,
         present_vector: []
       };
     },
 
-    components: { Sprite, TopNeurons }
+    components: {Sprite}
   }
 </script>

@@ -7,7 +7,7 @@ const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
 });
 
-const vecExpl = new NeuronVis({
+const neuronVis = new NeuronVis({
   target: document.getElementById('NeuronVis')
 });
 
@@ -26,26 +26,17 @@ const actGridMag = new ActivationGrid({
 
 // Wire components together.
 exPick.observe('selected', (example) => {
-  vecExpl.set({example});
+  neuronVis.set({example});
   actVis.set({example});
   actGrid.set({example});
   actGridMag.set({example});
 });
 
-exPick.observe('act', (act) => {
-  vecExpl.set({activation: act})
-});
-
-exPick.observe('max_act', (max_act) => {
-  vecExpl.set({max_act});
-  actVis.set({max_act});
-});
-
-vecExpl.observe('pos', (pos) => {
+neuronVis.observe('pos', (pos) => {
   actVis.set({pos});
 });
 
-vecExpl.observe('present_vector', (present_vector) => {
+neuronVis.observe('present_vector', (present_vector) => {
   actVis.set({present_vector});
 });
 
