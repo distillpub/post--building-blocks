@@ -22,21 +22,24 @@
 
 
 
+
 <!-- Padding because of /d-article hack for Chrome -->
 <d-article style="padding-bottom: 0px;">
   
-  <h1>Putting the Pieces of Interpretability Together</h1>
-
-  <d-byline></d-byline>
+  <d-title>
+    <h1>Putting the Pieces of Interpretability Together</h1>
+  </d-title>
   
   <p>
     Over the last couple of years, researchers have developed fundamental building blocks for understanding the inner workings of neural networks.
     We believe that transparency research is now at a point where -- if we bring these building blocks together in the right way -- we can provide meaningful interfaces into how neural networks come to the decisions they do.
   </p>
 
+  <!--
   <p>  
     In particular, significant progress has been made on feature visualization, which gives us examples of what neurons are looking for, and attribution, which tells us how neurons affect the outputs. These two techniques can be very powerful when combined.
   </p>
+-->
 
   
   <h2>Feature Visualization makes Activations Meaningful</h2>
@@ -72,7 +75,8 @@
   <figure id="ActivationGridMagnitude" style="overflow: hidden; margin-left: 100px;"></figure>
 
 <d-article>
-  <!-- <p>
+  <!--
+  <p>
     We can also get more a less noisy "overview" of the activations vectors for
     an image by computing the first three principal components of the
     activations and coloring the image base on those. These principal components
@@ -92,7 +96,8 @@
 
   <figure class="l-page">
     <img src="images/vector-eq-full.png"  style="width:100%"></img>
-  </figure> -->
+  </figure>
+  -->
 
   <h2>Attribution shows how Activations Influence the Output</h2>
 
