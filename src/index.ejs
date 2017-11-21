@@ -54,9 +54,6 @@
 </style>
 
 
-
-
-
 <!-- Padding because of /d-article hack for Chrome -->
 <d-article style="padding-bottom: 0px;">
   
@@ -66,7 +63,7 @@
   
   <p>
     Over the last couple of years, researchers have developed fundamental building blocks for understanding the inner workings of neural networks.
-    We believe that transparency research is now at a point where -- if we bring these building blocks together in the right way -- we can provide meaningful interfaces into how neural networks come to the decisions they do.
+    We believe that transparency research is now at a point where&mdash;if we bring these building blocks together in the right way&mdash;we can provide meaningful interfaces into how neural networks come to the decisions they do.
   </p>
 
   <!--
@@ -77,6 +74,8 @@
 
   
   <h2>Feature Visualization makes Activations Meaningful</h2>
+
+
 
   <p>In computer vision, we use neural networks that run the same detectors at every position in an image. One way we can represent the overall understanding a neural network develops is as a three-dimensional grid. Each position is the amount a "neuron" fired, the x- and y-axes correspond to positions in the image, and the z-axis is the channel, the detector being run. When people talk about neural networks being a black box, they mean that activations are an inscrutable cube of numbers.</p>
 
@@ -144,9 +143,9 @@
     To really understand the model, we also want to relationships between layers -- and especially how they affect the output. </p> -->
 
 
-  <p>Feature visualization shows us _what_ the network detected at each layer. This is useful for... But, it does not describe the consequences these detections. For example, which features in earlier layers caused us to detect a particular class? Or, how does the thing we detected were assembled? And, most importantly, how are the things we detected affect the final output?
+  <p>Feature visualization shows us _what_ the network detected at each layer. This is useful for... But, it does not describe the consequences these detections. For example, which features in earlier layers caused us to detect a particular class? Or, how does the thing we detected were assembled? And, most importantly, how are the things we detected affect the final output?</p>
 
-    To answer these questions about relationships between neurons, we will need an additional set of techniques.
+  To answer these questions about relationships between neurons, we will need an additional set of techniques.
   </p>
 
 
@@ -167,7 +166,7 @@
 
     <figure id="InputSaliencyMapComparedToHigherLevel"></figure>
 
-  </d-footnote> Each hidden layer offers us the opportunity to ask different and interesting questions. For example, we know we have a "floppy ear" detector, but why is it firing? And how did the network go from input pixels, to low-level "fur" detection, to this more higher-level concept of "floppy ears?"
+  </d-footnote> Each hidden layer offers us the opportunity to ask different and interesting questions. For example, we know we have a "floppy ear" detector, but why is it firing? And how did the network go from input pixels, to low-level "fur" detection, to this higher-level concept of "floppy ears?"
 
   Applying attribution to hidden layers does not require inventing new techniques! Almost all our existing attribution techniques can be applied to hidden layers, with only minor modifications. 
 
@@ -175,22 +174,26 @@
 
   <figure></figure>
 
-  By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing our cube of activations we described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. 
+  <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
 
-  An alternate slicing of the cube might instead prioritize these channels over spatial locations.
+  <p>An alternate slicing of the cube might instead prioritize these channels over spatial locations.</p>
 
   <figure id="CubeSlicing"></figure>
 
-  One use of this type of slice allows us to perform channel attribution: how much did each detector contribute to the final output?
+  <p>One use of this type of slice allows us to perform channel attribution: how much did each detector contribute to the final output?</p>
 
   <figure id="ChanenlAttrInteractive"></figure>
 
-  And, of course, such applications need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.
+  <p>And, of course, such attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
 
-  
-  
+  <figure id="SpatialChannelAttribution"></figure>
 
   <p>
+    Attribution to spatial locations and channels can reveal powerful things about a model, especially when we combine them together. Unfortunately, this family of approaches is burdened by two significant problems. On the one hand, it is very easy to end up with an overwhelming amount of information: it would take hours of human auditing
+    to understand the long-tail of channels that slightly impact the output. On the other hand, both the aggregations we have explored are extremely lossy and can miss important parts of the story. And, while we could avoid lossy aggregation by working with individual neurons, and not aggregating at all, this explodes the first problem combinatorially.
+  </p>
+
+  <!-- <p>
     Attribution is normally used to make <i>saliency maps</i>, visualizations
     describing what part of an input was important in making a decision.
     While saliency maps can be helpful, limiting attribution to them is a
@@ -207,7 +210,7 @@
     the probability of likely classes, and how each position actually does.
     Note that, unlike a saliency map which only shows how one output is
     effected, this visualization shows how multiple outputs are impacted.
-  </p>
+  </p> -->
 
   <figure id="AttributionSpatial" class="l-body"></figure>
 
@@ -217,13 +220,13 @@
     <img src="images/attribution-multi.png" ></img>
   </figure>
   
-  <p>
+  <!-- <p>
     While attribution is usually focused on spatial locations, as above,
     we can just as easily point it at channels.
     Combined with feature visualization, this can allow us to "stand in the
     middle of the network" and observe what is being detected at a hidden layer 
     and how that influences the final outcome.
-  </p>
+  </p> -->
 
   <figure class="l-page">
     <img src="images/attribution-channels.png" ></img>
@@ -233,8 +236,30 @@
     
   </p>
 
-  <h2>Groups</h2>
+  <h2>Neuron Groups: (TODO, groups or factors)</h2>
 
+  <p>
+    So far, we have considered two very natural ways of slicing the cube of activations. Unfortunately, we have found them to be lacking. Is it possible to do better?
+  </p>
+
+  <p>
+    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. These groups will not align as naturally with the cube as the groupings we previously looked at. Instead, they will be combinations of spatial locations and channels. 
+  </p>
+
+  <figure id="NeuronGroupsCube"></figure>
+
+  <p>
+    The groups that come out of this factorization will be the atoms of the interface a user works with. Unfortunately, any grouping is inherently a tradeoff between reducing things to human scale and, because any aggregation is lossy, preserving information. Matrix factorization lets us pick what our groupings are optimized for, giving us a better tradeoff than the natural groupings we saw earlier.
+  </p>
+
+  <p>
+    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to priotize what caused the present behaviour, we would want the factorization to fully describe the attributions.
+  </p>
+
+  <p>
+    The groups we get this way are optimized to help us understand layers individually. But often, we want to understand how the network behaves over the course of multiple layers. To this end, we would like each layer's factorization to be "compatible" -- to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
+  </p>
+  
   <figure class="l-page-outset">
     <img src="images/groups.png" ></img>
   </figure>
