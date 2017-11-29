@@ -14,7 +14,7 @@
     <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
                 {{layer_hover === layer ? 'layer_hover' : ''}}" 
       style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-      <Sprite bg_img="examples/activations/{{example}}_{{layer}}.jpeg" 
+      <Sprite bg_img="examples/activations/{{example}}/{{layer}}.jpeg" 
         size="74" sprite_size="{{sprite_cell_size}}" 
         x="{{pos_snap[0]}}" y="{{pos_snap[1]}}"></Sprite>
     </div>
@@ -88,8 +88,8 @@
 
     computed: {
       img_src(example, layer, magnitude) {
-        const src = `examples/activations/${example}_${layer}`;
-        return src + (magnitude ? '_magnitude.png' : '.jpeg');
+        const src = `examples/activations/${example}/${layer}`;
+        return src + (magnitude ? '-magnitude.png' : '.jpeg');
       },
 
       cell_size(layer, layer_size) {

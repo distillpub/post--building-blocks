@@ -26,7 +26,7 @@
   <div class="explain-container">
     <p>We usually think of activations as abstract vectors:</p>
 
-    <p id="abstract-vector">{{present_vector_str}}</p>
+    <p id="abstract-vector">a_{x,y} = {{present_vector_str}}</p>
 
     <p>
       Feature visualization makes activations <b>meaningful</b><br> by showing us what
@@ -195,7 +195,7 @@ span {
     },
     computed: {
       activation (example) {
-        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}_mixed4d.npy`)
+        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}/mixed4d.npy`)
       },
 
       max_act (activation) {
