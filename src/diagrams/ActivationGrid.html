@@ -1,48 +1,32 @@
-<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
+<:Window bind:scrollY="scrollY" />
 
-<div ref:container class="layers_container" on:scroll="sync_scroll(event)">
+<div refs:layerDiv class="layer" style="--cell-size: {{cell_size}}px; width: {{layer_size}}px;">
+  <img src="{{img_src}}"
+    on:mousemove="set_pos_hover(event, this.getBoundingClientRect())"
+    on:mouseover="set_layer_hover(layer)"
+    on:mouseout="clear_hover()" />
+    
+  <div class="cell_hover" style="left: {{pos_snap[0] * cell_size}}px;
+    top: {{pos_snap[1] * cell_size}}px;
+    border-color: {{magnitude ? '#666' : '#fff'}}"></div>
 
-  <div style="--layer-size: {{layer_size}}px;
-    width: {{(layer_size + 25) * layer_names.length}}px;">
+  {{#if show_zoom}}
+    <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
+                {{layer_hover === layer ? 'layer_hover' : ''}}" 
+      style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
+      <Sprite bg_img="examples/activations/{{example}}_{{layer}}.jpeg" 
+        size="74" sprite_size="{{sprite_cell_size}}" 
+        x="{{pos_snap[0]}}" y="{{pos_snap[1]}}"></Sprite>
+    </div>
+  {{/if}}
 
-    {{#each layer_names as lname}}
-      <div class="layer" style="--cell-size: {{cell_sizes[lname]}}px;">
-
-        <img src="examples/activations/{{example}}_{{lname}}{{magnitude ? '_magnitude' : ''}}.jpeg"
-          on:mouseover="set({layer_hover: lname})"
-          on:mousemove="set_hover_pos(event, this.getBoundingClientRect())"
-          on:mouseout="set({pos_hover: undefined, layer_hover: undefined})" />
-
-        <div class="cell_hover" style="left: {{snap_x[lname] * cell_sizes[lname]}}px; 
-            top: {{snap_y[lname] * cell_sizes[lname]}}px;
-            border-color: {{magnitude ? '#666' : '#fff'}}"></div>
-
-        <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
-          {{layer_hover === lname ? 'layer_hover' : ''}}" 
-          style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-            <Sprite bg_img="examples/activations/{{example}}_{{lname}}.jpeg" 
-              size="74" sprite_size="{{all_layers[lname][1]}}"
-              x="{{snap_x[lname]}}" y="{{snap_y[lname]}}"></Sprite>
-        </div>
-
-        <p>{{lname}}</p>
-      </div>
-    {{/each}}
-  </div>
+  <p>{{layer}}</p>
 </div>
 
 <style>
-  .layers_container {
-    width: 100%; 
-    height: 460px;
-    overflow-x: scroll; 
-    overflow-y: hidden;
-  }
-
   .layer {
     display: inline-block;
     position: relative;
-    width: var(--layer-size);
     margin-right: 20px;
   }
 
@@ -53,7 +37,7 @@
   }
 
   .layer img { width: 100%; }
-  
+
   .sprite_container {
     position: absolute;
     padding: 5px;
@@ -85,94 +69,69 @@
 
 <script>
   import Sprite from './Sprite.html'
-  import {range, INIT_EXAMPLE} from '../util';
-  const examples = require('../../static/examples');
-
-  function clamp(x, min, max) {
-    return Math.min(Math.max(x, min), max);
-  }
-
-  function calc_layer_size(container) {
-    const MARGIN = 20, NUM_LAYERS = 4;
-    return !container ? 0 : 
-      (container.parentNode.getBoundingClientRect().width / NUM_LAYERS) - MARGIN;
-  }
+  import { calc_layer_size, INIT_EXAMPLE } from '../util';
+  const layers = require('../../static/examples').layers;
 
   export default {
     data() {
       return {
-        all_layers: examples.layers,
-        layer_names: Object.keys(examples.layers),
         example: INIT_EXAMPLE,
+        magnitude: false,
+        layer: 'mixed4d',
+        layer_size: 100,
+        layer_hover: 'mixed4d',
+        pos_init: [0, 0],
         pos_hover: undefined,
-        layer_hover: undefined,
-        magnitude: false
+        show_zoom: true
       };
     },
 
-    oncreate() {
-      this.set({layer_size: calc_layer_size(this.refs.container)});
-    },
-
     computed: {
-      layer_size (winWidth) {
-        return calc_layer_size(document.querySelector('.layers_container'));
-      },
-      
-      pos_init (layer_size) {
-        return [layer_size / 2, layer_size * 4 / 5]
+      img_src(example, layer, magnitude) {
+        const src = `examples/activations/${example}_${layer}`;
+        return src + (magnitude ? '_magnitude.png' : '.jpeg');
       },
 
-      pos (pos_hover, pos_init) {
+      cell_size(layer, layer_size) {
+        const sz = layers[layer];
+        return layer_size / (sz[0] * sz[1]) * sz[1];
+      },
+
+      sprite_cell_size(layer) {
+        return layers[layer][1]
+      },
+
+      pos(pos_hover, pos_init) {
         return pos_hover || pos_init;
       },
 
-      cell_sizes (all_layers, layer_names, layer_size) {
-        return layer_names.reduce((sizes, lname) => {
-          const sz = all_layers[lname];
-          sizes[lname] = layer_size / (sz[0] * sz[1]) * sz[1];
-          return sizes;
-        }, {});
-      },
-
-      snap_x (pos, all_layers, layer_names, layer_size) {
-        return layer_names.reduce((coords, lname) => {
-          coords[lname] = Math.floor(all_layers[lname][0] * pos[0] / layer_size);
-          return coords;
-        }, {});     
-      },
-
-      snap_y (pos, all_layers, layer_names, layer_size) {
-        return layer_names.reduce((coords, lname) => {
-          coords[lname] = Math.floor(all_layers[lname][0] * pos[1] / layer_size);
-          return coords;
-        }, {});
-      } 
+      pos_snap(layer, layer_size, pos) {
+        return [
+          Math.floor(layers[layer][0] * pos[0] / layer_size),
+          Math.floor(layers[layer][0] * pos[1] / layer_size)
+        ];
+      }
     },
 
     methods: {
-      drag (event) {
-        const downX = this.get('downX');
-        if (downX === undefined) return;
-
-        const delta = event.pageX - downX;
-        let left = this.get('downLeft') || 0;
-        left = clamp(left + delta, -(examples.input_size - MASK_WIDTH), 0);
-        this.set({left});
+      set_layer_hover(layer_hover) {
+        this.fire('layer_hover', {layer_hover});
       },
 
-      set_hover_pos (event, bb) {
+      set_pos_hover(event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
-        this.set({ pos_hover: [event.pageX - x, event.pageY - y] });
+        this.fire('pos_hover', {
+          pos_hover: [event.pageX - x, event.pageY - y]
+        });
       },
 
-      sync_scroll (event) {
-        document.querySelectorAll('.layers_container').forEach((d) => d.scrollLeft = event.target.scrollLeft);
+      clear_hover() {
+        this.fire('layer_hover', {layer_hover: undefined});
+        this.fire('pos_hover', {pos_hover: undefined});
       }
     },
-    
 
-    components: { Sprite },
-    helpers: { range, clamp }
+    components: {Sprite}
   }
+
 </script>
