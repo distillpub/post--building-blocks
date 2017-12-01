@@ -16,7 +16,7 @@
   }</script>
 </d-front-matter>
 
-<style>
+<!-- <style>
   figure p.heading {
     margin-bottom: 5px;
     font-weight: bold;
@@ -51,7 +51,7 @@
     height: 100%;
     z-index: -1;
   }
-</style>
+</style> -->
 
 
 <!-- Padding because of /d-article hack for Chrome -->
@@ -99,20 +99,21 @@
 
 </d-article>
 
-  <figure id="ActivationGrid" style="overflow: hidden; margin-left: 100px;"></figure>
+  <figure id="AllActivationGrids" style="overflow: hidden; margin-left: 100px;"></figure>
 
 <!-- Padding because of /d-article hack for Chrome -->
 <d-article style="padding-bottom: 0px;">
   <p>
-    One weakness of this visualization is that it doesn't really show the magnitude the activations.
+    One weakness of this visualization is that it doesn't really show the magnitude of the activations. 
     It shows us what was detected at each position, but not how strongly it was detected.
-    To better show magnitudes, let's size the visualizations by the magnitude activation vectors:
+    To better show magnitudes, let's size the visualizations by the magnitude of the activation vectors:
   </p>
 </d-article>
 
-  <figure id="ActivationGridMagnitude" style="overflow: hidden; margin-left: 100px;"></figure>
+  <figure id="AllActivationGridsMagnitude" style="overflow: hidden; margin-left: 100px;"></figure>
 
-<d-article>
+<!-- Padding because of /d-article hack for Chrome -->
+<d-article style="padding-bottom: 0px;">
   <!--
   <p>
     We can also get more a less noisy "overview" of the activations vectors for
@@ -158,22 +159,24 @@
 
   <h2>Attribution shows how Activations Influence the Output</h2>
 
-  Attribution is a set of techniques for explaining the relationships between neurons. Typically, it is simply used to associate the pixels of the input image to the output classification -- known as a <i>saliency map</i>. If you only look at the input and output, you're missing out on all the rich behavior we saw above in the hidden layers.<d-footnote>
+  <p>Attribution is a set of techniques for explaining the relationships between neurons. Typically, it is simply used to associate the pixels of the input image to the output classification -- known as a <i>saliency map</i>. If you only look at the input and output, you're missing out on all the rich behavior we saw above in the hidden layers.<d-footnote>
     It's worth noting that attribution to hidden units like this may be more natural than trying to attribute all the way back
     to pixels. It isn't entirely clear what attribution to pixels really means. The meaning of a pixel is extremely entangled
     with other pixels, very far removed from high-level ideas like output class. And neural networks need to be invariant to
     things like generic brightening of the image.
 
-    <figure id="InputSaliencyMapComparedToHigherLevel"></figure>
+    <!-- <figure id="InputSaliencyMapComparedToHigherLevel"></figure> -->
 
-  </d-footnote> Each hidden layer offers us the opportunity to ask different and interesting questions. For example, we know we have a "floppy ear" detector, but why is it firing? And how did the network go from input pixels, to low-level "fur" detection, to this higher-level concept of "floppy ears?"
+  </d-footnote> Each hidden layer offers us the opportunity to ask different and interesting questions. For example, we know we have a "floppy ear" detector, but why is it firing? And how did the network go from input pixels, to low-level "fur" detection, to this higher-level concept of "floppy ears?"</p>
 
-  Applying attribution to hidden layers does not require inventing new techniques! Almost all our existing attribution techniques can be applied to hidden layers, with only minor modifications. 
+  <p>Applying attribution to hidden layers does not require inventing new techniques! Almost all our existing attribution techniques can be applied to hidden layers, with only minor modifications. </p>
 
   <!-- Cite Grad-CAM work. -->
 
-  <figure></figure>
+</d-article>
+  <figure id="AttributionSpatialHidden" style="overflow: hidden; margin-left: 100px;"></figure>
 
+<d-article>
   <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
 
   <p>An alternate slicing of the cube might instead prioritize these channels over spatial locations.</p>
@@ -243,7 +246,7 @@
   </p>
 
   <p>
-    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. These groups will not align as naturally with the cube as the groupings we previously looked at. Instead, they will be combinations of spatial locations and channels. 
+    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. These groups will not align as naturally with the cube as the groupings we previously looked at. Instead, they will be combinations of spatial locations and channels. Moreover, these groups are constructed to explain the behavior of a network on a particular image. It would not be effective to reuse the same groupings on another image; each image requires calculating a unique set of groups.
   </p>
 
   <figure id="NeuronGroupsCube"></figure>
@@ -253,16 +256,30 @@
   </p>
 
   <p>
-    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to priotize what caused the present behaviour, we would want the factorization to fully describe the attributions.
+    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behaviour, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others. 
   </p>
 
   <p>
-    The groups we get this way are optimized to help us understand layers individually. But often, we want to understand how the network behaves over the course of multiple layers. To this end, we would like each layer's factorization to be "compatible" -- to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
+    Consider the following figure. [Although it looks similar to the diagram we saw previously,] matrix factorization has reduced the overwhelmingly large number of neurons into a small set of groups. This allows us to more concisely distill the story of the neural network.
   </p>
-  
+
   <figure class="l-page-outset">
-    <img src="images/groups.png" ></img>
+    <img src="images/groups.png"></img>
   </figure>
+
+  <p>
+    This figure only focuses at a single layer but, as we saw earlier, it can be useful to look across multiple layers to understand how a neural network assembles together lower-level detectors into higher-level concepts. 
+  </p>
+
+  <p>
+    The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
+  </p>
+
+  <figure id="Ian"></figure>
+
+  <p>
+
+  </p>
 
 </d-article>
 

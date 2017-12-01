@@ -1,0 +1,163 @@
+<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
+
+<div style="display: flex; --layer-size: {{layer_size}}px;">
+  <div class="hidden_layers" ref:container>
+    <div style="--layer-size: {{layer_size}}px;
+        width: {{(layer_size + 25) * hidden_layers.length}}px;">
+
+      {{#each hidden_layers as layer}}
+        <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
+          layer={{layer}} layer_size={{layer_size}} show_zoom={{false}}
+          layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
+          pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
+          on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
+
+          <div slot="background">
+            <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
+          </div>
+
+          <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
+            sprite_size={{all_layers[layer][0]}} size={{layer_size}}
+            x={{layer_hover && pos_snap[layer_hover][0]}} 
+            y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
+        </ActivationGrid>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="output_classes">
+    <ul class="attribution_list">
+      {{#each output_attr.slice(0, 5) as attr}}
+      <li>
+        <div class="scent" style="width: {{100 * (attr.v/attr_max)}}%"></div>
+        {{labels[attr.n]}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .hidden_layers {
+    position: relative;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .layer img { 
+    position: absolute; 
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */    
+  }
+
+  .layer p {
+    margin-top: calc(var(--layer-size) + 10px);
+  }
+
+  div[slot='foreground'] .outer {
+    position: absolute;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+  }
+
+  .output_classes {
+    width: 150px;
+    padding: 0 20px;
+  }
+
+  ul.attribution_list {
+    flex: 1;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.attribution_list li {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 7px;
+    border: 1px solid #ddd;
+    font-size: 80%;
+    color: rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ul.attribution_list .scent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    background: #ddd;
+  }
+</style>
+
+<script>
+  import Sprite from './Sprite.html'
+  import ActivationGrid from './ActivationGrid.html'
+  import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
+  const layers = require('../../static/examples').layers;
+
+  export default {
+    data() {
+      return {
+        example: INIT_EXAMPLE,
+        all_layers: layers,
+        hidden_layers: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'],
+        labels: require('../../static/examples/labels.json')
+      }
+    },
+
+    oncreate() {
+      this.set({ layer_size: calc_layer_size(this.refs.container, 4.5) });
+    },
+
+    computed: {
+      layer_size(winWidth, num_layer_width) {
+        return calc_layer_size(document.querySelector('#AttributionSpatialHidden .hidden_layers'), 4.5);
+      },
+
+      pos_snap(hidden_layers, layer_size, pos_hover) {
+        return hidden_layers.reduce((obj, layer) => {
+          obj[layer] = !pos_hover ? [0, 0] : [
+            Math.floor(layers[layer][0] * pos_hover[0] / layer_size),
+            Math.floor(layers[layer][0] * pos_hover[1] / layer_size)
+          ];
+          return obj;
+        }, {});
+      },
+
+      attr_data(example) {
+        return require(`../../static/examples/attributions/${example}/spatial_attr.json`);
+      },
+
+      output_attr(attr_data, layer_hover, pos_snap) {
+        if (!layer_hover) return attr_data.output;
+        const ps = pos_snap[layer_hover];
+        return attr_data.layers[layer_hover][ps[0]][ps[1]];
+      },
+
+      attr_max(attr_data, layer_hover) {
+        return attr_data.max[layer_hover || 'output'];
+      }
+    },
+
+    components: { ActivationGrid, Sprite }
+  }
+</script>

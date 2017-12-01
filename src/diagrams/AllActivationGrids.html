@@ -8,10 +8,9 @@
 
     {{#each layer_names as layer}}
       <ActivationGrid example={{example}} magnitude={{magnitude}}
-        layer={{layer}} layer_size={{layer_size}} layer_hover={{layer_hover}}
-        pos_init={{pos_init}} pos_hover={{pos_hover}}
-        on:layer_hover="set({layer_hover: event.layer_hover})"
-        on:pos_hover="set({pos_hover: event.pos_hover})"></ActivationGrid>
+        layer={{layer}} layer_size={{layer_size}} 
+        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
+        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})"></ActivationGrid>
     {{/each}}
   </div>
 </div>
@@ -39,17 +38,12 @@
     },
 
     oncreate() {
-      this.set({layer_size: calc_layer_size(this.refs.container, this.get('num_layer_width'))});
+      this.set({layer_size: calc_layer_size(this.refs.container)});
     },
 
     computed: {
       layer_size (winWidth, num_layer_width) {
-        const size = calc_layer_size(document.querySelector('.all_act_grids'));
-        return size;
-      },
-      
-      pos_init (layer_size) {
-        return [layer_size / 2, layer_size * 4 / 5]
+        return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'));
       }
     },
 

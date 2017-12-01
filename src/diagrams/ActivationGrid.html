@@ -1,6 +1,10 @@
 <:Window bind:scrollY="scrollY" />
 
-<div refs:layerDiv class="layer" style="--cell-size: {{cell_size}}px; width: {{layer_size}}px;">
+<div refs:layerDiv class="layer" style="--cell-size: {{cell_size}}px; 
+  --layer-size: {{layer_size}}px; width: {{layer_size}}px;">
+
+  <slot name="background"></slot>
+
   <img src="{{img_src}}"
     on:mousemove="set_pos_hover(event, this.getBoundingClientRect())"
     on:mouseover="set_layer_hover(layer)"
@@ -9,6 +13,8 @@
   <div class="cell_hover" style="left: {{pos_snap[0] * cell_size}}px;
     top: {{pos_snap[1] * cell_size}}px;
     border-color: {{magnitude ? '#666' : '#fff'}}"></div>
+
+  <slot name="foreground"></slot>
 
   {{#if show_zoom}}
     <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
@@ -80,8 +86,8 @@
         layer: 'mixed4d',
         layer_size: 100,
         layer_hover: 'mixed4d',
-        pos_init: [0, 0],
         pos_hover: undefined,
+        pos_snap: [0, 0],
         show_zoom: true
       };
     },
@@ -99,6 +105,10 @@
 
       sprite_cell_size(layer) {
         return layers[layer][1]
+      },
+
+      pos_init(layer_size) {
+        return [layer_size / 2, layer_size * 4 / 5]
       },
 
       pos(pos_hover, pos_init) {
@@ -120,9 +130,7 @@
 
       set_pos_hover(event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
-        this.fire('pos_hover', {
-          pos_hover: [event.pageX - x, event.pageY - y]
-        });
+        this.fire('pos_hover', {pos_hover: [event.pageX - x, event.pageY - y]});
       },
 
       clear_hover() {
