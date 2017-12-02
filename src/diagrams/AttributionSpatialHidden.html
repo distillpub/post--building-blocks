@@ -19,10 +19,10 @@
       <li>Factors</li>
       {{#each attr_data.nmf[0].slice(0, 5) as attr}}
       <li>
+        <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
         </div>
-        {{labels[attr.n]}}
       </li>
       {{/each}}
     </ul>
@@ -31,10 +31,10 @@
       <li style="color: #fff;">Factors</li>
       {{#each attr_data.nmf[1].slice(0, 5) as attr}}
       <li>
+        <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
         </div>
-        {{labels[attr.n]}}
       </li>
       {{/each}}
     </ul>
@@ -43,10 +43,10 @@
       <li>Output Classes</li>
       {{#each output_attr.slice(0, 5) as attr}}
       <li>
+        <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
         </div>
-        {{labels[attr.n]}}
       </li>
       {{/each}}
     </ul>
@@ -142,26 +142,39 @@
     display: inline-block;
     list-style-type: none;
     padding: 0;
-    margin: 0 30px 0 0;
+    margin: 0;
+  }
+
+  .output_classes {
+    margin-left: 50px;
   }
 
   .attribution_list li {
     position: relative;
-    padding-left: 50px;
-    padding-bottom: 10px;
+    display: flex;
     font-size: 90%;
+    text-align: right;
+    text-transform: capitalize;
+  }
+
+  .attribution_list li span {
+    display: inline-block;
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-bottom: 10px;
+    margin-right: 10px;
   }
 
   .attribution_list .scent {
-    position: absolute;
-    left: 0;
+    position: relative;
     width: 40px;
-    height: 100%;
   }
 
   .attribution_list .scent div {
     position: absolute;
-    right: 0;
+    left: 0;
     background: #ccc;
     height: calc(100% - 10px);
   }
