@@ -1,31 +1,78 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div style="display: flex; --layer-size: {{layer_size}}px;">
-  <div class="hidden_layers" ref:container>
-    <div style="--layer-size: {{layer_size}}px;
-        width: {{(layer_size + 25) * hidden_layers.length}}px;">
-
-      {{#each hidden_layers as layer}}
-        <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
-          layer={{layer}} layer_size={{layer_size}} show_zoom={{false}}
-          layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
-          pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
-          on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
-
-          <div slot="background">
-            <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
-          </div>
-
-          <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
-            sprite_size={{all_layers[layer][0]}} size={{layer_size}}
-            x={{layer_hover && pos_snap[layer_hover][0]}} 
-            y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
-        </ActivationGrid>
-      {{/each}}
+<div>
+  <div class="legend">
+    <div>
+      <p>Input Image</p>
+      <div style="position: relative;">
+        <img src="examples/input_images/{{example}}.png" />
+        {{#if layer_hover}}
+          <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
+            width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
+            left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
+            top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
+        {{/if}}
+      </div>
     </div>
+
+    <ul class="factors_1 attribution_list">
+      <li>Factors</li>
+      {{#each attr_data.nmf[0].slice(0, 5) as attr}}
+      <li>
+        <div class="scent">
+          <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
+        </div>
+        {{labels[attr.n]}}
+      </li>
+      {{/each}}
+    </ul>
+
+    <ul class="factors_2 attribution_list">
+      <li style="color: #fff;">Factors</li>
+      {{#each attr_data.nmf[1].slice(0, 5) as attr}}
+      <li>
+        <div class="scent">
+          <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
+        </div>
+        {{labels[attr.n]}}
+      </li>
+      {{/each}}
+    </ul>
+
+    <ul class="output_classes attribution_list">
+      <li>Output Classes</li>
+      {{#each output_attr.slice(0, 5) as attr}}
+      <li>
+        <div class="scent">
+          <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
+        </div>
+        {{labels[attr.n]}}
+      </li>
+      {{/each}}
+    </ul>
   </div>
 
-  <div class="output_classes">
+  <div class="hidden_layers" ref:container style="display: flex; --layer-size: {{layer_size}}px;">
+    {{#each hidden_layers as layer}}
+      <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
+        layer={{layer}} layer_size={{layer_size}} show_zoom={{false}}
+        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
+        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
+        on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
+
+        <div slot="background">
+          <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
+        </div>
+
+        <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
+          sprite_size={{all_layers[layer][0]}} size={{layer_size}}
+          x={{layer_hover && pos_snap[layer_hover][0]}} 
+          y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
+      </ActivationGrid>
+    {{/each}}
+  </div>
+
+  <!-- <div class="output_classes">
     <ul class="attribution_list">
       {{#each output_attr.slice(0, 5) as attr}}
       <li>
@@ -34,7 +81,7 @@
       </li>
       {{/each}}
     </ul>
-  </div>
+  </div> -->
 </div>
 
 <style>
@@ -74,38 +121,53 @@
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
   }
 
-  .output_classes {
-    width: 150px;
-    padding: 0 20px;
+  .legend {
+    display: flex;
+    margin-bottom: 20px;
   }
 
-  ul.attribution_list {
-    flex: 1;
+  .legend img {
+    height: 150px;
+    width: auto;
+    margin-right: 30px;
+  }
+
+  .legend p, .attribution_list li:first-child {
+    font-size: 90%;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+  }
+
+  .attribution_list {
+    display: inline-block;
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: 0 30px 0 0;
   }
 
-  ul.attribution_list li {
+  .attribution_list li {
     position: relative;
-    margin-bottom: 15px;
-    padding: 7px;
-    border: 1px solid #ddd;
-    font-size: 80%;
-    color: rgba(0, 0, 0, 0.8);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding-left: 50px;
+    padding-bottom: 10px;
+    font-size: 90%;
   }
 
-  ul.attribution_list .scent {
+  .attribution_list .scent {
     position: absolute;
     left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    background: #ddd;
+    width: 40px;
+    height: 100%;
   }
+
+  .attribution_list .scent div {
+    position: absolute;
+    right: 0;
+    background: #ccc;
+    height: calc(100% - 10px);
+  }
+
+  .factors_1 .scent div { background: #f4a582; }
+  .factors_2 .scent div { background: #92c5de; }
 </style>
 
 <script>
@@ -125,12 +187,12 @@
     },
 
     oncreate() {
-      this.set({ layer_size: calc_layer_size(this.refs.container, 4.5) });
+      this.set({ layer_size: calc_layer_size(this.refs.container) });
     },
 
     computed: {
       layer_size(winWidth, num_layer_width) {
-        return calc_layer_size(document.querySelector('#AttributionSpatialHidden .hidden_layers'), 4.5);
+        return calc_layer_size(document.querySelector('#AttributionSpatialHidden .hidden_layers'));
       },
 
       pos_snap(hidden_layers, layer_size, pos_hover) {
@@ -143,6 +205,10 @@
         }, {});
       },
 
+      layer_hover_size(all_layers, layer_hover) {
+        return layer_hover ? all_layers[layer_hover][0] : 0;
+      },
+
       attr_data(example) {
         return require(`../../static/examples/attributions/${example}/spatial_attr.json`);
       },
@@ -150,12 +216,12 @@
       output_attr(attr_data, layer_hover, pos_snap) {
         if (!layer_hover) return attr_data.output;
         const ps = pos_snap[layer_hover];
-        return attr_data.layers[layer_hover][ps[0]][ps[1]];
+        return attr_data.layers[layer_hover][ps[1]][ps[0]];
       },
 
       attr_max(attr_data, layer_hover) {
         return attr_data.max[layer_hover || 'output'];
-      }
+      },
     },
 
     components: { ActivationGrid, Sprite }
