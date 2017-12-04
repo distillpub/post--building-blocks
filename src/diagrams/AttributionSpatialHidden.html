@@ -6,7 +6,7 @@
       <p>Input Image</p>
       <div style="position: relative;">
         <img src="examples/input_images/{{example}}.png" />
-        {{#if layer_hover}}
+        {{#if layer_hover && layer_hover !== 'output'}}
           <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
             width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
             left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
@@ -15,10 +15,10 @@
       </div>
     </div>
 
-    <ul class="factors_1 attribution_list">
-      <li>Factors</li>
-      {{#each attr_data.nmf[0].slice(0, 5) as attr}}
-      <li>
+    <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</li>
+      {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
+      <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
         <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
@@ -27,10 +27,10 @@
       {{/each}}
     </ul>
 
-    <ul class="factors_2 attribution_list">
-      <li style="color: #fff;">Factors</li>
-      {{#each attr_data.nmf[1].slice(0, 5) as attr}}
-      <li>
+    <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: #fff;">Factors</li>
+      {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
+      <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
         <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
@@ -39,10 +39,10 @@
       {{/each}}
     </ul>
 
-    <ul class="output_classes attribution_list">
-      <li>Output Classes</li>
-      {{#each output_attr.slice(0, 5) as attr}}
-      <li>
+    <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
+      {{#each output_attr.slice(0, 5) as attr, i}}
+      <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
         <span>{{labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
@@ -155,6 +155,15 @@
     font-size: 90%;
     text-align: right;
     text-transform: capitalize;
+    font-weight: 300;
+  }
+
+  .attribution_list li:not(:first-child) {
+    cursor: pointer;
+  }
+
+  .attribution_list li:not(:first-child):hover {
+    font-weight: 400;
   }
 
   .attribution_list li span {
@@ -178,9 +187,14 @@
     background: #ccc;
     height: calc(100% - 10px);
   }
+  
+  .output_classes li:hover .scent div { background: #666; }
 
-  .factors_1 .scent div { background: #f4a582; }
-  .factors_2 .scent div { background: #92c5de; }
+  .factors_1 .scent div { background: #92c5de; }
+  .factors_1 li:hover .scent div { background: #0571b0; }
+
+  .factors_2 .scent div { background: #f4a582; }
+  .factors_2 li:hover .scent div { background: #e66101; }
 </style>
 
 <script>
@@ -209,31 +223,37 @@
       },
 
       pos_snap(hidden_layers, layer_size, pos_hover) {
-        return hidden_layers.reduce((obj, layer) => {
+        let snap = hidden_layers.reduce((obj, layer) => {
           obj[layer] = !pos_hover ? [0, 0] : [
             Math.floor(layers[layer][0] * pos_hover[0] / layer_size),
             Math.floor(layers[layer][0] * pos_hover[1] / layer_size)
           ];
           return obj;
         }, {});
+        snap.output = snap.nmf = pos_hover;
+        return snap;
       },
 
-      layer_hover_size(all_layers, layer_hover) {
-        return layer_hover ? all_layers[layer_hover][0] : 0;
+      valid_layer_hover(layer_hover) {
+        return layer_hover && layer_hover.match('mixed') !== null;
+      },
+
+      layer_hover_size(all_layers, valid_layer_hover, layer_hover) {
+        return valid_layer_hover ? all_layers[layer_hover][0] : 0;
       },
 
       attr_data(example) {
         return require(`../../static/examples/attributions/${example}/spatial_attr.json`);
       },
 
-      output_attr(attr_data, layer_hover, pos_snap) {
-        if (!layer_hover) return attr_data.output;
+      output_attr(attr_data, valid_layer_hover, layer_hover, pos_snap) {
+        if (!valid_layer_hover) return attr_data.output;
         const ps = pos_snap[layer_hover];
         return attr_data.layers[layer_hover][ps[1]][ps[0]];
       },
 
-      attr_max(attr_data, layer_hover) {
-        return attr_data.max[layer_hover || 'output'];
+      attr_max(attr_data, valid_layer_hover, layer_hover) {
+        return attr_data.max[valid_layer_hover ? layer_hover : 'output'];
       },
     },
 
