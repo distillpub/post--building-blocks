@@ -17,11 +17,18 @@
 
 <style>
 
+.sprite_mixed3a_channel { background-image: url('images/sprite_mixed3a_channel.jpeg'); }
+.sprite_mixed3b_channel { background-image: url('images/sprite_mixed3b_channel.jpeg'); }
+.sprite_mixed4a_channel { background-image: url('images/sprite_mixed4a_channel.jpeg'); }
+.sprite_mixed4b_channel { background-image: url('images/sprite_mixed4b_channel.jpeg'); }
+.sprite_mixed4c_channel { background-image: url('images/sprite_mixed4c_channel.jpeg'); }
+.sprite_mixed4d_channel { background-image: url('images/sprite_mixed4d_channel.jpeg'); }
+.sprite_mixed4e_channel { background-image: url('images/sprite_mixed4e_channel.jpeg'); }
+.sprite_mixed5a_channel { background-image: url('images/sprite_mixed5a_channel.jpeg'); }
+.sprite_mixed4d_neuron { background-image: url('images/sprite_mixed4d_neuron.jpeg')}
+
 .outer {
   position: relative;
-  float: left;
-  /*margin-right: 2px;
-  margin-bottom: 2px;*/
   width: var(--container-size);
   height: var(--container-size);
 }
@@ -73,9 +80,16 @@
         bg_img: undefined, // for when src_class isn't available
         sprite_size: 200,
         sprite_scale: 1.0,
+        sprite_dims: {
+          'mixed3a': 16, 'mixed3b': 21,
+          'mixed4a': 22, 'mixed4b': 22,
+          'mixed4c': 22, 'mixed4d': 20,
+          'mixed4e': 28, 'mixed5a': 28
+        },
         size: 100,
         x: 0, // specified in Sprite subclasses
         y: 0,
+        n: 0, // for predefined sprites
         shift: [0.5,0.5],
         hover: false,
         hover_scale: 1,
@@ -84,8 +98,16 @@
       }
     },
     computed: {
-      corner_x: (sprite_size, x, sprite_scale) => sprite_size*x,
-      corner_y: (sprite_size, y, sprite_scale) => sprite_size*y,
+      x_: (src_class, n, x, sprite_dims) => {
+        const layer = src_class.match(/sprite_(.*?)_(.*?)/);
+        return layer && sprite_dims[layer[1]] ? n % sprite_dims[layer[1]] : x;
+      },
+      y_: (src_class, n, y, sprite_dims) => {
+        const layer = src_class.match(/sprite_(.*?)_(.*?)/);
+        return layer && sprite_dims[layer[1]] ? Math.floor(n / sprite_dims[layer[1]]) : y;
+      },
+      corner_x: (sprite_size, x_, sprite_scale) => sprite_size*x_,
+      corner_y: (sprite_size, y_, sprite_scale) => sprite_size*y_,
       offset_x: (sprite_size, sprite_scale, corner_x, shift, size, ratio) => {
         return corner_x + sprite_size * shift[0] * (1-sprite_scale);
       },

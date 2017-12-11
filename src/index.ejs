@@ -174,7 +174,7 @@
   <!-- Cite Grad-CAM work. -->
 
 </d-article>
-  <figure id="AttributionSpatialHidden" style="overflow: hidden; margin-left: 100px; margin-right: 25px;"></figure>
+  <figure id="AttributionSpatial" style="overflow: hidden; margin-left: 100px; margin-right: 25px;"></figure>
 
 <d-article>
   <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
@@ -185,7 +185,7 @@
 
   <p>One use of this type of slice allows us to perform channel attribution: how much did each detector contribute to the final output?</p>
 
-  <figure id="ChanenlAttrInteractive"></figure>
+  <figure class="l-page-outset" id="AttributionChannel"></figure>
 
   <p>And, of course, such attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
 
@@ -214,10 +214,6 @@
     Note that, unlike a saliency map which only shows how one output is
     effected, this visualization shows how multiple outputs are impacted.
   </p> -->
-
-  <figure id="AttributionSpatial" class="l-body"></figure>
-
-  <figure id="AttributionNeurons" class="l-body"></figure>
 
   <figure class="l-body">
     <img src="images/attribution-multi.png" ></img>

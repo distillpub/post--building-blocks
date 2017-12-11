@@ -2,9 +2,8 @@ import ExamplePicker from './diagrams/ExamplePicker.html';
 import NeuronVis from './diagrams/NeuronVis.html';
 import ActivationVis from './diagrams/ActivationVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
-// import AttributionNeurons from './diagrams/AttributionNeurons.html';
-// import AttributionSpatial from './diagrams/AttributionSpatial.html';
-import AttributionSpatialHidden from './diagrams/AttributionSpatialHidden.html';
+import AttributionSpatial from './diagrams/AttributionSpatial.html';
+import AttributionChannel from './diagrams/AttributionChannel.html';
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
@@ -27,8 +26,12 @@ const actGridMag = new AllActivationGrids({
   data: {magnitude: true}
 });
 
-const attrSpatialHidden = new AttributionSpatialHidden({
-  target: document.getElementById('AttributionSpatialHidden')
+const attrSpatial = new AttributionSpatial({
+  target: document.getElementById('AttributionSpatial')
+});
+
+const attrChannel = new AttributionChannel({
+  target: document.getElementById('AttributionChannel')
 });
 
 // Wire components together.
@@ -37,9 +40,8 @@ exPick.observe('selected', (example) => {
   actVis.set({example});
   actGrid.set({example});
   actGridMag.set({example});
-  // attrNeurons.set({ example });
-  // attrSpatial.set({example});
-  attrSpatialHidden.set({example});
+  attrSpatial.set({example});
+  attrChannel.set({example});
 });
 
 neuronVis.observe('pos', (pos) => {

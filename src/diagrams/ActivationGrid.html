@@ -46,8 +46,6 @@
 
   .sprite_container {
     position: absolute;
-    padding: 5px;
-    background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ccc;
     z-index: 1;
   }
@@ -58,10 +56,7 @@
     transition-timing-function: ease-in-out;
   }
 
-  .sprite_container.layer_hover {
-    background: rgba(247, 175, 127, 0.9);
-    border-color: rgb(247, 175, 127);
-  }
+  .sprite_container .outer { float: left; }
 
   .cell_hover {
     position: absolute;
