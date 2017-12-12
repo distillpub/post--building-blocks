@@ -77,12 +77,8 @@
 <script>
   import {format} from 'd3-format';
 
-  import {INIT_EXAMPLE} from '../util';
+  import {INIT_EXAMPLE, fmtAct} from '../util';
   import Sprite from './Sprite.html';
-
-  const fmt1f = format('.1f'), 
-        fmt2r = format('.2r'),
-        fmt3r = format('.3r');
 
   export default {
     data() {
@@ -124,10 +120,7 @@
         return layer_data.some((d) => d.c === selected[1]);
       },
 
-      fmt (num) {
-        return num < 1 ? fmt2r(num) :
-          num < 10 ? fmt3r(num) : fmt1f(num);
-      }
+      fmt: fmtAct
     },
 
     components: {Sprite}

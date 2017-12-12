@@ -1,4 +1,4 @@
-<div class="outer" style="--img-size: {{sizes.img}}px; --ptr-size: {{sizes.ptr}}px;">
+<div class="act-expl" style="--img-size: {{sizes.img}}px; --ptr-size: {{sizes.ptr}}px;">
   <div class="image-container">
     <img src="examples/input_images/{{example}}.png" />
   </div>
@@ -24,45 +24,50 @@
   </svg>
 
   <div class="explain-container">
-    <p>We usually think of activations as abstract vectors:</p>
+    <p id="vector-expl">
+      We usually think of activations as abstract vectors:
+    </p>
 
     <p id="abstract-vector">a<sub>{{pos[1]}},{{pos[0]}}</sub> = {{present_vector_str}}</p>
 
     <p>
-      Feature visualization makes activations <b>meaningful</b><br> by showing us what
-      each neuron is looking for:
+      Unfortunately, this abstract representation renders activations an inscrutable cube of numbers and has led to concerns that neural networks are a black box.
     </p>
 
-    <div class="top-neurons">
-      <div class="neurons-sum">
-        {{#each tops as top}}
-        <div class="neuron">
-          <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
-          <div class="spacer"></div>
-          <span>{{(top[1]+'').slice(0,4)}} </span>
-          <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="75" sprite_size="110" />
-        </div>
-    
-        <p class="annotation"> + </p>
-        {{/each}}
-    
-        <p class="annotation">...</p>
-      </div>
-    
-      <svg width="100" height="300">
-        <defs>
-          <marker id="arrowhead" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#999" />
-          </marker>
-        </defs>
-        <path d="M35,83 C97,101 72,206 10,210" marker-end="url(#arrowhead)" stroke="#999" fill="transparent" stroke-width="2" />
-      </svg>
-    </div>
+    <p>
+      Our first building block offers a promising way forward. Feature visualization makes activations meaningful by showing us <em>what</em> each neuron is looking for:
+    </p>
   </div>
 </div>
 
+<div class="top-neurons">
+  <div class="neurons-sum">
+    {{#each tops as top}}
+    <div class="neuron">
+      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+      <div class="spacer"></div>
+      <span>{{(top[1]+'').slice(0,4)}} </span>
+      <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="110" sprite_size="110" />
+    </div>
+
+    <p class="annotation"> + </p>
+    {{/each}}
+
+    <p class="annotation">...</p>
+  </div>
+
+  <svg width="100" height="300">
+    <defs>
+      <marker id="arrowhead" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#999" />
+      </marker>
+    </defs>
+    <path d="M35,83 C97,101 72,206 10,210" marker-end="url(#arrowhead)" stroke="#999" fill="transparent" stroke-width="2" />
+  </svg>
+</div>
+
 <style>
-.outer {
+.act-expl {
   position: relative;
   width: 100%;
   height: var(--img-size);
@@ -82,12 +87,13 @@
 }
 
 .explain-container{
-  left: calc(var(--ptr-size) - 20px);
   top: -8px;
+  left: calc(var(--ptr-size) - 20px);
+  right: 0;
 }
-.explain-container p {
-  margin-bottom: 0px;
-}
+
+#vector-expl { margin-bottom: 0; }
+
 .pointer-container rect {
   opacity: 0;
 }
@@ -120,15 +126,17 @@
 }
 
 #abstract-vector {
+  display: inline-block;
+  white-space: nowrap;
   margin: 10px;
   margin-left: 0px;
-  color: #666;
+  font-family: monospace;
 }
 
 .top-neurons { 
-    position: relative; 
-    width: calc(100% + 70px);
-  }
+  position: relative; 
+  width: calc(100% + 70px);
+}
   
 .neurons-sum {
   display: flex;
@@ -137,7 +145,7 @@
 }
 
 .neuron {
-  width: 75px; 
+  width: 110px; 
   margin-right: 10px;
 }
 
@@ -177,7 +185,7 @@ sub { font-size: 65%; }
 <script>
   import {argmax} from 'ndarray-ops';
   import Sprite from './Sprite.html'
-  import {INIT_EXAMPLE, present_vector, range, tops} from '../util';
+  import {INIT_EXAMPLE, present_vector, range, tops, fmtAct} from '../util';
   const examples = require('../../static/examples');
   
   export default {
@@ -213,12 +221,13 @@ sub { font-size: 65%; }
       present_vector: (pos, activation) => present_vector(pos, activation),
 
       present_vector_str: (pos, present_vector) => {
-        var s = "[";
-        for (var n = 0; n < Math.min(12, present_vector.length); n++) {
-           if (n > 0) s += ", ";
-           s += ("" + present_vector[n]).slice(0, 3);
+        let s = '['         
+        for (let n = 0; n < Math.min(12, present_vector.length); n++) {
+          if (n > 0) s += ', ';
+          s += fmtAct(present_vector[n]);
         }
-        return s + ", ...]"
+
+        return s + ', ...]';
       },
 
       tops: (present_vector) => tops(present_vector)

@@ -1,3 +1,5 @@
+import {format} from 'd3-format';
+
 export const INIT_EXAMPLE = 'dog_cat';
 
 export function range(n){
@@ -23,4 +25,14 @@ export function tops (vec, cmp) {
   const sorted_ns = range(vec.length)
     .sort((a, b) => (cmp || desc)(vec[a], vec[b]));
   return sorted_ns.slice(0, 5).map((n) => [n, vec[n]]);
+}
+
+const fmt1f = format('.1f'),
+  fmt2r = format('.2r'),
+  fmt3r = format('.3r');
+
+export function fmtAct(num) {
+  return num == 0 ? 0 :
+    num < 1 ? fmt2r(num) :
+    num < 10 ? fmt3r(num) : fmt1f(num);
 }
