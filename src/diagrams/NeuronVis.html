@@ -26,7 +26,7 @@
   <div class="explain-container">
     <p>We usually think of activations as abstract vectors:</p>
 
-    <p id="abstract-vector">a_{x,y} = {{present_vector_str}}</p>
+    <p id="abstract-vector">a<sub>{{pos[1]}},{{pos[0]}}</sub> = {{present_vector_str}}</p>
 
     <p>
       Feature visualization makes activations <b>meaningful</b><br> by showing us what
@@ -170,6 +170,8 @@ span {
   top: 0;
   right: 0;
 }
+
+sub { font-size: 65%; }
 </style>
 
 <script>
