@@ -152,10 +152,10 @@
   .attribution_list li {
     position: relative;
     display: flex;
+    margin-bottom: 0;
     font-size: 90%;
     text-align: right;
     text-transform: capitalize;
-    font-weight: 300;
   }
 
   .attribution_list li:not(:first-child) {
@@ -163,7 +163,7 @@
   }
 
   .attribution_list li:not(:first-child):hover {
-    font-weight: 400;
+    font-weight: bold;
   }
 
   .attribution_list li span {
@@ -172,13 +172,14 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    padding-bottom: 10px;
     margin-right: 10px;
   }
 
   .attribution_list .scent {
+    display: flex;
     position: relative;
     width: 40px;
+    align-items: center;
   }
 
   .attribution_list .scent div {

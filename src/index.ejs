@@ -4,6 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://distill.pub/template.v2.js"></script>
+
+  <style>
+    figure.full-width {
+      grid-column: screen;
+      margin-left: 100px;
+    }
+
+    figure.act-grids {
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,8 +29,7 @@
       "authorURL": "test",
       "affiliation":"Google Brain",
       "affiliationURL":"https://g.co/brain"
-    },
-
+    }
   ]
   }</script>
 </d-front-matter>
@@ -65,7 +75,7 @@
     network.
   </p>
 
-  <figure id="AllActivationGrids" style="overflow: hidden; margin-left: 100px;"></figure>
+  <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 
   <p>
     One weakness of this visualization is that it doesn't really show the magnitude of the activations. 
@@ -73,7 +83,7 @@
     To better show magnitudes, let's size the visualizations by the magnitude of the activation vectors:
   </p>
 
-  <figure id="AllActivationGridsMagnitude" style="overflow: hidden; margin-left: 100px;"></figure>
+  <figure id="AllActivationGridsMagnitude" class="act-grids full-width"></figure>
 
   <!--
   <p>
@@ -134,7 +144,7 @@
 
   <!-- Cite Grad-CAM work. -->
 
-  <figure id="AttributionSpatial" style="overflow: hidden; margin-left: 100px; margin-right: 25px;"></figure>
+  <figure id="AttributionSpatial" class="full-width" style="margin-right: 25px;"></figure>
 
   <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
 
