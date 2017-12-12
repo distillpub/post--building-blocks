@@ -1,0 +1,135 @@
+<div class="channel-attribution">
+  {{#each hidden_layers as layer}}
+    <div class="layer">
+      <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
+       {{#each layer_data[layer].slice(0, 5) as d, i}}
+        <div class="channel" title="Layer {{layer}}, Unit {{d.c}}" 
+          on:mouseover="set({hover: [layer, d.c, i]})"
+          on:click="set({
+            selected: is(selected, layer, d.c) ? [] : [layer, d.c, i],
+            selected_layer_data: is(selected, layer, d.c) ? attr_data.output['0'] : layer_data
+          })"
+          style="background-color: {{is(hover, layer, d.c) ? '#e6e6e6' : '#fff'}};
+            opacity: {{hover[0] == layer && hover[1] !== d.c ? 0.3 : 1}};
+            border-color: {{is(selected, layer, d.c) || i == 4 && selected[0] == layer && !in_(selected, layer_data[layer]) ? '#999' : '#fff'}};">
+
+          {{#if i == 3 && selected[0] == layer && !in_(selected, layer_data[layer])}}
+            <div class="spacer">...</div>
+            <div class="bar" style="background-color: #fff;"></div>
+          {{elseif i == 4 && selected[0] == layer && !in_(selected, layer_data[layer])}} 
+            <Sprite src_class="sprite_{{layer}}_channel" n={{selected[1]}} size="110" sprite_size="110" />
+            <div class="bar" style="width: {{selected_layer_data[hover[0]][selected[2]].nv * 110}}px;
+                background-color: {{is(hover, layer, selected[1]) ? '#999' : '#ccc'}};"></div>
+          {{else}}
+            <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
+            <div class="bar" style="width: {{d.nv * 110}}px;
+              background-color: {{is(hover, layer, d.c) ? '#999' : '#ccc'}};"></div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
+
+<style>
+  .channel-attribution {
+    display: flex;
+  }
+
+  .layer {
+    width: 130px;
+    padding: 0 10px;
+    border-right: 1px solid #f0f0f0;
+  }
+
+  .layer:last-child { border-right: 0; }
+
+  .heading {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .channel {
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 7px;
+    padding: 10px;
+  }
+
+  .bar {
+    background-color: #ccc; 
+    height: 10px;  
+    margin-top: 5px;
+  }
+
+  .spacer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+  }
+
+  /* .channel .outer { display: inline-block; } */
+</style>
+
+<script>
+  import {format} from 'd3-format';
+
+  import {INIT_EXAMPLE} from '../util';
+  import Sprite from './Sprite.html';
+
+  const fmt1f = format('.1f'), 
+        fmt2r = format('.2r'),
+        fmt3r = format('.3r');
+
+  export default {
+    data() {
+      return {
+        example: INIT_EXAMPLE,
+        hidden_layers: ['mixed3b', 'mixed4a', 'mixed4b', 
+          'mixed4c', 'mixed4d'],
+        hover: [],
+        selected: [],
+      }
+    },
+
+    computed: {
+      attr_data (example) {
+        return require(`../../static/examples/attributions/${example}/channel_attr.json`)
+      },
+
+      selected_layer_data (attr_data) {
+        return attr_data.output['0'];
+      },
+
+      layer_data (hidden_layers, attr_data, selected_layer_data, selected, hover, output) {
+        return hidden_layers.reduce((obj, layer) => {
+          const data = hover.length && hover[0] !== layer ? attr_data[hover[0]][hover[1]] :
+            selected.length ? attr_data[selected[0]][selected[1]] : {};
+
+          obj[layer] = data[layer] || selected_layer_data[layer];
+          return obj;
+        }, {});
+      }
+    },
+
+    helpers: {
+      is(selected, layer, channel) {
+        return selected[0] == layer && selected[1] == channel
+      },
+
+      in_(selected, layer_data) {
+        return layer_data.some((d) => d.c === selected[1]);
+      },
+
+      fmt (num) {
+        return num < 1 ? fmt2r(num) :
+          num < 10 ? fmt3r(num) : fmt1f(num);
+      }
+    },
+
+    components: {Sprite}
+  }
+</script>
