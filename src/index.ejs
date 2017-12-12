@@ -1,5 +1,13 @@
 <!doctype html>
-<script src="template.v2.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://distill.pub/template.v2.js"></script>
+</head>
+
+<body>
+
 <d-front-matter>
   <script type="text/json">{
   "title": "Article Title",
@@ -15,52 +23,12 @@
   ]
   }</script>
 </d-front-matter>
-
-<!-- <style>
-  figure p.heading {
-    margin-bottom: 5px;
-    font-weight: bold;
-    clear: both;
-  }
-
-  figure p.heading code {
-    font-family: monospace;
-    font-size: 80%;
-    font-weight: normal;
-    margin-left: 5px;
-  }
-
-  ul.attribution_list { 
-    flex: 1; 
-    list-style-type: none;
-    padding-left: 0;
-  }
-
-  ul.attribution_list li {
-    position: relative;
-    margin-bottom: 5px;
-    padding-left: 5px;
-    font-size: 90%;
-  }
-
-  ul.attribution_list li.selected { font-weight: bold; }
-
-  ul.attribution_list .scent {
-    position: absolute;
-    left: 0;
-    height: 100%;
-    z-index: -1;
-  }
-</style> -->
-
-
-<!-- Padding because of /d-article hack for Chrome -->
-<d-article style="padding-bottom: 0px;">
   
-  <d-title>
-    <h1>Putting the Pieces of Interpretability Together</h1>
-  </d-title>
+<d-title>
+  <h1>Putting the Pieces of Interpretability Together</h1>
+</d-title>
   
+<d-article>
   <p>
     Over the last couple of years, researchers have developed fundamental building blocks for understanding the inner workings of neural networks.
     We believe that transparency research is now at a point where&mdash;if we bring these building blocks together in the right way&mdash;we can provide meaningful interfaces into how neural networks come to the decisions they do.
@@ -70,7 +38,7 @@
   <p>  
     In particular, significant progress has been made on feature visualization, which gives us examples of what neurons are looking for, and attribution, which tells us how neurons affect the outputs. These two techniques can be very powerful when combined.
   </p>
--->
+  -->
 
   
   <h2>Feature Visualization makes Activations Meaningful</h2>
@@ -97,23 +65,16 @@
     network.
   </p>
 
-</d-article>
-
   <figure id="AllActivationGrids" style="overflow: hidden; margin-left: 100px;"></figure>
 
-<!-- Padding because of /d-article hack for Chrome -->
-<d-article style="padding-bottom: 0px;">
   <p>
     One weakness of this visualization is that it doesn't really show the magnitude of the activations. 
     It shows us what was detected at each position, but not how strongly it was detected.
     To better show magnitudes, let's size the visualizations by the magnitude of the activation vectors:
   </p>
-</d-article>
 
   <figure id="AllActivationGridsMagnitude" style="overflow: hidden; margin-left: 100px;"></figure>
 
-<!-- Padding because of /d-article hack for Chrome -->
-<d-article style="padding-bottom: 0px;">
   <!--
   <p>
     We can also get more a less noisy "overview" of the activations vectors for
@@ -173,10 +134,8 @@
 
   <!-- Cite Grad-CAM work. -->
 
-</d-article>
   <figure id="AttributionSpatial" style="overflow: hidden; margin-left: 100px; margin-right: 25px;"></figure>
 
-<d-article>
   <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
 
   <p>An alternate slicing of the cube might instead prioritize these channels over spatial locations.</p>
@@ -289,5 +248,11 @@
   <h3>Author Contributions</h3>
   <p>
   </p>
-  <d-bibliography src="bibliography.bib"></d-bibliography>
+
+  <d-footnote-list></d-footnote-list>
+  <d-citation-list></d-citation-list>
 </d-appendix>
+
+<!-- <d-bibliography src="bibliography.bib"></d-bibliography> -->
+
+</body>

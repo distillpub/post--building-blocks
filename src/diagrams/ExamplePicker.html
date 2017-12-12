@@ -1,7 +1,6 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY='scrollY'/>
 
-<div ref:picker id="example-picker" style="--left: {{left}}px;" 
-  class="{{scrollY >= 1000 ? 'three' : scrollY >= 600 ? 'two' : 'one'}}">
+<div ref:picker id="example-picker" class="{{div_class}}" style="--left: {{left}}px;">
   
   <img src="examples/input_images/{{selected}}.png" alt="{{selected}}" class="selected" />
 
@@ -39,7 +38,7 @@
 
   .one {
     position: absolute;
-    top: 0;
+    top: 25px;
     height: 525px;
     width: 50px;
     margin-left: -90px;
@@ -88,9 +87,18 @@
     },
 
     computed: {
-      left: (winWidth) => {
+      left (winWidth) {
         const picker = document.querySelector('#example-picker');
         return picker && picker.parentNode.getBoundingClientRect().left;
+      },
+
+      div_class (scrollY) {
+        const img = document.querySelector('#NeuronVis .image-container');
+        if (!img) return 'one';
+
+        const bb = img.getBoundingClientRect();
+        return bb.top <= -bb.height ? 'three' :
+          bb.top <= 20 ? 'two' : 'one';
       }
     }
   }
