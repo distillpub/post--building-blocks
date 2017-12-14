@@ -1,185 +1,164 @@
-<div class="act-expl" style="--img-size: {{sizes.img}}px; --ptr-size: {{sizes.ptr}}px;">
-  <div class="image-container">
-    <img src="examples/input_images/{{example}}.png" />
-  </div>
+<div class="input_image">
+  <img src="examples/input_images/{{example}}.png" alt="{{example}}" />
 
-  <svg class="pointer-container" viewBox="0 0 {{sizes.ptr/sizes.img*N[0]}} {{N[1]}}">
-    <filter id="background-rect-blur">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
-    </filter>
+    <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
+      <filter id="background_rect_blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
+      </filter>
 
-    {{#each range(N[0]) as x}}
-    {{#each range(N[1]) as y}}
-      <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
-        class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}></rect>
+      {{#each range(N[0]) as x}}
+      {{#each range(N[1]) as y}}
+        <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
+          class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}></rect>
 
-      <rect x={{x}} y={{y}} width=1 height=1
-        class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
-        on:mouseover='set({pos: [x,y]})'></rect>
-    {{/each}}
-    {{/each}}
+        <rect x={{x}} y={{y}} width=1 height=1
+          class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
+          on:mouseover='set({pos: [x,y]})'></rect>
+      {{/each}}
+      {{/each}}
 
-    <path d="{{pointer_line_path}}" class="pointer-line-background"   />
-    <path d="{{pointer_line_path}}" class="pointer-line"  />
-  </svg>
-
-  <div class="explain-container">
-    <p id="vector-expl">
-      We usually think of activations as abstract vectors:
-    </p>
-
-    <p id="abstract-vector">a<sub>{{pos[1]}},{{pos[0]}}</sub> = {{present_vector_str}}</p>
-
-    <p>
-      Unfortunately, this abstract representation renders activations an inscrutable cube of numbers and has led to concerns that neural networks are a black box.
-    </p>
-
-    <p>
-      Our first building block offers a promising way forward. Feature visualization makes activations meaningful by showing us <em>what</em> each neuron is looking for:
-    </p>
-  </div>
+      <path d="{{pointer_line_path}}" class="pointer_line_background"   />
+      <path d="{{pointer_line_path}}" class="pointer_line"  />
+    </svg>
 </div>
 
-<div class="top-neurons">
-  <div class="neurons-sum">
-    {{#each tops as top}}
-    <div class="neuron">
-      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
-      <div class="spacer"></div>
-      <span>{{(top[1]+'').slice(0,4)}} </span>
-      <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="110" sprite_size="110" />
+<div class="prose">
+  <p>
+    Making sense of these activations is hard because we usually think of them as abstract vectors:
+  </p>
+  
+  <p id="abstract_vector">a<sub>{{pos[1]}},{{pos[0]}}</sub> = {{present_vector_str}}</p>
+  
+  <p>
+    With feature visualization, however, we can transform this abstract vector into a more meaningful "semantic dictionary".
+    Activations now map to interpretable iconic representations that we can explicitly address&mdash;for example "floppy ear," "dog snout," or "fluffy fur."
+  </p>
+</div>
+
+<div class="semantic_dict">
+  <span>{</span>
+  
+  {{#each tops as top}}
+    <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="75" sprite_size="110" />
+
+    <span class="colon">:</span>
+
+    <div class="value">
+      <span style="bottom: {{top[1]/max_act*75}}px;">{{(top[1]+'').slice(0,4)}}</span>
+      <div class="bar" style="height: {{top[1]/max_act*75}}px;"></div>
     </div>
 
-    <p class="annotation"> + </p>
-    {{/each}}
-
-    <p class="annotation">...</p>
-  </div>
-
-  <svg width="100" height="300">
-    <defs>
-      <marker id="arrowhead" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#999" />
-      </marker>
-    </defs>
-    <path d="M35,83 C97,101 72,206 10,210" marker-end="url(#arrowhead)" stroke="#999" fill="transparent" stroke-width="2" />
-  </svg>
+    <span class="comma">,</span>
+  {{/each}}
+  
+  <span> ... }</span>
 </div>
 
 <style>
-.act-expl {
+
+.input_image {
   position: relative;
-  width: 100%;
-  height: var(--img-size);
+  float: left;
+  width: 244px;
+  height: 244px;
+  margin: 0 20px 10px 0;
 }
 
-.image-container, .pointer-container, .explain-container { 
+.input_image img, .input_image svg {
   position: absolute;
-  height: var(--img-size);
+  width: 100%;
+  height: 100%;
 }
 
-.image-container {
-  width: var(--img-size);
-}
-
-.pointer-container {
-  width: var(--ptr-size);
-}
-
-.explain-container{
-  top: -8px;
-  left: calc(var(--ptr-size) - 20px);
-  right: 0;
-}
-
-#vector-expl { margin-bottom: 0; }
-
-.pointer-container rect {
+.pointer_container rect {
   opacity: 0;
 }
-.pointer-container .selected {
+
+.pointer_container .selected {
   opacity: 1;
   fill: white;
   fill: rgba(255, 255, 255, 0.5);
   stroke: black;
   stroke-width: 0.01px;
 }
-.pointer-container .background{
+
+.pointer_container .background{
   opacity: 0.8;
   fill: none;
   stroke: white;
   stroke-width: 0.03px;
-  filter: url(#background-rect-blur);
+  filter: url(#background_rect_blur);
 }
-.pointer-container .pointer-line-background {
+
+.pointer_container .pointer_line_background {
   opacity: 1;
   stroke: white;
   stroke-width: 0.04px;
-  filter: url(#background-rect-blur);
+  filter: url(#background_rect_blur);
   fill: none;
 }
-.pointer-container .pointer-line {
+
+.pointer_container .pointer_line {
   opacity: 1;
   fill: none;
   stroke: black;
   stroke-width: 0.02px;
 }
 
-#abstract-vector {
+#abstract_vector {
   display: inline-block;
+  padding: 10px;
+  background-color: hsl(0, 0%, 97%);
+  border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+  width: calc(100% - 284px);
+  overflow: hidden;
   white-space: nowrap;
-  margin: 10px;
-  margin-left: 0px;
-  font-family: monospace;
-}
-
-.top-neurons { 
-  position: relative; 
-  width: calc(100% + 70px);
-}
-  
-.neurons-sum {
-  display: flex;
-  align-items: center;
-  color: #666;
-}
-
-.neuron {
-  width: 110px; 
-  margin-right: 10px;
-}
-
-.annotation {
-  margin-top: 40px;
-  margin-right: 10px;
-}
-
-.spacer {
-  display: inline-block;
-  background: #fff;
-  width: 1px;
-  height: 40px;
-}
-
-.bar {
-  display: inline-block; 
-  background-color: #999; 
-  width: 20px;  
-  margin-right: 2px; 
-  margin-bottom: -2px;
-}
-
-span {
-  font-size: 90%;
-}
-
-.top-neurons svg {
-  position: absolute;
-  top: 0;
-  right: 0;
+  text-overflow: ellipsis;
 }
 
 sub { font-size: 65%; }
+
+.semantic_dict {
+  display: flex;
+  width: 8100px;
+  margin-top: 30px;
+  align-items: center;
+  font-size: 2em;
+  color: #999;
+}
+
+.semantic_dict .value {
+  display: flex;
+  position: relative;
+  width: 25px;
+  height: 75px;
+  align-self: flex-end;
+  font-size: 40%;
+  color: #000;
+}
+
+.semantic_dict .value span { position: absolute; }
+
+.semantic_dict .bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+}
+
+.semantic_dict span:first-child {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.semantic_dict span.colon { padding: 5px; }
+
+.semantic_dict span.comma {
+  padding-left: 5px;
+  padding-right: 15px;
+}
 </style>
 
 <script>
@@ -194,11 +173,7 @@ sub { font-size: 65%; }
         N: [14, 14],
         pos: [2,3],
         example: INIT_EXAMPLE,
-        max_act: undefined,
-        sizes: {
-          img: examples.input_size,
-          ptr: 300
-        }
+        max_act: undefined
       };
     },
     computed: {

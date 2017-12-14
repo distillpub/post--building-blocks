@@ -40,33 +40,36 @@
 
 <d-article>
   <p>
-    User interfaces to interpret the internals of a neural network must allow us to answer the following questions:
+    Over the last couple of years, researchers have developed a variety of techniques for understanding the inner workings of neural networks. In this article, we describe how these techniques can serve as fundamental building blocks for new, more <strong>meaningful</strong> interfaces for interpretability.
   </p>
-
-  <ol>
-    <li><strong>What</strong> does the network detect?</li>
-    <li><strong>Why</strong> does this understanding occur?</li>
-    <li><strong>How</strong> does the network develop it?</li>
-  </ol>
-  
-  <p>
-    Over the last couple of years, machine learning researchers have developed a variety of techniques to answer these questions. In this article, we demonstrate how these techniques serve as the fundamental building blocks for new user interfaces for interpretability. By bringing together these building blocks in the right way, such interfaces can help shed more
-    <strong>meaningful</strong> light into how neural networks arrive at the decisions they do.
-  </p>
-
-  <h2>Feature Visualization: The What</h2>
 
   <p>
-    In computer vision, we use neural networks that run the same detectors at every position in an image. One way we can represent the overall understanding a neural network develops is as a three-dimensional cube. Each cell of this cube is an <em>activation</em>, or the amount a neuron fires. The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
+    We focus our attention on a network's hidden layers, showing how feature visualization can transform these abstract vector spaces into semantically-meaningful dictionaries. In doing so, we identify three goals for effective user interfaces for interpretability: showing <strong>what</strong> the network detects, explaining <strong>relationships between</strong> parts of the network, and finally making things <strong>human-scale</strong>.
   </p>
 
-  <figure id="CubeDiagram" class="l-body"></figure>
- 
- <br>
+  <h2>Making Sense of Hidden Layers</h2>
 
-  <figure id="ExamplePicker" class="l-body" style="margin-bottom: 0px;"></figure>
+  <p>
+    Existing interpretability techniques are primarily concerned with a neural network's input and output layers. Arguably, this focus is due to these layers having clear meaning: in computer vision, the input layer represents values for the red, green, and blue color channels for every pixel in the input image, while the output layer consists of class labels and their associated probabilities.
+  </p>
+
+  <p>
+    However, the power of neural networks lie in their hidden layers&mdash;at every layer, the network discovers a new representation of the input. In computer vision, we use neural networks that run the same feature detectors at every position in the image. We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires. The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
+  </p>
+
+  <figure id="ActivationCube" class="l-body"></figure>
+
+  <figure id="ExamplePicker" class="l-body" style="margin: 0px;"></figure>
 
   <figure id="NeuronVis"></figure>
+
+  <p>
+    By bringing meaning to the hidden layers, 
+  </p>
+
+  <h2>What Does the Network See?</h2>
+
+  Stop Reading Here!
   
   <figure id="ActivationVis" class="l-body"></figure>
 

@@ -1,9 +1,14 @@
+import ActivationCube from './diagrams/ActivationCube.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
 import NeuronVis from './diagrams/NeuronVis.html';
 import ActivationVis from './diagrams/ActivationVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
+
+const actCube = new ActivationCube({
+  target: document.getElementById('ActivationCube')
+});
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
