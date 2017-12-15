@@ -40,27 +40,11 @@ const attrChannel = new AttributionChannel({
 });
 
 // Wire components together.
-exPick.observe('selected', (example) => {
-  semanticDict.set({example});
-  actVis.set({example});
-  actGrid.set({example});
-  actGridMag.set({example});
-  attrSpatial.set({example});
-  attrChannel.set({example});
-});
+exPick.observe('selected', (example) => [semanticDict, actVis, actGrid, actGridMag,
+  attrSpatial, attrChannel].forEach((diagram) => diagram.set({example})));
 
-SemanticDict.observe('pos', (pos) => {
-  actVis.set({pos});
-});
+semanticDict.observe('pos', (pos) => actVis.set({pos}));
+actVis.observe('pos', (pos) => semanticDict.set({pos}));
 
-SemanticDict.observe('present_vector', (present_vector) => {
-  actVis.set({present_vector});
-});
-
-actGrid.observe('pos_hover', (pos_hover) => {
-  actGridMag.set({pos_hover});
-});
-
-actGridMag.observe('pos_hover', (pos_hover) => {
-  actGrid.set({pos_hover});
-});
+actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
+actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));
