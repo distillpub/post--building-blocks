@@ -1,0 +1,154 @@
+<div class="input_image">
+  <img src="examples/input_images/{{example}}.png" alt="{{example}}" />
+
+  <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
+    <filter id="background_rect_blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
+    </filter>
+
+      {{#each range(N[0]) as x}}
+      {{#each range(N[1]) as y}}
+        <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
+          class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}></rect>
+
+        <rect x={{x}} y={{y}} width=1 height=1
+          class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
+          on:mouseover='set({pos: [x,y]})'></rect>
+      {{/each}}
+      {{/each}}
+  </svg>
+</div>
+
+<p>
+  Semantic dictionaries give us the most fine-grained look at an activation: what does each single neuron detect? Building
+  off this representation, we can also consider an activation vector as a whole. Instead of creating inputs that maximize
+  individual
+  <code>(x, y, z)</code> cells in our cube of activations, we can instead visualize the
+  <em>combination</em> of neurons that fire at a given
+  <code>(x, y)</code> position to better understand what they mean all together.
+</p>
+
+<div class="semantic_dict">
+  <div class="neuron">
+    <div class="spacer"></div>
+    <Sprite bg_img="examples/activations/{{example}}/mixed4d.jpeg" size="75" sprite_size="46" x={{pos[0]}} y={{pos[1]}}></Sprite>
+  </div>
+
+  <span class="annotation">=</span>
+
+  {{#each tops as top}}
+    <div class="neuron">
+      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+      <div class="spacer"></div>
+      <span>{{(top[1]+'').slice(0,4)}}</span>
+      <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="75" sprite_size="110" />
+    </div>
+
+    <span class="annotation">+</span>
+  {{/each}}
+
+  <span class="annotation">...</span>
+</div>
+
+
+<style>    
+  .input_image {
+    position: relative;
+    float: right;
+    width: 244px;
+    height: 244px;
+    margin: 0 0 10px 20px;
+  }
+
+  .input_image img, .input_image svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pointer_container rect {
+    opacity: 0;
+  }
+
+  .pointer_container .selected {
+    opacity: 1;
+    fill: white;
+    fill: rgba(255, 255, 255, 0.5);
+    stroke: black;
+    stroke-width: 0.01px;
+  }
+
+  .pointer_container .background{
+    opacity: 0.8;
+    fill: none;
+    stroke: white;
+    stroke-width: 0.03px;
+    filter: url(#background_rect_blur);
+  }
+
+  .semantic_dict {
+    display: flex;
+    align-items: center;
+    color: #999;
+  }
+
+  .neuron {
+    width: 75px; 
+    height: 115px;
+  }
+
+  .spacer {
+    display: inline-block;
+    background: #fff;
+    width: 1px;
+    height: 40px;
+  }
+
+  .bar {
+    display: inline-block; 
+    background-color: #ccc; 
+    width: 20px;  
+    margin-right: 2px; 
+    margin-bottom: -2px;
+  }
+
+  span {
+    font-size: 90%;
+  }
+
+  span.annotation {
+    padding: 45px 10px 0 10px;  
+    font-size: 2em;
+  }
+</style>
+
+<script>
+  import { argmax } from 'ndarray-ops';
+  import Sprite from './Sprite.html'
+  import { INIT_EXAMPLE, present_vector, range, tops, fmtAct } from '../util';
+
+  export default {
+    data() {
+      return {
+        N: [14, 14],
+        pos: [2, 3],
+        example: INIT_EXAMPLE,
+        max_act: undefined
+      };
+    },
+    computed: {
+      activation(example) {
+        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}/mixed4d.npy`)
+      },
+
+      max_act(activation) {
+        return activation.get(...argmax(activation))
+      },
+
+      present_vector: (pos, activation) => present_vector(pos, activation),
+      tops: (present_vector) => tops(present_vector)
+    },
+    components: {Sprite},
+    helpers: {range, fmtAct},
+  }
+</script>

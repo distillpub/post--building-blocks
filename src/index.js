@@ -1,7 +1,7 @@
 import ActivationCube from './diagrams/ActivationCube.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
-import NeuronVis from './diagrams/NeuronVis.html';
-import ActivationVis from './diagrams/ActivationVis.html';
+import SemanticDict from './diagrams/SemanticDict.html';
+import ActivationVecVis from './diagrams/ActivationVecVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
@@ -14,12 +14,12 @@ const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker')
 });
 
-const neuronVis = new NeuronVis({
-  target: document.getElementById('NeuronVis')
+const semanticDict = new SemanticDict({
+  target: document.getElementById('SemanticDict')
 });
 
-const actVis = new ActivationVis({
-  target: document.getElementById('ActivationVis')
+const actVis = new ActivationVecVis({
+  target: document.getElementById('ActivationVecVis')
 });
 
 const actGrid = new AllActivationGrids({
@@ -41,7 +41,7 @@ const attrChannel = new AttributionChannel({
 
 // Wire components together.
 exPick.observe('selected', (example) => {
-  neuronVis.set({example});
+  semanticDict.set({example});
   actVis.set({example});
   actGrid.set({example});
   actGridMag.set({example});
@@ -49,11 +49,11 @@ exPick.observe('selected', (example) => {
   attrChannel.set({example});
 });
 
-neuronVis.observe('pos', (pos) => {
+SemanticDict.observe('pos', (pos) => {
   actVis.set({pos});
 });
 
-neuronVis.observe('present_vector', (present_vector) => {
+SemanticDict.observe('present_vector', (present_vector) => {
   actVis.set({present_vector});
 });
 

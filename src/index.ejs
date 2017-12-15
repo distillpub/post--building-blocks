@@ -40,38 +40,45 @@
 
 <d-article>
   <p>
-    Over the last couple of years, researchers have developed a variety of techniques for understanding the inner workings of neural networks. In this article, we describe how these techniques can serve as fundamental building blocks for new, more <strong>meaningful</strong> interfaces for interpretability.
+    Over the last couple of years, researchers have developed a variety of techniques for understanding the inner workings of neural networks. 
+    In this article, we describe how these techniques can serve as fundamental building blocks for new, more <strong>meaningful</strong> interfaces for interpretability.
   </p>
 
   <p>
-    We focus our attention on a network's hidden layers, showing how feature visualization can transform these abstract vector spaces into semantically-meaningful dictionaries. In doing so, we identify three goals for effective user interfaces for interpretability: showing <strong>what</strong> the network detects, explaining <strong>relationships between</strong> parts of the network, and finally making things <strong>human-scale</strong>.
+    We focus our attention on a network's hidden layers, showing how feature visualization can transform these abstract vector spaces into semantically-meaningful dictionaries. 
+    In doing so, we identify three goals for effective user interfaces for interpretability: showing <strong>what</strong> the network detects, explaining <strong>relationships between</strong> parts of the network, and finally making things <strong>human-scale</strong>.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
 
   <p>
-    Existing interpretability techniques are primarily concerned with a neural network's input and output layers. Arguably, this focus is due to the clear meaning these layers have: in computer vision, the input layer represents values for the red, green, and blue color channels for every pixel in the input image, while the output layer consists of class labels and their associated probabilities.
+    Existing interpretability techniques are primarily concerned with a neural network's input and output layers. 
+    Arguably, this focus is due to the clear meaning these layers have: in computer vision, the input layer represents values for the red, green, and blue color channels for every pixel in the input image, while the output layer consists of class labels and their associated probabilities.
   </p>
 
   <p>
-    However, the power of neural networks lie in their hidden layers&mdash;at every layer, the network discovers a new representation of the input. In computer vision, we use neural networks that run the same feature detectors at every position in the image. We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires. The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
+    However, the power of neural networks lie in their hidden layers&mdash;at every layer, the network discovers a new representation of the input. 
+    In computer vision, we use neural networks that run the same feature detectors at every position in the image. 
+    We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires. 
+    The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
   </p>
 
   <figure id="ActivationCube" class="l-body"></figure>
 
   <figure id="ExamplePicker" class="l-body" style="margin: 0px;"></figure>
 
-  <figure id="NeuronVis"></figure>
+  <figure id="SemanticDict"></figure>
 
   <p>
-    This transformation makes it more straightforward to apply existing interpretability techniques to hidden layers. More importantly, these techniques need no longer live in isolation. Instead, we are now able to treat them as <em>composable</em> building blocks. By bringing them together&mdash;in the right way&mdash;we can provide new user interfaces that shed more meaningful light into how neural networks come to the decisions they do.
+    This transformation makes it more straightforward to apply existing interpretability techniques to hidden layers. 
+    More importantly, these techniques need no longer live in isolation. 
+    Instead, we are now able to treat them as <em>composable</em> building blocks. 
+    By bringing them together&mdash;in the right way&mdash;we can provide new user interfaces that shed more meaningful light into how neural networks come to the decisions they do.
   </p>
 
   <h2>What Does the Network See?</h2>
-
-  Stop Reading Here!
   
-  <figure id="ActivationVis" class="l-body"></figure>
+  <figure id="ActivationVecVis" class="l-body" style="margin-top: 0;"></figure>
 
   <p>
     Applying this technique to all the activation vectors allows us to not only see what the network detects at each position, but also what the network understands of the input image as a whole.
@@ -81,19 +88,20 @@
   <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 
   <p>
-    These visualizations, however, omit a crucial piece of information: the magnitude of the activations. By sizing each of the cells of the visualization by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
+    These visualizations, however, omit a crucial piece of information: the magnitude of the activations. 
+    By sizing each of the cells of the visualization by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
   </p>
 
   <figure id="AllActivationGridsMagnitude" class="act-grids full-width"></figure>
 
-  <h2>Dimensionality Reduction: The What</h2>
-
   <p>
-    Traditional dimensionality reduction techniques, such as principal component analysis, give us another way to understand what the network is detecting. For instance, to get an "overview" of the activation vectors, we can compute the first three principal components of the activations and color the image based on them. 
+    Traditional dimensionality reduction techniques, such as principal component analysis, give us another way to understand what the network is detecting. 
+    For instance, to get an "overview" of the activation vectors, we can compute the first three principal components of the activations and color the image based on them. 
   </p>
 
   <p>
-    These principle components are also directions in activation space and, thus, have meaning by themselves. Using feature visualization, we can inspect what each of the components represents.
+    These principle components are also directions in activation space and, thus, have meaning by themselves. 
+    Using feature visualization, we can inspect what each of the components represents.
   </p>
 
   <figure class="l-body">
