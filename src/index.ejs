@@ -25,138 +25,211 @@
   "description": "Description of the post",
   "authors": [
     {
-      "author":"Authors",
-      "authorURL": "test",
-      "affiliation":"Google Brain",
-      "affiliationURL":"https://g.co/brain"
+      "author": "Chris Olah",
+      "authorURL": "https://colah.github.io/",
+      "affiliation": "Google Brain",
+      "affiliationURL": "https://g.co/brain"
+    },
+    {
+      "author": "Arvind Satyanarayan",
+      "authorURL": "http://arvindsatya.com",
+      "affiliation": "Google Brain",
+      "affiliationURL": "https://g.co/brain"
+    },
+    {
+      "author": "Ian Johnson",
+      "authorURL": "https://github.com/enjalot",
+      "affiliation": "Google Cloud",
+      "affiliationURL": "http://cloud.google.com/"
+    },
+    {
+      "author": "Ludwig Schubert",
+      "authorURL": "https://schubert.io/",
+      "affiliation": "Google Brain",
+      "affiliationURL": "https://g.co/brain"
+    },
+    {
+      "author": "Katherine Ye",
+      "authorURL": "https://cs.cmu.edu/~kqy/",
+      "affiliation": "Carnegie Mellon University",
+      "affiliationURL": "https://cs.cmu.edu/"
+    },
+    {
+      "author": "Alexander Mordvintsev",
+      "authorURL": "https://znah.net/",
+      "affiliation": "Google Research",
+      "affiliationURL": "https://research.google.com/"
     }
   ]
   }</script>
 </d-front-matter>
-  
+
 <d-title>
-  <h1>Putting the Pieces of Interpretability Together</h1>
+  <h1>Building Blocks for Interpretability Interfaces</h1>
 </d-title>
-  
+
 <d-article>
+  <p><b><i>Author list and order not finalized.</i></b></p>
   <p>
-    Over the last couple of years, researchers have developed fundamental building blocks for understanding the inner workings of neural networks.
-    We believe that transparency research is now at a point where&mdash;if we bring these building blocks together in the right way&mdash;we can provide meaningful interfaces into how neural networks come to the decisions they do.
+    Over the last couple of years, researchers have developed a variety of techniques for understanding the inner workings of neural networks. 
+    In this article, we describe how these techniques can serve as fundamental building blocks for new, more <strong>meaningful</strong> interfaces for interpretability.
   </p>
 
-  <!--
-  <p>  
-    In particular, significant progress has been made on feature visualization, which gives us examples of what neurons are looking for, and attribution, which tells us how neurons affect the outputs. These two techniques can be very powerful when combined.
-  </p>
-  -->
-
-  
-  <h2>Feature Visualization makes Activations Meaningful</h2>
-
-
-
-  <p>In computer vision, we use neural networks that run the same detectors at every position in an image. One way we can represent the overall understanding a neural network develops is as a three-dimensional grid. Each position is the amount a "neuron" fired, the x- and y-axes correspond to positions in the image, and the z-axis is the channel, the detector being run. When people talk about neural networks being a black box, they mean that activations are an inscrutable cube of numbers.</p>
-
-  <figure id="CubeDiagram" class="l-body"></figure>
- 
- <br>
-
-  <figure id="ExamplePicker" class="l-body" style="margin-bottom: 0px;"></figure>
-
-  <figure id="NeuronVis" class="l-body" style="height: 256px;"></figure>
-  
-  <figure id="ActivationVis" class="l-body"></figure>
-
-  
   <p>
-    By applying this technique to the activation vectors at each position,
-    we can see how the network understands the input as a whole
-    -- and how that understanding evolves as we move through the layers of the 
-    network.
+    We focus our attention on a network's hidden layers, showing how feature visualization can transform these abstract vector spaces into semantically-meaningful "dictionaries". 
+    In doing so, we identify three goals for effective user interfaces for interpretability: showing <strong>what</strong> the network detects, explaining <strong>relationships between</strong> parts of the network, and finally making things <strong>human-scale</strong>.
   </p>
+
+  <h2>Making Sense of Hidden Layers</h2>
+
+  <p>
+    Much of the recent work on interpretability is concerned with a neural network's input and output layers. 
+    Arguably, this focus is due to the clear meaning these layers have: in computer vision, the input layer represents values for the red, green, and blue color channels for every pixel in the input image, while the output layer consists of class labels and their associated probabilities.
+  </p>
+
+  <p>
+    However, the power of neural networks lie in their hidden layers&mdash;at every layer, the network discovers a new representation of the input. 
+    In computer vision, we use neural networks that run the same feature detectors at every position in the image. 
+    We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires. 
+    The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
+  </p>
+
+  <figure id="ActivationCube" class="l-body"></figure>
+
+  <figure id="ExamplePicker" class="l-body" style="margin: 0px;"></figure>
+
+  <figure id="SemanticDict"></figure>
+
+  <p>
+    This transformation reifies widespread intuition for what activation vectors really are.
+    This shift naturally makes it straightforward to apply existing interpretability techniques to hidden layers.
+    More importantly, these techniques need no longer live in isolation. 
+    Instead, we are now able to treat them as <em>composable</em> building blocks. 
+    By bringing them together&mdash;in the right way&mdash;we can provide new user interfaces that shed more meaningful light into how neural networks come to the decisions they do.
+  </p>
+
+  <p>
+    As we will see, semantic dictionaries serve as a lingua franca for interpretability. 
+    By definition, semantic dictionaries are the marriage between feature visualization and activations. 
+    Just like the underlying vector, we can apply dimensionality reduction to them.
+    And, just like any input to a neural network, we can perform attribution. 
+    In principle, any of these techniques can be combined without semantic dictionaries; but, they make composition more natural. 
+  </p>
+
+  <!-- <p>
+    This kind of reification is a change in our relationship to a mathematical object.  
+    While some work has explored UIs for interpretability techniques, it looks at these techniques in isolation.
+    We believe this is a mistake because interpretability is about establishing interfaces.
+    
+    Interpretability is seeks to create a way for humans to understand neural networks. There are two parts to this: we need to build the fundamental abstractions that allow humans to reason about these systems, and interfaces for us to be able to interact with the abstractions. In a vacuum, the abstracts are useless. All interpretability work, thus far, has created very primitive interfaces (e.g., saliency maps) but they only put a tiny amount of energy into it. We think this is an extremely neglected area of research. By not going and exploring the interfaces to the abstractions, we are leaving a lot of potential on the table, and we are missing out on insights into our abstractions.
+    
+    The power of abstractions are in the operations you can perform onto them. But until you work with the abstractions,
+
+    These abstractions are typically extremely painful to work with. Or, you can work with them in an extremely limited way that misses out on a lot of their value.
+
+    When interfaces make it easy to push abstractions to their limits, new questions become easier to ask. 
+  </p> -->
+
+  <h2>What Does the Network See?</h2>
+  
+  <figure id="ActivationVecVis" class="l-body" style="margin-top: 0;"></figure>
+
+  <p>
+    Applying this technique to all the activation vectors allows us to not only see what the network detects at each position, but also what the network understands of the input image as a whole.
+    And, by working across layers, we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
+  </p>
+
+  <!-- Include a blown up version of most interesting grid? -->
 
   <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 
   <p>
-    One weakness of this visualization is that it doesn't really show the magnitude of the activations. 
-    It shows us what was detected at each position, but not how strongly it was detected.
-    To better show magnitudes, let's size the visualizations by the magnitude of the activation vectors:
+    These visualizations, however, omit a crucial piece of information: the magnitude of the activations. 
+    By sizing each of the cells of the visualization by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
   </p>
 
   <figure id="AllActivationGridsMagnitude" class="act-grids full-width"></figure>
 
-  <!--
   <p>
-    We can also get more a less noisy "overview" of the activations vectors for
-    an image by computing the first three principal components of the
-    activations and coloring the image base on those. These principal components
-    are directions in activation space, and having meaning by themselves.
+    Traditional dimensionality reduction techniques, such as principal component analysis, give us another way to understand what the network is detecting. 
+    For instance, to get an "overview" of the activation vectors, we can compute the first three principal components of the activations and color the image based on them. 
   </p>
 
+  <p>
+    These principle components are also directions in activation space and, thus, have meaning by themselves. 
+    Using feature visualization, we can inspect what each of the components represents.
+  </p>
 
   <figure class="l-body">
-    <img src="images/activation-pca.png" ></img>
+    <img src="images/activation-pca.png"></img>
   </figure>
 
   <p>
-    In the end, we have three ways of thinking about an activation vector:
-    what it represents as a whole, the principal components, and the individual
-    neurons.
+    In the end, a network's activations can be presented as semantic dictionaries with different bases. 
+    There are three particularly natural ones to consider: what an activation vector represents as a whole, the vector in terms of some dimensionality reduction, and finally the individual neurons themselves.
+    Note, these all (approximately) describe the same object!
   </p>
 
   <figure class="l-page">
     <img src="images/vector-eq-full.png"  style="width:100%"></img>
   </figure>
-  -->
 
-  <!-- <p>These activation grids show us what the network is detecting at each position, but that is only part of the story. To really understand the model, we also want to understand how the relationships between layers affects the output. 
-    
-    
-    To really understand the model, we also want to relationships between layers -- and especially how they affect the output. </p> -->
+  <h2>How Are Concepts Assembled?</h2>
 
-
-  <p>Feature visualization shows us _what_ the network detected at each layer. This is useful for... But, it does not describe the consequences these detections. For example, which features in earlier layers caused us to detect a particular class? Or, how does the thing we detected were assembled? And, most importantly, how are the things we detected affect the final output?</p>
-
-  To answer these questions about relationships between neurons, we will need an additional set of techniques.
+  <p>
+    Feature visualization and dimensionality reduction techniques help answer the first of our three original questions: <em>what</em> does the network detect. However, neither technique allows us to reason about <em>how</em> the network assembled these individual pieces to arrive at later decisions, or <em>why</em> these decisions were made.
   </p>
 
-
-  Feature visualization shows us _what_ the network detected at each layer (for example, "fur,", "floppy ear," and finally "labrador retriever"). However, it does not allow us to reason about _how_ the network assembled these individual pieces to arrive at later decisions, or _why_ these decisions were made. For example, how did "fur" become "floppy ear"? Why did the model decide that "labrador retriever" was more likely than "beagle"? 
+  <p>
+    Attribution is a set of techniques that answers such questions by explaining the relationships between neurons. 
+  </p>
   
-  These questions are really about the relationship between neurons. To answer these questions, we will need to know more than what a neuron represents. We need an additional set of techniques.
+  <h3>Spatial Attribution with Saliency Maps</h3>
 
-
-  <!-- Feature visualization allows us to understand what a node represents/neuron is looking for.  -->
-
-  <h2>Attribution shows how Activations Influence the Output</h2>
-
-  <p>Attribution is a set of techniques for explaining the relationships between neurons. Typically, it is simply used to associate the pixels of the input image to the output classification -- known as a <i>saliency map</i>. If you only look at the input and output, you're missing out on all the rich behavior we saw above in the hidden layers.<d-footnote>
-    It's worth noting that attribution to hidden units like this may be more natural than trying to attribute all the way back
-    to pixels. It isn't entirely clear what attribution to pixels really means. The meaning of a pixel is extremely entangled
-    with other pixels, very far removed from high-level ideas like output class. And neural networks need to be invariant to
-    things like generic brightening of the image.
-
-    <!-- <figure id="InputSaliencyMapComparedToHigherLevel"></figure> -->
-
-  </d-footnote> Each hidden layer offers us the opportunity to ask different and interesting questions. For example, we know we have a "floppy ear" detector, but why is it firing? And how did the network go from input pixels, to low-level "fur" detection, to this higher-level concept of "floppy ears?"</p>
-
-  <p>Applying attribution to hidden layers does not require inventing new techniques! Almost all our existing attribution techniques can be applied to hidden layers, with only minor modifications. </p>
+  <p>
+    Attribution techniques are most commonly used to produce <em>saliency maps</em> that associate pixels of the input image to the output classification. While such maps help us identify which pixels the network deemed most important to the ultimate class, it can be difficult to make sense of this information. The meaning of a pixel is extremely entagled with other pixels, and is far-removed from high-level concepts like the output class.
+  </p>
 
   <!-- Cite Grad-CAM work. -->
+    
+  <p>
+    However, if we treat saliency maps as another user interface building block, we can instead apply them to the hidden layers of a neural network.
+    Applying attribution to spatial activations of hidden layers changes the question we are asking.
+    Rather than asking whether particular pixels being black was important for an image to be classified as "Labrador retriever," we instead ask whether high-level ideas (such as "floppy ear") detected at a position were important instead.
+    This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do, but they interpret their results as a saliency map on the input image.
+  </p> 
 
   <figure id="AttributionSpatial" class="full-width" style="margin-right: 25px;"></figure>
 
-  <p>By applying attribution to the spatial positions of the hidden layer, our figure above is implicitly slicing the cube of activations described earlier, and aggregating over the channels. Aggregating in this way, however, throws away information about whether it was the "floppy ear," "snout," or other detector **at this position** that caused the final "labrador retriever" classification. </p>
+  <p>
+    Layer-to-layer attribution.
+    Layers side-by-side.
+    Saliency map not just of a single class but multiple outputs.
+    Information scent with NMF.
 
-  <p>An alternate slicing of the cube might instead prioritize these channels over spatial locations.</p>
+    No one is thinking of these problems as UI problems.
+  </p>
+
+  <p>
+    By performing attribution in this way, we reason about how the network develops its understanding, and why it does so, using higher-level concepts. For example, how do low-level "fur" detectors combine together to form a higher-level "floppy ear" detector? Was it the "floppy ear," "snout," or "forehead" detectors that increased the model's belief in "labrador retriever" over "beagle"?
+  </p>
+
+  <h3>Channel Attribution</h3>
+
+  <p>
+    Saliency maps implicitly slice our cube of activations: applying attribution to the spatial positions of a hidden layer aggregates over all channels. As a result, we cannot tell which specific detectors ("floppy ear," "snout," etc.) at each position most contributed to the final "labrador retriever" classification.
+  </p>
 
   <figure id="CubeSlicing"></figure>
 
-  <p>One use of this type of slice allows us to perform channel attribution: how much did each detector contribute to the final output?</p>
+  <p>
+    An alternate slicing of the cube might instead prioritize channels of spatial locations. Doing so would allow us to perform channel attribution: how much did each detector contribute to the final output? Such an approach is similar to contemporaneous work by Kim et al.
+    <d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
+  </p>
 
   <figure class="l-page-outset" id="AttributionChannel"></figure>
 
-  <p>And, of course, such attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
+  <p>Of course, these two types attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
 
   <figure id="SpatialChannelAttribution"></figure>
 
@@ -205,6 +278,13 @@
   </p>
 
   <h2>Neuron Groups: (TODO, groups or factors)</h2>
+
+  <p>
+    Recent work has explored other techniques for finding meaningful directions in activation space <d-cite="raghu2017svcca,kim2017tcav"></d-cite>. 
+    While these works primarily focus on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.
+  </p>
+
+  <!-- NIPS Disentagling workshop. -->
 
   <p>
     So far, we have considered two very natural ways of slicing the cube of activations. Unfortunately, we have found them to be lacking. Is it possible to do better?
@@ -263,6 +343,6 @@
   <d-citation-list></d-citation-list>
 </d-appendix>
 
-<!-- <d-bibliography src="bibliography.bib"></d-bibliography> -->
+<d-bibliography src="bibliography.bib"></d-bibliography>
 
 </body>
