@@ -70,25 +70,26 @@
 
 <d-article>
   <p><b><i>Author list and order not finalized.</i></b></p>
+
   <p>
-    Over the last couple of years, researchers have developed a variety of techniques for understanding the inner workings of neural networks. 
-    In this article, we describe how these techniques can serve as fundamental building blocks for new, more <strong>meaningful</strong> interfaces for interpretability.
+    The process of designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying them. 
+    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization, attribution, and dimensionality reduction. 
+    However, it appears to us that the corresponding work of reifying these abstractions has been neglected. 
+    This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table. 
+    Worse, these interfaces hinder the development of our abstractions by not pushing them to their limits.
   </p>
 
   <p>
-    We focus our attention on a network's hidden layers, showing how feature visualization can transform these abstract vector spaces into semantically-meaningful "dictionaries". 
-    In doing so, we identify three goals for effective user interfaces for interpretability: showing <strong>what</strong> the network detects, explaining <strong>relationships between</strong> parts of the network, and finally making things <strong>human-scale</strong>.
+    In this article, we consider interpretability through the lens of user interface design: iterating between reifying abstractions and pushing them further. 
+    This process has allowed us to identify relatively basic operations with a lot of potential.
+    For instance, feature visualization naturally combines with a network's activations to create a "semantic dictionary" that makes hidden activations meaningful. 
+    Moreover, we find that existing techniques can be applied in more general ways. 
+    Attribution, for example, can be layered over semantic dictionaries to understand how concepts evolve through the network's hidden layers. 
   </p>
-  
+
   <p>
-    More broadly, we try to take interpretability techniques <strong>seriously as interfaces</strong>.
-    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>,
-    existing work on interpretability has built abstractions for reasoning about the behavior of neural networks,
-    but not really pushed beyond basic interfaces for those abstractions (eg. saliency maps).
-    We think this is an extremely neglected area of research.
-    Building abstractions is only half the work of designing interfaces.
-    By not going and exploring the interfaces to the abstractions, we are leaving a lot of potential on the table.
-    We're also missing out on the opportunities to improve abstractions that come when we have interfaces that can push them to their limits.
+    With this lens, existing techniques now become fundamental and composable building blocks for a new generation of more meaningful user interfaces for interpretability. 
+    We believe these interfaces should address three goals: showing <b>what</b> the network detects, explaining <b>how</b> the network developed its understanding, and finally making things <b>human-scale</b>.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -114,9 +115,9 @@
   <p>
     This marriage of activations and feature visualizations <i>reifies</i> widespread intuition for what activation vectors really are.
     It's always been suspected -- and increasingly shown -- that neurons are detecting important natural concepts.
-    Semantic dictionaries take this from a hazy intuition to an actual way of interacting with neuron activations
+    Semantic dictionaries take this from a hazy intuition to an actual way of interacting with neuron activations.
     Reifying ideas like this is a deep kind of user interface work,
-    causing the interface to embody a powerful way of thinking about or interacting with any idea <d-cite key="nielsen2016thought"></d-cite>.
+    causing the interface to embody a powerful way of thinking about or interacting with an idea <d-cite key="nielsen2016thought"></d-cite>.
   </p>
 
   <p>
@@ -124,7 +125,7 @@
     By definition, semantic dictionaries combine feature visualization and activations. 
     Just like the underlying vector, we can apply dimensionality reduction to them.
     And, just like any input to a neural network, we can perform attribution. 
-    In principle, any of these techniques can be combined without semantic dictionaries.
+    In principle, these techniques could be combined without semantic dictionaries.
     But the semantic dictionary framing naturally makes them into <em>composable</em> building blocks.
   </p>
 
