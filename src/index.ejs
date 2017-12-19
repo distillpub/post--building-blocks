@@ -101,20 +101,22 @@
   <figure id="SemanticDict"></figure>
 
   <p>
-    This transformation reifies widespread intuition for what activation vectors really are.
-    This shift naturally makes it straightforward to apply existing interpretability techniques to hidden layers.
-    More importantly, these techniques need no longer live in isolation. 
-    Instead, we are now able to treat them as <em>composable</em> building blocks. 
-    By bringing them together&mdash;in the right way&mdash;we can provide new user interfaces that shed more meaningful light into how neural networks come to the decisions they do.
+    This transformation <i>reifies</i> widespread intuition for what activation vectors really are.
+    It's always been suspected -- and increasingly shown -- that neurons are detecting important natural concepts.
+    Semantic dictionaries take this from a hazy intuition to an actual way of interacting with neuron activations
+    Reifying ideas like this is a deep kind of user interface work,
+    causing the interface to embody a powerful way of thinking about or interacting with any idea <d-cite key="nielsen2016thought"></d-cite>.
   </p>
 
   <p>
-    As we will see, semantic dictionaries serve as a lingua franca for interpretability. 
+    Beyond this, semantic dictionaries serve as a lingua franca for interpretability.
     By definition, semantic dictionaries are the marriage between feature visualization and activations. 
     Just like the underlying vector, we can apply dimensionality reduction to them.
     And, just like any input to a neural network, we can perform attribution. 
-    In principle, any of these techniques can be combined without semantic dictionaries; but, they make composition more natural. 
+    In principle, any of these techniques can be combined without semantic dictionaries.
+    But the semantic dictionary framing naturally makes them into <em>composable</em> building blocks.
   </p>
+
 
   <!-- <p>
     This kind of reification is a change in our relationship to a mathematical object.  
