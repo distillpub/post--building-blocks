@@ -109,13 +109,11 @@
   .channel_attribution {
     display: flex;
     margin-top: 20px;
-    --selected-color: #ddd;
-    --selected-color-dark: #aaa;
+    --selected-color: #d1e5f0;
   }
 
   .layer {
-    width: 130px;
-    padding: 0 10px;
+    padding: 0 5px;
     border-right: 1px solid #e9e9e9;
   }
 
@@ -135,7 +133,7 @@
     position: relative;
     border: 1px solid #fff;
     border-radius: 7px;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
   }
 
@@ -146,18 +144,19 @@
     margin-top: 5px;
   }
 
-
-  .supporting_layer, .selected_layer { border-right-color: #bfbfbf; }
-  .selected_channel { border-color: #bfbfbf; }
+  .supporting_layer, .selected_layer { border-right-color: #ccc; }
+  .selected_channel { border-color: #ccc; }
   .supporting_layer .channel { border-color: var(--selected-color); }
-  .hovered_channel, .supporting_layer .hovered_channel { border-color: var(--selected-color-dark); }
-  .selected_channel, .supporting_layer { background-color: var(--selected-color); }
-  .supporting_layer .bar { background-color: var(--selected-color-dark); }
+  .hovered_channel, .selected_channel, .supporting_layer { background-color: var(--selected-color); }
+  .hovered_channel .bar, .selected_channel .bar, .supporting_layer .bar { background-color: #b0b0b0; }
+  .supporting_layer .hovered_channel { background-color: #92c5de; }
+  .supporting_layer .hovered_channel .bar { background-color: #999; }
   .selected_layer .bar { background-color: transparent; }
   .selected_channel .bar { display: none; }
   .selected_layer_channel { opacity: 0.3; }
 
   .layer_mixed3b .selected_channel {
+    margin-right: -6px;
     padding-right: 21px;
     border-right-color: var(--selected-color);
     border-radius: 0;
@@ -166,7 +165,8 @@
   .layer_mixed4a .selected_channel, 
   .layer_mixed4b .selected_channel, 
   .layer_mixed4c .selected_channel {
-    margin-left: -11px;
+    margin-left: -6px;
+    margin-right: -6px;
     padding-left: 21px;
     padding-right: 21px;
     border-left-color: var(--selected-color);
@@ -175,7 +175,7 @@
   }
 
   .layer_mixed4d .selected_channel {
-    margin-left: -11px;
+    margin-left: -6px;
     padding-left: 21px;
     border-left-color: var(--selected-color);
     border-radius: 0;
@@ -206,8 +206,8 @@
 
   .toggle {
     position: absolute;
-    top: -7px;
-    right: 12px;
+    top: -6px;
+    right: 15px;
     font-weight: bold;
   }
 
@@ -222,6 +222,8 @@
     position: absolute; 
     visibility: hidden;
   }
+
+  .toggle:hover { color: #ff6600;}
 
   .hovered_channel .toggle .expand { visibility: visible; }
   /* .hovered_channel .toggle:hover .expand { visibility: hidden; } */
