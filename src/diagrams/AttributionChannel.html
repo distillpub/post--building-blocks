@@ -1,66 +1,184 @@
-<div class="channel-attribution">
-  {{#each hidden_layers as layer}}
-    <div class="layer">
-      <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
-       {{#each layer_data[layer].slice(0, 5) as d, i}}
-        <div class="channel" title="Layer {{layer}}, Unit {{d.c}}" 
-          on:mouseover="set({hover: [layer, d.c, i]})"
-          on:click="set({
-            selected: is(selected, layer, d.c) ? [] : [layer, d.c, i],
-            selected_layer_data: is(selected, layer, d.c) ? attr_data.output['0'] : layer_data
-          })"
-          style="background-color: {{is(hover, layer, d.c) ? '#e6e6e6' : '#fff'}};
-            opacity: {{hover[0] == layer && hover[1] !== d.c ? 0.3 : 1}};
-            border-color: {{is(selected, layer, d.c) || i == 4 && selected[0] == layer && !in_(selected, layer_data[layer]) ? '#999' : '#fff'}};">
-
-          {{#if i == 3 && selected[0] == layer && !in_(selected, layer_data[layer])}}
-            <div class="spacer">...</div>
-            <div class="bar" style="background-color: #fff;"></div>
-          {{elseif i == 4 && selected[0] == layer && !in_(selected, layer_data[layer])}} 
-            <Sprite src_class="sprite_{{layer}}_channel" n={{selected[1]}} size="110" sprite_size="110" />
-            <div class="bar" style="width: {{selected_layer_data[hover[0]][selected[2]].nv * 110}}px;
-                background-color: {{is(hover, layer, selected[1]) ? '#999' : '#ccc'}};"></div>
-          {{else}}
-            <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
-            <div class="bar" style="width: {{d.nv * 110}}px;
-              background-color: {{is(hover, layer, d.c) ? '#999' : '#ccc'}};"></div>
-          {{/if}}
-        </div>
-      {{/each}}
+<div class="legend">
+  <div>
+    <p class="heading">Input Image</p>
+    
+    <div class="input_image">
+      <img src="examples/input_images/{{example}}.png" /> 
+      
+      {{#if hover.length}}
+        <Sprite src_class="sprite_{{hover[0]}}_activations" 
+          bg_img="examples/activations/{{example}}/sprite_{{hover[0]}}_activations.png"
+          n={{hover[1]}} sprite_size={{all_layers[hover[0]][0]}} size="150" /> 
+      {{/if}}
     </div>
-  {{/each}}
+  </div>
+
+  <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+    <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
+    {{#each hover_data.l.slice(0, 5) as attr, i}}
+    <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+      <span>{{labels[attr.c]}}</span>
+      <div class="scent">
+        <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
 </div>
 
+{{#if selected === 'output'}}
+  <div class="side_labels" style="grid-column: kicker; text-align: right;">
+    <p>
+      <b>&uarr;</b><br />
+      Supporting<br />
+      <i>{{labels[attr_data.output_classes[0]]}}</i>
+    </p>
+
+    <p class="bottom_label">
+      Supporting<br />
+      <i>{{labels[attr_data.output_classes[1]]}}</i><br />
+      <b>&darr;</b>
+    </p>
+  </div>
+{{/if}}
+
+<div style="grid-column: text;">
+  <div class="channel_attribution">
+    {{#each hidden_layers as layer}}
+    <div class="
+      {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
+      {{selected[0] === layer ? 'selected_layer' : ''}} 
+      layer_{{layer}} layer" 
+      on:mouseout="set({hover: []})">
+
+      <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
+
+      {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 5) as d, i}} {{#if d.c}}
+      <div title="Layer {{layer}}, Unit {{d.c}}" on:mouseover="set({hover: [layer, d.c, i]})" on:click="setSelected(layer, d.c)"
+        class="
+                {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
+                {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
+                {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
+                channel
+              ">
+        <div class="toggle">
+          <span class="expand">+</span>
+          <span class="contract">-</span>
+        </div>
+
+        <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
+        <div class="bar" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 110}}px;"></div>
+
+        {{#if selected[0] === layer && selected[1] === d.c}}
+          {{#if layer !== 'mixed3b'}}<p class="supported_by">&larr; Supported By</p>{{/if}}
+          {{#if layer !== 'mixed4d'}}<p class="supports">Supports &rarr;</p>{{/if}}
+        {{/if}}
+        <!-- {{d.v}} {{max_attr(selected_data[layer])}} -->
+      </div>
+      {{else}}
+      <div class="channel" style="opacity: {{selected[0] === layer && selected[1] !== d.c ? 0.3 : 1}};">
+        <div class="spacer">...</div>
+        <div class="bar" style="background-color: #fff;"></div>
+      </div>
+      {{/if}} {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+{{#if selected === 'output'}}
+<div class="side_labels" style="grid-column: gutter; margin-left: 30px;">
+  <p>
+    <b>&uarr;</b>
+    <br /> Supporting
+    <br />
+    <i>{{labels[attr_data.output_classes[0]]}}</i>
+  </p>
+  
+  <p class="bottom_label">
+    Supporting
+    <br />
+    <i>{{labels[attr_data.output_classes[1]]}}</i>
+    <br />
+    <b>&darr;</b>
+  </p>
+</div>
+{{/if}}
+
 <style>
-  .channel-attribution {
+  .channel_attribution {
     display: flex;
+    margin-top: 20px;
+    --selected-color: #ddd;
+    --selected-color-dark: #aaa;
   }
 
   .layer {
     width: 130px;
     padding: 0 10px;
-    border-right: 1px solid #f0f0f0;
+    border-right: 1px solid #e9e9e9;
   }
 
+  .layer:first-child { padding-left: 0; }
   .layer:last-child { border-right: 0; }
 
-  .heading {
+  .heading, .attribution_list li:first-child {
+    font-size: 90%;
     font-weight: bold;
-    text-align: center;
     margin-bottom: 10px;
   }
 
+  .layer .heading { text-align: center; }
+
   .channel {
     display: inline-block;
+    position: relative;
     border: 1px solid #fff;
     border-radius: 7px;
     padding: 10px;
+    cursor: pointer;
   }
 
   .bar {
+    display: flex;
     background-color: #ccc; 
     height: 10px;  
     margin-top: 5px;
+  }
+
+
+  .supporting_layer, .selected_layer { border-right-color: #bfbfbf; }
+  .selected_channel { border-color: #bfbfbf; }
+  .supporting_layer .channel { border-color: var(--selected-color); }
+  .hovered_channel, .supporting_layer .hovered_channel { border-color: var(--selected-color-dark); }
+  .selected_channel, .supporting_layer { background-color: var(--selected-color); }
+  .supporting_layer .bar { background-color: var(--selected-color-dark); }
+  .selected_layer .bar { background-color: transparent; }
+  .selected_channel .bar { display: none; }
+  .selected_layer_channel { opacity: 0.3; }
+
+  .layer_mixed3b .selected_channel {
+    padding-right: 21px;
+    border-right-color: var(--selected-color);
+    border-radius: 0;
+  }
+
+  .layer_mixed4a .selected_channel, 
+  .layer_mixed4b .selected_channel, 
+  .layer_mixed4c .selected_channel {
+    margin-left: -11px;
+    padding-left: 21px;
+    padding-right: 21px;
+    border-left-color: var(--selected-color);
+    border-right-color: var(--selected-color);
+    border-radius: 0;
+  }
+
+  .layer_mixed4d .selected_channel {
+    margin-left: -11px;
+    padding-left: 21px;
+    border-left-color: var(--selected-color);
+    border-radius: 0;
   }
 
   .spacer {
@@ -68,26 +186,116 @@
     align-items: center;
     justify-content: center;
     width: 110px;
-    height: 110px;
+    height: 118px;  /* Huh? */
   }
 
-  /* .channel .outer { display: inline-block; } */
+  .layer .supported_by {
+    margin: 0 0 -10px -22px;
+    font-size: 80%;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .supports {
+    margin: 0 -20px -10px 0;
+    font-size: 80%;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  .toggle {
+    position: absolute;
+    top: -7px;
+    right: 12px;
+    font-weight: bold;
+  }
+
+  .layer_mixed3b .selected_channel .toggle,
+  .layer_mixed4a .selected_channel .toggle,
+  .layer_mixed4b .selected_channel .toggle,
+  .layer_mixed4c .selected_channel .toggle {
+    right: 22px;
+  }
+
+  .toggle span { 
+    position: absolute; 
+    visibility: hidden;
+  }
+
+  .hovered_channel .toggle .expand { visibility: visible; }
+  /* .hovered_channel .toggle:hover .expand { visibility: hidden; } */
+  /* .hovered_channel .toggle:hover .contract { visibility: visible; } */
+
+  .selected_channel .toggle .contract { visibility: visible; }
+  .selected_channel .toggle .expand { visibility: hidden; }
+  /* .selected_channel .toggle:hover .contract { visibility: hidden; } */
+  /* .selected_channel .toggle:hover .expand { visibility: visible; } */
+
+  .legend {
+    display: flex;
+    grid-column: text;
+    margin-bottom: 20px;
+  }
+
+  .input_image {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+    position: relative;
+  }
+
+  .input_image img { position: absolute; }
+
+  .input_image .outer {
+    position: absolute;
+    opacity: 0.8;
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
+  }
+
+  .side_labels {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    white-space: nowrap;
+  }
+
+  .side_labels p {
+    font-size: 80%;
+    text-transform: capitalize;
+    line-height: 1.5em;
+  }
+
+  .side_labels p.bottom_label {
+    justify-self: flex-end; 
+    margin-top: auto;
+  }
 </style>
 
 <script>
   import {format} from 'd3-format';
 
-  import {INIT_EXAMPLE, fmtAct} from '../util';
+  import {INIT_EXAMPLE, fmtAct, range} from '../util';
   import Sprite from './Sprite.html';
+  const examples = require('../../static/examples');
 
   export default {
     data() {
       return {
         example: INIT_EXAMPLE,
+        all_layers: examples.layers,
         hidden_layers: ['mixed3b', 'mixed4a', 'mixed4b', 
           'mixed4c', 'mixed4d'],
         hover: [],
-        selected: [],
+        prev_selected: 'output',
+        selected: 'output',
       }
     },
 
@@ -96,31 +304,35 @@
         return require(`../../static/examples/attributions/${example}/channel_attr.json`)
       },
 
-      selected_layer_data (attr_data) {
-        return attr_data.output;
+      prev_selected_data (attr_data, prev_selected) {
+        return attr_data[prev_selected] || attr_data[prev_selected[0]][prev_selected[1]];
       },
 
-      layer_data (hidden_layers, attr_data, selected_layer_data, selected, hover, output) {
-        return hidden_layers.reduce((obj, layer) => {
-          const data = hover.length && hover[0] !== layer ? attr_data[hover[0]][hover[1]] :
-            selected.length ? attr_data[selected[0]][selected[1]] : {};
+      selected_data (attr_data, selected) {
+        return attr_data[selected] || attr_data[selected[0]][selected[1]];
+      },
 
-          obj[layer] = data[layer] || selected_layer_data[layer];
-          return obj;
-        }, {});
+      hover_data (attr_data, selected_data, hover) {
+        return hover.length ? attr_data[hover[0]][hover[1]] : selected_data;
+      }
+    },
+
+    methods: {
+      setSelected(layer, channel) {
+        const sel = this.get('selected');
+        this.set({
+          prev_selected: sel[0] === layer ? this.get('prev_selected') : sel,
+          selected: sel[0] === layer && sel[1] === channel ? 
+            'output' : [layer, channel]
+        });
       }
     },
 
     helpers: {
-      is(selected, layer, channel) {
-        return selected[0] == layer && selected[1] == channel
-      },
-
-      in_(selected, layer_data) {
-        return layer_data.some((d) => d.c === selected[1]);
-      },
-
-      fmt: fmtAct
+      fmt: fmtAct,
+      max_attr (data) {
+        return data[data.length - 1]
+      }
     },
 
     components: {Sprite}

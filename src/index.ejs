@@ -14,6 +14,45 @@
     figure.act-grids {
       overflow: hidden;
     }
+
+    .attribution_list {
+      display: inline-block;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .attribution_list li {
+      position: relative;
+      display: flex;
+      margin-bottom: 0;
+      font-size: 90%;
+      text-align: right;
+      text-transform: capitalize;
+    }
+
+    .attribution_list li span {
+      display: inline-block;
+      width: 150px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+
+    .attribution_list .scent {
+      display: flex;
+      position: relative;
+      width: 40px;
+      align-items: center;
+    }
+
+    .attribution_list .scent div {
+      position: absolute;
+      left: 0;
+      background: #ccc;
+      height: calc(100% - 10px);
+    }
   </style>
 </head>
 
@@ -241,7 +280,7 @@
     <d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
   </p>
 
-  <figure class="l-page-outset" id="AttributionChannel"></figure>
+  <figure class="base-grid" id="AttributionChannel"></figure>
 
   <p>Of course, these two types attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
 
