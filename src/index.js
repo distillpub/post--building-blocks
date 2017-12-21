@@ -4,7 +4,8 @@ import SemanticDict from './diagrams/SemanticDict.html';
 import ActivationVecVis from './diagrams/ActivationVecVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
-import AttributionChannel from './diagrams/AttributionChannel.html';
+// import AttributionChannel from './diagrams/AttributionChannel.html';
+import AttributionGroups from './diagrams/AttributionGroups.html';
 
 const actCube = new ActivationCube({
   target: document.getElementById('ActivationCube')
@@ -35,13 +36,18 @@ const attrSpatial = new AttributionSpatial({
   target: document.getElementById('AttributionSpatial')
 });
 
-const attrChannel = new AttributionChannel({
-  target: document.getElementById('AttributionChannel')
+// const attrChannel = new AttributionChannel({
+//   target: document.getElementById('AttributionChannel')
+// });
+
+const attrGroups = new AttributionGroups({
+  target: document.getElementById('AttributionGroups')
 });
+
 
 // Wire components together.
 exPick.observe('selected', (example) => [semanticDict, actVis, actGrid, actGridMag,
-  attrSpatial, attrChannel].forEach((diagram) => diagram.set({example})));
+  attrSpatial, /*attrChannel*/, attrGroups].forEach((diagram) => diagram.set({example})));
 
 semanticDict.observe('pos', (pos) => actVis.set({pos}));
 actVis.observe('pos', (pos) => semanticDict.set({pos}));

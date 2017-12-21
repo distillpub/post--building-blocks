@@ -1,0 +1,216 @@
+<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
+
+<div>
+  <div class="legend">
+    <div>
+      <p>Input Image</p>
+      <div style="position: relative;">
+        <img src="examples/input_images/{{example}}.png" />
+        <!-- {{#if layer_hover && layer_hover !== 'output'}}
+          <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
+            width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
+            left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
+            top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
+        {{/if}} -->
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- where we render the graph lines -->
+      <svg class="graph" ref:graph>
+        <g class="logits">
+
+        </g>
+
+      </svg>
+
+      <ul class="logits attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+        <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Classes</li>
+        {{#each logitNodes as node, i}}
+        <li on:mouseover="set({layer_hover: 'logit', pos_hover: i })">
+          <span>{{node.logit.name}}</span>
+          <div class="scent">
+            <!-- <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div> -->
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+
+    </div>
+  </div>
+
+  
+  <!-- <div class="hidden_layers" ref:container style="display: flex; --layer-size: {{layer_size}}px;">
+    {{#each hidden_layers as layer}}
+      <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
+        layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}
+        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
+        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
+        on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
+
+        <div slot="background">
+          <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
+        </div>
+
+        <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
+          sprite_size={{all_layers[layer][0]}} size={{layer_size}}
+          x={{layer_hover && pos_snap[layer_hover][0]}} 
+          y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
+      </ActivationGrid>
+    {{/each}}
+  </div> -->
+
+  <!-- <div class="output_classes">
+    <ul class="attribution_list">
+      {{#each output_attr.slice(0, 5) as attr}}
+      <li>
+        <div class="scent" style="width: {{100 * (attr.v/attr_max)}}%"></div>
+        {{labels[attr.n]}}
+      </li>
+      {{/each}}
+    </ul>
+  </div> -->
+</div>
+
+<figcaption>
+  groups!
+</figcaption>
+
+<style>
+  .hidden_layers {
+    position: relative;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .layer img { 
+    position: absolute; 
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */    
+  }
+
+  .layer p {
+    margin-top: calc(var(--layer-size) + 10px);
+  }
+
+  div[slot='foreground'] .outer {
+    position: absolute;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+  }
+
+  .legend {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .legend img {
+    height: 150px;
+    width: auto;
+    margin-right: 30px;
+  }
+
+  .legend p, .attribution_list li:first-child {
+    font-size: 90%;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+  }
+
+</style>
+
+<script>
+  import Sprite from './Sprite.html'
+  import ActivationGrid from './ActivationGrid.html'
+  import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
+  const layers = require('../../static/examples').layers;
+  
+
+  export default {
+    data() {
+      return {
+        example: INIT_EXAMPLE,
+        all_layers: layers,
+        hidden_layers: ['mixed4a', 'mixed4d', 'mixed5a'],
+        labels: require('../../static/examples/labels.json'),
+        current_logit: null,
+        logitWidth: 150,
+        spacing: 30,
+      }
+    },
+
+    oncreate() {
+      // this.set({ layer_size: calc_layer_size(this.refs.container) });
+    },
+
+    computed: {
+      // layer_size(winWidth, num_layer_width) {
+      //   return calc_layer_size(document.querySelector('#AttributionGroup .hidden_layers'));
+      // },
+
+      // valid_layer_hover(layer_hover) {
+      //   return layer_hover && layer_hover.match('mixed') !== null;
+      // },
+
+      // layer_hover_size(all_layers, valid_layer_hover, layer_hover) {
+      //   return valid_layer_hover ? all_layers[layer_hover][0] : 0;
+      // },
+
+      group_data(example) {
+        return require(`../../static/examples/groups/${example}/info.json`);
+      },
+
+      logits(group_data) {
+        console.log("computing", group_data)
+        var keys = Object.keys(group_data.output)
+        var logits = keys.map((key) => {
+          var d = group_data.output[key]
+          d.name = key
+          return d
+        })
+        return logits
+      },
+
+      current_logit(logits) {
+
+      },
+
+      logitNodes(logits, logitWidth, spacing) {
+        var nodes = logits.map(function(d,i) {
+          var x = i * (logitWidth + spacing) + spacing
+          return {
+            i: i,
+            logit: d,
+            x: x,
+            y: 20 + spacing,
+            w: logitWidth,
+            h: 40,
+            px: 40
+          }
+        })
+        console.log("nodes", nodes)
+        return nodes
+      },
+
+
+      // attr_max(attr_data, valid_layer_hover, layer_hover) {
+      //   return attr_data.max[valid_layer_hover ? layer_hover : 'output'];
+      // },
+    },
+
+    components: { ActivationGrid, Sprite }
+  }
+</script>
