@@ -1,11 +1,9 @@
 <div class="side_labels" style="grid-column: kicker; text-align: right;">
-  {{#if selected === 'output'}}
-  <p class="top_label">
+  <p class="top_label" style="visibility: {{selected === 'output' ? 'visible' : 'hidden'}}">
     <b>&uarr;</b><br />
     Supporting<br />
     <i>{{labels[attr_data.output_classes[0]]}}</i>
   </p>
-  {{/if}}
 
   <div>
     <p class="heading">Input Image</p>
@@ -17,15 +15,13 @@
     </div>
   </div>
 
-  {{#if selected === 'output'}}
-    <p class="bottom_label">
-      Supporting
-      <br />
-      <i>{{labels[attr_data.output_classes[1]]}}</i>
-      <br />
-      <b>&darr;</b>
-    </p>
-  {{/if}}
+  <p class="bottom_label" style="visibility: {{selected === 'output' ? 'visible' : 'hidden'}}">
+    Supporting
+    <br />
+    <i>{{labels[attr_data.output_classes[1]]}}</i>
+    <br />
+    <b>&darr;</b>
+  </p>
 </div>
 
 <div style="grid-column: text;">
@@ -73,14 +69,12 @@
 </div>
 
 <div class="side_labels" style="grid-column: gutter;">
-  {{#if selected === 'output'}}
-    <p class="top_label">
-      <b>&uarr;</b>
-      <br /> Supporting
-      <br />
-      <i>{{labels[attr_data.output_classes[0]]}}</i>
-    </p>
-  {{/if}}
+  <p class="top_label" style="visibility: {{selected === 'output' ? 'visible' : 'hidden'}}">
+    <b>&uarr;</b>
+    <br /> Supporting
+    <br />
+    <i>{{labels[attr_data.output_classes[0]]}}</i>
+  </p>
 
   <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
     <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
@@ -94,15 +88,13 @@
     {{/each}}
   </ul>
   
-  {{#if selected === 'output'}}
-    <p class="bottom_label">
-      Supporting
-      <br />
-      <i>{{labels[attr_data.output_classes[1]]}}</i>
-      <br />
-      <b>&darr;</b>
-    </p>
-  {{/if}}
+  <p class="bottom_label" style="visibility: {{selected === 'output' ? 'visible' : 'hidden'}}">
+    Supporting
+    <br />
+    <i>{{labels[attr_data.output_classes[1]]}}</i>
+    <br />
+    <b>&darr;</b>
+  </p>
 </div>
 
 <style>
@@ -148,36 +140,41 @@
   .supporting_layer, .selected_layer { border-right-color: #ccc; }
   .hovered_channel, .selected_channel, .supporting_layer { background-color: var(--selected-color); }
   .hovered_channel .bar, .selected_channel .bar, .supporting_layer .bar { background-color: #b0b0b0; }
-  .supporting_layer .hovered_channel { background-color: #92c5de; }
   .supporting_layer .hovered_channel .bar { background-color: #999; }
   .selected_layer .bar { background-color: transparent; }
   .selected_channel .bar { display: none; }
   .selected_layer_channel { opacity: 0.3; }
 
+  /* Negative margins to produce bridging effect for selected channel. */
+  .supporting_layer .hovered_channel { 
+    background-color: #92c5de; 
+    border-left: 1px solid #92c5de;
+    margin-left: -1px;
+    border-right: 1px solid #92c4de;
+    margin-right: -1px;
+  }
+
   .layer_mixed3b .selected_channel {
-    margin-right: -6px;
-    padding-right: 21px;
-    border-right-color: var(--selected-color);
-    border-radius: 0;
+    margin-right: -1px;
+    padding-right: 15px;
+    border-right: 1px solid var(--selected-color);
   }
 
   .layer_mixed4a .selected_channel, 
   .layer_mixed4b .selected_channel, 
   .layer_mixed4c .selected_channel {
-    margin-left: -6px;
-    margin-right: -6px;
-    padding-left: 21px;
-    padding-right: 21px;
-    border-left-color: var(--selected-color);
-    border-right-color: var(--selected-color);
-    border-radius: 0;
+    margin-left: -1px;
+    margin-right: -1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid var(--selected-color);
+    border-right: 1px solid var(--selected-color);
   }
 
   .layer_mixed4d .selected_channel {
-    margin-left: -6px;
-    padding-left: 21px;
-    border-left-color: var(--selected-color);
-    border-radius: 0;
+    margin-left: -1px;
+    padding-left: 15px;
+    border-left: 1px solid var(--selected-color);
   }
 
   .spacer {
@@ -189,7 +186,7 @@
   }
 
   .layer .supported_by {
-    margin: 0 0 -10px -22px;
+    margin: 0 0 -10px -15px;
     font-size: 80%;
     font-weight: bold;
     text-align: left;
@@ -197,7 +194,7 @@
   }
 
   .supports {
-    margin: 0 -20px -10px 0;
+    margin: 0 -15px -10px 0;
     font-size: 80%;
     font-weight: bold;
     text-align: right;
@@ -208,13 +205,6 @@
     top: -6px;
     right: 15px;
     font-weight: bold;
-  }
-
-  .layer_mixed3b .selected_channel .toggle,
-  .layer_mixed4a .selected_channel .toggle,
-  .layer_mixed4b .selected_channel .toggle,
-  .layer_mixed4c .selected_channel .toggle {
-    right: 22px;
   }
 
   .toggle span { 
