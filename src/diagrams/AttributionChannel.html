@@ -26,32 +26,31 @@
   </ul>
 </div>
 
-{{#if selected[0] !== 'mixed3b'}}
+{{#if selected === 'output'}}
   <div class="side_labels" style="grid-column: kicker; text-align: right;">
     <p>
-      <b>Supporting</b><br />
-      <code>
-        {{#if selected === 'output'}}
-          {{labels[attr_data.output_classes[0]]}}
-        {{else}}
-          Layer {{selected[0]}}, Unit {{selected[1]}}
-        {{/if}}
-      </code>
+      <b>&uarr;</b><br />
+      Supporting<br />
+      <i>{{labels[attr_data.output_classes[0]]}}</i>
     </p>
 
-    {{#if selected === 'output'}}
-      <p class="bottom_label">
-        <b>Supporting</b><br />
-        <code>{{labels[attr_data.output_classes[1]]}}</code>
-      </p>
-    {{/if}}
+    <p class="bottom_label">
+      Supporting<br />
+      <i>{{labels[attr_data.output_classes[1]]}}</i><br />
+      <b>&darr;</b>
+    </p>
   </div>
 {{/if}}
 
 <div style="grid-column: text;">
   <div class="channel_attribution">
     {{#each hidden_layers as layer}}
-    <div class="layer" on:mouseout="set({hover: []})">
+    <div class="
+      {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
+      {{selected[0] === layer ? 'selected_layer' : ''}} 
+      layer_{{layer}} layer" 
+      on:mouseout="set({hover: []})">
+
       <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
 
       {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 5) as d, i}} {{#if d.c}}
@@ -59,13 +58,16 @@
         class="
                 {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
                 {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
-                {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer' : ''}}
+                {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
                 channel
               ">
   
         <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
         <div class="bar" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 110}}px;"></div>
-        <PushPin />
+        <div class="toggle">
+          <span class="expand">+</span>
+          <span class="contract">-</span>
+        </div>
         <!-- {{d.v}} {{max_attr(selected_data[layer])}} -->
       </div>
       {{else}}
@@ -79,27 +81,22 @@
   </div>
 </div>
 
-{{#if selected[0] !== 'mixed4d'}}
-<div class="side_labels" style="grid-column: gutter; margin-left: 30px; white-space: nowrap;">
+{{#if selected === 'output'}}
+<div class="side_labels" style="grid-column: gutter; margin-left: 30px;">
   <p>
-    <b>{{selected === 'output' ? 'Supporting' : 'Supported By'}}</b>
+    <b>&uarr;</b>
+    <br /> Supporting
     <br />
-    <code>
-        {{#if selected === 'output'}}
-          {{labels[attr_data.output_classes[0]]}}
-        {{else}}
-          Layer {{selected[0]}}, Unit {{selected[1]}}
-        {{/if}}
-      </code>
+    <i>{{labels[attr_data.output_classes[0]]}}</i>
   </p>
-
-  {{#if selected === 'output'}}
+  
   <p class="bottom_label">
-    <b>Supporting</b>
+    Supporting
     <br />
-    <code>{{labels[attr_data.output_classes[1]]}}</code>
+    <i>{{labels[attr_data.output_classes[1]]}}</i>
+    <br />
+    <b>&darr;</b>
   </p>
-  {{/if}}
 </div>
 {{/if}}
 
@@ -107,6 +104,8 @@
   .channel_attribution {
     display: flex;
     margin-top: 20px;
+    --selected-color: #ddd;
+    --selected-color-dark: #999;
   }
 
   .layer {
@@ -135,17 +134,43 @@
     cursor: pointer;
   }
 
-  .hovered_channel { border-color: #999; }
-  .selected_layer { opacity: 0.3; }
-  .selected_channel { background-color: #ddd; }
-
   .bar {
     background-color: #ccc; 
     height: 10px;  
     margin-top: 5px;
   }
 
-  .selected_channel .bar { background-color: #999; }
+  .supporting_layer, .selected_layer { border-right-color: #bfbfbf; }
+  .selected_channel { border-color: #bfbfbf; }
+  .supporting_layer .channel { border-color: var(--selected-color); }
+  .hovered_channel, .supporting_layer .hovered_channel { border-color: var(--selected-color-dark); }
+  .selected_channel, .supporting_layer { background-color: var(--selected-color); }
+  .selected_channel .bar, .supporting_layer .bar { background-color: var(--selected-color-dark); }
+  .selected_layer_channel { opacity: 0.3; }
+
+  .layer_mixed3b .selected_channel {
+    padding-right: 21px;
+    border-right-color: var(--selected-color);
+    border-radius: 0;
+  }
+
+  .layer_mixed4a .selected_channel, 
+  .layer_mixed4b .selected_channel, 
+  .layer_mixed4c .selected_channel {
+    margin-left: -11px;
+    padding-left: 21px;
+    padding-right: 21px;
+    border-left-color: var(--selected-color);
+    border-right-color: var(--selected-color);
+    border-radius: 0;
+  }
+
+  .layer_mixed4d .selected_channel {
+    margin-left: -11px;
+    padding-left: 21px;
+    border-left-color: var(--selected-color);
+    border-radius: 0;
+  }
 
   .spacer {
     display: flex;
@@ -155,27 +180,33 @@
     height: 118px;  /* Huh? */
   }
 
-  .push_pin {
+  .toggle {
     position: absolute;
     top: -7px;
-    right: -7px;
-    width: 16px;
-    height: 16px;
+    right: 12px;
+    font-weight: bold;
   }
 
-  .push_pin svg { 
+  .layer_mixed3b .selected_channel .toggle,
+  .layer_mixed4a .selected_channel .toggle,
+  .layer_mixed4b .selected_channel .toggle,
+  .layer_mixed4c .selected_channel .toggle {
+    right: 22px;
+  }
+
+  .toggle span { 
     position: absolute; 
     visibility: hidden;
   }
 
-  .hovered_channel .push_pin .out { visibility: visible; }
-  /* .hovered_channel .push_pin:hover .out { visibility: hidden; } */
-  /* .hovered_channel .push_pin:hover .in { visibility: visible; } */
+  .hovered_channel .toggle .expand { visibility: visible; }
+  /* .hovered_channel .toggle:hover .expand { visibility: hidden; } */
+  /* .hovered_channel .toggle:hover .contract { visibility: visible; } */
 
-  .selected_channel .push_pin .in { visibility: visible; }
-  .selected_channel .push_pin .out { visibility: hidden; }
-  /* .selected_channel .push_pin:hover .in { visibility: hidden; } */
-  /* .selected_channel .push_pin:hover .out { visibility: visible; } */
+  .selected_channel .toggle .contract { visibility: visible; }
+  .selected_channel .toggle .expand { visibility: hidden; }
+  /* .selected_channel .toggle:hover .contract { visibility: hidden; } */
+  /* .selected_channel .toggle:hover .expand { visibility: visible; } */
 
   .legend {
     display: flex;
@@ -208,13 +239,14 @@
   .side_labels {
     display: flex;
     flex-direction: column;
-    padding: 50px 0;
+    padding-top: 60px;
     white-space: nowrap;
   }
 
   .side_labels p {
     font-size: 80%;
     text-transform: capitalize;
+    line-height: 1.5em;
   }
 
   .side_labels p.bottom_label {
@@ -228,7 +260,6 @@
 
   import {INIT_EXAMPLE, fmtAct, range} from '../util';
   import Sprite from './Sprite.html';
-  import PushPin from './PushPin.html';
   const examples = require('../../static/examples');
 
   export default {
@@ -280,6 +311,6 @@
       }
     },
 
-    components: {Sprite, PushPin}
+    components: {Sprite}
   }
 </script>
