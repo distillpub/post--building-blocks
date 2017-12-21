@@ -5,6 +5,7 @@ import ActivationVecVis from './diagrams/ActivationVecVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
+const labels = require('../static/examples/labels.json');
 
 const actCube = new ActivationCube({
   target: document.getElementById('ActivationCube')
@@ -32,11 +33,13 @@ const actGridMag = new AllActivationGrids({
 });
 
 const attrSpatial = new AttributionSpatial({
-  target: document.getElementById('AttributionSpatial')
+  target: document.getElementById('AttributionSpatial'),
+  data: {labels}
 });
 
 const attrChannel = new AttributionChannel({
-  target: document.getElementById('AttributionChannel')
+  target: document.getElementById('AttributionChannel'),
+  data: {labels}
 });
 
 // Wire components together.

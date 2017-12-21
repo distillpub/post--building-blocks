@@ -136,30 +136,10 @@
     margin-right: 30px;
   }
 
-  .legend p, .attribution_list li:first-child {
+  p.heading, .legend p, .attribution_list li:first-child {
     font-size: 90%;
     font-weight: bold;
     margin: 0 0 15px 0;
-  }
-
-  .attribution_list {
-    display: inline-block;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .output_classes {
-    margin-left: 50px;
-  }
-
-  .attribution_list li {
-    position: relative;
-    display: flex;
-    margin-bottom: 0;
-    font-size: 90%;
-    text-align: right;
-    text-transform: capitalize;
   }
 
   .attribution_list li:not(:first-child) {
@@ -170,29 +150,10 @@
     font-weight: bold;
   }
 
-  .attribution_list li span {
-    display: inline-block;
-    width: 150px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-right: 10px;
+  .output_classes {
+    margin-left: 50px;
   }
-
-  .attribution_list .scent {
-    display: flex;
-    position: relative;
-    width: 40px;
-    align-items: center;
-  }
-
-  .attribution_list .scent div {
-    position: absolute;
-    left: 0;
-    background: #ccc;
-    height: calc(100% - 10px);
-  }
-  
+ 
   .output_classes li:hover .scent div { background: #666; }
 
   .factors_1 .scent div { background: #92c5de; }
@@ -213,8 +174,7 @@
       return {
         example: INIT_EXAMPLE,
         all_layers: layers,
-        hidden_layers: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'],
-        labels: require('../../static/examples/labels.json')
+        hidden_layers: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a']
       }
     },
 
