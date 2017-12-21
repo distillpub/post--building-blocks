@@ -61,13 +61,18 @@
                 {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
                 channel
               ">
-  
-        <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
-        <div class="bar" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 110}}px;"></div>
         <div class="toggle">
           <span class="expand">+</span>
           <span class="contract">-</span>
         </div>
+
+        <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
+        <div class="bar" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 110}}px;"></div>
+
+        {{#if selected[0] === layer && selected[1] === d.c}}
+          {{#if layer !== 'mixed3b'}}<p class="supported_by">&larr; Supported By</p>{{/if}}
+          {{#if layer !== 'mixed4d'}}<p class="supports">Supports &rarr;</p>{{/if}}
+        {{/if}}
         <!-- {{d.v}} {{max_attr(selected_data[layer])}} -->
       </div>
       {{else}}
@@ -105,7 +110,7 @@
     display: flex;
     margin-top: 20px;
     --selected-color: #ddd;
-    --selected-color-dark: #999;
+    --selected-color-dark: #aaa;
   }
 
   .layer {
@@ -135,17 +140,21 @@
   }
 
   .bar {
+    display: flex;
     background-color: #ccc; 
     height: 10px;  
     margin-top: 5px;
   }
+
 
   .supporting_layer, .selected_layer { border-right-color: #bfbfbf; }
   .selected_channel { border-color: #bfbfbf; }
   .supporting_layer .channel { border-color: var(--selected-color); }
   .hovered_channel, .supporting_layer .hovered_channel { border-color: var(--selected-color-dark); }
   .selected_channel, .supporting_layer { background-color: var(--selected-color); }
-  .selected_channel .bar, .supporting_layer .bar { background-color: var(--selected-color-dark); }
+  .supporting_layer .bar { background-color: var(--selected-color-dark); }
+  .selected_layer .bar { background-color: transparent; }
+  .selected_channel .bar { display: none; }
   .selected_layer_channel { opacity: 0.3; }
 
   .layer_mixed3b .selected_channel {
@@ -178,6 +187,21 @@
     justify-content: center;
     width: 110px;
     height: 118px;  /* Huh? */
+  }
+
+  .layer .supported_by {
+    margin: 0 0 -10px -22px;
+    font-size: 80%;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .supports {
+    margin: 0 -20px -10px 0;
+    font-size: 80%;
+    font-weight: bold;
+    text-align: right;
   }
 
   .toggle {
