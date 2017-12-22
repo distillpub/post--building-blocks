@@ -1,185 +1,176 @@
-<div class="legend">
+<div class="side_labels" style="grid-column: kicker;">
   <div>
     <p class="heading">Input Image</p>
-    
+  
     <div class="input_image">
       <img src="examples/input_images/{{example}}.png" /> 
-      
-      {{#if hover.length}}
-        <Sprite src_class="sprite_{{hover[0]}}_activations" 
-          bg_img="examples/activations/{{example}}/sprite_{{hover[0]}}_activations.png"
-          n={{hover[1]}} sprite_size={{all_layers[hover[0]][0]}} size="150" /> 
+      {{#if hover.length || selected !== 'output'}}
+        <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
+          bg_img="examples/activations/{{example}}/sprite_{{hover[0] || selected[0]}}_activations.png"
+          n={{hover[1] || selected[1]}} 
+          sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="150" /> 
       {{/if}}
     </div>
   </div>
 
-  <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-    <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
-    {{#each hover_data.l.slice(0, 5) as attr, i}}
-    <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-      <span>{{labels[attr.c]}}</span>
-      <div class="scent">
-        <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
-      </div>
-    </li>
-    {{/each}}
-  </ul>
-</div>
-
-{{#if selected === 'output'}}
-  <div class="side_labels" style="grid-column: kicker; text-align: right;">
-    <p>
-      <b>&uarr;</b><br />
-      Supporting<br />
-      <i>{{labels[attr_data.output_classes[0]]}}</i>
-    </p>
-
-    <p class="bottom_label">
-      Supporting<br />
-      <i>{{labels[attr_data.output_classes[1]]}}</i><br />
-      <b>&darr;</b>
-    </p>
+  <div>
+    <p class="heading">Output Classes</p>
+    <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+      {{#each hover_data.l.slice(0, 5) as attr, i}}
+      <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+        <span>{{labels[attr.c]}}</span>
+        <div class="scent">
+          <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
   </div>
-{{/if}}
+</div>
 
 <div style="grid-column: text;">
+  <p class="heading">
+    Top Channels Supporting
+    {{#if selected === 'output'}} 
+      {{labels[attr_data.output.l[0].c]}}
+    {{else}}
+      <span class="selected">
+        Layer {{selected[0]}}, Channel {{selected[1]}}
+      </span>
+    {{/if}}
+  </p>
+
   <div class="channel_attribution">
     {{#each hidden_layers as layer}}
-    <div class="
-      {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
-      {{selected[0] === layer ? 'selected_layer' : ''}} 
-      layer_{{layer}} layer" 
-      on:mouseout="set({hover: []})">
+      <div class="
+        {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
+        {{selected[0] === layer ? 'selected_layer' : ''}} 
+        layer_{{layer}} layer" 
+        on:mouseout="set({hover: []})">
 
-      <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
+        <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
 
-      {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 5) as d, i}} {{#if d.c}}
-      <div title="Layer {{layer}}, Unit {{d.c}}" on:mouseover="set({hover: [layer, d.c, i]})" on:click="setSelected(layer, d.c)"
-        class="
-                {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
-                {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
-                {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
-                channel
-              ">
-        <div class="toggle">
-          <span class="expand">+</span>
-          <span class="contract">-</span>
-        </div>
+        {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 3) as d, i}} 
+          <div title="Layer {{layer}}, Unit {{d.c}}" on:mouseover="set({hover: [layer, d.c, i]})" on:click="setSelected(layer, d.c)"
+            class="
+                    {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
+                    {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
+                    {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
+                    channel
+                  ">
 
-        <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
-        <div class="bar" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 110}}px;"></div>
+            <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
+            <div class="bar">
+              <div class="bar_filled" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 100}}%;"></div>
+            </div>
 
-        {{#if selected[0] === layer && selected[1] === d.c}}
-          {{#if layer !== 'mixed3b'}}<p class="supported_by">&larr; Supported By</p>{{/if}}
-          {{#if layer !== 'mixed4d'}}<p class="supports">Supports &rarr;</p>{{/if}}
-        {{/if}}
-        <!-- {{d.v}} {{max_attr(selected_data[layer])}} -->
-      </div>
-      {{else}}
-      <div class="channel" style="opacity: {{selected[0] === layer && selected[1] !== d.c ? 0.3 : 1}};">
+          </div>
+        {{/each}}
+
         <div class="spacer">...</div>
-        <div class="bar" style="background-color: #fff;"></div>
       </div>
-      {{/if}} {{/each}}
-    </div>
     {{/each}}
   </div>
 </div>
-
-{{#if selected === 'output'}}
-<div class="side_labels" style="grid-column: gutter; margin-left: 30px;">
-  <p>
-    <b>&uarr;</b>
-    <br /> Supporting
-    <br />
-    <i>{{labels[attr_data.output_classes[0]]}}</i>
-  </p>
-  
-  <p class="bottom_label">
-    Supporting
-    <br />
-    <i>{{labels[attr_data.output_classes[1]]}}</i>
-    <br />
-    <b>&darr;</b>
-  </p>
-</div>
-{{/if}}
 
 <style>
   .channel_attribution {
     display: flex;
-    margin-top: 20px;
-    --selected-color: #ddd;
-    --selected-color-dark: #aaa;
+    margin-left: -20px;
+    --selected-color: #d1e5f0;
   }
 
   .layer {
-    width: 130px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 0 10px;
     border-right: 1px solid #e9e9e9;
   }
 
-  .layer:first-child { padding-left: 0; }
   .layer:last-child { border-right: 0; }
 
-  .heading, .attribution_list li:first-child {
+  .heading {
     font-size: 90%;
     font-weight: bold;
     margin-bottom: 10px;
+    text-transform: capitalize;
   }
 
-  .layer .heading { text-align: center; }
+  .heading .selected {
+    display: inline-block;
+    padding: 0 10px;
+    background: #d1e5f0;
+    border-radius: 7px;
+  }
+
+  .layer p.heading {
+    margin: 0;
+    padding: 0 15px;
+    font-weight: normal;
+    font-style: italic;
+  }
 
   .channel {
     display: inline-block;
     position: relative;
-    border: 1px solid #fff;
-    border-radius: 7px;
-    padding: 10px;
+    padding: 5px;
+    border: 5px solid #fff;
     cursor: pointer;
   }
 
   .bar {
-    display: flex;
-    background-color: #ccc; 
-    height: 10px;  
-    margin-top: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 55px;
+    height: 12px;  
+    border: 2px solid #fff;
+    box-sizing: border-box;
   }
 
+  .bar_filled { 
+    background-color: rgba(255, 255, 255, 0.8); 
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+  }
 
-  .supporting_layer, .selected_layer { border-right-color: #bfbfbf; }
-  .selected_channel { border-color: #bfbfbf; }
-  .supporting_layer .channel { border-color: var(--selected-color); }
-  .hovered_channel, .supporting_layer .hovered_channel { border-color: var(--selected-color-dark); }
-  .selected_channel, .supporting_layer { background-color: var(--selected-color); }
-  .supporting_layer .bar { background-color: var(--selected-color-dark); }
-  .selected_layer .bar { background-color: transparent; }
-  .selected_channel .bar { display: none; }
+  .hovered_channel, .selected_channel, .supporting_layer .hovered_channel { border-color: #4393c3; }
+  .supporting_layer .channel:not(.hovered_channel) { border-color: var(--selected-color); }
+
+  .supporting_layer, .selected_layer { border-right-color: #ccc; }
+  .supporting_layer { background-color: var(--selected-color); }
+
+  /* .hovered_channel .bar, .selected_channel .bar, .supporting_layer .bar { border-color: #b0b0b0; } */
+  /* .hovered_channel .bar_filled, .selected_channel .bar_filled, .supporting_layer .bar_filled { background-color: #b0b0b0; } */
+  /* .supporting_layer .hovered_channel .bar { border-color: #999; } */
+  /* .supporting_layer .hovered_channel .bar_filled { background-color: #999; } */
+  .selected_layer .bar { opacity: 0; }
   .selected_layer_channel { opacity: 0.3; }
 
-  .layer_mixed3b .selected_channel {
-    padding-right: 21px;
-    border-right-color: var(--selected-color);
-    border-radius: 0;
+  /* Negative margins to produce bridging effect for selected channel. */
+  /* .layer_mixed3b .selected_channel {
+    margin-right: -1px;
+    padding-right: 15px;
+    border-right: 1px solid var(--selected-color);
   }
 
   .layer_mixed4a .selected_channel, 
   .layer_mixed4b .selected_channel, 
   .layer_mixed4c .selected_channel {
-    margin-left: -11px;
-    padding-left: 21px;
-    padding-right: 21px;
-    border-left-color: var(--selected-color);
-    border-right-color: var(--selected-color);
-    border-radius: 0;
+    margin-left: -1px;
+    margin-right: -1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid var(--selected-color);
+    border-right: 1px solid var(--selected-color);
   }
 
   .layer_mixed4d .selected_channel {
-    margin-left: -11px;
-    padding-left: 21px;
-    border-left-color: var(--selected-color);
-    border-radius: 0;
-  }
+    margin-left: -1px;
+    padding-left: 15px;
+    border-left: 1px solid var(--selected-color);
+  } */
 
   .spacer {
     display: flex;
@@ -190,7 +181,7 @@
   }
 
   .layer .supported_by {
-    margin: 0 0 -10px -22px;
+    margin: 0 0 -10px -15px;
     font-size: 80%;
     font-weight: bold;
     text-align: left;
@@ -198,54 +189,30 @@
   }
 
   .supports {
-    margin: 0 -20px -10px 0;
+    margin: 0 -15px -10px 0;
     font-size: 80%;
     font-weight: bold;
     text-align: right;
   }
 
-  .toggle {
-    position: absolute;
-    top: -7px;
-    right: 12px;
-    font-weight: bold;
-  }
-
-  .layer_mixed3b .selected_channel .toggle,
-  .layer_mixed4a .selected_channel .toggle,
-  .layer_mixed4b .selected_channel .toggle,
-  .layer_mixed4c .selected_channel .toggle {
-    right: 22px;
-  }
-
-  .toggle span { 
-    position: absolute; 
-    visibility: hidden;
-  }
-
-  .hovered_channel .toggle .expand { visibility: visible; }
-  /* .hovered_channel .toggle:hover .expand { visibility: hidden; } */
-  /* .hovered_channel .toggle:hover .contract { visibility: visible; } */
-
-  .selected_channel .toggle .contract { visibility: visible; }
-  .selected_channel .toggle .expand { visibility: hidden; }
-  /* .selected_channel .toggle:hover .contract { visibility: hidden; } */
-  /* .selected_channel .toggle:hover .expand { visibility: visible; } */
-
-  .legend {
+  .side_labels {
     display: flex;
-    grid-column: text;
-    margin-bottom: 20px;
+    flex-direction: column;
+    white-space: nowrap;
   }
 
   .input_image {
     width: 150px;
     height: 150px;
-    margin-right: 30px;
     position: relative;
+    margin-bottom: 20px;
   }
 
-  .input_image img { position: absolute; }
+  .input_image img { 
+    position: absolute; 
+    top: 0;
+    right: 0;
+  }
 
   .input_image .outer {
     position: absolute;
@@ -260,23 +227,8 @@
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
   }
 
-  .side_labels {
-    display: flex;
-    flex-direction: column;
-    padding-top: 60px;
-    white-space: nowrap;
-  }
-
-  .side_labels p {
-    font-size: 80%;
-    text-transform: capitalize;
-    line-height: 1.5em;
-  }
-
-  .side_labels p.bottom_label {
-    justify-self: flex-end; 
-    margin-top: auto;
-  }
+  .side_labels .attribution_list { display: block; }
+  .side_labels .attribution_list li { font-size: 80%; }
 </style>
 
 <script>

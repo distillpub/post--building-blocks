@@ -111,8 +111,8 @@
   <p><b><i>Author list and order not finalized.</i></b></p>
 
   <p>
-    The process of designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying them. 
-    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization, attribution, and dimensionality reduction. 
+    The process of designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying them <d-cite key="nielsen2016thought"></d-cite>. 
+    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>. 
     However, it appears to us that the corresponding work of reifying these abstractions has been neglected. 
     This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table. 
     Worse, these interfaces hinder the development of our abstractions by not pushing them to their limits.
@@ -147,7 +147,7 @@
 
   <figure id="ActivationCube" class="l-body"></figure>
 
-  <figure id="ExamplePicker" class="l-body" style="margin: 0px;"></figure>
+  <figure id="ExamplePicker" class="l-body" style="margin: 0px; z-index: 1;"></figure>
 
   <figure id="SemanticDict"></figure>
 
@@ -332,15 +332,25 @@
 
   <h2>Neuron Groups: (TODO, groups or factors)</h2>
 
+
+
   <p>
-    Recent work has explored other techniques for finding meaningful directions in activation space <d-cite="raghu2017svcca,kim2017tcav"></d-cite>. 
-    While these works primarily focus on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.
+    In previous sections, we've considered three ways of slicing the cube of activations: into spatial activations, channels, and individual neurons. 
+    Each of these has major downsides.
+    If one work's with only spatial activations or channels, they miss out on very important parts of the story.
+    For example it's interesting that the floppy ear detector helped us classify an image as a Labrador retriever, but it's much more interesting when that's combined with the locations it fired to to do so.
+    One can try to drill down to the level of neurons to tell the whole story, but the tens of thousands of neurons are simply too much information.
+    Even the hundreds of channels, before being split into individual neurons, can be overwhelming to show users!
   </p>
-
-  <!-- NIPS Disentagling workshop. -->
-
+  
   <p>
-    So far, we have considered two very natural ways of slicing the cube of activations. Unfortunately, we have found them to be lacking. Is it possible to do better?
+    If we want to make useful interfaces into neural networks, it isn't enough to make things meaningful.
+    We need to make them human scale, rather than overwhelming dumps of information.
+    The key to doing so is finding more meaningful ways of breaking up our activations.
+    There's a lot of reason to believe that such decompositions exist.
+    Often, many channels or spatial positions will work together in a highly correlated way and are most useful to think of as one unit.
+    Other channels or positions will have very little activity, and can be ignore for a high-level overview.
+    So, it seems like we ought to be able to find better decompositions if we had the right tools.
   </p>
 
   <p>
@@ -352,6 +362,14 @@
   <p>
     The groups that come out of this factorization will be the atoms of the interface a user works with. Unfortunately, any grouping is inherently a tradeoff between reducing things to human scale and, because any aggregation is lossy, preserving information. Matrix factorization lets us pick what our groupings are optimized for, giving us a better tradeoff than the natural groupings we saw earlier.
   </p>
+
+  <p>
+    (Recent work has explored other techniques for finding meaningful directions in activation space <d-cite key="raghu2017svcca,kim2017tcav"></d-cite>. 
+    While these works primarily focus on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.)
+  </p>
+
+  <!-- NIPS Disentagling workshop. -->
+
 
   <p>
     The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behaviour, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others. 
