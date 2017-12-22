@@ -50,11 +50,18 @@ const attrGroups = new AttributionGroups({
 
 
 // Wire components together.
-exPick.observe('selected', (example) => [semanticDict, actVis, actGrid, actGridMag,
-  attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({example})));
+exPick.observe('selected', (example) => [
+  semanticDict, 
+  actVis, 
+  actGrid, 
+  actGridMag,
+  attrSpatial, 
+  attrChannel, 
+  attrGroups
+].forEach((diagram) => diagram.set({example})));
 
-semanticDict.observe('pos', (pos) => actVis.set({pos}));
-actVis.observe('pos', (pos) => semanticDict.set({pos}));
+// semanticDict.observe('pos', (pos) => actVis.set({pos}));
+// actVis.observe('pos', (pos) => semanticDict.set({pos}));
 
-actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
-actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));
+// actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
+// actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));

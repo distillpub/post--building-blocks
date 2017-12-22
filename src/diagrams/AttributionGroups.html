@@ -6,70 +6,30 @@
       <p>Input Image</p>
       <div style="position: relative;">
         <img src="examples/input_images/{{example}}.png" />
-        <!-- {{#if layer_hover && layer_hover !== 'output'}}
-          <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
-            width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
-            left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
-            top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
-        {{/if}} -->
       </div>
     </div>
 
     <div class="container">
       <!-- where we render the graph lines -->
-      <svg class="graph" ref:graph>
-        <g class="logits">
+      <svg class="graph" ref:graph width={{width}} height={{height}}>
 
-        </g>
+          {{#each layout.lines as line,i}}
+            <path d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="#ccc" fill="none"></path>
+          {{/each}}
 
-      </svg>
+          {{#each layout.nodes as node,i}}
+            {{#if node.layer == "logit"}}
+              <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
+              <text x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
+            {{else}}
+              <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} width={{node.w + node.px}} height={{node.h + node.px}} fill="#bbb" rx=3 ry=3></rect>
+              <image xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
+            {{/if}}
+          {{/each}}
 
-      <ul class="logits attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-        <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Classes</li>
-        {{#each logitNodes as node, i}}
-        <li on:mouseover="set({layer_hover: 'logit', pos_hover: i })">
-          <span>{{node.logit.name}}</span>
-          <div class="scent">
-            <!-- <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div> -->
-          </div>
-        </li>
-        {{/each}}
-      </ul>
-
+        </svg>
     </div>
   </div>
-
-  
-  <!-- <div class="hidden_layers" ref:container style="display: flex; --layer-size: {{layer_size}}px;">
-    {{#each hidden_layers as layer}}
-      <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
-        layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}
-        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
-        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
-        on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
-
-        <div slot="background">
-          <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
-        </div>
-
-        <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
-          sprite_size={{all_layers[layer][0]}} size={{layer_size}}
-          x={{layer_hover && pos_snap[layer_hover][0]}} 
-          y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
-      </ActivationGrid>
-    {{/each}}
-  </div> -->
-
-  <!-- <div class="output_classes">
-    <ul class="attribution_list">
-      {{#each output_attr.slice(0, 5) as attr}}
-      <li>
-        <div class="scent" style="width: {{100 * (attr.v/attr_max)}}%"></div>
-        {{labels[attr.n]}}
-      </li>
-      {{/each}}
-    </ul>
-  </div> -->
 </div>
 
 <figcaption>
@@ -129,6 +89,9 @@
     font-weight: bold;
     margin: 0 0 15px 0;
   }
+  .graph text {
+    alignment-baseline: middle;
+  }
 
 </style>
 
@@ -136,7 +99,9 @@
   import Sprite from './Sprite.html'
   import ActivationGrid from './ActivationGrid.html'
   import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
+  import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
   const layers = require('../../static/examples').layers;
+
   
 
   export default {
@@ -149,9 +114,11 @@
         current_logit: null,
         logitWidth: 150,
         spacing: 30,
+        width: 800,
+        height: 600,
       }
     },
-
+    
     oncreate() {
       // this.set({ layer_size: calc_layer_size(this.refs.container) });
     },
@@ -169,8 +136,11 @@
       //   return valid_layer_hover ? all_layers[layer_hover][0] : 0;
       // },
 
+      example_url(example) {
+        return `../../static/examples/groups/${example}/`
+      },
       group_data(example) {
-        return require(`../../static/examples/groups/${example}/info.json`);
+        return require(`../../static/examples/groups/${example}/info.json`)
       },
 
       logits(group_data) {
@@ -180,7 +150,9 @@
           var d = group_data.output[key]
           d.name = key
           return d
-        })
+        }).sort(function(a,b) {
+          return b.probability - a.probability
+        }).slice(0, 5)
         return logits
       },
 
@@ -188,22 +160,215 @@
 
       },
 
-      logitNodes(logits, logitWidth, spacing) {
-        var nodes = logits.map(function(d,i) {
-          var x = i * (logitWidth + spacing) + spacing
+      // logitNodes(logits, logitWidth, spacing) {
+      //   var nodes = logits.map(function(d,i) {
+      //     var x = i * (logitWidth + spacing) + spacing
+      //     return {
+      //       i: i,
+      //       logit: d,
+      //       x: x,
+      //       y: 20 + spacing,
+      //       w: logitWidth,
+      //       h: 40,
+      //       px: 40
+      //     }
+      //   })
+      //   console.log("nodes", nodes)
+      //   return nodes
+      // },
+
+      layout(group_data, logits, hidden_layers, example, width, height, selected, hovered) {
+        var logitWidth = 150;
+        var logitHeight = 40;
+        var spacing = 30;
+        var yscale = scaleBand()
+          .range([0, height])
+          .padding(0.2)
+        
+        var layerWidth = 110; // TODO: reactive
+
+        // generate all the nodes and links 
+        var nodes = []
+        var nodesByLayer = {}
+        hidden_layers.forEach(function(layer,j) {
+          var layer_n = group_data[layer].n_groups
+          yscale.domain(range(layer_n))
+          // TODO: scale imagew by # of elements and height of graphic
+          var layerSpacing = spacing 
+          var imgw = height/layer_n - spacing;
+          var layerNodes = range(layer_n).map(function(i) {
+            var y = yscale(i);//i * (imgw + spacing) + spacing
+            return {
+              layer: layer,
+              i: i,
+              x: j * (layerWidth + yscale.bandwidth()/2) + spacing,
+              y: y,
+              w: yscale.bandwidth(),//imgw,
+              h: yscale.bandwidth(),//imgw,
+              px: 5,
+              url: `examples/groups/${example}/${layer}/each_group/${i}/icon.jpeg`
+            }
+          })
+          nodesByLayer[layer] = layerNodes
+          nodes = nodes.concat(layerNodes)
+        })
+
+        yscale.domain(range(logits.length))
+          .padding(0.3)
+        var logitNodes = logits.map(function(d,i) {
+          var y = yscale(i)// + yscale.bandwidth()/2 - logitHeight/2
+          //i * (logitHeight + spacing) + spacing
           return {
             i: i,
+            layer: "logit",
             logit: d,
-            x: x,
-            y: 20 + spacing,
-            w: logitWidth,
-            h: 40,
-            px: 40
+            x: hidden_layers.length * (layerWidth + yscale.bandwidth()) + spacing,
+            y: y,
+            w: yscale.bandwidth(),
+            h: yscale.bandwidth(),
+            px: 40,
           }
         })
-        console.log("nodes", nodes)
-        return nodes
-      },
+        nodes = nodes.concat(logitNodes)
+
+        console.log("nodes!", nodes)
+
+        var links = []
+        hidden_layers.forEach(function(layer, i) {
+          if(i === hidden_layers.length - 1) {
+            //last layer, lets connect it to the logits
+            logitNodes.forEach(function(l,i) {
+              nodesByLayer[layer].forEach(function(a, j) {
+                var attr = group_data.output[l.logit.name].attribution[layer][j]
+                var link = {
+                  i: i,
+                  j: j,
+                  source: a,
+                  target: l,
+                  attr: attr
+                }
+                links.push(link)
+              })
+            })
+            return;
+          } 
+          var layerLinks = []
+          var layerA = layer;
+          var layerB = hidden_layers[i+1]
+          nodesByLayer[layerB].forEach(function(b, i) {
+            var group = group_data[layerB].each_group[i]
+            nodesByLayer[layerA].forEach(function(a, j) {
+              var attr = group.attribution[layerA][j]
+              var link = {
+                i: i,
+                j: j,
+                source: a,
+                target: b,
+                attr: attr,
+                // TODO: modify attr based on selected/hovered
+              }
+              links.push(link)
+            })
+          })
+          // var lines4AD = makeLines(links4AD)
+        })
+        console.log("LINKS", links)
+
+        var path = line()
+          .x(function(d) { return d.x })
+          .y(function(d) { return d.y })
+          .curve(curveBasis)
+
+
+        // var maxes = {}
+        // nest()
+        //   .key(function(d) { return d.target.layer })
+        //   .rollup(function(leaves) { 
+        //      return {
+        //        attr: max(leaves, function(d) { return Math.abs(d.attr) }),
+        //        i: max(leaves, function(d) { return d.i }),
+        //        j: max(leaves, function(d) { return d.j })
+        //      }
+        //   })
+        //   .entries(links)
+        //   .forEach(function(d) {
+        //     maxes[d.key] = d.value
+        //   })
+        // console.log("maxes", maxes)
+
+        var lines = [];
+        nest()
+          .key(function(d) { return d.target.layer })
+          .rollup(function(leaves) { return leaves })
+          .entries(links)
+          .forEach(function(d) {
+            var targetLayer = d.key
+            var links = d.value
+
+            var maxAttr = max(links, function(d) { return Math.abs(d.attr) })
+            var weightScale = scaleLinear()
+              .domain([0, maxAttr])
+              .range([0, 20])
+
+            var opacityScale = scaleLinear()
+              .domain([0, maxAttr])
+              .range([0.05, 1])
+
+            var maxI = max(links, function(d) {return d.i})
+            var maxJ = max(links, function(d) {return d.j})
+            console.log("target layer", targetLayer, links, maxI, maxJ, maxAttr)
+
+            links.forEach(function(link) {
+              // var max = maxes[link.target.layer]
+              // // console.log("max", max, link.i,)
+              // weightScale.domain([0, max.attr])
+              // opacityScale.domain([0, max.attr])
+              var syscale = scaleBand()
+                .domain(range(maxI+1))
+                .range([0, link.source.h])
+                .padding(0.2)
+              var tyscale = scaleBand()
+                .domain(range(maxJ+1))
+                .range([0, link.target.h])
+                .padding(0.2)
+
+              var sx = link.source.x + link.source.w
+              var sy = link.source.y + syscale(link.i) + syscale.bandwidth()/2 //link.i / maxI * link.source.h/1.5 + link.source.h/6
+              // var sx = link.source.x + link.i / maxI * link.source.w/1.5 + link.source.w/6
+              // var sy = link.source.y// + link.source.h/2
+
+              var tx = link.target.x// - link.target.w/2
+              var ty = link.target.y + tyscale(link.j) + tyscale.bandwidth()/2 //link.j / maxJ * link.target.h/1.5 + link.target.h/6
+              // var tx = link.target.x + link.j / maxJ * link.target.w/1.5 + link.target.w/6
+              // var ty = link.target.y + link.target.h/2
+
+              var dx = tx - sx
+              var points = [
+                  {x: sx, y: sy},
+                  {x: sx + dx/2, y: sy },
+                  // {x: sx, y: sy - link.source.h*1.5 },
+                  // {x: sx + (tx - sx)/2, y: sy + (ty - sy)/2},
+                  // {x: tx, y: ty + link.target.h*1.5 },
+                  {x: tx - dx/2, y: ty},
+                  {x: tx, y: ty},
+                ];
+              lines.push({
+                link: link,
+                weight: weightScale(Math.abs(link.attr)),
+                opacity: opacityScale(Math.abs(link.attr)),
+                path: path(points)
+              })
+            })
+          })
+        console.log("lines", lines)
+
+        return {
+          nodes: nodes,
+          // links: links,
+          lines: lines
+        }
+
+      }
 
 
       // attr_max(attr_data, valid_layer_hover, layer_hover) {
