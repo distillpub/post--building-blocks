@@ -90,7 +90,7 @@
     {
       "author": "Katherine Ye",
       "authorURL": "https://cs.cmu.edu/~kqy/",
-      "affiliation": "Carnegie Mellon University",
+      "affiliation": "CMU",
       "affiliationURL": "https://cs.cmu.edu/"
     },
     {
@@ -104,21 +104,34 @@
 </d-front-matter>
 
 <d-title>
-  <h1>Building Blocks for Interpretability Interfaces</h1>
+  <h1>The Building Blocks<br /> of Interpretability</h1>
 </d-title>
 
 <d-article>
   <p><b><i>Author list and order not finalized.</i></b></p>
 
   <p>
-    The process of designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying them <d-cite key="nielsen2016thought"></d-cite>. 
+    Designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying them <d-cite key="nielsen2016thought"></d-cite>. 
     With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>. 
     However, it appears to us that the corresponding work of reifying these abstractions has been neglected. 
-    This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table. 
-    Worse, these interfaces hinder the development of our abstractions by not pushing them to their limits.
+    This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table.
   </p>
 
   <p>
+    When we treat interpretability as a user interface design problem, existing techniques become fundamental and composable building blocks.
+
+    We present interfaces that show
+    <i>what</i> the network detects and explain
+    <i>how</i> it develops its understanding, while keeping things
+    <i>human-scale</i>.
+    
+    For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
+
+    Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action:
+    the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
+    </p>
+
+  <!-- <p>
     In this article, we consider interpretability through the lens of user interface design: iterating between reifying abstractions and pushing them further. 
     This process has allowed us to identify relatively basic operations with a lot of potential.
     For instance, feature visualization naturally combines with a network's activations to create a "semantic dictionary" that makes hidden activations meaningful. 
@@ -128,7 +141,25 @@
 
   <p>
     With this lens, existing techniques now become fundamental and composable building blocks for a new generation of more meaningful user interfaces for interpretability. 
-    We believe these interfaces should address three goals: showing <b>what</b> the network detects, explaining <b>how</b> the network developed its understanding, and finally making things <b>human-scale</b>.
+    We present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
+    For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification. 
+    Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
+  </p> -->
+
+  <p>
+    Deep learning increasingly seems like a new computing paradigm, distinct from traditional enumerative algorithms. 
+   
+    If this is true, we should expect to need corresponding new abstractions.
+
+    Interpretability can be seen as the study of these new abstractions.
+
+    But abstractions are only as powerful as the interfaces that reify them, and grow best when the interfaces push them to their limits.
+  </p>
+
+  <p>
+    From calculus to programming languages, there is a long history of new interface abstractions enabling progress in science and engineering.
+
+    We believe the right abstractions will help build models that are fair, robust, and aligned.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -367,7 +398,7 @@
 
   <p>
     (Recent work has explored other techniques for finding meaningful directions in activation space <d-cite key="raghu2017svcca,kim2017tcav"></d-cite>. 
-    While these works primarily focus on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.)
+    While this work primarily focuses on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.)
   </p>
 
   <!-- NIPS Disentagling workshop. -->
@@ -396,8 +427,74 @@
   <figure id="AttributionGroups" class="full-width" style="margin-right: 25px;"></figure>
 
   <p>
-    enjalot
+    In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behaviour of the network.
   </p>
+
+  <!-- <p>
+    Future directions: there different goals of activations, gradients, attribution. Composing groups together (sets of groups) that work naturally work (both within the layer, and across layers). Creating groups that you split up "dive into": small groups that capture 80% of the story, and then drill down. 
+
+    Connecting to disentangling. 
+
+    Value in factorizations that are "global." Are there ways to fuse these with the bespoke? Or mix between?
+  </p> -->
+
+  <h2>Future Directions</h2>
+
+  <p>
+    Throughout this article, we have described opportunities for improving existing techniques for interpretability. For example, ....
+
+    Recent work (e.g., []) also offers new abstractions that we can pull together in our interface considerations...
+  </p>
+
+
+  <!-- Points in a space -->
+
+  <p>
+    The interface ideas we present in this article are only a few points in a vast design space.
+
+    Many of the design decisions we made with each building block were independent, so at a minimum there's a combinatorial space you could explore.
+
+    But we believe this is still only scratching the surface.
+    
+
+    --
+
+    The design space for interacting with enumerative algorithms is rich and vast, and we believe the same holds true for the space of interacting with neural networks.
+
+    --
+
+
+
+    Many of the design decisions we made which each building block were independent, and it seems clear that alternate decisions would lead to 
+
+
+
+    Our interface ideas are proof of the existence of a design space of interpretability interfaces. 
+
+    At a minimum, the examples lie at the extents of this space.
+
+
+
+    At a minimum, these examples are the extents of the space with future work investigating what lies within it.
+
+    At a minimum, they show that a significant space of possibilities exist and give us waypoints to navigate it.
+
+    We believe this space is much larger than what we have sketched out, and that we are only scratching the surface of what is possible.
+
+    There are additional fundamental new abstractions that are yet to be discovered. 
+
+    Moreover, as interpretability matures, new abstractions will further expand the space. 
+
+    For example, we can treat recent work by Liang et al. as another building block to allow attribution to dataset examples.
+  </p>
+
+  <!-- Different things to do with each building block. -->
+
+  <!-- New building block that expand the space. -->
+
+  <!-- The promise of nailing this work. -->
+
+  
 
 </d-article>
 
