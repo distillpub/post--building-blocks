@@ -104,7 +104,8 @@
 </d-front-matter>
 
 <d-title>
-  <h1>The Building Blocks<br /> of Interpretability</h1>
+  <!-- <h1>Building Blocks<br />for Interpretability</h1> -->
+  <h1>Interpretability as<br />Interface Design</h1>
 </d-title>
 
 <d-article>
@@ -438,64 +439,51 @@
     Value in factorizations that are "global." Are there ways to fuse these with the bespoke? Or mix between?
   </p> -->
 
-  <h2>Future Directions</h2>
+  <h2>Conclusion &amp; Future Work</h2>
 
   <p>
-    Throughout this article, we have described opportunities for improving existing techniques for interpretability. For example, ....
+    The interface ideas we present in this article are only a few points in a larger design space.
 
-    Recent work (e.g., []) also offers new abstractions that we can pull together in our interface considerations...
-  </p>
-
-
-  <!-- Points in a space -->
-
-  <p>
-    The interface ideas we present in this article are only a few points in a vast design space.
-
-    Many of the design decisions we made with each building block were independent, so at a minimum there's a combinatorial space you could explore.
-
-    But we believe this is still only scratching the surface.
+    Many of the design decisions we made with each building block were independent. 
     
+    So, at the very least, there are lots of combinations to be explored.
 
-    --
-
-    The design space for interacting with enumerative algorithms is rich and vast, and we believe the same holds true for the space of interacting with neural networks.
-
-    --
-
-
-
-    Many of the design decisions we made which each building block were independent, and it seems clear that alternate decisions would lead to 
-
-
-
-    Our interface ideas are proof of the existence of a design space of interpretability interfaces. 
-
-    At a minimum, the examples lie at the extents of this space.
-
-
-
-    At a minimum, these examples are the extents of the space with future work investigating what lies within it.
-
-    At a minimum, they show that a significant space of possibilities exist and give us waypoints to navigate it.
-
-    We believe this space is much larger than what we have sketched out, and that we are only scratching the surface of what is possible.
-
-    There are additional fundamental new abstractions that are yet to be discovered. 
-
-    Moreover, as interpretability matures, new abstractions will further expand the space. 
-
-    For example, we can treat recent work by Liang et al. as another building block to allow attribution to dataset examples.
+    But, this is just scratching the surface of possibilities: the design space is likely much vaster than these initial examples suggest.
   </p>
 
-  <!-- Different things to do with each building block. -->
+  <p>
+    As we observed throughout the article, there are many directions each building block could be extended.
 
-  <!-- New building block that expand the space. -->
+    Moreover, we think there are entirely new building blocks whose discovery will expand the space.
 
-  <!-- The promise of nailing this work. -->
+    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior<d-cite key="koh2017understanding"></d-cite>&mdash;this functionality is another building block that can be fully composed with the ones we discussed earlier.
 
-  
+    Beyond this, alternate model types (e.g., GANs) may need wholly different building blocks altogether.
+  </p>
 
+  <p>
+    Another direction would be to more formally study the design space itself.
+
+    Besides enumerating all viable instances within the space, what are the principles that define it?
+
+    The interfaces in this article have different strengths: some emphasize <i>what</i> the network recognizes while others prioritize <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>.
+
+    But are these tradeoffs even necessary&mdash;can an interface have its cake and eat it too? 
+
+    If not, what particular sets of tradeoffs are most useful and how do we evaluate them?
+  </p>
+
+  <p>
+    There is a rich design space for interacting with enumerative algorithms, and we believe an equally rich space exists for interacting with neural networks.
+
+    <!-- The design space for interacting with enumerative algorithms is rich and vast, and we believe the same holds true for the space of interacting with neural networks. -->
+
+    <!-- One important role of these interfaces will be to extend the range of our own thoughts by leaning on the model's understanding of data.
+
+    More importantly, they will be critical for maintaining meaningful human control over increasingly automated processes. -->
+
+    These interfaces will be necessary for meaningful human oversight and critical for endorsing a model's decision-making process.
+  </p>
 </d-article>
 
 
