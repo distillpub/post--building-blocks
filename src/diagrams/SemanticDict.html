@@ -177,9 +177,9 @@ sub { font-size: 65%; }
 
     oncreate() {
       this.observe('example', (example) => {
-        require(`../../static/examples/activations/${example}/mixed4d.npy`).load((activation) => {
+        require(`../../static/examples/npy/${example}_mixed4d.npy`).load((activation) => {
           this.set({activation});
-        })
+        });
       });
     },
 
@@ -197,7 +197,7 @@ sub { font-size: 65%; }
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1.5} ${top_y}`
       },
 
-      present_vector: (pos, activation) => activation && present_vector(pos, activation),
+      present_vector: (pos, activation) => present_vector(pos, activation),
 
       present_vector_str: (pos, present_vector) => {
         let s = '['    
@@ -212,7 +212,7 @@ sub { font-size: 65%; }
         return s + ', ...]';
       },
 
-      tops: (present_vector) => present_vector ? tops(present_vector) : []
+      tops: (present_vector) => tops(present_vector)
     },
     components: {Sprite},
     helpers: {range},
