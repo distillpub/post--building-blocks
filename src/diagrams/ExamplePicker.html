@@ -71,15 +71,11 @@
 </style>
 
 <script>
-  import {INIT_EXAMPLE} from '../util';
-  const ex = require('../../static/examples').examples;
+  const examples = require('../../static/examples').examples;
 
   export default {
     data() {
-      return {
-        examples: ex,
-        selected: INIT_EXAMPLE
-      };
+      return {examples};
     },
 
     oncreate() {

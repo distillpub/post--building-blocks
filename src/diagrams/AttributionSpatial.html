@@ -175,13 +175,12 @@
 
   import Sprite from './Sprite.html'
   import ActivationGrid from './ActivationGrid.html'
-  import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
+  import {calc_layer_size, range} from '../util';
   const layers = require('../../static/examples').layers;
 
   export default {
     data() {
       return {
-        example: INIT_EXAMPLE,
         all_layers: layers,
         hidden_layers: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a']
       }

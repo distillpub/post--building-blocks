@@ -9,41 +9,50 @@ import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 
+const example = 'dog_cat';
+
 const actCube = new ActivationCube({
   target: document.getElementById('ActivationCube')
 });
 
 const exPick = new ExamplePicker({
-  target: document.getElementById('ExamplePicker')
+  target: document.getElementById('ExamplePicker'),
+  data: {selected: example}
 });
 
 const semanticDict = new SemanticDict({
-  target: document.getElementById('SemanticDict')
+  target: document.getElementById('SemanticDict'),
+  data: {example}
 });
 
 const actVis = new ActivationVecVis({
-  target: document.getElementById('ActivationVecVis')
+  target: document.getElementById('ActivationVecVis'),
+  data: {example}
 });
 
 const actGrid = new AllActivationGrids({
-  target: document.getElementById('AllActivationGrids')
+  target: document.getElementById('AllActivationGrids'),
+  data: {example}
 });
 
 const actGridMag = new AllActivationGrids({
   target: document.getElementById('AllActivationGridsMagnitude'),
-  data: {magnitude: true}
+  data: {magnitude: true, example}
 });
 
 const attrSpatial = new AttributionSpatial({
-  target: document.getElementById('AttributionSpatial')
+  target: document.getElementById('AttributionSpatial'),
+  data: {example}
 });
 
 const attrChannel = new AttributionChannel({
-  target: document.getElementById('AttributionChannel')
+  target: document.getElementById('AttributionChannel'),
+  data: {example}
 });
 
 const attrGroups = new AttributionGroups({
-  target: document.getElementById('AttributionGroups')
+  target: document.getElementById('AttributionGroups'),
+  data: {example}
 })
 
 // Wire components together.

@@ -98,7 +98,7 @@
 <script>
   import Sprite from './Sprite.html'
   import ActivationGrid from './ActivationGrid.html'
-  import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
+  import {calc_layer_size, range} from '../util';
   import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
   const layers = require('../../static/examples').layers;
 
@@ -107,7 +107,6 @@
   export default {
     data() {
       return {
-        example: INIT_EXAMPLE,
         all_layers: layers,
         hidden_layers: ['mixed4a', 'mixed4d', 'mixed5a'],
         labels: require('../../static/examples/labels.json'),

@@ -237,7 +237,7 @@
   import {format} from 'd3-format';
   import {json as loadJSON} from 'd3-request';
 
-  import {INIT_EXAMPLE, fmtAct, range} from '../util';
+  import {fmtAct, range} from '../util';
   import Sprite from './Sprite.html';
   const examples = require('../../static/examples');
 
@@ -246,7 +246,6 @@
   export default {
     data() {
       return {
-        example: INIT_EXAMPLE,
         all_layers: examples.layers,
         hidden_layers: HIDDEN_LAYERS,
         hover: [],

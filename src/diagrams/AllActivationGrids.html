@@ -35,14 +35,13 @@
 
 <script>
   import ActivationGrid from './ActivationGrid.html';
-  import {calc_layer_size, INIT_EXAMPLE} from '../util';
+  import {calc_layer_size} from '../util';
   const examples = require('../../static/examples');
 
   export default {
     data() {
       return {
         layer_names: Object.keys(examples.layers),
-        example: INIT_EXAMPLE,
         magnitude: false
       };
     },

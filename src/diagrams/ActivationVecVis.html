@@ -125,14 +125,13 @@
 <script>
   import {argmax} from 'ndarray-ops';
   import Sprite from './Sprite.html'
-  import {INIT_EXAMPLE, present_vector, range, tops, fmtAct} from '../util';
+  import {present_vector, range, tops, fmtAct} from '../util';
 
   export default {
     data() {
       return {
         N: [14, 14],
         pos: [2, 3],
-        example: INIT_EXAMPLE,
         max_act: undefined
       };
     },

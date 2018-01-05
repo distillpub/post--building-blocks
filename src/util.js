@@ -1,7 +1,5 @@
 import {format} from 'd3-format';
 
-export const INIT_EXAMPLE = 'dog_cat';
-
 export function range(n){
   return Array(n).fill().map((_, i) => i);
 }
