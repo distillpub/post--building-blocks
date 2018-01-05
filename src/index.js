@@ -61,8 +61,8 @@ loadJSON('examples/labels.json', (err, labels) => {
   [attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({labels}));
 });
 
-// semanticDict.observe('pos', (pos) => actVis.set({pos}));
-// actVis.observe('pos', (pos) => semanticDict.set({pos}));
+semanticDict.observe('pos', (pos) => actVis.set({pos}));
+actVis.observe('pos', (pos) => semanticDict.set({pos}));
 
-// actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
-// actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));
+actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
+actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));
