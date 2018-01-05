@@ -175,12 +175,18 @@ sub { font-size: 65%; }
         max_act: undefined
       };
     },
-    computed: {
-      activation (example) {
-        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}/mixed4d.npy`)
-      },
 
+    oncreate() {
+      this.observe('example', (example) => {
+        require(`../../static/examples/activations/${example}/mixed4d.npy`).load((activation) => {
+          this.set({activation});
+        })
+      });
+    },
+
+    computed: {
       max_act (activation) {
+        if (!activation) return null;
         return activation.get(...argmax(activation))
       },
 
@@ -192,19 +198,22 @@ sub { font-size: 65%; }
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${top_y} L ${N[0]+1.5} ${top_y}`
       },
 
-      present_vector: (pos, activation) => present_vector(pos, activation),
+      present_vector: (pos, activation) => activation && present_vector(pos, activation),
 
       present_vector_str: (pos, present_vector) => {
-        let s = '['         
-        for (let n = 0; n < Math.min(12, present_vector.length); n++) {
-          if (n > 0) s += ', ';
-          s += fmtAct(present_vector[n]);
+        let s = '['    
+
+        if (present_vector) {
+          for (let n = 0; n < Math.min(12, present_vector.length); n++) {
+            if (n > 0) s += ', ';
+            s += fmtAct(present_vector[n]);
+          }
         }
 
         return s + ', ...]';
       },
 
-      tops: (present_vector) => tops(present_vector)
+      tops: (present_vector) => present_vector ? tops(present_vector) : []
     },
     components: {Sprite},
     helpers: {range},

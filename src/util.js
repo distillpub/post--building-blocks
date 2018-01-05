@@ -10,7 +10,7 @@ export function calc_layer_size(container, num_layers) {
   const MARGIN = 20;
   const NUM_LAYERS = num_layers || 4;
   return !container ? 0 :
-    (container.parentNode.getBoundingClientRect().width / NUM_LAYERS) - MARGIN;
+    (container.getBoundingClientRect().width / NUM_LAYERS) - MARGIN;
 }
 
 export function present_vector (pos, activation) {

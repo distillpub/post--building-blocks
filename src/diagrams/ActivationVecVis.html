@@ -123,9 +123,9 @@
 </style>
 
 <script>
-  import { argmax } from 'ndarray-ops';
+  import {argmax} from 'ndarray-ops';
   import Sprite from './Sprite.html'
-  import { INIT_EXAMPLE, present_vector, range, tops, fmtAct } from '../util';
+  import {INIT_EXAMPLE, present_vector, range, tops, fmtAct} from '../util';
 
   export default {
     data() {
@@ -136,17 +136,23 @@
         max_act: undefined
       };
     },
-    computed: {
-      activation(example) {
-        return require(`numpy-loader?embed=true!../../static/examples/activations/${example}/mixed4d.npy`)
-      },
 
+    oncreate() {
+      this.observe('example', (example) => {
+        require(`../../static/examples/activations/${example}/mixed4d.npy`).load((activation) => {
+          this.set({activation});
+        })
+      });
+    },    
+
+    computed: {
       max_act(activation) {
+        if (!activation) return null;
         return activation.get(...argmax(activation))
       },
 
-      present_vector: (pos, activation) => present_vector(pos, activation),
-      tops: (present_vector) => tops(present_vector)
+      present_vector: (pos, activation) => activation && present_vector(pos, activation),
+      tops: (present_vector) => present_vector ? tops(present_vector) : []
     },
     components: {Sprite},
     helpers: {range, fmtAct},

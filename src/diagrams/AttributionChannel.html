@@ -1,3 +1,4 @@
+{{#if attr_data && labels}}
 <div class="side_labels" style="grid-column: kicker;">
   <div>
     <p class="heading">Input Image</p>
@@ -72,6 +73,7 @@
     {{/each}}
   </div>
 </div>
+{{/if}}
 
 <style>
   .channel_attribution {
@@ -132,7 +134,7 @@
   .bar_filled { 
     background-color: rgba(255, 255, 255, 0.8); 
     height: 100%;
-    transition: width 0.5s ease-in-out;
+    /* transition: width 0.5s ease-in-out; */
   }
 
   .hovered_channel, .selected_channel, .supporting_layer .hovered_channel { border-color: #4393c3; }
@@ -233,34 +235,42 @@
 
 <script>
   import {format} from 'd3-format';
+  import {json as loadJSON} from 'd3-request';
 
   import {INIT_EXAMPLE, fmtAct, range} from '../util';
   import Sprite from './Sprite.html';
   const examples = require('../../static/examples');
+
+  const HIDDEN_LAYERS = ['mixed3b', 'mixed4a', 'mixed4b', 'mixed4c', 'mixed4d'];
 
   export default {
     data() {
       return {
         example: INIT_EXAMPLE,
         all_layers: examples.layers,
-        hidden_layers: ['mixed3b', 'mixed4a', 'mixed4b', 
-          'mixed4c', 'mixed4d'],
+        hidden_layers: HIDDEN_LAYERS,
         hover: [],
         prev_selected: 'output',
-        selected: 'output',
+        selected: 'output'
       }
     },
 
-    computed: {
-      attr_data (example) {
-        return require(`../../static/examples/attributions/${example}/channel_attr.json`)
-      },
+    oncreate() {
+      this.observe('example', (example) => {
+        loadJSON(`examples/attributions/${example}/channel_attr.json`, (err, attr_data) => {
+          this.set({attr_data});
+        });
+      });
+    },
 
+    computed: {
       prev_selected_data (attr_data, prev_selected) {
+        if (!attr_data) return null;
         return attr_data[prev_selected] || attr_data[prev_selected[0]][prev_selected[1]];
       },
 
       selected_data (attr_data, selected) {
+        if (!attr_data) return null;
         return attr_data[selected] || attr_data[selected[0]][selected[1]];
       },
 

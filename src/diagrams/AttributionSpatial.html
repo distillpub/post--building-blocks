@@ -1,6 +1,7 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div>
+<div ref:container>
+  {{#if attr_data && labels}}
   <div class="legend">
     <div>
       <p>Input Image</p>
@@ -52,7 +53,7 @@
     </ul>
   </div>
 
-  <div class="hidden_layers" ref:container style="display: flex; --layer-size: {{layer_size}}px;">
+  <div class="hidden_layers" style="display: flex; --layer-size: {{layer_size}}px;">
     {{#each hidden_layers as layer}}
       <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
         layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}
@@ -64,10 +65,14 @@
           <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
         </div>
 
-        <div slot="foreground"><Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
-          sprite_size={{all_layers[layer][0]}} size={{layer_size}}
-          x={{layer_hover && pos_snap[layer_hover][0]}} 
-          y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite></div>
+        <div slot="foreground">
+          {{#if layer_hover && layer_hover !== layer}}
+          <Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
+            sprite_size={{all_layers[layer][0]}} size={{layer_size}}
+            x={{layer_hover && pos_snap[layer_hover][0]}} 
+            y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite>
+          {{/if}}
+        </div>
       </ActivationGrid>
     {{/each}}
   </div>
@@ -82,7 +87,9 @@
       {{/each}}
     </ul>
   </div> -->
+  {{/if}}
 </div>
+
 
 <figcaption>
   Bringing together three building blocks: magnitude-sized activation grids, a heatmap depiction of dimensionality reduction techniques computed on the attribution vectors, and (on hover) saliency maps for attribution between hidden layers.
@@ -164,6 +171,8 @@
 </style>
 
 <script>
+  import {json as loadJSON} from 'd3-request';
+
   import Sprite from './Sprite.html'
   import ActivationGrid from './ActivationGrid.html'
   import {calc_layer_size, range, INIT_EXAMPLE} from '../util';
@@ -179,7 +188,11 @@
     },
 
     oncreate() {
-      this.set({ layer_size: calc_layer_size(this.refs.container) });
+      this.observe('example', (example) => {
+        loadJSON(`examples/attributions/${example}/spatial_attr.json`, (err, attr_data) => {
+          this.set({attr_data, layer_size: calc_layer_size(this.refs.container)});
+        });
+      });
     },
 
     computed: {
@@ -207,17 +220,15 @@
         return valid_layer_hover ? all_layers[layer_hover][0] : 0;
       },
 
-      attr_data(example) {
-        return require(`../../static/examples/attributions/${example}/spatial_attr.json`);
-      },
-
       output_attr(attr_data, valid_layer_hover, layer_hover, pos_snap) {
+        if (!attr_data) return null;
         if (!valid_layer_hover) return attr_data.output;
         const ps = pos_snap[layer_hover];
         return attr_data.layers[layer_hover][ps[1]][ps[0]];
       },
 
       attr_max(attr_data, valid_layer_hover, layer_hover) {
+        if (!attr_data) return null;
         return attr_data.max[valid_layer_hover ? layer_hover : 'output'];
       },
     },
