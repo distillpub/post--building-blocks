@@ -220,6 +220,7 @@
 
   <p>
     Applying this technique to all the activation vectors allows us to not only see what the network detects at each position, but also what the network understands of the input image as a whole.
+
     And, by working across layers, we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
   </p>
 
@@ -244,7 +245,7 @@
     Using feature visualization, we can inspect what each of the components represents.
   </p>
 
-  <figure class="l-body">
+  <figure class="l-page">
     <img src="images/activation-pca.png"></img>
   </figure>
 
@@ -261,7 +262,7 @@
   <h2>How Are Concepts Assembled?</h2>
 
   <p>
-    Feature visualization and dimensionality reduction techniques help answer the first of our three original questions: <em>what</em> does the network detect. However, neither technique allows us to reason about <em>how</em> the network assembled these individual pieces to arrive at later decisions, or <em>why</em> these decisions were made.
+    Feature visualization and dimensionality reduction techniques help us answer the first of our three original questions: <em>what</em> does the network detect. However, neither technique allows us to reason about <em>how</em> the network assembled these individual pieces to arrive at later decisions, or <em>why</em> these decisions were made.
   </p>
 
   <p>
@@ -271,55 +272,121 @@
   <h3>Spatial Attribution with Saliency Maps</h3>
 
   <p>
-    Attribution techniques are most commonly used to produce <em>saliency maps</em> that associate pixels of the input image to the output classification. While such maps help us identify which pixels the network deemed most important to the ultimate class, it can be difficult to make sense of this information. The meaning of a pixel is extremely entagled with other pixels, and is far-removed from high-level concepts like the output class.
+    The most common interface for attribution is called a <i>saliency map</i> -- a simple heatmap that highlights pixels of the input image that most caused the output classification.
+
+    We see there being two weaknesses with this current approach.
   </p>
 
-  <!-- Cite Grad-CAM work. -->
-    
   <p>
+    First, it is not clear that individual pixels should be the primary unit of attribution. 
+
+    The meaning of pixel is extremely entagled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
+
     However, if we treat saliency maps as another user interface building block, we can instead apply them to the hidden layers of a neural network.
-    Applying attribution to spatial activations of hidden layers changes the question we are asking.
-    Rather than asking whether particular pixels being black was important for an image to be classified as "Labrador retriever," we instead ask whether high-level ideas (such as "floppy ear") detected at a position were important instead.
-    This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do, but they interpret their results as a saliency map on the input image.
+
+    In doing so, we change the questions we are asking. 
+
+    Rather than asking whether the color of a particular pixel was important for the "labrador retriever" classification, we instead ask whether the <i>high-level idea</i> detected at that position (such as "floppy ear") was important.
+
+    This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do, but they interpret their results back onto the input image.
+
+    As a result, they miss the opportunity to communicate in terms of the rich behaviour of a network's hidden layers.
   </p> 
+
+  <p>
+    Second, traditional saliency maps are too limited of an interface.
+
+    They only display the attribution for a single class at a time, and do not allow you to probe into individual points more deeply.
+
+    Moreover, as they are not explicitly dealing with hidden layers, we cannot fully explore their design space.
+  </p>
 
   <figure id="AttributionSpatial" class="full-width" style="margin-right: 25px;"></figure>
 
   <p>
-    Layer-to-layer attribution.
-    Layers side-by-side.
-    Saliency map not just of a single class but multiple outputs.
-    Information scent with NMF.
+    The above interface affords us a more flexible relationship with attribution.
 
-    No one is thinking of these problems as UI problems.
+    To start, we perform attribution from each spatial position of each hidden layer shown to all 1,000 output classes.
+
+    In order to visualize this thousand-dimensional vector, we use dimensionality reduction to produce a multi-directional saliency map. 
+
+    Overlaying these saliency maps on our magnitude-sized activation grids provides an information scent<d-cite key="pirolli1999information"></d-cite> over attribution space.
+
+    The activation grids allow us to anchor attribution to the visual vocabulary our semantic dictionaries first established.
+
+    On hover, we update the legend to depict attribution to the output classes (i.e., which classes does this spatial position most contribute to?).
+
+    Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers. 
+
+    In doing so, we interactively conduct layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
+
+    This type of layer-to-layer attribution is a prime example of how carefully considering interface design drives the generalization of our existing abstractions for interpretability.
   </p>
 
   <p>
-    By performing attribution in this way, we reason about how the network develops its understanding, and why it does so, using higher-level concepts. For example, how do low-level "fur" detectors combine together to form a higher-level "floppy ear" detector? Was it the "floppy ear," "snout," or "forehead" detectors that increased the model's belief in "labrador retriever" over "beagle"?
+    With this diagram, we have begun to think of attribution in terms of higher-level concepts.
+
+    However, by continuing to focus on spatial positions, these concepts remain entangled.
+    
+    At a particular position, many concepts are being detected together and this interface makes it difficult to split them apart.
   </p>
 
   <h3>Channel Attribution</h3>
 
   <p>
-    Saliency maps implicitly slice our cube of activations: applying attribution to the spatial positions of a hidden layer aggregates over all channels. As a result, we cannot tell which specific detectors ("floppy ear," "snout," etc.) at each position most contributed to the final "labrador retriever" classification.
+    Saliency maps implicitly slice our cube of activations by applying attribution to the spatial positions of a hidden layer. 
+
+    This aggregates over all channels and, as a result, we cannot tell which specific detectors <i>at each position</i> most contributed to the final output classification.
   </p>
 
-  <figure id="CubeSlicing"></figure>
-
   <p>
-    An alternate slicing of the cube might instead prioritize channels of spatial locations. Doing so would allow us to perform channel attribution: how much did each detector contribute to the final output? Such an approach is similar to contemporaneous work by Kim et al.
-    <d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
+    An alternate way to slice of the cube is by channels instead of spatial locations. 
+    
+    Doing so allows us to perform <i>channel attribution</i>: how much did each detector contribute to the final output? 
+    
+    Such an approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
   </p>
 
   <figure class="base-grid" id="AttributionChannel"></figure>
 
-  <p>Of course, these two types attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
+  <p>
+    This diagram is analogous to the previous one we saw: we conduct layer-to-layer attribution but this time over channels rather than spatial positions.
 
-  <figure id="SpatialChannelAttribution"></figure>
+    Once again, we use the icons from our semantic dictionary to represent the channels that most contribute to the final output classification.
+
+    Hovering over an individual channel displays a heatmap of its activations overlaid on the input image. 
+    
+    The legend also updates to show its attribution to the output classes (i.e., what are the top classes this channel supports?).
+
+    Clicking a channel allows us to drill into the layer-to-layer attributions, identifying the channels at lower layers that most contributed as well as the channels at higher layers that are most supported.
+  </p>
 
   <p>
-    Attribution to spatial locations and channels can reveal powerful things about a model, especially when we combine them together. Unfortunately, this family of approaches is burdened by two significant problems. On the one hand, it is very easy to end up with an overwhelming amount of information: it would take hours of human auditing
-    to understand the long-tail of channels that slightly impact the output. On the other hand, both the aggregations we have explored are extremely lossy and can miss important parts of the story. And, while we could avoid lossy aggregation by working with individual neurons, and not aggregating at all, this explodes the first problem combinatorially.
+    While these diagrams focus on layer-to-layer attribution, it can still be valuable to focus on a single hidden layer.
+
+    For example, the following diagram allows us to evaluate hypotheses for why one class succeeded over the other.
+  </p>
+
+  <figure class="l-page">
+    <img src="images/attribution-channels.png"></img>
+  </figure>
+
+  <h3>Neuron Attribution</h3>
+
+  <p>Of course, these two types attributions need not live in isolation. We can bring both spatial and channel attribution together in a single coherent interface.</p>
+
+  <figure class="l-page" id="SpatialChannelAttribution" style="border: 1px dashed #ccc; height: 200px;"></figure>
+
+  <p>
+    Attribution to spatial locations and channels can reveal powerful things about a model, especially when we combine them together. 
+    
+    Unfortunately, this family of approaches is burdened by two significant problems. 
+    
+    On the one hand, it is very easy to end up with an overwhelming amount of information: it would take hours of human auditing to understand the long-tail of channels that slightly impact the output. 
+    
+    On the other hand, both the aggregations we have explored are extremely lossy and can miss important parts of the story. 
+    
+    And, while we could avoid lossy aggregation by working with individual neurons, and not aggregating at all, this explodes the first problem combinatorially.
   </p>
 
   <!-- <p>
@@ -340,10 +407,6 @@
     Note that, unlike a saliency map which only shows how one output is
     effected, this visualization shows how multiple outputs are impacted.
   </p> -->
-
-  <figure class="l-body">
-    <img src="images/attribution-multi.png" ></img>
-  </figure>
   
   <!-- <p>
     While attribution is usually focused on spatial locations, as above,
@@ -353,15 +416,13 @@
     and how that influences the final outcome.
   </p> -->
 
-  <figure class="l-page">
-    <img src="images/attribution-channels.png" ></img>
-  </figure>
+ 
   
   <p>
     
   </p>
 
-  <h2>Neuron Groups: (TODO, groups or factors)</h2>
+  <h2>Making Things Human-Scale</h2>
 
 
 
