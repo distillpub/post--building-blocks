@@ -176,7 +176,7 @@
 
   <figure id="ExamplePicker" class="l-body" style="margin: 0px; z-index: 1;"></figure>
 
-  <figure id="SemanticDict"></figure>
+  <figure id="SemanticDict" class="base-grid"></figure>
 
   <p>
     This marriage of activations and feature visualizations realizes widespread intuition for what activation vectors really are.
@@ -216,7 +216,7 @@
 
   <h2>What Does the Network See?</h2>
   
-  <figure id="ActivationVecVis" class="l-body" style="margin-top: 0;"></figure>
+  <figure id="ActivationVecVis" class="base-grid" style="margin-top: 0;"></figure>
 
   <p>
     Applying this technique to all the activation vectors allows us to not only see what the network detects at each position, but also what the network understands of the input image as a whole.
@@ -485,7 +485,7 @@
     The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
   </p>
 
-  <figure id="AttributionGroups" class="full-width" style="margin-right: 25px;"></figure>
+  <figure id="AttributionGroups" class="l-page"></figure>
 
   <p>
     In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behaviour of the network.
@@ -502,35 +502,45 @@
   <h2>Conclusion &amp; Future Work</h2>
 
   <p>
-    The interface ideas we present in this article are only a few points in a larger design space.
+    The interface ideas we present in this article are combinations of building blocks such as feature visualization and attribution.
 
-    Many of the design decisions we made with each building block were independent. 
-    
-    So, at the very least, there are lots of combinations to be explored.
+    Composing these building blocks is not an arbitrary process -- there is a lot of structure in how they fit together.
 
-    But, this is just scratching the surface of possibilities: the design space is likely much vaster than these initial examples suggest.
+    This structure is described by the axes of a design space: which layers of the network we inspect, what atoms we break their activations into, and finally what content do we display about these atoms.
   </p>
 
+  <figure id="EmptyDesignSpace"></figure>
+
   <p>
-    As we observed throughout the article, there are many directions each building block could be extended.
+    This structure helps us systematically identify how our building blocks can compose together to enable new interfaces for interpretability.
+   
+    For instance, the figure below shows the progression of interface ideas starting with a simple heatmap of activations, layering feature visualization to create activation grids, expanding to multiple layers, and then introducing attribution.
+  </p>
+    
+  <figure id="DesignSpaceProgression"></figure>
+
+  <p>
+    In this article, we have only scratched the surface of possibilities.
+
+    There are lots of combinations yet to be explored, and opportunities to further refine the individual building blocks.
 
     Moreover, we think there are entirely new building blocks whose discovery will expand the space.
 
-    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior<d-cite key="koh2017understanding"></d-cite>&mdash;this functionality is another building block that can be fully composed with the ones we discussed earlier.
+    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
+    
+    This functionality is another building block that can be fully composed with the ones we discussed earlier -- for example, we could show which dataset examples caused the "floppy ear" detector to increase the probability of "Labrador retriever."
 
     Beyond this, alternate model types (e.g., GANs) may need wholly different building blocks altogether.
   </p>
 
   <p>
-    Another direction would be to more formally study the design space itself.
+    Another future direction is to study the principles of the design space.
 
-    Besides enumerating all viable instances within the space, what are the principles that define it?
-
-    The interfaces in this article have different strengths: some emphasize <i>what</i> the network recognizes while others prioritize <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>.
-
-    But are these tradeoffs even necessary&mdash;can an interface have its cake and eat it too? 
-
-    If not, what particular sets of tradeoffs are most useful and how do we evaluate them?
+    The interfaces in this article have different strengths: some emphasize
+    <i>what</i> the network recognizes while others prioritize
+    <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>. 
+    
+    But are these tradeoffs even necessary -- can an interface have its cake and eat it too? If not, what particular sets of tradeoffs are most useful and how do we evaluate them?
   </p>
 
   <p>
