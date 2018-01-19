@@ -112,9 +112,9 @@
   <p><b><i>Author list and order not finalized.</i></b></p>
 
   <p>
-    Designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying (or instantiating) them in interfaces <d-cite key="nielsen2016thought"></d-cite>. 
-    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>. 
-    However, it appears to us that the corresponding work of reifying these abstractions has been neglected. 
+    Designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying (or instantiating) them in interfaces <d-cite key="nielsen2016thought"></d-cite>.
+    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>.
+    However, it appears to us that the corresponding work of reifying these abstractions has been neglected.
     This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table.
     Worse, these interfaces hinder the development of our abstractions by not pushing them to their limits.
   </p>
@@ -126,7 +126,7 @@
     <i>what</i> the network detects and explain
     <i>how</i> it develops its understanding, while keeping things
     <i>human-scale</i>.
-    
+
     For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
 
     Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action:
@@ -134,17 +134,17 @@
     </p>
 
   <!-- <p>
-    In this article, we consider interpretability through the lens of user interface design: iterating between reifying abstractions and pushing them further. 
+    In this article, we consider interpretability through the lens of user interface design: iterating between reifying abstractions and pushing them further.
     This process has allowed us to identify relatively basic operations with a lot of potential.
-    For instance, feature visualization naturally combines with a network's activations to create a "semantic dictionary" that makes hidden activations meaningful. 
-    Moreover, we find that existing techniques can be applied in more general ways. 
-    Attribution, for example, can be layered over semantic dictionaries to understand how concepts evolve through the network's hidden layers. 
+    For instance, feature visualization naturally combines with a network's activations to create a "semantic dictionary" that makes hidden activations meaningful.
+    Moreover, we find that existing techniques can be applied in more general ways.
+    Attribution, for example, can be layered over semantic dictionaries to understand how concepts evolve through the network's hidden layers.
   </p>
 
   <p>
-    With this lens, existing techniques now become fundamental and composable building blocks for a new generation of more meaningful user interfaces for interpretability. 
+    With this lens, existing techniques now become fundamental and composable building blocks for a new generation of more meaningful user interfaces for interpretability.
     We present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
-    For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification. 
+    For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
     Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
   </p> -->
 
@@ -161,14 +161,14 @@
   <h2>Making Sense of Hidden Layers</h2>
 
   <p>
-    Much of the recent work on interpretability is concerned with a neural network's input and output layers. 
+    Much of the recent work on interpretability is concerned with a neural network's input and output layers.
     Arguably, this focus is due to the clear meaning these layers have: in computer vision, the input layer represents values for the red, green, and blue color channels for every pixel in the input image, while the output layer consists of class labels and their associated probabilities.
   </p>
 
   <p>
-    However, the power of neural networks lie in their hidden layers -- at every layer, the network discovers a new representation of the input. 
-    In computer vision, we use neural networks that run the same feature detectors at every position in the image. 
-    We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires. 
+    However, the power of neural networks lie in their hidden layers -- at every layer, the network discovers a new representation of the input.
+    In computer vision, we use neural networks that run the same feature detectors at every position in the image.
+    We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires.
     The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
   </p>
 
@@ -183,13 +183,13 @@
 
     It has always been suspected -- and increasingly shown -- that neurons are detecting important natural concepts.
 
-    By turning this intuition into an interface, we change our relationship with the underlying mathematical objects. 
+    By turning this intuition into an interface, we change our relationship with the underlying mathematical objects.
   </p>
 
   <p>
     However, these concepts may not map precisely to those we are used to reasoning about, or even have good words to describe.
 
-    Instead, they may be abstractions alien to us, or abstractions familiar to us but with deeper nuance. 
+    Instead, they may be abstractions alien to us, or abstractions familiar to us but with deeper nuance.
 
     For instance, the network has multiple floppy ear detectors that seem to detect slightly different levels of droopiness and surrounding context to the ears.
 
@@ -203,19 +203,19 @@
   </p>
 
   <p>
-    By bringing meaning to hidden layers, semantic dictionaries set the stage for our existing interpretability techniques to be composable building blocks. 
+    By bringing meaning to hidden layers, semantic dictionaries set the stage for our existing interpretability techniques to be composable building blocks.
 
-    As we shall see, just like their underlying vectors, we can apply dimensionality reduction to them. 
+    As we shall see, just like their underlying vectors, we can apply dimensionality reduction to them.
 
     In other cases, semantic dictionaries allow us to push these techniques further.
 
-    For example, besides the one-way attribution that we currently perform with the input and output layers, semantic dictionaries allow us to attribute to-and-from specific hidden layers. 
+    For example, besides the one-way attribution that we currently perform with the input and output layers, semantic dictionaries allow us to attribute to-and-from specific hidden layers.
 
     In principle, this work could have been done without semantic dictionaries but it would have been unclear what the results meant.
   </p>
 
   <h2>What Does the Network See?</h2>
-  
+
   <figure id="ActivationVecVis" class="base-grid" style="margin-top: 0;"></figure>
 
   <p>
@@ -229,19 +229,19 @@
   <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 
   <p>
-    These visualizations, however, omit a crucial piece of information: the magnitude of the activations. 
+    These visualizations, however, omit a crucial piece of information: the magnitude of the activations.
     By sizing each of the cells of the visualization by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
   </p>
 
   <figure id="AllActivationGridsMagnitude" class="act-grids full-width"></figure>
 
   <p>
-    Traditional dimensionality reduction techniques, such as principal component analysis, give us another way to understand what the network is detecting. 
-    For instance, to get an "overview" of the activation vectors, we can compute the first three principal components of the activations and color the image based on them. 
+    Traditional dimensionality reduction techniques, such as principal component analysis, give us another way to understand what the network is detecting.
+    For instance, to get an "overview" of the activation vectors, we can compute the first three principal components of the activations and color the image based on them.
   </p>
 
   <p>
-    These principle components are also directions in activation space and, thus, have meaning by themselves. 
+    These principle components are also directions in activation space and, thus, have meaning by themselves.
     Using feature visualization, we can inspect what each of the components represents.
   </p>
 
@@ -250,7 +250,7 @@
   </figure>
 
   <p>
-    In the end, a network's activations can be presented as semantic dictionaries with different bases. 
+    In the end, a network's activations can be presented as semantic dictionaries with different bases.
     There are three particularly natural ones to consider: what an activation vector represents as a whole, the vector in terms of some dimensionality reduction, and finally the individual neurons themselves.
     Note, these all (approximately) describe the same object!
   </p>
@@ -266,9 +266,9 @@
   </p>
 
   <p>
-    Attribution is a set of techniques that answers such questions by explaining the relationships between neurons. 
+    Attribution is a set of techniques that answers such questions by explaining the relationships between neurons.
   </p>
-  
+
   <h3>Spatial Attribution with Saliency Maps</h3>
 
   <p>
@@ -278,20 +278,20 @@
   </p>
 
   <p>
-    First, it is not clear that individual pixels should be the primary unit of attribution. 
+    First, it is not clear that individual pixels should be the primary unit of attribution.
 
     The meaning of pixel is extremely entagled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
 
     However, if we treat saliency maps as another user interface building block, we can instead apply them to the hidden layers of a neural network.
 
-    In doing so, we change the questions we are asking. 
+    In doing so, we change the questions we are asking.
 
     Rather than asking whether the color of a particular pixel was important for the "labrador retriever" classification, we instead ask whether the <i>high-level idea</i> detected at that position (such as "floppy ear") was important.
 
     This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do, but they interpret their results back onto the input image.
 
     As a result, they miss the opportunity to communicate in terms of the rich behaviour of a network's hidden layers.
-  </p> 
+  </p>
 
   <p>
     Second, traditional saliency maps are too limited of an interface.
@@ -308,7 +308,7 @@
 
     To start, we perform attribution from each spatial position of each hidden layer shown to all 1,000 output classes.
 
-    In order to visualize this thousand-dimensional vector, we use dimensionality reduction to produce a multi-directional saliency map. 
+    In order to visualize this thousand-dimensional vector, we use dimensionality reduction to produce a multi-directional saliency map.
 
     Overlaying these saliency maps on our magnitude-sized activation grids provides an information scent<d-cite key="pirolli1999information"></d-cite> over attribution space.
 
@@ -316,7 +316,7 @@
 
     On hover, we update the legend to depict attribution to the output classes (i.e., which classes does this spatial position most contribute to?).
 
-    Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers. 
+    Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers.
 
     In doing so, we interactively conduct layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
 
@@ -327,23 +327,23 @@
     With this diagram, we have begun to think of attribution in terms of higher-level concepts.
 
     However, by continuing to focus on spatial positions, these concepts remain entangled.
-    
+
     At a particular position, many concepts are being detected together and this interface makes it difficult to split them apart.
   </p>
 
   <h3>Channel Attribution</h3>
 
   <p>
-    Saliency maps implicitly slice our cube of activations by applying attribution to the spatial positions of a hidden layer. 
+    Saliency maps implicitly slice our cube of activations by applying attribution to the spatial positions of a hidden layer.
 
     This aggregates over all channels and, as a result, we cannot tell which specific detectors <i>at each position</i> most contributed to the final output classification.
   </p>
 
   <p>
-    An alternate way to slice of the cube is by channels instead of spatial locations. 
-    
-    Doing so allows us to perform <i>channel attribution</i>: how much did each detector contribute to the final output? 
-    
+    An alternate way to slice of the cube is by channels instead of spatial locations.
+
+    Doing so allows us to perform <i>channel attribution</i>: how much did each detector contribute to the final output?
+
     Such an approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
   </p>
 
@@ -354,8 +354,8 @@
 
     Once again, we use the icons from our semantic dictionary to represent the channels that most contribute to the final output classification.
 
-    Hovering over an individual channel displays a heatmap of its activations overlaid on the input image. 
-    
+    Hovering over an individual channel displays a heatmap of its activations overlaid on the input image.
+
     The legend also updates to show its attribution to the output classes (i.e., what are the top classes this channel supports?).
 
     Clicking a channel allows us to drill into the layer-to-layer attributions, identifying the channels at lower layers that most contributed as well as the channels at higher layers that are most supported.
@@ -380,14 +380,14 @@
 -->
 
   <p>
-    Attribution to spatial locations and channels can reveal powerful things about a model, especially when we combine them together. 
-    
-    Unfortunately, this family of approaches is burdened by two significant problems. 
-    
-    On the one hand, it is very easy to end up with an overwhelming amount of information: it would take hours of human auditing to understand the long-tail of channels that slightly impact the output. 
-    
-    On the other hand, both the aggregations we have explored are extremely lossy and can miss important parts of the story. 
-    
+    Attribution to spatial locations and channels can reveal powerful things about a model, especially when we combine them together.
+
+    Unfortunately, this family of approaches is burdened by two significant problems.
+
+    On the one hand, it is very easy to end up with an overwhelming amount of information: it would take hours of human auditing to understand the long-tail of channels that slightly impact the output.
+
+    On the other hand, both the aggregations we have explored are extremely lossy and can miss important parts of the story.
+
     And, while we could avoid lossy aggregation by working with individual neurons, and not aggregating at all, this explodes the first problem combinatorially.
   </p>
 
@@ -403,25 +403,25 @@
 
 
   <p>
-    For example, consider the PCA of activations from earlier. 
+    For example, consider the PCA of activations from earlier.
     Attribution can tell us how each principal component tends to effect
     the probability of likely classes, and how each position actually does.
     Note that, unlike a saliency map which only shows how one output is
     effected, this visualization shows how multiple outputs are impacted.
   </p> -->
-  
+
   <!-- <p>
     While attribution is usually focused on spatial locations, as above,
     we can just as easily point it at channels.
     Combined with feature visualization, this can allow us to "stand in the
-    middle of the network" and observe what is being detected at a hidden layer 
+    middle of the network" and observe what is being detected at a hidden layer
     and how that influences the final outcome.
   </p> -->
 
- 
-  
+
+
   <p>
-    
+
   </p>
 
   <h2>Making Things Human-Scale</h2>
@@ -429,14 +429,14 @@
 
 
   <p>
-    In previous sections, we've considered three ways of slicing the cube of activations: into spatial activations, channels, and individual neurons. 
+    In previous sections, we've considered three ways of slicing the cube of activations: into spatial activations, channels, and individual neurons.
     Each of these has major downsides.
     If one work's with only spatial activations or channels, they miss out on very important parts of the story.
     For example it's interesting that the floppy ear detector helped us classify an image as a Labrador retriever, but it's much more interesting when that's combined with the locations it fired to to do so.
     One can try to drill down to the level of neurons to tell the whole story, but the tens of thousands of neurons are simply too much information.
     Even the hundreds of channels, before being split into individual neurons, can be overwhelming to show users!
   </p>
-  
+
   <p>
     If we want to make useful interfaces into neural networks, it isn't enough to make things meaningful.
     We need to make them human scale, rather than overwhelming dumps of information.
@@ -460,7 +460,7 @@
   </p>
 
   <p>
-    (Recent work has explored other techniques for finding meaningful directions in activation space <d-cite key="raghu2017svcca,kim2017tcav"></d-cite>. 
+    (Recent work has explored other techniques for finding meaningful directions in activation space <d-cite key="raghu2017svcca,kim2017tcav"></d-cite>.
     While this work primarily focuses on finding "globally" meaningful directions, we instead focus on creating smaller numbers of directions to explain individual examples.)
   </p>
 
@@ -468,7 +468,7 @@
 
 
   <p>
-    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behaviour, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others. 
+    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behaviour, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others.
   </p>
 
   <p>
@@ -480,7 +480,7 @@
   </figure>
 
   <p>
-    This figure only focuses at a single layer but, as we saw earlier, it can be useful to look across multiple layers to understand how a neural network assembles together lower-level detectors into higher-level concepts. 
+    This figure only focuses at a single layer but, as we saw earlier, it can be useful to look across multiple layers to understand how a neural network assembles together lower-level detectors into higher-level concepts.
   </p>
 
   <p>
@@ -494,9 +494,9 @@
   </p>
 
   <!-- <p>
-    Future directions: there different goals of activations, gradients, attribution. Composing groups together (sets of groups) that work naturally work (both within the layer, and across layers). Creating groups that you split up "dive into": small groups that capture 80% of the story, and then drill down. 
+    Future directions: there different goals of activations, gradients, attribution. Composing groups together (sets of groups) that work naturally work (both within the layer, and across layers). Creating groups that you split up "dive into": small groups that capture 80% of the story, and then drill down.
 
-    Connecting to disentangling. 
+    Connecting to disentangling.
 
     Value in factorizations that are "global." Are there ways to fuse these with the bespoke? Or mix between?
   </p> -->
@@ -515,10 +515,10 @@
 
   <p>
     This structure helps us systematically identify how our building blocks can compose together to enable new interfaces for interpretability.
-   
+
     For instance, the figure below shows the progression of interface ideas starting with a simple heatmap of activations, layering feature visualization to create activation grids, expanding to multiple layers, and then introducing attribution.
   </p>
-    
+
   <figure id="DesignSpaceProgression"></figure>
 
   <p>
@@ -529,7 +529,7 @@
     Moreover, we think there are entirely new building blocks whose discovery will expand the space.
 
     For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
-    
+
     This functionality is another building block that can be fully composed with the ones we discussed earlier -- for example, we could show which dataset examples caused the "floppy ear" detector to increase the probability of "Labrador retriever."
 
     Beyond this, alternate model types (e.g., GANs) may need wholly different building blocks altogether.
@@ -540,8 +540,8 @@
 
     The interfaces in this article have different strengths: some emphasize
     <i>what</i> the network recognizes while others prioritize
-    <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>. 
-    
+    <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>.
+
     But are these tradeoffs even necessary -- can an interface have its cake and eat it too? If not, what particular sets of tradeoffs are most useful and how do we evaluate them?
   </p>
 
