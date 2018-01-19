@@ -280,7 +280,7 @@
   <p>
     First, it is not clear that individual pixels should be the primary unit of attribution.
 
-    The meaning of pixel is extremely entagled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
+    The meaning of each pixel is extremely entagled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
 
     However, if we treat saliency maps as another user interface building block, we can instead apply them to the hidden layers of a neural network.
 
@@ -340,7 +340,7 @@
   </p>
 
   <p>
-    An alternate way to slice of the cube is by channels instead of spatial locations.
+    An alternate way to slice the cube is by channels instead of spatial locations.
 
     Doing so allows us to perform <i>channel attribution</i>: how much did each detector contribute to the final output?
 
@@ -432,7 +432,7 @@
     In previous sections, we've considered three ways of slicing the cube of activations: into spatial activations, channels, and individual neurons.
     Each of these has major downsides.
     If one work's with only spatial activations or channels, they miss out on very important parts of the story.
-    For example it's interesting that the floppy ear detector helped us classify an image as a Labrador retriever, but it's much more interesting when that's combined with the locations it fired to to do so.
+    For example it's interesting that the floppy ear detector helped us classify an image as a Labrador retriever, but it's much more interesting when that's combined with the locations that fired to do so.
     One can try to drill down to the level of neurons to tell the whole story, but the tens of thousands of neurons are simply too much information.
     Even the hundreds of channels, before being split into individual neurons, can be overwhelming to show users!
   </p>
