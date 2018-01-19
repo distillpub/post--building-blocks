@@ -1,8 +1,7 @@
 {
   "input_size": 244,
   "examples": [
-    "dog_cat", "flowers", "chameleon", "chair", "spoonbill",
-    "trombone", "bicycle", "rooster", "sunglasses_tux"
+    "dog_cat", "flowers", "chair", "trombone", "sunglasses_tux"
   ],
   "layers": {
     "mixed3a": [28, 26],

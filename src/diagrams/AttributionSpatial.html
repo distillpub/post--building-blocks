@@ -189,14 +189,14 @@
     oncreate() {
       this.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/spatial_attr.json`, (err, attr_data) => {
-          this.set({attr_data, layer_size: calc_layer_size(this.refs.container)});
+          this.set({attr_data, layer_size: calc_layer_size(this.refs.container, 4)});
         });
       });
     },
 
     computed: {
       layer_size(winWidth, num_layer_width) {
-        return calc_layer_size(document.querySelector('#AttributionSpatial .hidden_layers'));
+        return calc_layer_size(document.querySelector('#AttributionSpatial .hidden_layers'), 4);
       },
 
       pos_snap(hidden_layers, layer_size, pos_hover) {

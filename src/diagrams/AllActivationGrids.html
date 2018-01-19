@@ -1,7 +1,7 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
 <div ref:container class="all_act_grids" on:scroll="sync_scroll(event)" 
-  style="height: {{layer_size + 80}}px;">
+  style="height: {{layer_size + 40}}px;">
 
   <div style="--layer-size: {{layer_size}}px;
     width: {{(layer_size + 25) * layer_names.length}}px;">
@@ -41,18 +41,18 @@
   export default {
     data() {
       return {
-        layer_names: Object.keys(examples.layers),
+        layer_names: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'],
         magnitude: false
       };
     },
 
     oncreate() {
-      this.set({layer_size: calc_layer_size(this.refs.container)});
+      this.set({layer_size: calc_layer_size(this.refs.container, 3.25)});
     },
 
     computed: {
       layer_size (winWidth, num_layer_width) {
-        return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'));
+        return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'), 3.25);
       }
     },
 
@@ -62,7 +62,6 @@
       }
     },
     
-
     components: {ActivationGrid}
   }
 </script>

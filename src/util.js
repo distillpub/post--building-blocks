@@ -6,7 +6,7 @@ export function range(n){
 
 export function calc_layer_size(container, num_layers) {
   const MARGIN = 20;
-  const NUM_LAYERS = num_layers || 4;
+  const NUM_LAYERS = num_layers;
   return !container ? 0 :
     (container.getBoundingClientRect().width / NUM_LAYERS) - MARGIN;
 }
