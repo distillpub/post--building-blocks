@@ -27,7 +27,7 @@
       Why does the model think the image is more likely a
       <span class="label" on:click="change_label(event, 0)">{{labels[selected_classes[0]]}}</span>
       than a
-      <span class="label" on:click="change_label(event, 1)">{{labels[selected_classes[1]]}}</span>?
+      <span class="label_nv1 label" on:click="change_label(event, 1)">{{labels[selected_classes[1]]}}</span>?
     </p>
 
     <div id="change_label" style="display: {{change_label === null ? 'none' : 'block'}};
@@ -54,21 +54,23 @@
       </div>
 
       <div style="display: flex;" on:mouseleave="set({hover_channel: null})">
-        {{#each selected_data as d}}
+        {{#each selected_data as d, i}}
           {{#if d.c}}
             <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" 
               on:mouseover="set({hover_channel: d.c})" title="{{d.c}}">
               <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
 
-              <!-- <div class="bar">
-                <div class="bar_filled" style=""></div>
-              </div> -->
+              <div class="bar">
+                <div class="bar_nv0 bar_filled" style="{{bar_filled('nv0', d)}}"></div>
+                <div class="bar_nv1 bar_filled" style="{{bar_filled('nv1', d)}}"></div>
+                <div class="bar_midpoint"></div>
+              </div>
 
               <div class="outline"></div>
             </div>
           {{else}}
             <div class="neuron" on:mouseover="set({hover_channel: null})" 
-              style="align-items: center; cursor: auto;">...</div>
+              style="display: flex; align-items: center; cursor: auto;">...</div>
           {{/if}}
         {{/each}}
       </div>
@@ -172,7 +174,9 @@
     cursor: pointer;
   }
 
-  .label:hover { color: var(--orange); }
+  .label:hover { color: #000; }
+
+  .label_nv1 { color: var(--orange); }
 
   #change_label {
     position: absolute; 
@@ -214,6 +218,7 @@
   .neuron .inner { border-radius: var(--border-radius); }
 
   .bar {
+    position: relative;
     width: 100%;
     height: 12px;  
     margin-top: 10px;
@@ -222,9 +227,27 @@
     border-radius: var(--border-radius);
   }
 
-  .bar_filled { 
-    background-color: #aaa;
+  .bar_filled {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    opacity: 0.5;
+  }
+
+  .bar_nv0 { 
+    background-color: var(--blue);
+  }
+
+  .bar_nv1 {
+    background-color: var(--orange);
+  }
+
+  .bar_midpoint {
+    position: absolute;
+    left: 50%;
     height: 100%;
+    border: 1px dashed #777;
+    box-sizing: border-box;
   }
 
   .outline {
@@ -238,8 +261,6 @@
     border-radius: var(--border-radius);
   }
 
-  .neuron_hover .bar { border-color: var(--blue); }
-  .neuron_hover .bar_filled { background-color: var(--blue); }
   .neuron_hover .outline { border-color: var(--blue); }
 
   figcaption {
@@ -311,6 +332,16 @@
         const selected_classes = this.get('selected_classes');
         selected_classes[change_label] = cls;
         this.set({selected_classes, change_label: null});
+      }
+    },
+
+    helpers: {
+      bar_filled(cls, d) {
+        const val = d[cls] * 100;
+        const width = Math.abs(val) / 2;
+        return ((cls === 'nv0' && val > 0) || (cls === 'nv1' && val < 0)) ?
+          `right: 50%; width: ${width}%` :
+          `left: 50%; width: ${width}%`;
       }
     },
 
