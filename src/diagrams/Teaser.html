@@ -30,7 +30,8 @@
       <span class="label_nv1 label" on:click="change_label(event, 1)">{{labels[selected_classes[1]]}}</span>?
     </p>
 
-    <div id="change_label" style="display: {{change_label === null ? 'none' : 'block'}};
+    <div id="change_label" class="nv{{change_label}}" 
+      style="display: {{change_label === null ? 'none' : 'block'}};
       left: {{change_label_pos.left - 211}}px;">
       <ul>
         <li on:click="set({change_label: null})">{{labels[selected_classes[change_label]]}}</li>
@@ -61,8 +62,9 @@
               <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
 
               <div class="bar">
-                <div class="bar_nv0 bar_filled" style="{{bar_filled('nv0', d)}}"></div>
-                <div class="bar_nv1 bar_filled" style="{{bar_filled('nv1', d)}}"></div>
+                <div class="bar_nv0 bar_filled" style="{{bar_filled(d, 'nv0', i < 3 ? 'nv1' : 'nv0')}}"></div>
+                <div class="bar_nv1 bar_filled" style="{{bar_filled(d, 'nv1', i < 3 ? 'nv1' : 'nv0')}}"></div>
+
                 <div class="bar_midpoint"></div>
               </div>
 
@@ -107,12 +109,12 @@
 
   .example_picker img.selected {
     opacity: 1;
-    border-color: var(--orange)
+    border-color: goldenrod;
   }
 
   .example_picker img:hover { 
     opacity: 1;
-    border-color: var(--blue)
+    border-color: goldenrod;
   }
 
   .input_image {
@@ -174,7 +176,7 @@
     cursor: pointer;
   }
 
-  .label:hover { color: #000; }
+  .label:hover { color: goldenrod; }
 
   .label_nv1 { color: var(--orange); }
 
@@ -193,15 +195,17 @@
     padding: 0;
     list-style-type: none;
     font-size: 90%;
-    color: var(--blue);
     text-transform: capitalize;
     cursor: pointer;
   }
 
   #change_label li:first-child, #change_label li:hover { 
-    color: var(--orange); 
+    color: goldenrod; 
     font-weight: bold;
   }
+
+  #change_label.nv0 { color: var(--blue); }
+  #change_label.nv1 { color: var(--orange); }
 
   .neuron { 
     position: relative;
@@ -225,6 +229,7 @@
     border: 1px solid #aaa;
     box-sizing: border-box;
     border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
   .bar_filled {
@@ -232,6 +237,7 @@
     top: 0;
     bottom: 0;
     opacity: 0.5;
+    /* transition: all 0.5s ease-in-out; */
   }
 
   .bar_nv0 { 
@@ -246,7 +252,7 @@
     position: absolute;
     left: 50%;
     height: 100%;
-    border: 1px dashed #777;
+    border: 1px dashed #666;
     box-sizing: border-box;
   }
 
@@ -261,7 +267,7 @@
     border-radius: var(--border-radius);
   }
 
-  .neuron_hover .outline { border-color: var(--blue); }
+  .neuron_hover .outline { border-color: goldenrod; }
 
   figcaption {
     position: absolute;
@@ -307,9 +313,11 @@
         data = attr_data[`${selected_classes[1]}-${selected_classes[0]}`] || [];
         return data.slice().reverse().map((d) => {
           if (d.nv0) {
-            const temp = d.nv0;
-            d.nv0 = d.nv1;
-            d.nv1 = temp;
+            const d2 = Object.assign({}, d);
+            const temp = d2.nv0;
+            d2.nv0 = d2.nv1;
+            d2.nv1 = temp;
+            return d2;
           }
           return d;
         });
@@ -331,17 +339,22 @@
         const change_label = this.get('change_label');
         const selected_classes = this.get('selected_classes');
         selected_classes[change_label] = cls;
-        this.set({selected_classes, change_label: null});
+        this.set({selected_classes, change_label: null, hover_channel: null});
       }
     },
 
     helpers: {
-      bar_filled(cls, d) {
+      bar_filled(d, cls, base) {
         const val = d[cls] * 100;
         const width = Math.abs(val) / 2;
+        
+        const start = cls === base ? 50 :
+          Math.sign(val) === Math.sign(d[base]) ? 50 :
+            50 + (Math.abs(d[base] * 100) / 2);
+
         return ((cls === 'nv0' && val > 0) || (cls === 'nv1' && val < 0)) ?
-          `right: 50%; width: ${width}%` :
-          `left: 50%; width: ${width}%`;
+          `right: ${start}%; width: ${width}%` :
+          `left: ${start}%; width: ${width}%`;
       }
     },
 
