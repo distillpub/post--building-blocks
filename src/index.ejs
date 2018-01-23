@@ -6,6 +6,29 @@
   <script src="https://distill.pub/template.v2.js"></script>
 
   <style>
+    d-title {
+      overflow-y: hidden;
+      padding-bottom: 0;
+    }
+
+    d-title h1 {
+      grid-column: page;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    #Teaser {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 60px 0;
+    }
+
+    figure.gray-bg {
+      background: hsl(0, 0%, 97%);
+    }
+    
     figure.full-width {
       grid-column: screen;
       margin-left: 100px;
@@ -60,7 +83,7 @@
 
 <d-front-matter>
   <script type="text/json">{
-  "title": "Article Title",
+  "title": "Interpretability as Interface Design",
   "description": "Description of the post",
   "authors": [
     {
@@ -105,7 +128,8 @@
 
 <d-title>
   <!-- <h1>Building Blocks<br />for Interpretability</h1> -->
-  <h1>Interpretability as<br />Interface Design</h1>
+  <h1>Interpretability as Interface Design</h1>
+  <figure id="Teaser" class="base-grid gray-bg" onclick="teaserFig.set({change_label: null});"></figure>
 </d-title>
 
 <d-article>
@@ -493,13 +517,51 @@
     In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behaviour of the network.
   </p>
 
-  <!-- <p>
-    Future directions: there different goals of activations, gradients, attribution. Composing groups together (sets of groups) that work naturally work (both within the layer, and across layers). Creating groups that you split up "dive into": small groups that capture 80% of the story, and then drill down. 
+  <h2>The Space of Interpretability Interfaces</h2>
 
-    Connecting to disentangling. 
+  <p>
+    The interface ideas we present in this article only scratch the surface of possibilities. 
+    
+    There is a rich space of ways to combine the building blocks we have discussed.
+  </p>
 
-    Value in factorizations that are "global." Are there ways to fuse these with the bespoke? Or mix between?
-  </p> -->
+  <p>
+    We can think of an interface as a union of individual elements. 
+    
+    Each element presents a specific type of content (e.g., activations or attribution) in a particular way (e.g., feature visualization or traditional information visualization).
+
+    The content lives on atoms that are defined by breaking apart a given layer of the network in a particular way.
+
+    For example, we could talk about the content of activations in terms of a layer's spatial positions, channels, or groups of neurons.
+
+    We find it helpful to think about these interfaces as living on a grid: 
+    <!-- every position on this grid is an atom, content will be points and lines that connect them. -->
+  </p>
+
+  <p>
+    To be more concrete, let us consider how the spatial attribution diagram can be plotted on this grid.
+
+    <!-- The diagram operates with three sets of atoms: each hidden layer factored into spatial positions and neurons of the output.
+    
+    At each spatial position, we present the activations with feature visualization and magnitude forming an activation grid.
+
+    Finally, we perform bi-directional attribution between each pair of atoms.
+  
+    -->
+  </p>
+
+
+  <p>
+    The interface ideas we present in this article only scratch the surface of possibilities.
+
+    There is a rich space of ways to combine the building blocks we have discussed.
+
+    Composing these building blocks is not an arbitrary process -- there is a fundamental structure to how they fit together.
+
+    Our diagrams have made a number of independent decisions: for example, which layers of the network we inspect, what atoms we break their activations into, or what content we display about these atoms. 
+  </p>
+
+
 
   <h2>Conclusion &amp; Future Work</h2>
 
@@ -508,7 +570,7 @@
 
     Composing these building blocks is not an arbitrary process -- there is a lot of structure in how they fit together.
 
-    This structure is described by the axes of a design space: which layers of the network we inspect, what atoms we break their activations into, and finally what content do we display about these atoms.
+    This structure is described by the axes of a design space: which layers of the network we inspect, what atoms we break their activations into, and finally what content we display about these atoms.
   </p>
 
   <figure id="EmptyDesignSpace"></figure>

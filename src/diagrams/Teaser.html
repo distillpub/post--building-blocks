@@ -1,0 +1,319 @@
+<div class="container" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
+  <div class="example_picker">
+    {{#each examples as ex}}
+    <img src="examples/input_images/{{ex}}.png" class="{{ex === example ? 'selected' : ''}}" alt="{{ex}}" on:click="set({example: ex})"
+    /> {{/each}}
+  </div>
+
+  <div>
+    <p class="heading">Input Image</p>
+
+    <div class="input_image">     
+      <img src="examples/input_images/{{example}}.png" /> 
+    
+      {{#if hover_channel}}
+        <Sprite src_class="sprite_mixed4d_activations" 
+          bg_img="examples/activations/{{example}}/sprite_mixed4d_activations.png"
+          n={{hover_channel}} 
+          sprite_size={{14}} 
+          size="{{img_size}}" /> 
+      {{/if}}
+    </div>
+  </div>
+
+  {{#if attr_data && labels}}
+  <div>
+    <p class="heading">
+      Why does the model think the image is more likely a
+      <span class="label" on:click="change_label(event, 0)">{{labels[selected_classes[0]]}}</span>
+      than a
+      <span class="label" on:click="change_label(event, 1)">{{labels[selected_classes[1]]}}</span>?
+    </p>
+
+    <div id="change_label" style="display: {{change_label === null ? 'none' : 'block'}};
+      left: {{change_label_pos.left - 211}}px;">
+      <ul>
+        <li on:click="set({change_label: null})">{{labels[selected_classes[change_label]]}}</li>
+        {{#each attr_data.classes as c}}
+          {{#if c !== selected_classes[0] && c !== selected_classes[1]}}
+            <li on:click="select_class(c)">{{labels[c]}}</li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+
+    <div style="height: var(--img-size);">
+      <div class="subheading">
+        <p>Neurons that most support
+          <span>{{labels[selected_classes[0]]}}</span>
+        </p>
+        <p style="text-align: center;">vs.</p>
+        <p>Neurons that most support
+          <span>{{labels[selected_classes[1]]}}</span>
+        </p>
+      </div>
+
+      <div style="display: flex;" on:mouseleave="set({hover_channel: null})">
+        {{#each selected_data as d}}
+          {{#if d.c}}
+            <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" 
+              on:mouseover="set({hover_channel: d.c})" title="{{d.c}}">
+              <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
+
+              <!-- <div class="bar">
+                <div class="bar_filled" style=""></div>
+              </div> -->
+
+              <div class="outline"></div>
+            </div>
+          {{else}}
+            <div class="neuron" on:mouseover="set({hover_channel: null})" 
+              style="align-items: center; cursor: auto;">...</div>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <figcaption>Caption text goes here. Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity.
+  Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top
+  Cat.</figcaption>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    position: relative;
+    --blue: #3497FF;
+    --orange: #ff6600;
+    --border-radius: 7px;
+  }
+
+  .example_picker {
+    width: 50px;
+    margin-right: 30px;
+  }
+
+  .example_picker img {
+    width: 40px;
+    cursor: pointer;
+    opacity: 0.4;
+    border: 3px solid #fff;
+    border-radius: var(--border-radius);
+  }
+
+  .example_picker img.selected {
+    opacity: 1;
+    border-color: var(--orange)
+  }
+
+  .example_picker img:hover { 
+    opacity: 1;
+    border-color: var(--blue)
+  }
+
+  .input_image {
+    width: var(--img-size);
+    height: var(--img-size);
+    position: relative;
+    margin-right: 30px;
+  }
+
+  .input_image img { 
+    position: absolute; 
+    top: 0;
+    right: 0;
+    border-radius: var(--border-radius);
+  }
+
+  .input_image .outer {
+    position: absolute;
+    opacity: 0.8;
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
+    border-radius: var(--border-radius);
+  }
+
+  .heading {
+    font-size: 90%;
+    font-weight: bold;
+  }
+
+  .subheading {
+    display: flex;
+    width: 100%;
+    font-style: italic;
+  }
+
+  .subheading p { 
+    flex: 1;
+    font-size: 80%; 
+  }
+
+  .subheading p:last-child {
+    margin-left: auto;
+    justify-self: flex-end;
+    text-align: right;
+  }
+
+  .subheading span { text-transform: capitalize; }
+
+  .label {
+    color: var(--blue);
+    text-transform: capitalize;
+    border-bottom: 1px dashed;
+    cursor: pointer;
+  }
+
+  .label:hover { color: var(--orange); }
+
+  #change_label {
+    position: absolute; 
+    top: -7px; 
+    padding: 7px;
+    z-index: 100;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+  }
+
+  #change_label ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 90%;
+    color: var(--blue);
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+
+  #change_label li:first-child, #change_label li:hover { 
+    color: var(--orange); 
+    font-weight: bold;
+  }
+
+  .neuron { 
+    position: relative;
+    width: 110px;
+    height: 122px;
+    justify-content: center;
+    margin-right: 20px; 
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
+  .neuron:nth-child(3), .neuron:nth-child(4), .neuron:last-child { margin-right: 0; }
+
+  .neuron .inner { border-radius: var(--border-radius); }
+
+  .bar {
+    width: 100%;
+    height: 12px;  
+    margin-top: 10px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+  }
+
+  .bar_filled { 
+    background-color: #aaa;
+    height: 100%;
+  }
+
+  .outline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 110px;
+    box-sizing: border-box;
+    border: 5px solid transparent;
+    border-radius: var(--border-radius);
+  }
+
+  .neuron_hover .bar { border-color: var(--blue); }
+  .neuron_hover .bar_filled { background-color: var(--blue); }
+  .neuron_hover .outline { border-color: var(--blue); }
+
+  figcaption {
+    position: absolute;
+    bottom: 5px;
+    left: 80px;
+  }
+</style>
+
+<script>
+  import {json as loadJSON} from 'd3-request';
+  import Sprite from './Sprite.html';
+
+  const examples = require('../../static/examples').examples;
+
+  export default {
+    data() {
+      return {
+        examples,
+        attr_data: {},
+        selected_classes: [],
+        img_size: 165,
+        change_label: null
+      }
+    },
+
+    oncreate() {
+      this.observe('example', (example) => {
+        loadJSON(`examples/attributions/${example}/teaser.json`, (err, attr_data) => {
+          const selected_classes = attr_data.classes.slice(0, 2);
+          this.set({
+            attr_data, selected_classes,
+            hover_channel: attr_data[`${selected_classes[0]}-${selected_classes[1]}`][0].c
+          });
+        });
+      });
+    },
+
+    computed: {
+      selected_data(attr_data, selected_classes) {
+        let data = attr_data[`${selected_classes[0]}-${selected_classes[1]}`];
+        if (data) return data;
+
+        data = attr_data[`${selected_classes[1]}-${selected_classes[0]}`] || [];
+        return data.slice().reverse().map((d) => {
+          if (d.nv0) {
+            const temp = d.nv0;
+            d.nv0 = d.nv1;
+            d.nv1 = temp;
+          }
+          return d;
+        });
+      },
+
+      change_label_pos(change_label) {
+        const label = document.querySelectorAll('p.heading span.label')[change_label];
+        return label ? label.getBoundingClientRect() : {};        
+      }
+    },
+
+    methods: {
+      change_label(event, idx) {
+        this.set({change_label: idx});
+        event.stopPropagation();
+      },
+
+      select_class(cls) {
+        const change_label = this.get('change_label');
+        const selected_classes = this.get('selected_classes');
+        selected_classes[change_label] = cls;
+        this.set({selected_classes, change_label: null});
+      }
+    },
+
+    components: {Sprite}
+  }
+</script>

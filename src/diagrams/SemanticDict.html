@@ -62,9 +62,9 @@
 .input_image {
   position: relative;
   float: left;
-  width: 244px;
-  height: 244px;
-  margin: 0 20px 10px 0;
+  width: 224px;
+  height: 224px;
+  margin-right: 15px;
 }
 
 .input_image img, .input_image svg {
@@ -109,6 +109,7 @@ sub { font-size: 65%; }
   margin-top: 30px;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 
 .semantic_dict .value {
@@ -163,7 +164,7 @@ sub { font-size: 65%; }
 
     const imgbb = img.getBoundingClientRect();
     const pbb = p.getBoundingClientRect();
-    return (pbb.top - imgbb.top) / N[0];
+    return (pbb.top - imgbb.top) / N[0] + 1;
   }
   
   export default {
@@ -177,7 +178,7 @@ sub { font-size: 65%; }
 
     oncreate() {
       this.observe('example', (example) => {
-        require(`../../static/examples/npy/${example}_mixed4d.npy`).load((activation) => {
+        require(`../../static/examples/npy/${example}_mixed4d_activations.npy`).load((activation) => {
           this.set({activation});
         });
       });

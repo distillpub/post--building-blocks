@@ -68,7 +68,10 @@
           </div>
         {{/each}}
 
-        <div class="spacer">...</div>
+        <div class="spacer channel">
+          ... <br />
+          <span>Showing 3 of <b>{{num_channels[layer]}}</b></span>
+        </div>
       </div>
     {{/each}}
   </div>
@@ -108,9 +111,9 @@
 
   .layer p.heading {
     margin: 0;
-    padding: 0 15px;
     font-weight: normal;
     font-style: italic;
+    text-align: center;
   }
 
   .channel {
@@ -176,10 +179,16 @@
 
   .spacer {
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 110px;
-    height: 118px;  /* Huh? */
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    cursor: auto;
+  }
+
+  .spacer span { 
+    margin-top: 10px;
+    font-size: 70%; 
   }
 
   .layer .supported_by {
@@ -250,7 +259,11 @@
         hidden_layers: HIDDEN_LAYERS,
         hover: [],
         prev_selected: 'output',
-        selected: 'output'
+        selected: 'output',
+        num_channels: {
+          'mixed3b': 480, 'mixed4a': 508, 'mixed4b': 512,
+          'mixed4c': 512, 'mixed4d': 528
+        }
       }
     },
 

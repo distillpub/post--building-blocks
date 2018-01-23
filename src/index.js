@@ -1,5 +1,6 @@
 import {json as loadJSON} from 'd3-request';
 
+import Teaser from './diagrams/Teaser.html';
 import ActivationCube from './diagrams/ActivationCube.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
 import SemanticDict from './diagrams/SemanticDict.html';
@@ -11,13 +12,18 @@ import AttributionGroups from './diagrams/AttributionGroups.html';
 
 const example = 'dog_cat';
 
+const teaser = window.teaserFig = new Teaser({
+  target: document.getElementById('Teaser'),
+  data: {example}
+});
+
 const actCube = new ActivationCube({
   target: document.getElementById('ActivationCube')
 });
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker'),
-  data: {selected: example}
+  data: {example}
 });
 
 const semanticDict = new SemanticDict({
@@ -56,18 +62,16 @@ const attrGroups = new AttributionGroups({
 })
 
 // Wire components together.
-exPick.observe('selected', (example) => [
-  semanticDict, 
-  actVis, 
-  actGrid, 
-  actGridMag,
-  attrSpatial, 
-  attrChannel, 
-  attrGroups
-].forEach((diagram) => diagram.set({example})));
+function syncExample (example) {
+  [semanticDict, actVis, actGrid, actGridMag,
+    attrSpatial, attrChannel, attrGroups]
+      .forEach(diagram => diagram.set({example}));
+}
+
+exPick.observe('example', syncExample);
 
 loadJSON('examples/labels.json', (err, labels) => {
-  [attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({labels}));
+  [teaser, attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({labels}));
 });
 
 semanticDict.observe('pos', (pos) => actVis.set({pos}));

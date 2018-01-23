@@ -61,9 +61,9 @@
   .input_image {
     position: relative;
     float: left;
-    width: 244px;
-    height: 244px;
-    margin: 0 20px 10px 0;
+    width: 224px;
+    height: 224px;
+    margin: 0 20px 20px 0;
   }
 
   .input_image img, .input_image svg {
@@ -139,7 +139,7 @@
 
     oncreate() {
       this.observe('example', (example) => {
-        require(`../../static/examples/npy/${example}_mixed4d.npy`).load((activation) => {
+        require(`../../static/examples/npy/${example}_mixed4d_activations.npy`).load((activation) => {
           this.set({activation});
         })
       });
