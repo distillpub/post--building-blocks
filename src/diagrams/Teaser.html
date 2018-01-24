@@ -1,8 +1,9 @@
 <div class="container" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
   <div class="example_picker">
     {{#each examples as ex}}
-    <img src="examples/input_images/{{ex}}.png" class="{{ex === example ? 'selected' : ''}}" alt="{{ex}}" on:click="set({example: ex})"
-    /> {{/each}}
+      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}"
+        class="{{ex === example ? 'selected' : ''}}"  on:click="set({example: ex})" /> 
+    {{/each}}
   </div>
 
   <div>
@@ -17,6 +18,16 @@
           n={{hover_channel}} 
           sprite_size={{14}} 
           size="{{img_size}}" /> 
+      {{else}}
+        <svg viewBox="0 0 14 14" on:mouseleave="set({pos: []})">
+          {{#each range(14) as x}}
+          {{#each range(14) as y}}
+            <rect x="{{x}}" y="{{y}}" width="1" height="1" 
+              class="{{(x == pos[0] && y == pos[1]) ? 'selected' : ''}}"
+              on:mouseover="set({pos: [x,y]})"></rect>
+          {{/each}}
+          {{/each}}
+        </svg>
       {{/if}}
     </div>
   </div>
@@ -58,7 +69,7 @@
         {{#each selected_data as d, i}}
           {{#if d.c}}
             <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" 
-              on:mouseover="set({hover_channel: d.c})" title="{{d.c}}">
+              on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
               <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
 
               <div class="bar">
@@ -143,6 +154,21 @@
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
     border-radius: var(--border-radius);
+  }
+
+  .input_image svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .input_image rect { opacity: 0; }
+
+  .input_image rect.selected {
+    opacity: 1;
+    fill: rgba(255, 255, 255, 0.5);
+    stroke: black;
+    stroke-width: 0.01px;
   }
 
   .heading {
@@ -278,6 +304,9 @@
 
 <script>
   import {json as loadJSON} from 'd3-request';
+  import {sup} from 'ndarray-ops';
+
+  import {range} from '../util';
   import Sprite from './Sprite.html';
 
   const examples = require('../../static/examples').examples;
@@ -288,6 +317,7 @@
         examples,
         attr_data: {},
         selected_classes: [],
+        pos: [],
         img_size: 165,
         change_label: null
       }
@@ -302,25 +332,49 @@
             hover_channel: attr_data[`${selected_classes[0]}-${selected_classes[1]}`][0].c
           });
         });
+
+        require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
+          window.full_attr = full_attr;
+          this.set({full_attr});
+        });
       });
     },
 
     computed: {
-      selected_data(attr_data, selected_classes) {
+      selected_data(attr_data, selected_classes, pos, full_attr) {
         let data = attr_data[`${selected_classes[0]}-${selected_classes[1]}`];
-        if (data) return data;
+        if (!data) {
+          data = attr_data[`${selected_classes[1]}-${selected_classes[0]}`] || [];
+          data = data.slice().reverse();
 
-        data = attr_data[`${selected_classes[1]}-${selected_classes[0]}`] || [];
-        return data.slice().reverse().map((d) => {
-          if (d.nv0) {
-            const d2 = Object.assign({}, d);
-            const temp = d2.nv0;
-            d2.nv0 = d2.nv1;
-            d2.nv1 = temp;
-            return d2;
+          if (!pos.length) {
+            data = data.map((d) => {
+              if (d.nv0) {
+                const d2 = Object.assign({}, d);
+                const temp = d2.nv0;
+                d2.nv0 = d2.nv1;
+                d2.nv1 = temp;
+                return d2;
+              }
+              return d;
+            });
           }
-          return d;
-        });
+        }
+
+        if (pos.length) {
+          const idx0 = attr_data.classes.indexOf(selected_classes[0]);
+          const idx1 = attr_data.classes.indexOf(selected_classes[1]);
+          return data.map((d) => {
+            const cidx = attr_data.channels.indexOf(d.c);
+            return {
+              c: d.c,
+              nv0: full_attr.get(idx0, pos[1], pos[0], cidx),
+              nv1: full_attr.get(idx1, pos[1], pos[0], cidx)
+            };
+          });
+        }
+
+        return data;
       },
 
       change_label_pos(change_label) {
@@ -344,6 +398,8 @@
     },
 
     helpers: {
+      range,
+
       bar_filled(d, cls, base) {
         const val = d[cls] * 100;
         const width = Math.abs(val) / 2;

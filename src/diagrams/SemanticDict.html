@@ -11,9 +11,6 @@
 
         {{#each range(N[0]) as x}}
         {{#each range(N[1]) as y}}
-          <rect x={{x-0.05}} y={{y-0.05}} width=1.1 height=1.1
-            class={{(x == pos[0] && y == pos[1])? "background" : "unselected"}}></rect>
-
           <rect x={{x}} y={{y}} width=1 height=1
             class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
             on:mouseover='set({pos: [x,y]})'></rect>
