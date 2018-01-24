@@ -67,6 +67,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    border-radius: var(--border-radius);
   }
 
   .pointer_container rect {
@@ -78,6 +79,7 @@
     fill: rgba(255, 255, 255, 0.5);
     stroke: black;
     stroke-width: 0.01px;
+    border-radius: var(--border-radius);
   }
 
   .semantic_dict {
@@ -88,6 +90,8 @@
   .neuron {
     height: calc(var(--neuron-size) + 40);
   }
+
+  .neuron .inner { border-radius: var(--border-radius); }
 
   .spacer {
     display: inline-block;

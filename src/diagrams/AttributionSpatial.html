@@ -29,7 +29,7 @@
     </ul>
 
     <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: #fff;">Factors</li>
+      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: transparent;">Factors</li>
       {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
       <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
         <span>{{labels[attr.n]}}</span>
@@ -141,6 +141,7 @@
     height: 150px;
     width: auto;
     margin-right: 30px;
+    border-radius: var(--border-radius);
   }
 
   p.heading, .legend p, .attribution_list li:first-child {

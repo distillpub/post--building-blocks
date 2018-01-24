@@ -6,6 +6,12 @@
   <script src="https://distill.pub/template.v2.js"></script>
 
   <style>
+    body {
+      --gray-bg: hsl(0, 0%, 97%);
+      --gray-border: rgba(0, 0, 0, 0.1);
+      --border-radius: 7px;
+    }
+
     d-title {
       overflow-y: hidden;
       padding-bottom: 0;
@@ -21,21 +27,33 @@
       display: flex;
       justify-content: center;
       margin-bottom: 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      background: var(--gray-bg);
+      border-top: 1px solid var(--gray-border);
       padding: 60px 0;
-    }
-
-    figure.gray-bg {
-      background: hsl(0, 0%, 97%);
     }
     
     figure.full-width {
       grid-column: screen;
-      margin-left: 100px;
+      padding-left: 100px;
     }
 
     figure.act-grids {
       overflow: hidden;
+    }
+
+    #AttributionSpatial {
+      background: var(--gray-bg);
+      padding: 20px 0 20px 100px;
+      border-top: 1px solid var(--gray-border);
+      border-bottom: 1px solid var(--gray-border);
+    }
+
+    #AttributionChannel {
+      background: var(--gray-bg);
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 1px solid var(--gray-border);
+      border-bottom: 1px solid var(--gray-border);
     }
 
     .attribution_list {
@@ -129,7 +147,7 @@
 <d-title>
   <!-- <h1>Building Blocks<br />for Interpretability</h1> -->
   <h1>Interpretability as Interface Design</h1>
-  <figure id="Teaser" class="base-grid gray-bg" onclick="teaserFig.set({change_label: null});"></figure>
+  <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
 </d-title>
 
 <d-article>
@@ -325,7 +343,7 @@
     Moreover, as they are not explicitly dealing with hidden layers, we cannot fully explore their design space.
   </p>
 
-  <figure id="AttributionSpatial" class="full-width" style="margin-right: 25px;"></figure>
+  <figure id="AttributionSpatial" class="full-width"></figure>
 
   <p>
     The above interface affords us a more flexible relationship with attribution.

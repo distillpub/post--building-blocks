@@ -120,9 +120,12 @@
     display: inline-block;
     position: relative;
     padding: 5px;
-    border: 5px solid #fff;
+    border: 5px solid transparent;
+    border-radius: var(--border-radius);
     cursor: pointer;
   }
+
+  .channel .inner { border-radius: var(--border-radius); }
 
   .bar {
     position: absolute;
@@ -223,6 +226,7 @@
     position: absolute; 
     top: 0;
     right: 0;
+    border-radius: var(--border-radius);
   }
 
   .input_image .outer {
@@ -236,6 +240,8 @@
     image-rendering: pixelated; /* Chrome */
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
+    border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
   .side_labels .attribution_list { display: block; }

@@ -102,7 +102,6 @@
     position: relative;
     --blue: #3497FF;
     --orange: #ff6600;
-    --border-radius: 7px;
   }
 
   .example_picker {
@@ -154,6 +153,7 @@
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
     border-radius: var(--border-radius);
+    overflow: hidden;
   }
 
   .input_image svg {
