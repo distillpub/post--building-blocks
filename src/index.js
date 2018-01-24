@@ -62,13 +62,13 @@ const attrGroups = new AttributionGroups({
 })
 
 // Wire components together.
-function syncExample (example) {
-  [semanticDict, actVis, actGrid, actGridMag,
-    attrSpatial, attrChannel, attrGroups]
-      .forEach(diagram => diagram.set({example}));
-}
+teaser.observe('example', (example) => exPick.set({example}));
 
-exPick.observe('example', syncExample);
+exPick.observe('example', (example) => {
+  [teaser, semanticDict, actVis, actGrid, actGridMag,
+    attrSpatial, attrChannel, attrGroups]
+    .forEach(diagram => diagram.set({example}));
+});
 
 loadJSON('examples/labels.json', (err, labels) => {
   [teaser, attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({labels}));
