@@ -2,11 +2,11 @@
 
 <div ref:picker id="example-picker" class="{{div_class}}" style="--left: {{left}}px;">
   
-  <img src="examples/input_images/{{example}}.png" alt="{{example}}" class="selected" />
+  <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" class="selected" />
 
   {{#each examples as ex}}
-    {{#if ex !== example}}
-      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" on:click="set({example: ex})" />
+    {{#if ex !== $example}}
+      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" on:click="store.set({example: ex})" />
     {{/if}}
   {{/each}}
 </div>

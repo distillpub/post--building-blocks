@@ -7,10 +7,7 @@
     width: {{(layer_size + 25) * layer_names.length}}px;">
 
     {{#each layer_names as layer}}
-      <ActivationGrid example={{example}} magnitude={{magnitude}}
-        layer={{layer}} layer_size={{layer_size}} 
-        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
-        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})"></ActivationGrid>
+      <ActivationGrid magnitude={{magnitude}} layer={{layer}} layer_size={{layer_size}} />
     {{/each}}
   </div>
 </div>

@@ -22,13 +22,27 @@ module.exports = {
         exclude: /node_modules/,
         loader: "babel-loader",
         options: {
-          presets: ["es2015"]
+          presets: ["es2015"],
+          plugins: [
+            require("babel-plugin-transform-object-rest-spread")
+          ]
         }
       },
       {
         test: /\.(html|svelte)$/,
         exclude: /node_modules/,
-        loader: "svelte-loader"
+        use: [
+          // {loader: "svelte-hot-loader"},
+          {
+            loader: "svelte-loader",
+            query: {
+              dev: false,
+              emitCSS: false,
+              store: true
+            }
+          }
+
+        ]
       },
       {
         test: /\.(npy|npc)$/,

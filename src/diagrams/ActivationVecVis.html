@@ -2,7 +2,7 @@
 
 <div class="l-body">
   <div class="input_image">
-    <img src="examples/input_images/{{example}}.png" alt="{{example}}" />
+    <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
     <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
       <filter id="background_rect_blur">
@@ -12,8 +12,8 @@
         {{#each range(N[0]) as x}}
         {{#each range(N[1]) as y}}
           <rect x={{x}} y={{y}} width=1 height=1
-            class={{(x == pos[0] && y == pos[1])? "selected" : "unselected"}}
-            on:mouseover='set({pos: [x,y]})'></rect>
+            class={{(x == $dict_pos[0] && y == $dict_pos[1])? "selected" : "unselected"}}
+            on:mouseover='store.set({dict_pos: [x,y]})'></rect>
         {{/each}}
         {{/each}}
     </svg>
@@ -28,20 +28,22 @@
   </p>
 </div>
 
+{{#if $dict_pos && $top_act}}
 <div class="l-page" style="--neuron-size: {{neuron_size}}px;">
   <div class="semantic_dict">
     <div class="neuron">
       <div class="bar" style="height: 0px;"></div>
       <div class="spacer"></div>
       <span></span>
-      <Sprite bg_img="examples/activations/{{example}}/mixed4d.jpeg" size="{{neuron_size}}" sprite_size="46" x={{pos[0]}} y={{pos[1]}}></Sprite>
+      <Sprite bg_img="examples/activations/{{$example}}/mixed4d.jpeg" size="{{neuron_size}}" 
+        sprite_size="46" x={{$dict_pos[0]}} y={{$dict_pos[1]}}></Sprite>
     </div>
   
     <span class="annotation">=</span>
   
-    {{#each tops as top}}
+    {{#each $top_act as top}}
     <div class="neuron">
-      <div class="bar" style="height: {{top[1]/max_act*40}}px;"></div>
+      <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
       <div class="spacer"></div>
       <span>{{(top[1]+'').slice(0,4)}}</span>
       <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
@@ -53,6 +55,7 @@
     <span class="annotation">...</span>
   </div>
 </div>
+{{/if}}
 
 <style>    
   .input_image {
@@ -125,42 +128,22 @@
 </style>
 
 <script>
-  import {argmax} from 'ndarray-ops';
   import Sprite from './Sprite.html'
-  import {present_vector, range, tops, fmtAct} from '../util';
+  import {range, fmtAct} from '../util';
 
   export default {
     data() {
-      return {
-        N: [14, 14],
-        pos: [2, 3],
-        max_act: undefined
-      };
-    },
-
-    oncreate() {
-      this.observe('example', (example) => {
-        require(`../../static/examples/npy/${example}_mixed4d_activations.npy`).load((activation) => {
-          this.set({activation});
-        })
-      });
-    },    
+      return {N: [14, 14]};
+    },   
 
     computed: {
-      max_act(activation) {
-        if (!activation) return null;
-        return activation.get(...argmax(activation))
-      },
-
-      present_vector: (pos, activation) => activation && present_vector(pos, activation),
-      tops: (present_vector) => present_vector ? tops(present_vector) : [],
-
       neuron_size (winWidth) {
         const div = document.querySelector('#ActivationVecVis .semantic_dict');
         if (!div) return 110;
         return ~~(div.getBoundingClientRect().width / 10);
       }
     },
+    
     components: {Sprite},
     helpers: {range, fmtAct},
   }

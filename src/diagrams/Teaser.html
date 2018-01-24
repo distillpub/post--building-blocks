@@ -2,7 +2,7 @@
   <div class="example_picker">
     {{#each examples as ex}}
       <img src="examples/input_images/{{ex}}.png" alt="{{ex}}"
-        class="{{ex === example ? 'selected' : ''}}"  on:click="set({example: ex})" /> 
+        class="{{ex === $example ? 'selected' : ''}}"  on:click="store.set({example: ex})" /> 
     {{/each}}
   </div>
 
@@ -10,11 +10,11 @@
     <p class="heading">Input Image</p>
 
     <div class="input_image">     
-      <img src="examples/input_images/{{example}}.png" /> 
+      <img src="examples/input_images/{{$example}}.png" /> 
     
       {{#if hover_channel}}
         <Sprite src_class="sprite_mixed4d_activations" 
-          bg_img="examples/activations/{{example}}/sprite_mixed4d_activations.png"
+          bg_img="examples/activations/{{$example}}/sprite_mixed4d_activations.png"
           n={{hover_channel}} 
           sprite_size={{14}} 
           size="{{img_size}}" /> 
@@ -32,23 +32,23 @@
     </div>
   </div>
 
-  {{#if attr_data && labels}}
+  {{#if attr_data && $labels}}
   <div>
     <p class="heading">
       Why does the model think the image is more likely a
-      <span class="label" on:click="change_label(event, 0)">{{labels[selected_classes[0]]}}</span>
+      <span class="label" on:click="change_label(event, 0)">{{$labels[selected_classes[0]]}}</span>
       than a
-      <span class="label_nv1 label" on:click="change_label(event, 1)">{{labels[selected_classes[1]]}}</span>?
+      <span class="label_nv1 label" on:click="change_label(event, 1)">{{$labels[selected_classes[1]]}}</span>?
     </p>
 
     <div id="change_label" class="nv{{change_label}}" 
       style="display: {{change_label === null ? 'none' : 'block'}};
       left: {{change_label_pos.left - 211}}px;">
       <ul>
-        <li on:click="set({change_label: null})">{{labels[selected_classes[change_label]]}}</li>
+        <li on:click="set({change_label: null})">{{$labels[selected_classes[change_label]]}}</li>
         {{#each attr_data.classes as c}}
           {{#if c !== selected_classes[0] && c !== selected_classes[1]}}
-            <li on:click="select_class(c)">{{labels[c]}}</li>
+            <li on:click="select_class(c)">{{$labels[c]}}</li>
           {{/if}}
         {{/each}}
       </ul>
@@ -57,11 +57,11 @@
     <div style="height: var(--img-size);">
       <div class="subheading">
         <p>Neurons that most support
-          <span>{{labels[selected_classes[0]]}}</span>
+          <span>{{$labels[selected_classes[0]]}}</span>
         </p>
         <p style="text-align: center;">vs.</p>
         <p>Neurons that most support
-          <span>{{labels[selected_classes[1]]}}</span>
+          <span>{{$labels[selected_classes[1]]}}</span>
         </p>
       </div>
 
@@ -315,7 +315,7 @@
     data() {
       return {
         examples,
-        attr_data: {},
+        attr_data: {classes: []},
         selected_classes: [],
         pos: [],
         img_size: 165,
@@ -324,7 +324,7 @@
     },
 
     oncreate() {
-      this.observe('example', (example) => {
+      this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/teaser.json`, (err, attr_data) => {
           const selected_classes = attr_data.classes.slice(0, 2);
           this.set({
@@ -334,7 +334,6 @@
         });
 
         require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
-          window.full_attr = full_attr;
           this.set({full_attr});
         });
       });

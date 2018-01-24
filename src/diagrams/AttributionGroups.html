@@ -5,7 +5,7 @@
     <div>
       <p>Input Image</p>
       <div style="position: relative;">
-        <img src="examples/input_images/{{example}}.png" />
+        <img src="examples/input_images/{{$example}}.png" />
       </div>
     </div>
 
@@ -135,11 +135,11 @@
       //   return valid_layer_hover ? all_layers[layer_hover][0] : 0;
       // },
 
-      example_url(example) {
-        return `../../static/examples/groups/${example}/`
+      example_url($example) {
+        return `../../static/examples/groups/${$example}/`
       },
-      group_data(example) {
-        return require(`../../static/examples/groups/${example}/info.json`)
+      group_data($example) {
+        return require(`../../static/examples/groups/${$example}/info.json`)
       },
 
       logits(group_data) {
@@ -176,7 +176,7 @@
       //   return nodes
       // },
 
-      layout(group_data, logits, hidden_layers, example, width, height, selected, hovered) {
+      layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
         var logitWidth = 150;
         var logitHeight = 40;
         var spacing = 30;
@@ -205,7 +205,7 @@
               w: yscale.bandwidth(),//imgw,
               h: yscale.bandwidth(),//imgw,
               px: 5,
-              url: `examples/groups/${example}/${layer}/each_group/${i}/icon.jpeg`
+              url: `examples/groups/${$example}/${layer}/each_group/${i}/icon.jpeg`
             }
           })
           nodesByLayer[layer] = layerNodes

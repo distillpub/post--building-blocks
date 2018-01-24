@@ -1,4 +1,5 @@
 import {json as loadJSON} from 'd3-request';
+import {Store} from 'svelte/store.js';
 
 import Teaser from './diagrams/Teaser.html';
 import ActivationCube from './diagrams/ActivationCube.html';
@@ -10,72 +11,55 @@ import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 
-const example = 'dog_cat';
+const store = window.store = new Store({example: 'dog_cat'});
+loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
 
 const teaser = window.teaserFig = new Teaser({
   target: document.getElementById('Teaser'),
-  data: {example}
+  store
 });
 
 const actCube = new ActivationCube({
-  target: document.getElementById('ActivationCube')
+  target: document.getElementById('ActivationCube'),
 });
 
 const exPick = new ExamplePicker({
   target: document.getElementById('ExamplePicker'),
-  data: {example}
+  store
 });
 
 const semanticDict = new SemanticDict({
   target: document.getElementById('SemanticDict'),
-  data: {example}
+  store
 });
 
 const actVis = new ActivationVecVis({
   target: document.getElementById('ActivationVecVis'),
-  data: {example}
+  store
 });
 
 const actGrid = new AllActivationGrids({
   target: document.getElementById('AllActivationGrids'),
-  data: {example}
+  store
 });
 
 const actGridMag = new AllActivationGrids({
   target: document.getElementById('AllActivationGridsMagnitude'),
-  data: {magnitude: true, example}
+  data: {magnitude: true},
+  store
 });
 
 const attrSpatial = new AttributionSpatial({
   target: document.getElementById('AttributionSpatial'),
-  data: {example}
+  store
 });
 
 const attrChannel = new AttributionChannel({
   target: document.getElementById('AttributionChannel'),
-  data: {example}
+  store
 });
 
 const attrGroups = new AttributionGroups({
   target: document.getElementById('AttributionGroups'),
-  data: {example}
-})
-
-// Wire components together.
-teaser.observe('example', (example) => exPick.set({example}));
-
-exPick.observe('example', (example) => {
-  [teaser, semanticDict, actVis, actGrid, actGridMag,
-    attrSpatial, attrChannel, attrGroups]
-    .forEach(diagram => diagram.set({example}));
+  store
 });
-
-loadJSON('examples/labels.json', (err, labels) => {
-  [teaser, attrSpatial, attrChannel, attrGroups].forEach((diagram) => diagram.set({labels}));
-});
-
-semanticDict.observe('pos', (pos) => actVis.set({pos}));
-actVis.observe('pos', (pos) => semanticDict.set({pos}));
-
-actGrid.observe('pos_hover', (pos_hover) => actGridMag.set({pos_hover}));
-actGridMag.observe('pos_hover', (pos_hover) => actGrid.set({pos_hover}));

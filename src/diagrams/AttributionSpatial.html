@@ -1,12 +1,12 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
 <div ref:container>
-  {{#if attr_data && labels}}
+  {{#if attr_data && $labels}}
   <div class="legend">
     <div>
       <p>Input Image</p>
       <div style="position: relative;">
-        <img src="examples/input_images/{{example}}.png" />
+        <img src="examples/input_images/{{$example}}.png" />
         {{#if layer_hover && layer_hover !== 'output'}}
           <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
             width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
@@ -20,7 +20,7 @@
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</li>
       {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
       <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
-        <span>{{labels[attr.n]}}</span>
+        <span>{{$labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
         </div>
@@ -32,7 +32,7 @@
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: transparent;">Factors</li>
       {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
       <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
-        <span>{{labels[attr.n]}}</span>
+        <span>{{$labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
         </div>
@@ -44,7 +44,7 @@
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
       {{#each output_attr.slice(0, 5) as attr, i}}
       <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-        <span>{{labels[attr.n]}}</span>
+        <span>{{$labels[attr.n]}}</span>
         <div class="scent">
           <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
         </div>
@@ -55,19 +55,16 @@
 
   <div class="hidden_layers" style="display: flex; --layer-size: {{layer_size}}px;">
     {{#each hidden_layers as layer}}
-      <ActivationGrid example={{example}} magnitude={{!layer_hover || layer_hover == layer}} 
-        layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}
-        layer_hover={{layer_hover}} on:layer_hover="set({layer_hover: event.layer_hover})"
-        pos_hover={{pos_hover}} on:pos_hover="set({pos_hover: event.pos_hover})" 
-        on:pos_snap="setDeep('pos_snap.' + layer, event.pos_snap)">
+      <ActivationGrid example={{$example}} magnitude={{!layer_hover || layer_hover == layer}} 
+        layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}>
 
         <div slot="background">
-          <img src="examples/attributions/{{example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
+          <img src="examples/attributions/{{$example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
         </div>
 
         <div slot="foreground">
           {{#if layer_hover && layer_hover !== layer}}
-          <Sprite bg_img="examples/attributions/{{example}}/{{layer_hover}}-{{layer}}.png" 
+          <Sprite bg_img="examples/attributions/{{$example}}/{{layer_hover}}-{{layer}}.png" 
             sprite_size={{all_layers[layer][0]}} size={{layer_size}}
             x={{layer_hover && pos_snap[layer_hover][0]}} 
             y={{layer_hover && pos_snap[layer_hover][1]}}></Sprite>
@@ -76,17 +73,6 @@
       </ActivationGrid>
     {{/each}}
   </div>
-
-  <!-- <div class="output_classes">
-    <ul class="attribution_list">
-      {{#each output_attr.slice(0, 5) as attr}}
-      <li>
-        <div class="scent" style="width: {{100 * (attr.v/attr_max)}}%"></div>
-        {{labels[attr.n]}}
-      </li>
-      {{/each}}
-    </ul>
-  </div> -->
   {{/if}}
 </div>
 
@@ -188,7 +174,7 @@
     },
 
     oncreate() {
-      this.observe('example', (example) => {
+      this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/spatial_attr.json`, (err, attr_data) => {
           this.set({attr_data, layer_size: calc_layer_size(this.refs.container, 4)});
         });
@@ -196,6 +182,9 @@
     },
 
     computed: {
+      layer_hover: ($ag_layer_hover) => $ag_layer_hover,
+      pos_hover: ($ag_pos_hover) => $ag_pos_hover,
+
       layer_size(winWidth, num_layer_width) {
         return calc_layer_size(document.querySelector('#AttributionSpatial .hidden_layers'), 4);
       },
@@ -221,10 +210,12 @@
       },
 
       output_attr(attr_data, valid_layer_hover, layer_hover, pos_snap) {
-        if (!attr_data) return null;
-        if (!valid_layer_hover) return attr_data.output;
-        const ps = pos_snap[layer_hover];
-        return attr_data.layers[layer_hover][ps[1]][ps[0]];
+        try {
+          const ps = pos_snap[layer_hover];
+          return attr_data.layers[layer_hover][ps[1]][ps[0]]; 
+        } catch(e) {
+          return attr_data ? attr_data.output : null;
+        }
       },
 
       attr_max(attr_data, valid_layer_hover, layer_hover) {

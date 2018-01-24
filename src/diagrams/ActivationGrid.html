@@ -17,10 +17,10 @@
   <slot name="foreground"></slot>
 
   {{#if show_zoom}}
-    <div class="sprite_container {{pos_hover === undefined ? 'transition' : ''}} 
+    <div class="sprite_container {{$ag_pos_hover === undefined ? 'transition' : ''}} 
                 {{layer_hover === layer ? 'layer_hover' : ''}}" 
       style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
-      <Sprite bg_img="examples/activations/{{example}}/{{layer}}.jpeg" 
+      <Sprite bg_img="examples/activations/{{$example}}/{{layer}}.jpeg" 
         size="74" sprite_size="{{sprite_cell_size}}" 
         x="{{pos_snap[0]}}" y="{{pos_snap[1]}}"></Sprite>
     </div>
@@ -84,13 +84,11 @@
 
 <script>
   import Sprite from './Sprite.html'
-  import { calc_layer_size, INIT_EXAMPLE } from '../util';
   const layers = require('../../static/examples').layers;
 
   export default {
     data() {
       return {
-        example: INIT_EXAMPLE,
         magnitude: false,
         layer: 'mixed4d',
         layer_size: 100,
@@ -102,8 +100,8 @@
     },
 
     computed: {
-      img_src(example, layer, magnitude) {
-        const src = `examples/activations/${example}/${layer}`;
+      img_src($example, layer, magnitude) {
+        const src = `examples/activations/${$example}/${layer}`;
         return src + (magnitude ? '-magnitude.png' : '.jpeg');
       },
 
@@ -120,8 +118,8 @@
         return [layer_size / 2, layer_size * 4 / 5]
       },
 
-      pos(pos_hover, pos_init) {
-        return pos_hover || pos_init;
+      pos($ag_pos_hover, pos_init) {
+        return $ag_pos_hover || pos_init;
       },
 
       pos_snap(layer, layer_size, pos) {
@@ -133,18 +131,22 @@
     },
 
     methods: {
-      set_layer_hover(layer_hover) {
-        this.fire('layer_hover', {layer_hover});
+      set_layer_hover(ag_layer_hover) {
+        this.store.set({ag_layer_hover})
       },
 
       set_pos_hover(event, bb) {
         const x = bb.left, y = bb.top + this.get('scrollY');
-        this.fire('pos_hover', {pos_hover: [event.pageX - x, event.pageY - y]});
+        this.store.set({
+          ag_pos_hover: [event.pageX - x, event.pageY - y]
+        });
       },
 
       clear_hover() {
-        this.fire('layer_hover', {layer_hover: undefined});
-        this.fire('pos_hover', {pos_hover: undefined});
+        this.store.set({
+          ag_layer_hover: undefined,
+          ag_pos_hover: undefined
+        });
       }
     },
 
