@@ -1,18 +1,21 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
 <div ref:container>
+
   {{#if attr_data && $labels}}
   <div class="legend">
     <div>
       <p>Input Image</p>
       <div style="position: relative;">
-        <img src="examples/input_images/{{$example}}.png" />
+        <img class="input_image" src="examples/input_images/{{$example}}.png" />
         {{#if layer_hover && layer_hover !== 'output'}}
           <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
             width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
             left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
             top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
         {{/if}}
+
+        <ExamplePicker />
       </div>
     </div>
 
@@ -123,11 +126,24 @@
     margin-bottom: 20px;
   }
 
-  .legend img {
+  .input_image {
     height: 150px;
     width: auto;
-    margin-right: 30px;
+    margin-right: 140px;
     border-radius: var(--border-radius);
+  }
+
+  .example_picker {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 110px;
+    line-height: 1;
+  }
+
+  .example_picker img { 
+    width: 40px;
+    margin: 2px; 
   }
 
   p.heading, .legend p, .attribution_list li:first-child {
@@ -160,8 +176,10 @@
 <script>
   import {json as loadJSON} from 'd3-request';
 
-  import Sprite from './Sprite.html'
-  import ActivationGrid from './ActivationGrid.html'
+  import ExamplePicker from './ExamplePicker.html';
+  import Sprite from './Sprite.html';
+  import ActivationGrid from './ActivationGrid.html';
+
   import {calc_layer_size, range} from '../util';
   const layers = require('../../static/examples').layers;
 
@@ -224,6 +242,6 @@
       },
     },
 
-    components: { ActivationGrid, Sprite }
+    components: {ActivationGrid, ExamplePicker, Sprite}
   }
 </script>

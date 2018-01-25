@@ -23,11 +23,6 @@ const actCube = new ActivationCube({
   target: document.getElementById('ActivationCube'),
 });
 
-const exPick = new ExamplePicker({
-  target: document.getElementById('ExamplePicker'),
-  store
-});
-
 const semanticDict = new SemanticDict({
   target: document.getElementById('SemanticDict'),
   store

@@ -12,6 +12,8 @@
           sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="150" /> 
       {{/if}}
     </div>
+
+    <ExamplePicker />
   </div>
 
   <div>
@@ -246,6 +248,12 @@
 
   .side_labels .attribution_list { display: block; }
   .side_labels .attribution_list li { font-size: 80%; }
+
+  .example_picker {
+    width: 100%;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+  }
 </style>
 
 <script>
@@ -253,6 +261,7 @@
   import {json as loadJSON} from 'd3-request';
 
   import {fmtAct, range} from '../util';
+  import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html';
   const examples = require('../../static/examples');
 
@@ -315,6 +324,6 @@
       }
     },
 
-    components: {Sprite}
+    components: {ExamplePicker, Sprite}
   }
 </script>

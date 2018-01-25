@@ -2,6 +2,8 @@
 
 <div class="l-body">
   <div class="input_image">
+    <ExamplePicker pin="true" unpin="#FullVectorEq" />
+
     <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
       <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
@@ -57,7 +59,6 @@
 {{/if}}
 
 <style>
-
 .input_image {
   position: relative;
   float: left;
@@ -66,11 +67,17 @@
   margin-right: 15px;
 }
 
-.input_image img, .input_image svg {
+.input_image > img, .input_image > svg {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: var(--border-radius);
+}
+
+.example_picker {
+  position: absolute;
+  top: 0;
+  left: -90px;
 }
 
 .pointer_container rect {
@@ -157,8 +164,9 @@ sub { font-size: 65%; }
 
 <script>
   import {argmax} from 'ndarray-ops';
-  import Sprite from './Sprite.html'
   import {desc, fmtAct, range} from '../util';
+  import ExamplePicker from './ExamplePicker.html';
+  import Sprite from './Sprite.html'
 
   function vector_y (N) {
     const p = document.querySelector('#SemanticDict #abstract_vector');
@@ -249,7 +257,7 @@ sub { font-size: 65%; }
       }
     },
 
-    components: {Sprite},
+    components: {ExamplePicker, Sprite},
     helpers: {range}
   }
 </script>

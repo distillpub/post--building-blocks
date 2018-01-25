@@ -1,10 +1,5 @@
 <div class="container" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
-  <div class="example_picker">
-    {{#each examples as ex}}
-      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}"
-        class="{{ex === $example ? 'selected' : ''}}"  on:click="store.set({example: ex})" /> 
-    {{/each}}
-  </div>
+  <ExamplePicker />
 
   <div>
     <p class="heading">Input Image</p>
@@ -104,25 +99,10 @@
     --orange: #ff6600;
   }
 
-  .example_picker {
-    width: 50px;
-    margin-right: 30px;
-  }
+  .example_picker { margin-right: 30px; }
 
-  .example_picker img {
-    width: 40px;
-    cursor: pointer;
-    opacity: 0.4;
-    border: 3px solid #fff;
-    border-radius: var(--border-radius);
-  }
-
-  .example_picker img.selected {
-    opacity: 1;
-    border-color: goldenrod;
-  }
-
-  .example_picker img:hover { 
+   .example_picker img:hover,
+   .example_picker img.selected, .example_picker img.selected:hover {
     opacity: 1;
     border-color: goldenrod;
   }
@@ -307,6 +287,7 @@
   import {sup} from 'ndarray-ops';
 
   import {range} from '../util';
+  import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html';
 
   const examples = require('../../static/examples').examples;
@@ -413,6 +394,6 @@
       }
     },
 
-    components: {Sprite}
+    components: {ExamplePicker, Sprite}
   }
 </script>

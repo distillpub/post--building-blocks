@@ -1,37 +1,32 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY='scrollY'/>
 
-<div ref:picker id="example-picker" class="{{div_class}}" style="--left: {{left}}px;">
-  
-  <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" class="selected" />
-
+<div ref:picker class="example_picker {{div_class}}" style="--left: {{left}}px;">
   {{#each examples as ex}}
-    {{#if ex !== $example}}
-      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" on:click="store.set({example: ex})" />
+    {{#if !hide_selected || ex !== $example}}
+      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" 
+        class="{{ex === $example ? 'selected' : ''}}" on:click="store.set({example: ex})" />
     {{/if}}
   {{/each}}
 </div>
 
 <style>
-  #example-picker {
-    overflow: hidden;
-    transition-duration: .5s;
-    transition-timing-function: ease-in-out;
+  .example_picker {
+    width: 50px;
   }
 
-  #example-picker img {
+  .example_picker img {
     width: 44px;
     cursor: pointer;
     opacity: 0.4;
-    border: 3px solid #fff;
+    border: 3px solid transparent;
     border-radius: var(--border-radius);
   }
 
-  #example-picker img.selected {
-    opacity: 1;
+  img.selected, img.selected:hover {
     border-color: #ff6600;
   }
 
-  #example-picker img:hover { 
+  img:hover { 
     opacity: 1;
     border-color: #3497FF;
   }
@@ -88,14 +83,14 @@
         return picker && picker.parentNode.getBoundingClientRect().left;
       },
 
-      div_class (scrollY) {
-        const img = document.querySelector('#SemanticDict .input_image');
-        if (!img) return 'one';
+      // div_class (scrollY) {
+      //   const img = document.querySelector('#SemanticDict .input_image');
+      //   if (!img) return 'one';
 
-        const bb = img.getBoundingClientRect();
-        return bb.top <= -bb.height ? 'three' :
-          bb.top <= 20 ? 'two' : 'one';
-      }
+      //   const bb = img.getBoundingClientRect();
+      //   return bb.top <= -bb.height ? 'three' :
+      //     bb.top <= 20 ? 'two' : 'one';
+      // }
     }
   }
 </script>
