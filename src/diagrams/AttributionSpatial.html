@@ -1,9 +1,9 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div ref:container>
+<div ref:container class="base-grid">
 
   {{#if attr_data && $labels}}
-  <div class="legend">
+  <div class="legend l-page">
     <div>
       <p>Input Image</p>
       <div style="position: relative;">
@@ -56,7 +56,7 @@
     </ul>
   </div>
 
-  <div class="hidden_layers" style="display: flex; --layer-size: {{layer_size}}px;">
+  <div class="hidden_layers base-grid" style="display: flex; --layer-size: {{layer_size}}px;">
     {{#each hidden_layers as layer}}
       <ActivationGrid example={{$example}} magnitude={{!layer_hover || layer_hover == layer}} 
         layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}>
@@ -80,7 +80,7 @@
 </div>
 
 
-<figcaption>
+<figcaption class="l-page">
   Bringing together three building blocks: magnitude-sized activation grids, a heatmap depiction of dimensionality reduction techniques computed on the attribution vectors, and (on hover) saliency maps for attribution between hidden layers.
 </figcaption>
 
@@ -90,6 +90,7 @@
     flex: 1;
     overflow-x: auto;
     overflow-y: hidden;
+    padding-left: 20px;
   }
 
   .layer img { 
