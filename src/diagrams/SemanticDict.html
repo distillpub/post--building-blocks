@@ -1,10 +1,10 @@
-<:Window bind:innerWidth="winWidth" />
+<:Window bind:innerWidth="winWidth"  bind:scrollY="scrollY" />
 
-<div class="l-body">
+<div class="l-body" style="--top: {{top}}px; --left: {{left}}px;">
   <div class="input_image">
-    <ExamplePicker pin="true" unpin="#FullVectorEq" />
+    <ExamplePicker pin="#ActivationCube" unpin="#FullVectorEq" />
 
-    <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
+    <img ref:img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
       <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
         <filter id="background_rect_blur">
@@ -75,9 +75,10 @@
 }
 
 .example_picker {
-  position: absolute;
-  top: 0;
-  left: -90px;
+  position: fixed;
+  top: var(--top);
+  left: calc(var(--left) - 90px);
+  height: 285px;
 }
 
 .pointer_container rect {
@@ -213,6 +214,14 @@ sub { font-size: 65%; }
       });
 
       this.store.observe('dict_pos', () => this.store.set(this.recalc_pos()));
+
+      this.observe('scrollY', () => {
+        window.cancelAnimationFrame(window.dictPicker);
+        window.dictPicker = window.requestAnimationFrame(() => {
+          const img = this.refs.img.getBoundingClientRect();
+          this.set({top: img.top, left: img.left});
+        });
+      });
     },
 
     computed: {

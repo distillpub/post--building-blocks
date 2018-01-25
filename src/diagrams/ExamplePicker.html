@@ -1,6 +1,7 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY='scrollY'/>
 
-<div ref:picker class="example_picker {{div_class}}" style="--left: {{left}}px;">
+<div ref:picker class="example_picker {{pinned}}"
+  on:mouseover="clearTimer()" on:mouseleave="reSort()">
   {{#each examples as ex}}
     {{#if !hide_selected || ex !== $example}}
       <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" 
@@ -12,6 +13,10 @@
 <style>
   .example_picker {
     width: 50px;
+    overflow: hidden;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+    transition-property: opacity, height;
   }
 
   .example_picker img {
@@ -31,13 +36,25 @@
     border-color: #3497FF;
   }
 
-  .one {
-    position: absolute;
-    top: 25px;
-    height: 525px;
-    width: 50px;
-    margin-left: -90px;
-    transition-property: width, height;
+  .example_picker.collapse { 
+    height: 50px; 
+    transition-property: left, opacity, height;
+  }
+
+  .example_picker.pin, .example_picker.unpin {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    transition-property: top, left, opacity, height;
+  }
+
+  .example_picker.collapse:hover, .example_picker.pin:hover {
+    height: 285px;  
+  }
+
+  .example_picker.unpin { 
+    opacity: 0; 
   }
 
   .two {
@@ -74,23 +91,42 @@
     },
 
     oncreate() {
-      this.set({left: this.refs.picker.parentNode.getBoundingClientRect().left});
+      this.observe('pinned', this.reSort);
     },
 
     computed: {
-      left (winWidth) {
-        const picker = document.querySelector('#example-picker');
-        return picker && picker.parentNode.getBoundingClientRect().left;
+      pinned(pin, unpin, scrollY) {
+        if (!pin) return '';
+
+        pin = document.querySelector(pin);
+        unpin = document.querySelector(unpin);
+        if (!pin || !unpin) return '';
+
+        pin = pin.getBoundingClientRect();
+        unpin = unpin.getBoundingClientRect();
+
+        if (unpin.bottom <= 0) return 'unpin';
+        else if (pin.bottom <= 0) return 'pin';
+        else if (pin.top <= 0) return 'collapse';
+      }
+    },
+
+    methods: {
+      clearTimer() {
+        window.clearTimeout(window.exReSort);
       },
 
-      // div_class (scrollY) {
-      //   const img = document.querySelector('#SemanticDict .input_image');
-      //   if (!img) return 'one';
-
-      //   const bb = img.getBoundingClientRect();
-      //   return bb.top <= -bb.height ? 'three' :
-      //     bb.top <= 20 ? 'two' : 'one';
-      // }
+      reSort() {
+        const pinned = this.get('pinned');
+        const example = this.store.get('example');
+        if (pinned === 'pin' || pinned === 'collapse') {
+          window.exReSort = window.setTimeout(() => {
+            this.set({
+              examples: [example].concat(examples.filter(e => e !== example))
+            });
+          }, 500);
+        }
+      }
     }
   }
 </script>
