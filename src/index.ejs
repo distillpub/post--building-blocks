@@ -307,6 +307,10 @@
 
   <p>
     Attribution is a set of techniques that answers such questions by explaining the relationships between neurons.
+    There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet"></d-cite>.
+    So far, there doesn't seem to be a clear right answer. In fact, there's reason to think that our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
+    For the purposes of this article, the exact approach taken to attribution doesn't matter.
+    We use a fairly simple method, linearly approximating the relationship, but could easily substitute in essentially any other technique.
   </p>
 
   <h3>Spatial Attribution with Saliency Maps</h3>
