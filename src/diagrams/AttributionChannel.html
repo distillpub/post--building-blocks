@@ -285,7 +285,7 @@
     oncreate() {
       this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/channel_attr.json`, (err, attr_data) => {
-          this.set({attr_data});
+          this.set({attr_data, selected: 'output', prev_selected: 'output'});
         });
       });
     },
