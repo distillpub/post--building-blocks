@@ -5,7 +5,7 @@
   {{#if attr_data && $labels}}
   <div class="legend l-page">
     <div>
-      <p>Input Image</p>
+      <p class="heading">Input Image</p>
       <div style="position: relative;">
         <img class="input_image" src="examples/input_images/{{$example}}.png" />
         {{#if layer_hover && layer_hover !== 'output'}}
@@ -19,47 +19,52 @@
       </div>
     </div>
 
-    <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</li>
-      {{#if attr_data}}
-        {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
-        <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
-          <span>{{$labels[attr.n]}}</span>
-          <div class="scent">
-            <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
-          </div>
-        </li>
-        {{/each}}
-      {{/if}}
-    </ul>
+    <div class="nmf">
+      <p class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</p>
 
-    <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: transparent;">Factors</li>
-      {{#if attr_data}}
-        {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
-        <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
-          <span>{{$labels[attr.n]}}</span>
-          <div class="scent">
-            <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
-          </div>
-        </li>
-        {{/each}}
-      {{/if}}
-    </ul>
+      <div style="display: flex">
+        <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+          {{#if attr_data}} 
+            {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
+              <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
+                <span>{{$labels[attr.n]}}</span>
+                <div class="scent">
+                  <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
+                </div>
+              </li>
+            {{/each}} 
+          {{/if}}
+        </ul>
+        
+        <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+          {{#if attr_data}} 
+            {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
+              <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
+                <span>{{$labels[attr.n]}}</span>
+                <div class="scent">
+                  <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
+                </div>
+              </li>
+            {{/each}} 
+          {{/if}}
+        </ul>
+      </div>
+    </div>
 
-    <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-      <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
-      {{#if output_attr}}
-        {{#each output_attr.slice(0, 5) as attr, i}}
+    <div>
+      <p class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</p>
+
+      <ul class="attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+        {{#if output_attr}} {{#each output_attr.slice(0, 5) as attr, i}}
         <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
           <span>{{$labels[attr.n]}}</span>
           <div class="scent">
             <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
           </div>
         </li>
-        {{/each}}
-      {{/if}}
-    </ul>
+        {{/each}} {{/if}}
+      </ul>
+    </div>
   </div>
 
   <div class="hidden_layers base-grid" style="display: flex; --layer-size: {{layer_size}}px;">
@@ -132,17 +137,21 @@
     margin-bottom: 20px;
   }
 
+  .legend > * {
+    flex: 1;
+  }
+
   .input_image {
     height: 150px;
     width: auto;
-    margin-right: 140px;
+    margin-right: 105px;
     border-radius: var(--border-radius);
   }
 
   .example_picker {
     position: absolute;
     top: 0;
-    right: 20px;
+    right: -15px;
     width: 110px;
     line-height: 1;
   }
@@ -152,30 +161,57 @@
     margin: 2px; 
   }
 
-  p.heading, .legend p, .attribution_list li:first-child {
+  p.heading, .legend p {
     font-size: 90%;
     font-weight: bold;
     margin: 0 0 15px 0;
+    border-bottom: 1px solid #ccc;
   }
 
-  .attribution_list li:not(:first-child) {
-    cursor: pointer;
+  .nmf {
+    flex: 2;
+    margin: 0 60px;
   }
 
-  .attribution_list li:not(:first-child):hover {
-    font-weight: bold;
+  .attribution_list { 
+    flex: 1;
+    display: table;
+    table-layout: fixed;
   }
 
-  .output_classes {
-    margin-left: 50px;
+  .factors_1 { margin-right: 30px; }
+
+  .attribution_list li { 
+    display: table-row;
+    cursor: pointer; 
+  }
+
+  .attribution_list li span {
+    display: table-cell;
+    width: auto;
+    max-width: 160px;
+    padding-right: 15px;
+  }
+
+  .attribution_list .scent {
+    display: table-cell;
+    width: 50px;
+  }
+
+  .attribution_list .scent div {
+    top: 6px;
+    height: calc(100% - 12px);
   }
  
-  .output_classes li:hover .scent div { background: #666; }
+  .attribution_list li:hover { color: #666; }
+  .attribution_list li:hover .scent div { background: #666; }
 
   .factors_1 .scent div { background: #f4a582; }
+  .factors_1 li:hover { color: #e66101; }
   .factors_1 li:hover .scent div { background: #e66101; }
 
   .factors_2 .scent div { background: #92c5de; }
+  .factors_2 li:hover { color: #0571b0; }
   .factors_2 li:hover .scent div { background: #0571b0; }
 </style>
 
