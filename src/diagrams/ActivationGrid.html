@@ -18,8 +18,8 @@
 
   {{#if show_zoom}}
     <div class="sprite_container {{$ag_pos_hover === undefined ? 'transition' : ''}} 
-                {{layer_hover === layer ? 'layer_hover' : ''}}" 
-      style="left: {{pos[0]+10}}px; top: {{pos[1]+10}}px;">
+                {{$ag_layer_hover === layer ? 'layer_hover' : ''}}" 
+      style="left: {{pos[0]+15}}px; top: {{pos[1]+15}}px;">
       <Sprite bg_img="examples/activations/{{$example}}/{{layer}}.jpeg" 
         size="74" sprite_size="{{sprite_cell_size}}" 
         x="{{pos_snap[0]}}" y="{{pos_snap[1]}}"></Sprite>
@@ -33,7 +33,7 @@
   .layer {
     display: inline-block;
     position: relative;
-    margin-right: 20px;
+    margin: 0 10px;
   }
 
   .layer p {

@@ -21,38 +21,44 @@
 
     <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</li>
-      {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
-      <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
-        <span>{{$labels[attr.n]}}</span>
-        <div class="scent">
-          <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
-        </div>
-      </li>
-      {{/each}}
+      {{#if attr_data}}
+        {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
+        <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
+          <span>{{$labels[attr.n]}}</span>
+          <div class="scent">
+            <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
+          </div>
+        </li>
+        {{/each}}
+      {{/if}}
     </ul>
 
     <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})" style="color: transparent;">Factors</li>
-      {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
-      <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
-        <span>{{$labels[attr.n]}}</span>
-        <div class="scent">
-          <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
-        </div>
-      </li>
-      {{/each}}
+      {{#if attr_data}}
+        {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
+        <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
+          <span>{{$labels[attr.n]}}</span>
+          <div class="scent">
+            <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
+          </div>
+        </li>
+        {{/each}}
+      {{/if}}
     </ul>
 
     <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
       <li on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</li>
-      {{#each output_attr.slice(0, 5) as attr, i}}
-      <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-        <span>{{$labels[attr.n]}}</span>
-        <div class="scent">
-          <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
-        </div>
-      </li>
-      {{/each}}
+      {{#if output_attr}}
+        {{#each output_attr.slice(0, 5) as attr, i}}
+        <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+          <span>{{$labels[attr.n]}}</span>
+          <div class="scent">
+            <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
+          </div>
+        </li>
+        {{/each}}
+      {{/if}}
     </ul>
   </div>
 
@@ -62,7 +68,7 @@
         layer={{layer}} layer_size={{layer_size}} show_zoom={{layer_hover == layer}}>
 
         <div slot="background">
-          <img src="examples/attributions/{{$example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.8}};" />
+          <img src="examples/attributions/{{$example}}/{{layer}}-nmf.png" style="opacity: {{layer_hover && layer_hover !== layer ? 0 : 0.6}};" />
         </div>
 
         <div slot="foreground">
@@ -87,10 +93,8 @@
 <style>
   .hidden_layers {
     position: relative;
-    flex: 1;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-left: 20px;
   }
 
   .layer img { 
@@ -167,11 +171,11 @@
  
   .output_classes li:hover .scent div { background: #666; }
 
-  .factors_1 .scent div { background: #92c5de; }
-  .factors_1 li:hover .scent div { background: #0571b0; }
+  .factors_1 .scent div { background: #f4a582; }
+  .factors_1 li:hover .scent div { background: #e66101; }
 
-  .factors_2 .scent div { background: #f4a582; }
-  .factors_2 li:hover .scent div { background: #e66101; }
+  .factors_2 .scent div { background: #92c5de; }
+  .factors_2 li:hover .scent div { background: #0571b0; }
 </style>
 
 <script>
