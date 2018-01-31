@@ -12,6 +12,7 @@ import AttributionChannel from './diagrams/AttributionChannel.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 import Grammar from './diagrams/Grammar.html';
 import DesignSpaceEmpty from './diagrams/DesignSpace/Empty.html';
+import DesignSpaceTeaser from './diagrams/DesignSpace/Teaser.html';
 
 const store = window.store = new Store({example: 'dog_cat'});
 loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
@@ -68,5 +69,10 @@ const grammar = new Grammar({
 
 const emptySpace = new DesignSpaceEmpty({
   target: document.getElementById('DesignSpaceEmpty'),
+  store
+});
+
+const teaserSpace = new DesignSpaceTeaser({
+  target: document.getElementById('DesignSpaceTeaser'),
   store
 });
