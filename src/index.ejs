@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://distill.pub/template.v2.js"></script>
+  <script src="template.v2.js"></script>
 
   <style>
     body {
@@ -93,6 +93,14 @@
       background: #ccc;
       height: calc(100% - 10px);
     }
+
+    .red { color: #c82829; }
+    .orange { color: #f5871f; }
+    .yellow { color: #eab700; }
+    .green { color: #718c00; }
+    .aqua { color: #3e999f; }
+    .blue { color: #4271ae; }
+    .purple { color: #8959a8; }
   </style>
 </head>
 
@@ -207,7 +215,7 @@
   </p>
 
   <p>
-    However, the power of neural networks lie in their hidden layers -- at every layer, the network discovers a new representation of the input.
+    However, the power of neural networks lies in their hidden layers -- at every layer, the network discovers a new representation of the input.
     In computer vision, we use neural networks that run the same feature detectors at every position in the image.
     We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires.
     The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
@@ -481,7 +489,7 @@
   </p>
 
   <p>
-    Consider the following figure. [Although it looks similar to the diagram we saw previously,] matrix factorization has reduced the overwhelmingly large number of neurons into a small set of groups. This allows us to more concisely distill the story of the neural network.
+    Consider the following figure. Matrix factorization has reduced the overwhelmingly large number of neurons into a small set of groups. This allows us to more concisely distill the story of the neural network.
   </p>
 
   <figure class="l-page-outset">
@@ -505,38 +513,38 @@
   <h2>The Space of Interpretability Interfaces</h2>
 
   <p>
-    The interface ideas we present in this article only scratch the surface of possibilities. 
+    The interface ideas presented in this article combine building blocks such as feature visualization and attribution. 
     
-    There is a rich space of ways to combine the building blocks we have discussed.
+    Composing these pieces is not an arbitrary process, but rather follows a structure based on the goals of the interface. 
+    
+    For example, should the interface emphasize <i>what</i> the network recognizes, prioritize <i>how</i> its understanding develops, or focus on making thing <i>human-scale</i>. 
+    
+    To evaluate such goals, and understand the tradeoffs, we need to be able to <i>systematically</i> consider possible alternatives.
   </p>
 
   <p>
     We can think of an interface as a union of individual elements. 
     
-    Each element presents a specific type of content (e.g., activations or attribution) in a particular way (e.g., feature visualization or traditional information visualization).
+    Each element displays a specific type of <i class="green">content</i> (e.g., activations or attribution) using a particular style of <i class="blue">presentation</i> (e.g., feature visualization or traditional information visualization).
 
-    The content lives on atoms that are defined by breaking apart a given layer of the network in a particular way.
+    This content lives on substrates defined by how given <i class="red">layers</i> of the network are broken apart into <i class="orange">atoms</i>, and may be <i class="green">transformed</i> by a series of operations (e.g., to filter it or project it onto another substrate).
 
-    For example, we could talk about the content of activations in terms of a layer's spatial positions, channels, or groups of neurons.
+    For example, our semantic dictionaries use <span class="blue">feature visualization</span> to display the <span class="green">activations</span> of a <span class="red">hidden layer's</span> <span class="orange">neurons</span>. 
 
-    We find it helpful to think about these interfaces as living on a grid: 
+
+    <!-- We find it helpful to think about these interfaces as living on a grid:  -->
     <!-- every position on this grid is an atom, content will be points and lines that connect them. -->
   </p>
 
   <p>
-    To be more concrete, let us consider how the spatial attribution diagram can be plotted on this grid.
+    One way to represent this way of thinking is with a formal grammar<span id="Grammar"></span>, but we find it helpful to think about the space visually.
 
-    <!-- The diagram operates with three sets of atoms: each hidden layer factored into spatial positions and neurons of the output.
-    
-    At each spatial position, we present the activations with feature visualization and magnitude forming an activation grid.
-
-    Finally, we perform bi-directional attribution between each pair of atoms.
-  
-    -->
+    We can represent the network's substrate (which layers we display, and how we break them apart) as a grid, with the content and style of presentation plotted on this grid as points and connections.
   </p>
 
+  <figure id="DesignSpaceEmpty" class="l-body"></figure>
 
-  <p>
+  <!-- <p>
     The interface ideas we present in this article only scratch the surface of possibilities.
 
     There is a rich space of ways to combine the building blocks we have discussed.
@@ -544,7 +552,7 @@
     Composing these building blocks is not an arbitrary process -- there is a fundamental structure to how they fit together.
 
     Our diagrams have made a number of independent decisions: for example, which layers of the network we inspect, what atoms we break their activations into, or what content we display about these atoms. 
-  </p>
+  </p> -->
 
   <h2>Conclusion &amp; Future Work</h2>
 
