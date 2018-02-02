@@ -1,0 +1,215 @@
+
+<svg width="803px" height="267px" viewBox="0 0 803 267" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-5" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Fill-1" fill="#FFFFFF" points="114 127 189 127 189 159 114 159"></polygon>
+        <polygon id="Fill-3" fill="#FFFFFF" points="264 127 339 127 339 159 264 159"></polygon>
+        <polygon id="Fill-4" fill="#FFFFFF" points="114 63 189 63 189 95 114 95"></polygon>
+        <polygon id="Fill-5" fill="#FFFFFF" points="39 127 114 127 114 159 39 159"></polygon>
+        <text id="Channel" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+            <tspan x="60.484" y="143.792023">Channel</tspan>
+        </text>
+        <polygon id="Fill-6" fill="#FFFFFF" points="264 31 339 31 339 63 264 63"></polygon>
+        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="283.436" y="47.792023">Output</tspan>
+        </text>
+        <polygon id="Fill-7" fill="#FFFFFF" points="114 159 189 159 189 191 114 191"></polygon>
+        <polygon id="Fill-8" fill="#FFFFFF" points="114 95 189 95 189 127 114 127"></polygon>
+        <polygon id="Fill-9" fill="#FFFFFF" points="264 159 339 159 339 191 264 191"></polygon>
+        <polygon id="Fill-10" fill="#FFFFFF" points="189 159 264 159 264 191 189 191"></polygon>
+        <polygon id="Fill-11" fill="#FFFFFF" points="189 63 264 63 264 95 189 95"></polygon>
+        <polygon id="Fill-12" fill="#FFFFFF" points="189 127 264 127 264 159 189 159"></polygon>
+        <polygon id="Fill-13" fill="#FFFFFF" points="189 95 264 95 264 127 189 127"></polygon>
+        <polygon id="Fill-14" fill="#FFFFFF" points="39 63 114 63 114 95 39 95"></polygon>
+        <text id="Group-15" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+            <tspan x="70.936" y="79.792023">G</tspan>
+            <tspan x="80.044" y="79.792023" letter-spacing="-0.216">r</tspan>
+            <tspan x="83.608" y="79.792023">oup</tspan>
+        </text>
+        <polygon id="Fill-16" fill="#FFFFFF" points="39 95 114 95 114 127 39 127"></polygon>
+        <text id="Spatial" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+            <tspan x="68.044" y="111.792023">Spatial</tspan>
+        </text>
+        <polygon id="Fill-17" fill="#FFFFFF" points="264 95 339 95 339 127 264 127"></polygon>
+        <polygon id="Fill-18" fill="#FFFFFF" points="114 31 189 31 189 63 114 63"></polygon>
+        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="138.326" y="47.792023">Input</tspan>
+        </text>
+        <polygon id="Fill-19" fill="#FFFFFF" points="39 31 114 31 114 63 39 63"></polygon>
+        <polygon id="Fill-20" fill="#FFFFFF" points="264 63 339 63 339 95 264 95"></polygon>
+        <polygon id="Fill-21" fill="#FFFFFF" points="39 159 114 159 114 191 39 191"></polygon>
+        <text id="Neuron" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+            <tspan x="65.38" y="175.792023">Neu</tspan>
+            <tspan x="87.16" y="175.792023" letter-spacing="-0.216">r</tspan>
+            <tspan x="90.724" y="175.792023">on</tspan>
+        </text>
+        <polygon id="Fill-22" fill="#FFFFFF" points="189 31 264 31 264 63 189 63"></polygon>
+        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="207.662" y="47.792023">Hidden</tspan>
+        </text>
+        <path d="M115.5,31 L115.5,191" id="Stroke-23" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M189.5,31 L189.5,191" id="Stroke-24" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M264.5,31 L264.5,191" id="Stroke-25" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M39.8,63.5 L339.8,63.5" id="Stroke-26" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M39.2059,95.5 L339.2059,95.5" id="Stroke-27" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M38.8091,126.5 L338.8091,126.5" id="Stroke-28" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M39.4052,158.5 L339.4052,158.5" id="Stroke-29" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M38.8091,190.5 L338.8091,190.5" id="Stroke-30" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M339.5,31 L339.5,191" id="Stroke-31" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M339.5,31 L339.5,191" id="Stroke-32" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="783.8776" y="190.285442">F</tspan>
+        </text>
+        <text id="Layers" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#F4871F">
+            <tspan x="116" y="11.6089322">Layers</tspan>
+        </text>
+        <polygon id="Fill-43" fill="#FFFFFF" points="381 31 456 31 456 63 381 63"></polygon>
+        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="404.826" y="47.792023">Input</tspan>
+        </text>
+        <polygon id="Fill-44" fill="#FFFFFF" points="456 159 531 159 531 191 456 191"></polygon>
+        <polygon id="Fill-45" fill="#FFFFFF" points="531 63 606 63 606 95 531 95"></polygon>
+        <polygon id="Fill-46" fill="#FFFFFF" points="381 159 456 159 456 191 381 191"></polygon>
+        <polygon id="Fill-47" fill="#FFFFFF" points="381 63 456 63 456 95 381 95"></polygon>
+        <polygon id="Fill-48" fill="#FFFFFF" points="456 95 531 95 531 127 456 127"></polygon>
+        <polygon id="Fill-49" fill="#FFFFFF" points="381 95 456 95 456 127 381 127"></polygon>
+        <polygon id="Fill-50" fill="#FFFFFF" points="531 127 606 127 606 159 531 159"></polygon>
+        <polygon id="Fill-51" fill="#FFFFFF" points="381 127 456 127 456 159 381 159"></polygon>
+        <polygon id="Fill-52" fill="#FFFFFF" points="531 159 606 159 606 191 531 191"></polygon>
+        <polygon id="Fill-53" fill="#FFFFFF" points="531 31 606 31 606 63 531 63"></polygon>
+        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="549.936" y="47.792023">Output</tspan>
+        </text>
+        <polygon id="Fill-54" fill="#FFFFFF" points="456 127 531 127 531 159 456 159"></polygon>
+        <polygon id="Fill-55" fill="#FFFFFF" points="456 31 531 31 531 63 456 63"></polygon>
+        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+            <tspan x="474.162" y="47.792023">Hidden</tspan>
+        </text>
+        <polygon id="Fill-56" fill="#FFFFFF" points="531 95 606 95 606 127 531 127"></polygon>
+        <polygon id="Fill-57" fill="#FFFFFF" points="456 63 531 63 531 95 456 95"></polygon>
+        <path d="M381.5,31 L381.5,191" id="Stroke-58" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M455.5,31 L455.5,191" id="Stroke-59" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M530.5,31 L530.5,191" id="Stroke-60" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M382.5,62.4847 L606.3,62.8" id="Stroke-61" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M381.9059,95.5 L605.7059,95.5" id="Stroke-62" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M382.5,126.5 L605.3091,126.5" id="Stroke-63" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M381.9059,158.5 L605.9052,158.5" id="Stroke-64" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M382.5,190.5 L605.3091,190.5" id="Stroke-65" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M605.5,31 L605.5,191" id="Stroke-66" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M575.0134,168.7249 C578.6062,172.3177 578.6062,178.14283 575.0134,181.73566 C571.4206,185.32849 565.5955,185.32849 562.0027,181.73566 C558.4098,178.14283 558.4098,172.3177 562.0027,168.7249 C565.5955,165.1321 571.4206,165.1321 575.0134,168.7249" id="Fill-67" fill="#768B29"></path>
+        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="565.064" y="179.082362">T</tspan>
+        </text>
+        <polygon id="Fill-68" fill="#FFFFFF" points="78.5 233.5 153.5 233.5 153.5 266.5 78.5 266.5"></polygon>
+        <polygon id="Stroke-69" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="78.5 233.5 153.5 233.5 153.5 266.5 78.5 266.5"></polygon>
+        <text id="Dataset-" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#000000">
+            <tspan x="6.072" y="243.451834">Dataset </tspan>
+        </text>
+        <text id="Examples" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#000000">
+            <tspan x="-0.515" y="260.857931">Examples</tspan>
+        </text>
+        <path d="M122.0054,243.04058 C125.5982,246.6334 125.5982,252.45851 122.0054,256.05133 C118.4126,259.64417 112.5874,259.64417 108.9946,256.05133 C105.4018,252.45851 105.4018,246.6334 108.9946,243.04058 C112.5874,239.44774 118.4126,239.44774 122.0054,243.04058" id="Fill-70" fill="#768B29"></path>
+        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="112.056" y="253.398032">T</tspan>
+        </text>
+        <path d="M305.8054,167.5743 C309.3982,171.1672 309.3982,176.99226 305.8054,180.58508 C302.2126,184.17792 296.3874,184.17792 292.7946,180.58508 C289.2018,176.99226 289.2018,171.1672 292.7946,167.5743 C296.3874,163.9815 302.2126,163.9815 305.8054,167.5743" id="Fill-71" fill="#768B29"></path>
+        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="295.856" y="177.931792">T</tspan>
+        </text>
+        <path d="M124.0128,246.0507 L280.6301,181.7454" id="Stroke-72" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <polygon id="Fill-73" fill="#768B29" points="287.7345 178.82836 279.5362 179.0812 281.7239 184.40955"></polygon>
+        <polygon id="Stroke-74" stroke="#768B29" stroke-width="2" points="287.7345 178.8284 279.5362 179.0812 281.7239 184.4096"></polygon>
+        <polygon id="Fill-75" fill="#FFFFFF" points="337.5 233.5 412.5 233.5 412.5 266.5 337.5 266.5"></polygon>
+        <polygon id="Stroke-76" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" points="337.5 233.5 412.5 233.5 412.5 266.5 337.5 266.5"></polygon>
+        <path d="M379.8054,243.04058 C383.3982,246.6334 383.3982,252.45851 379.8054,256.05133 C376.2126,259.64417 370.3874,259.64417 366.7946,256.05133 C363.2018,252.45851 363.2018,246.6334 366.7946,243.04058 C370.3874,239.44774 376.2126,239.44774 379.8054,243.04058" id="Fill-77" fill="#768B29"></path>
+        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="369.856" y="253.398032">T</tspan>
+        </text>
+        <path d="M492.929,136.7186 C496.5218,140.3114 496.5218,146.1365 492.929,149.7293 C489.3362,153.3222 483.5111,153.3222 479.9183,149.7293 C476.3254,146.1365 476.3254,140.3114 479.9183,136.7186 C483.5111,133.1257 489.3362,133.1257 492.929,136.7186" id="Fill-78" fill="#768B29"></path>
+        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+            <tspan x="482.9796" y="147.075982">T</tspan>
+        </text>
+        <path d="M380.0038,243.2452 L472.4185,156.387" id="Stroke-79" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <polygon id="Fill-80" fill="#768B29" points="477.3152 151.7848 470.6926 154.5508 474.1443 158.2233"></polygon>
+        <polygon id="Stroke-81" stroke="#768B29" stroke-width="2" points="477.3152 151.7848 470.6926 154.5508 474.1443 158.2233"></polygon>
+        <path d="M494.9972,146.567 L550.599,168.2472" id="Stroke-82" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <polygon id="Fill-83" fill="#768B29" points="556.8599 170.6884 551.5145 165.8994 549.6835 170.595"></polygon>
+        <polygon id="Stroke-84" stroke="#768B29" stroke-width="2" points="556.8599 170.6884 551.5145 165.8994 549.6835 170.595"></polygon>
+        <g id="Group-7" transform="translate(639.000000, -3.000000)">
+            <text id="Content" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#718C00">
+                <tspan x="0" y="14">Content</tspan>
+            </text>
+            <g id="Group" transform="translate(65.000000, 29.000000)">
+                <path d="M15.7054,2.6946 C19.2982,6.2874 19.2982,12.1126 15.7054,15.7054 C12.1126,19.2982 6.2874,19.2982 2.6946,15.7054 C-0.8982,12.1126 -0.8982,6.2874 2.6946,2.6946 C6.2874,-0.8982 12.1126,-0.8982 15.7054,2.6946" id="Fill-32" fill="#768B29"></path>
+                <text id="C" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="4.868" y="13.0520816">C</tspan>
+                </text>
+            </g>
+            <text id="Activations" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#718C00">
+                <tspan x="0" y="41">Activations</tspan>
+            </text>
+            <text id="Attribution" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#718C00">
+                <tspan x="0" y="72">Attribution</tspan>
+            </text>
+            <text id="Presentation" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#4271AE">
+                <tspan x="0" y="143">P</tspan>
+                <tspan x="9.338" y="143" letter-spacing="-0.252">r</tspan>
+                <tspan x="14.28" y="143">esentation</tspan>
+            </text>
+            <g id="Group-4" transform="translate(45.000000, 159.000000)">
+                <path d="M15.9011,3.48212 C19.4939,7.07494 19.4939,12.90005 15.9011,16.49287 C12.3083,20.08571 6.4831,20.08571 2.8903,16.49287 C-0.7025,12.90005 -0.7025,7.07494 2.8903,3.48212 C6.4831,-0.11072 12.3083,-0.11072 15.9011,3.48212" id="Fill-33" fill="#4271AE"></path>
+                <text id="I" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="7.8417" y="12.8395816">I</tspan>
+                </text>
+            </g>
+            <text id="InfoVis" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#4271AE">
+                <tspan x="0" y="172">Info</tspan>
+                <tspan x="20.22" y="172" letter-spacing="-0.216">V</tspan>
+                <tspan x="27.12" y="172">is</tspan>
+            </text>
+            <g id="Group-5" transform="translate(144.000000, 159.000000)">
+                <path d="M16.435,3.66135 C20.0279,7.25417 20.0279,13.07928 16.435,16.6721 C12.8422,20.264941 7.0171,20.264941 3.4243,16.6721 C-0.1686,13.07928 -0.1686,7.25417 3.4243,3.66135 C7.0171,0.06851 12.8422,0.06851 16.435,3.66135" id="Fill-34" fill="#4271AE"></path>
+                <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="6.4856" y="13.0188116">F</tspan>
+                </text>
+            </g>
+            <text id="FeatureVis" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#4271AE">
+                <tspan x="79" y="172">Featu</tspan>
+                <tspan x="109.228" y="172" letter-spacing="-0.216">r</tspan>
+                <tspan x="112.792" y="172">e</tspan>
+                <tspan x="119.236" y="172" letter-spacing="-0.216">V</tspan>
+                <tspan x="126.136" y="172">is</tspan>
+            </text>
+            <g id="Group-6" transform="translate(65.000000, 59.000000)">
+                <path d="M18.75,10 L40.6,10" id="Stroke-37" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polygon id="Fill-38" fill="#768B29" points="50.2 10 40.6 6.4 40.6 13.6"></polygon>
+                <g id="Group-2">
+                    <path d="M16.0554,3.0446 C19.6482,6.6374 19.6482,12.4626 16.0554,16.0554 C12.4626,19.6482 6.6374,19.6482 3.0446,16.0554 C-0.5482,12.4626 -0.5482,6.6374 3.0446,3.0446 C6.6374,-0.5482 12.4626,-0.5482 16.0554,3.0446" id="Fill-35" fill="#768B29"></path>
+                    <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="6.106" y="13.4020816">T</tspan>
+                    </text>
+                </g>
+                <g id="Group-3" transform="translate(53.000000, 0.000000)">
+                    <path d="M16.2054,3.0446 C19.7982,6.6374 19.7982,12.4626 16.2054,16.0554 C12.6126,19.6482 6.7874,19.6482 3.1946,16.0554 C-0.3982,12.4626 -0.3982,6.6374 3.1946,3.0446 C6.7874,-0.5482 12.6126,-0.5482 16.2054,3.0446" id="Fill-36" fill="#768B29"></path>
+                    <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="6.256" y="13.4020816">T</tspan>
+                    </text>
+                </g>
+                <polygon id="Stroke-39" stroke="#768B29" stroke-width="2" points="50.2 10 40.6 6.4 40.6 13.6"></polygon>
+            </g>
+            <text id="Transformation" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" letter-spacing="-1.104" fill="#718C00">
+                <tspan x="0" y="103">T</tspan>
+                <tspan x="4.68" y="103">ransformation</tspan>
+            </text>
+            <g id="Page-1" transform="translate(84.000000, 96.000000)" stroke="#768B29" stroke-width="2">
+                <path d="M0.5825,4 L40,4" id="Stroke-1" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polygon id="Stroke-3" points="49.6 4 40 0.4 40 7.6"></polygon>
+            </g>
+        </g>
+        <text id="Atoms" transform="translate(14.775049, 128.500000) rotate(-90.000000) translate(-14.775049, -128.500000) " font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#BA1420">
+            <tspan x="-6.86195129" y="133.796951">Atoms</tspan>
+        </text>
+    </g>
+</svg>

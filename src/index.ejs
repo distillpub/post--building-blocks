@@ -558,6 +558,45 @@
     <img src="images/design_space/teaser.svg"></img>
   </figure>
 
+  <p>
+    In this article, we have only scratched the surface of possibilities. 
+
+    There are opportunities to further refine the individual building blocks, and lots of combinations of them yet to be explored.
+
+    By thinking of this process as a design space, we can perform this exploration much more systematically.
+  </p>
+
+  <p>
+    Moreover, as new building blocks are discovered, they will expand the space altogether.
+
+    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
+
+    We can model dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others. 
+
+    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed) but also how examples influence the features of hidden layers, and how that influence carries through to the output. 
+  </p>
+
+  <figure class="l-page">
+    <img src="images/design_space/dataset.svg"></img>
+    <figcaption style="margin-top: 10px;">
+      Introducing dataset examples as a new substrate in the design space. 
+      On the left, interfaces that help us understand the influence of dataset examples on the output classification as presented by Koh et al<d-cite key="koh2017understanding"></d-cite>.
+      On the right, interfaces that show which dataset examples caused which channels to increase the probability of the ultimate classification. 
+    </figcaption>
+  </figure>
+
+  <p>
+    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for taking action on neural networks.
+
+    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide an opportunity for human-in-the-loop training.
+    
+    More advanced interfaces could link the parameter and dataset example substrates, allowing users to modify the training set or even generate and test adversarial examples.
+  </p>
+
+  <p>
+    Multiple models paragraph.
+  </p>
+
   <!-- <p>
     The interface ideas we present in this article only scratch the surface of possibilities.
 
@@ -571,55 +610,7 @@
   <h2>Conclusion &amp; Future Work</h2>
 
   <p>
-    The interface ideas we present in this article are combinations of building blocks such as feature visualization and attribution.
-
-    Composing these building blocks is not an arbitrary process -- there is a lot of structure in how they fit together.
-
-    This structure is described by the axes of a design space: which layers of the network we inspect, what atoms we break their activations into, and finally what content we display about these atoms.
-  </p>
-
-  <figure id="EmptyDesignSpace"></figure>
-
-  <p>
-    This structure helps us systematically identify how our building blocks can compose together to enable new interfaces for interpretability.
-
-    For instance, the figure below shows the progression of interface ideas starting with a simple heatmap of activations, layering feature visualization to create activation grids, expanding to multiple layers, and then introducing attribution.
-  </p>
-
-  <figure id="DesignSpaceProgression"></figure>
-
-  <p>
-    In this article, we have only scratched the surface of possibilities.
-
-    There are lots of combinations yet to be explored, and opportunities to further refine the individual building blocks.
-
-    Moreover, we think there are entirely new building blocks whose discovery will expand the space.
-
-    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
-
-    This functionality is another building block that can be fully composed with the ones we discussed earlier -- for example, we could show which dataset examples caused the "floppy ear" detector to increase the probability of "Labrador retriever."
-
-    Beyond this, alternate model types (e.g., GANs) may need wholly different building blocks altogether.
-  </p>
-
-  <p>
-    Another future direction is to study the principles of the design space.
-
-    The interfaces in this article have different strengths: some emphasize
-    <i>what</i> the network recognizes while others prioritize
-    <i>how</i> its understanding develops, and still others focus on making things <i>human-scale</i>.
-
-    But are these tradeoffs even necessary -- can an interface have its cake and eat it too? If not, what particular sets of tradeoffs are most useful and how do we evaluate them?
-  </p>
-
-  <p>
     There is a rich design space for interacting with enumerative algorithms, and we believe an equally rich space exists for interacting with neural networks.
-
-    <!-- The design space for interacting with enumerative algorithms is rich and vast, and we believe the same holds true for the space of interacting with neural networks. -->
-
-    <!-- One important role of these interfaces will be to extend the range of our own thoughts by leaning on the model's understanding of data.
-
-    More importantly, they will be critical for maintaining meaningful human control over increasingly automated processes. -->
 
     These interfaces will be necessary for meaningful human oversight and critical for endorsing a model's decision-making process.
   </p>
