@@ -11,6 +11,7 @@
 
     <div class="container">
       <!-- where we render the graph lines -->
+      {{#if group_data}}
       <svg class="graph" ref:graph width={{width}} height={{height}}>
 
           {{#each layout.lines as line,i}}
@@ -26,8 +27,8 @@
               <image xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
             {{/if}}
           {{/each}}
-
         </svg>
+        {{/if}}
     </div>
   </div>
 </div>
@@ -100,9 +101,8 @@
   import ActivationGrid from './ActivationGrid.html'
   import {calc_layer_size, range} from '../util';
   import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
+  import {json as loadJSON} from 'd3-request';
   const layers = require('../../static/examples').layers;
-
-  
 
   export default {
     data() {
@@ -119,7 +119,11 @@
     },
     
     oncreate() {
-      // this.set({ layer_size: calc_layer_size(this.refs.container) });
+      this.store.observe('example', (example) => {
+        loadJSON(`examples/groups/${example}/info.json`, (err, group_data) => {
+          this.set({group_data});
+        });
+      });
     },
 
     computed: {
@@ -135,14 +139,15 @@
       //   return valid_layer_hover ? all_layers[layer_hover][0] : 0;
       // },
 
-      example_url($example) {
-        return `../../static/examples/groups/${$example}/`
-      },
-      group_data($example) {
-        return require(`../../static/examples/groups/${$example}/info.json`)
-      },
+      // example_url($example) {
+      //   return `../../static/examples/groups/${$example}/`
+      // },
+      // group_data($example) {
+      //   return require(`../../static/examples/groups/${$example}/info.json`)
+      // },
 
       logits(group_data) {
+        if (!group_data) return null;
         console.log("computing", group_data)
         var keys = Object.keys(group_data.output)
         var logits = keys.map((key) => {
@@ -177,6 +182,7 @@
       // },
 
       layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
+        if (!group_data) return {};
         var logitWidth = 150;
         var logitHeight = 40;
         var spacing = 30;
