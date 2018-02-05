@@ -31,7 +31,7 @@
       border-top: 1px solid var(--gray-border);
       padding: 60px 0;
     }
-    
+
     figure.full-width {
       grid-column: screen;
       padding-left: 90px;
@@ -225,8 +225,7 @@
   </p>
 
   <figure id="ActivationCube" class="l-body">
-    <img src="images/cube_natural.svg" style="margin-bottom: 15px;" />
-
+    <div id="CubeNatural" style="margin-bottom: 15px;"></div>
     <figcaption>
       The cube of activations that a neural network for computer vision develops at each hidden layer. Different slices of the
       cube allow us to target the activations of individual neurons, spatial positions, or channels.
@@ -329,7 +328,7 @@
     In fact, there's reason to think that all our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
     We think there's a lot of import research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
     We use a fairly simple method, linearly approximating the relationship, but could easily substitute in essentially any other technique.
-    Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them. 
+    Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
 
   <h3>Spatial Attribution with Saliency Maps</h3>
@@ -477,16 +476,16 @@
   </p>
 
   <p>
-    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. 
-    By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. 
-    These groups will not align as naturally with the cube as the groupings we previously looked at. 
-    Instead, they will be combinations of spatial locations and channels. 
-    Moreover, these groups are constructed to explain the behavior of a network on a particular image. 
+    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices.
+    By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons.
+    These groups will not align as naturally with the cube as the groupings we previously looked at.
+    Instead, they will be combinations of spatial locations and channels.
+    Moreover, these groups are constructed to explain the behavior of a network on a particular image.
     It would not be effective to reuse the same groupings on another image; each image requires calculating a unique set of groups.
   </p>
 
   <figure class="l-body">
-    <img src="images/cube_groups.svg" style="margin-bottom: 15px;" />
+    <div id="CubeGroups"></div>
     <figcaption>
       In addition to naturally slicing a hidden layer's cube of activations into neurons, spatial locations, or channels, we can also consider more arbitrary groupings of locations and channels.
     </figcaption>
@@ -546,23 +545,23 @@
   <h2>The Space of Interpretability Interfaces</h2>
 
   <p>
-    The interface ideas presented in this article combine building blocks such as feature visualization and attribution. 
-    
-    Composing these pieces is not an arbitrary process, but rather follows a structure based on the goals of the interface. 
-    
-    For example, should the interface emphasize <i>what</i> the network recognizes, prioritize <i>how</i> its understanding develops, or focus on making thing <i>human-scale</i>. 
-    
+    The interface ideas presented in this article combine building blocks such as feature visualization and attribution.
+
+    Composing these pieces is not an arbitrary process, but rather follows a structure based on the goals of the interface.
+
+    For example, should the interface emphasize <i>what</i> the network recognizes, prioritize <i>how</i> its understanding develops, or focus on making thing <i>human-scale</i>.
+
     To evaluate such goals, and understand the tradeoffs, we need to be able to <i>systematically</i> consider possible alternatives.
   </p>
 
   <p>
-    We can think of an interface as a union of individual elements. 
-    
+    We can think of an interface as a union of individual elements.
+
     Each element displays a specific type of <i class="green">content</i> (e.g., activations or attribution) using a particular style of <i class="blue">presentation</i> (e.g., feature visualization or traditional information visualization).
 
     This content lives on substrates defined by how given <i class="red">layers</i> of the network are broken apart into <i class="orange">atoms</i>, and may be <i class="green">transformed</i> by a series of operations (e.g., to filter it or project it onto another substrate).
 
-    For example, our semantic dictionaries use <span class="blue">feature visualization</span> to display the <span class="green">activations</span> of a <span class="red">hidden layer's</span> <span class="orange">neurons</span>. 
+    For example, our semantic dictionaries use <span class="blue">feature visualization</span> to display the <span class="green">activations</span> of a <span class="red">hidden layer's</span> <span class="orange">neurons</span>.
 
 
     <!-- We find it helpful to think about these interfaces as living on a grid:  -->
@@ -582,9 +581,9 @@
   <p>
     This setup gives us a framework to begin exploring the space of interpretability interfaces step by step.
 
-    For instance, let us consider our teaser figure again. 
-    
-    Its goal is to help us compare two potential classifications for an input image.    
+    For instance, let us consider our teaser figure again.
+
+    Its goal is to help us compare two potential classifications for an input image.
   </p>
 
   <figure class="l-page">
@@ -592,7 +591,7 @@
   </figure>
 
   <p>
-    In this article, we have only scratched the surface of possibilities. 
+    In this article, we have only scratched the surface of possibilities.
 
     There are opportunities to further refine the individual building blocks, and lots of combinations of them yet to be explored.
 
@@ -604,17 +603,17 @@
 
     For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
 
-    We can model dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others. 
+    We can model dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others.
 
-    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed) but also how examples influence the features of hidden layers, and how that influence carries through to the output. 
+    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed) but also how examples influence the features of hidden layers, and how that influence carries through to the output.
   </p>
 
   <figure class="l-page">
     <img src="images/design_space/dataset.svg"></img>
     <figcaption style="margin-top: 10px;">
-      Introducing dataset examples as a new substrate in the design space. 
+      Introducing dataset examples as a new substrate in the design space.
       On the left, interfaces that help us understand the influence of dataset examples on the output classification as presented by Koh et al<d-cite key="koh2017understanding"></d-cite>.
-      On the right, interfaces that show which dataset examples caused which channels to increase the probability of the ultimate classification. 
+      On the right, interfaces that show which dataset examples caused which channels to increase the probability of the ultimate classification.
     </figcaption>
   </figure>
 
@@ -622,7 +621,7 @@
     Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for taking action on neural networks.
 
     Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide an opportunity for human-in-the-loop training.
-    
+
     More advanced interfaces could link the parameter and dataset example substrates, allowing users to modify the training set or even generate and test adversarial examples.
   </p>
 
@@ -637,7 +636,7 @@
 
     Composing these building blocks is not an arbitrary process -- there is a fundamental structure to how they fit together.
 
-    Our diagrams have made a number of independent decisions: for example, which layers of the network we inspect, what atoms we break their activations into, or what content we display about these atoms. 
+    Our diagrams have made a number of independent decisions: for example, which layers of the network we inspect, what atoms we break their activations into, or what content we display about these atoms.
   </p> -->
 
   <h2>Conclusion &amp; Future Work</h2>
