@@ -308,9 +308,11 @@
   <p>
     Attribution is a set of techniques that answers such questions by explaining the relationships between neurons.
     There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet"></d-cite>.
-    So far, there doesn't seem to be a clear right answer. In fact, there's reason to think that our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
-    For the purposes of this article, the exact approach taken to attribution doesn't matter.
+    So far, there doesn't seem to be a clear right answer.
+    In fact, there's reason to think that all our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
+    We think there's a lot of import research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
     We use a fairly simple method, linearly approximating the relationship, but could easily substitute in essentially any other technique.
+    Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them. 
   </p>
 
   <h3>Spatial Attribution with Saliency Maps</h3>
@@ -324,9 +326,9 @@
   <p>
     First, it is not clear that individual pixels should be the primary unit of attribution.
 
-    The meaning of each pixel is extremely entagled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
+    The meaning of each pixel is extremely entangled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
 
-    However, if we treat saliency maps as another user interface building block, we can instead apply them to the hidden layers of a neural network.
+    However, if we treat attribution as another user interface building block, we can instead apply them to the hidden layers of a neural network.
 
     In doing so, we change the questions we are asking.
 
@@ -388,7 +390,7 @@
 
     Doing so allows us to perform <i>channel attribution</i>: how much did each detector contribute to the final output?
 
-    Such an approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.
+    (This approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.)
   </p>
 
   <figure class="base-grid" id="AttributionChannel"></figure>
@@ -478,11 +480,16 @@
 
 
   <p>
-    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behaviour, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behaviour, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others.
+    The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behavior, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behavior, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others.
   </p>
 
   <p>
-    Consider the following figure. [Although it looks similar to the diagram we saw previously,] matrix factorization has reduced the overwhelmingly large number of neurons into a small set of groups. This allows us to more concisely distill the story of the neural network.
+    In the following diagram, we've constructed groups that prioritize the activations, by factorizing the activations
+        <d-footnote>Most matrix factorization algorithms and libraries are set up to minimize the mean squared error of the reconstruction of a matrix you give them, so if you just want to optimize for one thing -- in this case, the activations -- it's quite straightforward. There's ways to hack such libraries to do more general things with clever manipulations of the matrix you give it, as we'll see below. More broadly matrix factorization is just optimization, and with custom tools you can do all sorts of things.</d-footnote>
+     with non-negative matrix factorization
+        <d-footnote>As the name suggests, non-negative matrix factorization (NMF) constrains its factors to be positive. This is fine for the activations of a ReLU network, which must be positive as well. Our experience is that the groups we get from NMF seem more independent and semantically meaningful than those without this constraint. Because of this constraints, groups from NMF are a less efficient at representing the activations than they would be without, but our experience is that they seem more independent and semantically meaningful.</d-footnote>
+     .
+    Notice how the overwhelmingly large number of neurons has been reduced to a small set of groups, concisely summarizing the story of the neural network.
   </p>
 
   <figure class="l-page-outset">
@@ -495,12 +502,19 @@
 
   <p>
     The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
+      <d-footnote>
+        We formalize this "compatibility" in a manner described below, although we're not confident it's the best formalization and won't be surprised if it is superseded in future work.<br>
+        Consider the attribution from every neuron in the layer to the set of <i>N</i> groups we want it to be compatible with.
+        The basic idea is to split each entry in the activation matrix into <i>N</i> entries on the channel dimension, spreading the values proportional to the absolute value of its attribution to the corresponding group.
+        Any factorization of this matrix induces a factorization of the original matrix by collapsing the duplicated entries in the column factors.
+        However, the resulting factorization tries to create separate factors when the activation of the same channel has different attributions in different places.
+      </d-footnote>
   </p>
 
   <figure id="AttributionGroups" class="l-page"></figure>
 
   <p>
-    In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behaviour of the network.
+    In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behavior of the network.
   </p>
 
   <h2>The Space of Interpretability Interfaces</h2>
