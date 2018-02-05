@@ -10,6 +10,7 @@ import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
+import Grammar from './diagrams/Grammar.html';
 
 const store = window.store = new Store({example: 'dog_cat'});
 loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
@@ -56,5 +57,10 @@ const attrChannel = new AttributionChannel({
 
 const attrGroups = new AttributionGroups({
   target: document.getElementById('AttributionGroups'),
+  store
+});
+
+const grammar = new Grammar({
+  target: document.getElementById('Grammar'),
   store
 });
