@@ -526,7 +526,7 @@
   </p>
 
   <p>
-    The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for.
+    The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for
       <d-footnote>
         We formalize this "compatibility" in a manner described below, although we're not confident it's the best formalization and won't be surprised if it is superseded in future work.<br>
         Consider the attribution from every neuron in the layer to the set of <i>N</i> groups we want it to be compatible with.
@@ -534,6 +534,7 @@
         Any factorization of this matrix induces a factorization of the original matrix by collapsing the duplicated entries in the column factors.
         However, the resulting factorization tries to create separate factors when the activation of the same channel has different attributions in different places.
       </d-footnote>
+    .
   </p>
 
   <figure id="AttributionGroups" class="l-page"></figure>
