@@ -62,8 +62,8 @@
         <text id="1.-Feature-Visualization-of-Channels" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill-opacity="0.8" fill="#000000">
             <tspan x="6.8" y="202.608932">1. Feature Visualization of Channels</tspan>
         </text>
-        <text id="To-understand-a-classiﬁcation,-we-focus-on-the-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="6.8" y="227.183101">To understand a classiﬁcation, we focus on the</tspan>
+        <text id="To-understand-a-classification,-we-focus-on-the-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
+            <tspan x="6.8" y="227.183101">To understand a classification, we focus on the</tspan>
         </text>
         <text id="channels-of-the-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
             <tspan x="6.8" y="242.519104">channels of the </tspan>
@@ -72,7 +72,7 @@
             <tspan x="92.15596" y="242.499023">mixed4d</tspan>
         </text>
         <text id="-layer.-Feature-visualization-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="142.564162" y="242.519104"> layer. Feature visualization</tspan>
+            <tspan x="145.564162" y="242.519104"> layer. Feature visualization</tspan>
         </text>
         <text id="makes-these-channels-meaningful." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
             <tspan x="6.8" y="257.521061">makes these channels meaningful.</tspan>
@@ -117,8 +117,8 @@
         <text id="2.-Filter-by-Output-Attribution" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill-opacity="0.8" fill="#000000">
             <tspan x="348" y="202.608932">2. Filter by Output Attribution</tspan>
         </text>
-        <text id="Next,-we-ﬁlter-for-speciﬁc-classes-by-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="348" y="227.184082">Next, we ﬁlter for speciﬁc classes by </tspan>
+        <text id="Next,-we-filter-for-specific-classes-by-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
+            <tspan x="348" y="227.184082">Next, we filter for specific classes by </tspan>
         </text>
         <text id="calculating-the-output-attribution." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
             <tspan x="348" y="241.520081">calculating the output attribution.</tspan>
@@ -136,8 +136,8 @@
         <polygon id="Stroke-73" stroke="#768B29" stroke-width="2" points="485.4835 119.4384 490.716 125.7548 493.5791 120.7568"></polygon>
         <path d="M469.6223,120.9406 C464.8678,127.5575 457.484,136.0303 450.8471,136.0303 C447.4928,136.0303 444.8152,133.8662 442.7157,130.8712" id="Stroke-74" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         <polygon id="Stroke-75" stroke="#768B29" stroke-width="2" points="439.5957 124.3832 438.9309 132.6921 446.5011 129.0518"></polygon>
-        <text id="ﬁlter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="440.3976" y="145.871723">ﬁlter</tspan>
+        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
+            <tspan x="440.3976" y="150.871723">filter</tspan>
         </text>
         <polygon id="Fill-76" fill="#FFFFFF" points="613 1 688 1 688 33 613 33"></polygon>
         <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
@@ -189,8 +189,8 @@
         <polygon id="Stroke-105" stroke="#768B29" stroke-width="2" points="753.5422 119.2718 758.2046 124.7281 760.6427 120.317"></polygon>
         <path d="M737.9641,121.1732 C733.6807,127.7543 727.0591,136.0303 720.8471,136.0303 C717.6469,136.0303 715.0224,133.834 712.9244,130.8045" id="Stroke-106" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         <polygon id="Stroke-107" stroke="#768B29" stroke-width="2" points="709.7718 124.3334 709.1494 132.6456 716.7009 128.9667"></polygon>
-        <text id="ﬁlter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="710.3976" y="145.871723">ﬁlter</tspan>
+        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
+            <tspan x="710.3976" y="150.871723">filter</tspan>
         </text>
         <path d="M722.6344,74.4946 C726.2273,78.0874 726.2273,83.9126 722.6344,87.5054 C719.0416,91.0982 713.2165,91.0982 709.6237,87.5054 C706.0308,83.9126 706.0308,78.0874 709.6237,74.4946 C713.2165,70.9018 719.0416,70.9018 722.6344,74.4946" id="Fill-108" fill="#768B29"></path>
         <text id="C" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
@@ -215,12 +215,12 @@
         <text id="activations;-hovering-over-spatial-locations-gives-us-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
             <tspan x="618" y="241.852082">activations; hovering over spatial locations gives us </tspan>
         </text>
-        <text id="position-speciﬁc-attribution-for-the-channels." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="618" y="256.188081">position-speciﬁc attribution for the channels.</tspan>
+        <text id="position-specific-attribution-for-the-channels." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
+            <tspan x="618" y="256.188081">position-specific attribution for the channels.</tspan>
         </text>
         <polygon id="Fill-113" fill="#FFFFFF" points="645 85 679 85 679 110 645 110"></polygon>
-        <text id="ﬁlter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="650.444" y="98.055623">ﬁlter</tspan>
+        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
+            <tspan x="650.444" y="98.055623">filter</tspan>
         </text>
         <path d="M747.7936,89.9797 L746.7914,94.4653" id="Stroke-114" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         <polygon id="Fill-115" fill="#768B29" points="745.326 101.0236 749.2507 95.0148 744.332 93.9158"></polygon>

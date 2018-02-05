@@ -2,7 +2,6 @@ import {json as loadJSON} from 'd3-request';
 import {Store} from 'svelte/store.js';
 
 import Teaser from './diagrams/Teaser.html';
-import ActivationCube from './diagrams/ActivationCube.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
 import SemanticDict from './diagrams/SemanticDict.html';
 import ActivationVecVis from './diagrams/ActivationVecVis.html';
@@ -18,10 +17,6 @@ loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
 const teaser = window.teaserFig = new Teaser({
   target: document.getElementById('Teaser'),
   store
-});
-
-const actCube = new ActivationCube({
-  target: document.getElementById('ActivationCube'),
 });
 
 const semanticDict = new SemanticDict({

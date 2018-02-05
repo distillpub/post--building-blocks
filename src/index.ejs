@@ -224,7 +224,14 @@
     The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
   </p>
 
-  <figure id="ActivationCube" class="l-body"></figure>
+  <figure id="ActivationCube" class="l-body">
+    <img src="images/cube_natural.svg" style="margin-bottom: 15px;" />
+
+    <figcaption>
+      The cube of activations that a neural network for computer vision develops at each hidden layer. Different slices of the
+      cube allow us to target the activations of individual neurons, spatial positions, or channels.
+    </figcaption>
+  </figure>
 
   <figure id="SemanticDict" class="base-grid"></figure>
 
@@ -470,11 +477,19 @@
   </p>
 
   <p>
-    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. These groups will not align as naturally with the cube as the groupings we previously looked at. Instead, they will be combinations of spatial locations and channels. Moreover, these groups are constructed to explain the behavior of a network on a particular image. It would not be effective to reuse the same groupings on another image; each image requires calculating a unique set of groups.
+    There is an entire field of research, called matrix factorization, that studies optimal strategies for breaking up matrices. 
+    By flattening our cube into a matrix of spatial locations and channels, we can apply these techniques to get more meaningful groups of neurons. 
+    These groups will not align as naturally with the cube as the groupings we previously looked at. 
+    Instead, they will be combinations of spatial locations and channels. 
+    Moreover, these groups are constructed to explain the behavior of a network on a particular image. 
+    It would not be effective to reuse the same groupings on another image; each image requires calculating a unique set of groups.
   </p>
 
-  <figure id="NeuronGroupsCube">
-    <img src="images/cube-slices.svg"></img>
+  <figure class="l-body">
+    <img src="images/cube_groups.svg" style="margin-bottom: 15px;" />
+    <figcaption>
+      In addition to naturally slicing a hidden layer's cube of activations into neurons, spatial locations, or channels, we can also consider more arbitrary groupings of locations and channels.
+    </figcaption>
   </figure>
 
   <p>
