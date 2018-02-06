@@ -27,21 +27,20 @@
     <p>
       Making sense of these activations is hard because we usually work with them as abstract vectors:
     </p>
-    
+
     <p id="abstract_vector">a<sub>{{pos[1]}},{{pos[0]}}</sub> = {{pos_act_str}}</p>
-    
+
     <p>
       With feature visualization, however, we can transform this abstract vector into a more meaningful "semantic dictionary".
-      Activations now map to interpretable iconic representations that we can explicitly name&mdash;for example "floppy ear," "dog snout," or "fluffy fur." This gives us a kind of "MRI for neural networks."
     </p>
   </div>
 </div>
 
-{{#if $top_act}}
-  <div class="semantic_dict l-page">
+{{#if top_acts}}
+  <div class="semantic_dict">
     <span class="annotation">{</span>
-    
-    {{#each $top_act as top}}
+
+    {{#each top_acts as top}}
       <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
 
       <span class="colon annotation">:</span>
@@ -53,7 +52,7 @@
 
       <span class="comma annotation">,</span>
     {{/each}}
-    
+
     <span class="annotation"> ... }</span>
   </div>
 {{/if}}
@@ -87,15 +86,14 @@
 
 .pointer_container .selected {
   opacity: 1;
-  fill: rgba(255, 255, 255, 0.5);
-  stroke: black;
-  stroke-width: 0.01px;
-  border-radius: var(--border-radius);
+  fill: none;
+  stroke: hsl(24, 100%, 50%);
+  stroke-width: 0.1px;
 }
 
 .pointer_container .pointer_line {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.5);
+  stroke: hsl(24, 100%, 50%);
   stroke-width: 0.1px;
 }
 
@@ -105,6 +103,7 @@
   background-color: hsl(0, 0%, 97%);
   border-top: 1px solid hsla(0, 0%, 0%, 0.1);
   border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-left: 3px solid hsl(24, 100%, 50%);
   width: calc(100% - 284px);
   overflow: hidden;
   white-space: nowrap;
@@ -114,10 +113,11 @@
 sub { font-size: 65%; }
 
 .semantic_dict {
+  grid-column: text/page;
   display: flex;
   margin-top: 30px;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   z-index: 100;
 }
 
@@ -142,6 +142,7 @@ sub { font-size: 65%; }
   right: 0;
   bottom: 0;
   background-color: #ccc;
+  min-width: 10px;
 }
 
 .semantic_dict span.annotation {
@@ -188,7 +189,7 @@ sub { font-size: 65%; }
     const sorted_ns = range(vec.length).sort((a, b) => (cmp || desc)(vec[a], vec[b]));
     return sorted_ns.slice(0, 5).map((n) => [n, vec[n]]);
   }
-  
+
   export default {
     data() {
       return {N: [14, 14]};
@@ -205,9 +206,9 @@ sub { font-size: 65%; }
           .load((activations) => {
             const _ = this.recalc_pos(activations);
             this.store.set({
-              activations, 
+              activations,
               max_act: activations.get(...argmax(activations)),
-              pos_act: _.pos_act, 
+              pos_act: _.pos_act,
               top_act: _.top_act
             });
           });
@@ -230,12 +231,12 @@ sub { font-size: 65%; }
       pointer_line_path: (N, pos, vector_y) => {
         var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
         var y_dist = Math.abs(start_y - vector_y);
-        var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);  
+        var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${vector_y} L ${N[0]+1.5} ${vector_y}`
       },
 
       pos_act_str: ($pos_act) => {
-        let s = '['    
+        let s = '['
 
         if ($pos_act) {
           for (let n = 0; n < Math.min(12, $pos_act.length); n++) {
@@ -249,6 +250,8 @@ sub { font-size: 65%; }
 
       vector_y: (winWidth, N) => vector_y(N),
 
+      top_acts: ($top_act) => $top_act ? $top_act.slice(0, 4) : [],
+
       neuron_size (winWidth) {
         const div = document.querySelector('#SemanticDict .semantic_dict');
         if (!div) return 110;
@@ -259,7 +262,7 @@ sub { font-size: 65%; }
     methods: {
       recalc_pos(acts) {
         const pos_act = present_vector(
-          this.store.get('dict_pos'), 
+          this.store.get('dict_pos'),
           acts || this.store.get('activations')
         );
         return {pos_act, top_act: tops(pos_act)};

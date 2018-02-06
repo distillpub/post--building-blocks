@@ -1,63 +1,95 @@
 <:Window bind:innerWidth="winWidth" />
+<div class="root l-text">
 
-<div class="l-body">
-  <div class="input_image">
-    <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
+  <svg class="overlay">
+    <path d={{pointer_line}}></path>
+    <line x1={{0}} x2={{neuron_width}} y1={{neuron_top}} y2={{neuron_top}}></line>
+  </svg>
 
-    <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
-      <filter id="background_rect_blur">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
-      </filter>
+  <div class="l-body">
+    <div class="input_image">
+      <img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
-        {{#each range(N[0]) as x}}
-        {{#each range(N[1]) as y}}
-          <rect x={{x}} y={{y}} width=1 height=1
-            class={{(x == $dict_pos[0] && y == $dict_pos[1])? "selected" : "unselected"}}
-            on:mouseover='store.set({dict_pos: [x,y]})'></rect>
-        {{/each}}
-        {{/each}}
-    </svg>
+      <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
+        <filter id="background_rect_blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" />
+        </filter>
+
+          {{#each range(N[0]) as x}}
+          {{#each range(N[1]) as y}}
+            <rect x={{x}} y={{y}} width=1 height=1
+              class={{(x == $dict_pos[0] && y == $dict_pos[1])? "selected" : "unselected"}}
+              on:mouseover='store.set({dict_pos: [x,y]})'></rect>
+          {{/each}}
+          {{/each}}
+      </svg>
+    </div>
+
+    <p>
+      Semantic dictionaries give us a fine-grained look at an activation: what does each single neuron detect?
+
+      Building off this representation, we can also consider an activation vector as a whole.
+
+      Instead of visualizing individual neurons, we can instead visualize the <i>combination</i> of neurons that fire at a given spatial location.
+    </p>
   </div>
 
-  <p>
-    Semantic dictionaries give us a fine-grained look at an activation: what does each single neuron detect? 
-    
-    Building off this representation, we can also consider an activation vector as a whole. 
+  {{#if $dict_pos && $top_act}}
+  <div class="output_dict" style="--neuron-size: {{neuron_size}}px;">
+    <div class="semantic_dict">
+      <div class="neuron">
+        <div class="bar" style="height: 0px;"></div>
+        <div class="spacer"></div>
+        <span></span>
+        <Sprite bg_img="examples/activations/{{$example}}/mixed4d.jpeg" size="{{neuron_size}}"
+          sprite_size="46" x={{$dict_pos[0]}} y={{$dict_pos[1]}}></Sprite>
+      </div>
 
-    Instead of visualizing individual neurons, we can instead visualize the <i>combination</i> of neurons that fire at a given spatial location.
-  </p>
-</div>
+      <span class="annotation">=</span>
 
-{{#if $dict_pos && $top_act}}
-<div class="l-page" style="--neuron-size: {{neuron_size}}px;">
-  <div class="semantic_dict">
-    <div class="neuron">
-      <div class="bar" style="height: 0px;"></div>
-      <div class="spacer"></div>
-      <span></span>
-      <Sprite bg_img="examples/activations/{{$example}}/mixed4d.jpeg" size="{{neuron_size}}" 
-        sprite_size="46" x={{$dict_pos[0]}} y={{$dict_pos[1]}}></Sprite>
+      {{#each top_acts as top}}
+      <div class="neuron">
+        <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
+        <div class="spacer"></div>
+        <span>{{(top[1]+'').slice(0,4)}}</span>
+        <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
+      </div>
+
+      <span class="annotation">+</span>
+      {{/each}}
+
+      <span class="annotation">...</span>
     </div>
-  
-    <span class="annotation">=</span>
-  
-    {{#each $top_act as top}}
-    <div class="neuron">
-      <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
-      <div class="spacer"></div>
-      <span>{{(top[1]+'').slice(0,4)}}</span>
-      <Sprite src_class="sprite_mixed4d_neuron" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
-    </div>
-  
-    <span class="annotation">+</span>
-    {{/each}}
-  
-    <span class="annotation">...</span>
   </div>
-</div>
-{{/if}}
+  {{/if}}
 
-<style>    
+</div>
+
+<style>
+  .root {
+    position: relative;
+  }
+
+  .overlay {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .overlay path {
+    stroke: hsl(24, 100%, 50%);
+    stroke-width: 1px;
+    fill: none;
+  }
+
+  .overlay line {
+    stroke: hsl(24, 100%, 50%);
+    stroke-width: 3px;
+
+  }
+
   .input_image {
     position: relative;
     float: left;
@@ -79,15 +111,18 @@
 
   .pointer_container .selected {
     opacity: 1;
-    fill: rgba(255, 255, 255, 0.5);
-    stroke: black;
-    stroke-width: 0.01px;
-    border-radius: var(--border-radius);
+    fill: none;
+    stroke: hsl(24, 100%, 50%);
+    stroke-width: 0.15px;
+  }
+
+  .output_dict {
+    clear: both;
   }
 
   .semantic_dict {
     display: flex;
-    justify-content: center;
+    justify-content: left;
   }
 
   .neuron {
@@ -104,10 +139,10 @@
   }
 
   .bar {
-    display: inline-block; 
-    background-color: #ccc; 
-    width: 20px;  
-    margin-right: 2px; 
+    display: inline-block;
+    background-color: #ccc;
+    width: 20px;
+    margin-right: 2px;
     margin-bottom: -2px;
   }
 
@@ -130,19 +165,48 @@
 <script>
   import {range, fmtAct} from '../util';
   import ExamplePicker from './ExamplePicker.html';
-  import Sprite from './Sprite.html'  
+  import Sprite from './Sprite.html'
 
   export default {
     data() {
       return {N: [14, 14]};
-    },   
+    },
 
     computed: {
+      neuron_top: (width, winWidth, $dict_pos) => {
+        const neuron_div = document.querySelector('#ActivationVecVis .output_dict');
+        return neuron_div ? neuron_div.offsetTop + 35 : 0;
+      },
+
+      neuron_width: (width, winWidth, $dict_pos) => {
+        const neuron_div = document.querySelector('#ActivationVecVis .outer');
+        return neuron_div ? neuron_div.clientWidth : 0;
+      },
+
+      pointer_line(neuron_top, neuron_width, winWidth, $dict_pos, $top_act, width) {
+        const pointer_div = document.querySelector('#ActivationVecVis .pointer_container');
+        const pointer_width = (pointer_div ? pointer_div.clientWidth : 0) / 14
+        const pointer_left = pointer_width * $dict_pos[0] + pointer_width / 2;
+        const pointer_top = pointer_width * $dict_pos[1] + pointer_width - 1;
+
+        return pointer_left < neuron_width - 20 ?
+              `M${pointer_left}, ${pointer_top} L${pointer_left}, ${neuron_top}` :
+              `M${pointer_left}, ${pointer_top} L${neuron_width - 20}, ${neuron_top - 10} L${neuron_width - 20}, ${neuron_top}`;
+      },
+
       neuron_size (winWidth) {
         const div = document.querySelector('#ActivationVecVis .semantic_dict');
         if (!div) return 110;
         return ~~(div.getBoundingClientRect().width / 10);
-      }
+      },
+
+      top_acts: ($top_act) => $top_act ? $top_act.slice(0, 4) : []
+    },
+
+    oncreate() {
+      this.store.observe("top_act", () => {
+        this.set({width: Math.random()});
+      }, {defer: true})
     },
 
     components: {ExamplePicker, Sprite},
