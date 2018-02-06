@@ -603,19 +603,37 @@
   <p>
     In this article, we have only scratched the surface of possibilities.
 
+    There are lots of combinations of our building blocks left to explore, and the design space gives us a way to do so systematically.
+  </p>
+
+  <!-- Neuron Attribution. -->
+
+  <p>
+    Moreover, each building block represents a broad class of techniques. 
+
+    Our interfaces take only one approach but, as we saw in each section, there are a number of alternatives for feature visualization, attribution, and matrix factorization.
+
+    An immediate next step would be to try using these alternate techniques, and research ways to improve them.
+  </p>
+
+  <!-- <p>
+    In this article, we have only scratched the surface of possibilities. 
+
     There are opportunities to further refine the individual building blocks, and lots of combinations of them yet to be explored.
 
     By thinking of this process as a design space, we can perform this exploration much more systematically.
-  </p>
+  </p> -->
 
   <p>
-    Moreover, as new building blocks are discovered, they will expand the space altogether.
+    Finally, this is not the complete set of building blocks; as new ones are discovered, they expand the space.
 
     For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
 
-    We can model dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others.
+    We can think of dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others. 
 
-    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed) but also how examples influence the features of hidden layers, and how that influence carries through to the output.
+    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed), but also how examples influence the features of hidden layers, and how they influence the relationship between these features and the output. 
+
+    For example, if we consider our "Labrador retriever" image, we can not only see which dataset examples most influenced the model to arrive at this classification, but also which dataset examples most caused the "floppy ear" detectors to fire, and which dataset examples most caused these detectors to increase the "Labrador retriever" classification.
   </p>
 
   <figure class="l-page">
@@ -628,26 +646,26 @@
   </figure>
 
   <p>
-    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for taking action on neural networks.
+    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.
 
-    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide an opportunity for human-in-the-loop training.
+    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training.
+    
+    For example, a human might object to a woman's presence reducing the probability of an image being classified as a "punching bag" and adjust the model parameters accordingly.
 
-    More advanced interfaces could link the parameter and dataset example substrates, allowing users to modify the training set or even generate and test adversarial examples.
+    (The danger here is that we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!)
   </p>
 
   <p>
-    Multiple models paragraph.
+    Another exciting possibility is interfaces for comparing multiple models. 
+
+    For instance, we might want to see how a model evolves during training, or how it changes when you transfer it to a new task<d-cite key="bau2017network"></d-cite>. 
+
+    Or, we might want to understand how a whole family of models compares to each other.
+
+    One of the unique challenges of this work is that we may want to align the atoms of each model; if we have completely different models, can we find the most analogous neurons between them?
+
+    Zooming out, can we develop interfaces that allow us to evaluate large spaces of models at once<d-cite key="olah2015visualizing"></d-cite>?
   </p>
-
-  <!-- <p>
-    The interface ideas we present in this article only scratch the surface of possibilities.
-
-    There is a rich space of ways to combine the building blocks we have discussed.
-
-    Composing these building blocks is not an arbitrary process -- there is a fundamental structure to how they fit together.
-
-    Our diagrams have made a number of independent decisions: for example, which layers of the network we inspect, what atoms we break their activations into, or what content we display about these atoms.
-  </p> -->
 
   <h2>Conclusion &amp; Future Work</h2>
 
