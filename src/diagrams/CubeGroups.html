@@ -1,8 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 856 240" style="enable-background:new 0 0 856 240;" xml:space="preserve">
-<style type="text/css">
+<script>
+  export default {
+    data() {
+      return {
+        url: "examples/input_images/dog_cat.png"
+      }
+    }
+  }
+</script>
+
+<style>
 	.st0{opacity:0.4;}
 	.st1{fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;}
 	.st2{opacity:0.9;}
@@ -18,42 +24,39 @@
 	.st12{font-size:11px;}
 	.st13{fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 </style>
+
+<svg viewBox="0 0 856 240" style="enable-background:new 0 0 856 240;">
 <g id="Layer_2">
 	<g id="img0" class="st0">
 		<g id="WW79td.tif">
-
-				<image style="overflow:visible;" width="224" height="224" id="Layer_0_1_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 70.015 181.8185)">
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_1_" xlink:href="examples/input_images/{{$example}}.png"  transform="matrix(0.493 0 0.2293 0.1746 70.015 181.8185)">
 			</image>
 		</g>
 		<polygon class="st1" points="231.8,220.9 121.4,220.9 70,181.8 180.4,181.8 		"/>
 	</g>
 	<g id="img1" class="st0">
 		<g id="WW79td.tif_1_">
-
-				<image style="overflow:visible;" width="224" height="224" id="Layer_0_2_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 284.489 181.8185)">
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_2_" xlink:href="examples/input_images/{{$example}}.png"  transform="matrix(0.493 0 0.2293 0.1746 284.489 181.8185)">
 			</image>
 		</g>
 		<polygon class="st1" points="446.3,220.9 335.9,220.9 284.5,181.8 394.9,181.8 		"/>
 	</g>
 	<g id="img2" class="st0">
 		<g id="WW79td.tif_2_">
-
-				<image style="overflow:visible;" width="224" height="224" id="Layer_0_3_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 485.7777 181.8185)">
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_3_" xlink:href="examples/input_images/{{$example}}.png"  transform="matrix(0.493 0 0.2293 0.1746 485.7777 181.8185)">
 			</image>
 		</g>
 		<polygon class="st1" points="647.6,220.9 537.2,220.9 485.8,181.8 596.2,181.8 		"/>
 	</g>
 	<g id="img3" class="st0">
 		<g id="WW79td.tif_3_">
-
-				<image style="overflow:visible;" width="224" height="224" id="Layer_0_4_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 691.6298 181.8185)">
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_4_" xlink:href="examples/input_images/{{$example}}.png"  transform="matrix(0.493 0 0.2293 0.1746 691.6298 181.8185)">
 			</image>
 		</g>
 		<polygon class="st1" points="853.4,220.9 743,220.9 691.6,181.8 802.1,181.8 		"/>
 	</g>
 </g>
 <g id="Layer_1">
-	<desc>Created with Sketch.</desc>
 	<g id="Shape" transform="translate(0.000000, 90.000000)" class="st2">
 		<g>
 			<g transform="translate(93.000000, 0.000000)">
@@ -933,13 +936,13 @@
 	<g>
 		<line class="st9" x1="66.7" y1="83.2" x2="60.3" y2="83.2"/>
 		<line class="st9" x1="66.7" y1="103.8" x2="60.3" y2="103.8"/>
-		<line class="st9" x1="66.7" y1="124.4" x2="60.3" y2="124.4"/>
+		<!-- <line class="st9" x1="66.7" y1="124.4" x2="60.3" y2="124.4"/> -->
 	</g>
-	<text transform="matrix(1 0 0 1 5.2166 65.4725)" class="st10 st11 st12">channel 1</text>
-	<text transform="matrix(1 0 0 1 46.8049 86.0669)" class="st10 st11 st12">2</text>
-	<text transform="matrix(1 0 0 1 46.8049 106.6608)" class="st10 st11 st12">3</text>
-	<text transform="matrix(1 0 0 1 46.8049 127.2551)" class="st10 st11 st12">4</text>
-	<text transform="matrix(1 0 0 1 46.8049 147.8485)" class="st10 st11 st12">5</text>
+	<text text-anchor="end" transform="matrix(1 0 0 1 50 65.4725)" class="st10 st11 st12">channel 1</text>
+	<text text-anchor="end" transform="matrix(1 0 0 1 50 86.0669)" class="st10 st11 st12">2</text>
+	<text text-anchor="end" transform="matrix(1 0 0 1 50 106.6608)" class="st10 st11 st12">3</text>
+	<text text-anchor="end" transform="matrix(1 0 0 1 50 127.2551)" class="st10 st11 st12">...</text>
+	<text text-anchor="end" transform="matrix(1 0 0 1 50 147.8485)" class="st10 st11 st12">512</text>
 	<g>
 		<g>
 			<line class="st13" x1="69.9" y1="191.6" x2="63.6" y2="191.6"/>

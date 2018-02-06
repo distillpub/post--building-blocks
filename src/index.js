@@ -10,6 +10,8 @@ import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 import Grammar from './diagrams/Grammar.html';
+import CubeGroups from './diagrams/CubeGroups.html';
+import CubeNatural from './diagrams/CubeNatural.html';
 
 const store = window.store = new Store({example: 'dog_cat'});
 loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
@@ -57,5 +59,15 @@ const attrGroups = new AttributionGroups({
 
 const grammar = new Grammar({
   target: document.getElementById('Grammar'),
+  store
+});
+
+const cubeGroups = new CubeGroups({
+  target: document.getElementById('CubeGroups'),
+  store
+});
+
+const cubeNatural = new CubeNatural({
+  target: document.getElementById('CubeNatural'),
   store
 });
