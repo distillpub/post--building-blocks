@@ -179,7 +179,7 @@
   <p>
     Designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying (or instantiating) them in interfaces <d-cite key="nielsen2016thought"></d-cite>.
 
-    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>.
+    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using,strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>.
 
     However, as each technique is generally studied in isolation, it appears to us that the corresponding work of reifying these abstractions has been neglected.
 
@@ -652,7 +652,7 @@
   <p>
     Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
 
-    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training.
+    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training<d-cite key="kapoor2010interactive,krause2016interacting,amershi2015modeltracker"></d-cite>.
     
     For example, a human might object to a woman's presence reducing the probability of an image being classified as a "punching bag" and adjust the model parameters accordingly.
 
