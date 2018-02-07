@@ -1,237 +1,326 @@
-
-<svg width="899px" height="261px" viewBox="0 0 899 261" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Fill-1" fill="#FFFFFF" points="76 97 151 97 151 129 76 129"></polygon>
-        <polygon id="Fill-3" fill="#FFFFFF" points="226 97 301 97 301 129 226 129"></polygon>
-        <polygon id="Fill-4" fill="#FFFFFF" points="76 33 151 33 151 65 76 65"></polygon>
-        <polygon id="Fill-5" fill="#FFFFFF" points="1 97 76 97 76 129 1 129"></polygon>
-        <text id="Channel" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
-            <tspan x="22.484" y="113.792023">Channel</tspan>
-        </text>
-        <polygon id="Fill-6" fill="#FFFFFF" points="226 1 301 1 301 33 226 33"></polygon>
-        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="245.436" y="17.792023">Output</tspan>
-        </text>
-        <polygon id="Fill-7" fill="#FFFFFF" points="76 129 151 129 151 161 76 161"></polygon>
-        <polygon id="Fill-8" fill="#FFFFFF" points="76 65 151 65 151 97 76 97"></polygon>
-        <polygon id="Fill-9" fill="#FFFFFF" points="226 129 301 129 301 161 226 161"></polygon>
-        <polygon id="Fill-10" fill="#FFFFFF" points="151 129 226 129 226 161 151 161"></polygon>
-        <polygon id="Fill-11" fill="#FFFFFF" points="151 33 226 33 226 65 151 65"></polygon>
-        <polygon id="Fill-12" fill="#FFFFFF" points="151 97 226 97 226 129 151 129"></polygon>
-        <polygon id="Fill-13" fill="#FFFFFF" points="151 65 226 65 226 97 151 97"></polygon>
-        <polygon id="Fill-14" fill="#FFFFFF" points="1 33 76 33 76 65 1 65"></polygon>
-        <text id="Group-15" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
-            <tspan x="32.936" y="49.792023">Group</tspan>
-        </text>
-        <polygon id="Fill-16" fill="#FFFFFF" points="1 65 76 65 76 97 1 97"></polygon>
-        <text id="Spatial" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
-            <tspan x="30.044" y="81.792023">Spatial</tspan>
-        </text>
-        <polygon id="Fill-17" fill="#FFFFFF" points="226 65 301 65 301 97 226 97"></polygon>
-        <polygon id="Fill-18" fill="#FFFFFF" points="76 1 151 1 151 33 76 33"></polygon>
-        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="100.326" y="17.792023">Input</tspan>
-        </text>
-        <polygon id="Fill-19" fill="#FFFFFF" points="1 1 76 1 76 33 1 33"></polygon>
-        <polygon id="Fill-20" fill="#FFFFFF" points="226 33 301 33 301 65 226 65"></polygon>
-        <polygon id="Fill-21" fill="#FFFFFF" points="1 129 76 129 76 161 1 161"></polygon>
-        <text id="Neuron" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
-            <tspan x="27.38" y="145.792023">Neuron</tspan>
-        </text>
-        <polygon id="Fill-22" fill="#FFFFFF" points="151 1 226 1 226 33 151 33"></polygon>
-        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="169.662" y="17.792023">Hidden</tspan>
-        </text>
-        <path d="M77.5,1 L77.5,161" id="Stroke-23" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M151.5,1 L151.5,161" id="Stroke-24" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M226.5,1 L226.5,161" id="Stroke-25" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M1.8,33.5 L301.8,33.5" id="Stroke-26" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M1.2059,65.5 L301.2059,65.5" id="Stroke-27" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M0.8091,96.5 L300.8091,96.5" id="Stroke-28" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M1.4052,128.5 L301.4052,128.5" id="Stroke-29" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M0.8091,160.5 L300.8091,160.5" id="Stroke-30" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M301.5,1 L301.5,161" id="Stroke-31" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M301.5,1 L301.5,161" id="Stroke-32" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M195.6134,106.7186 C199.2062,110.3114 199.2062,116.1365 195.6134,119.7293 C192.0206,123.3222 186.1955,123.3222 182.6027,119.7293 C179.0098,116.1365 179.0098,110.3114 182.6027,106.7186 C186.1955,103.1257 192.0206,103.1257 195.6134,106.7186" id="Fill-43" fill="#4271AE"></path>
-        <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="185.664" y="117.075982">F</tspan>
-        </text>
-        <text id="1.-Feature-Visualization-of-Channels" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill-opacity="0.8" fill="#000000">
-            <tspan x="6.8" y="202.608932">1. Feature Visualization of Channels</tspan>
-        </text>
-        <text id="To-understand-a-classification,-we-focus-on-the-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="6.8" y="227.183101">To understand a classification, we focus on the</tspan>
-        </text>
-        <text id="channels-of-the-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="6.8" y="242.519104">channels of the </tspan>
-        </text>
-        <text id="mixed4d" font-family="Monaco" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="92.15596" y="242.499023">mixed4d</tspan>
-        </text>
-        <text id="-layer.-Feature-visualization-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="145.564162" y="242.519104"> layer. Feature visualization</tspan>
-        </text>
-        <text id="makes-these-channels-meaningful." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="6.8" y="257.521061">makes these channels meaningful.</tspan>
-        </text>
-        <polygon id="Fill-44" fill="#FFFFFF" points="343 1 418 1 418 33 343 33"></polygon>
-        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="366.826" y="17.792023">Input</tspan>
-        </text>
-        <polygon id="Fill-45" fill="#FFFFFF" points="418 129 493 129 493 161 418 161"></polygon>
-        <polygon id="Fill-46" fill="#FFFFFF" points="493 33 568 33 568 65 493 65"></polygon>
-        <polygon id="Fill-47" fill="#FFFFFF" points="343 129 418 129 418 161 343 161"></polygon>
-        <polygon id="Fill-48" fill="#FFFFFF" points="343 33 418 33 418 65 343 65"></polygon>
-        <polygon id="Fill-49" fill="#FFFFFF" points="418 65 493 65 493 97 418 97"></polygon>
-        <polygon id="Fill-50" fill="#FFFFFF" points="343 65 418 65 418 97 343 97"></polygon>
-        <polygon id="Fill-51" fill="#FFFFFF" points="493 97 568 97 568 129 493 129"></polygon>
-        <polygon id="Fill-52" fill="#FFFFFF" points="343 97 418 97 418 129 343 129"></polygon>
-        <polygon id="Fill-53" fill="#FFFFFF" points="493 129 568 129 568 161 493 161"></polygon>
-        <polygon id="Fill-54" fill="#FFFFFF" points="493 1 568 1 568 33 493 33"></polygon>
-        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="511.936" y="17.792023">Output</tspan>
-        </text>
-        <polygon id="Fill-55" fill="#FFFFFF" points="418 97 493 97 493 129 418 129"></polygon>
-        <polygon id="Fill-56" fill="#FFFFFF" points="418 1 493 1 493 33 418 33"></polygon>
-        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="436.162" y="17.792023">Hidden</tspan>
-        </text>
-        <polygon id="Fill-57" fill="#FFFFFF" points="493 65 568 65 568 97 493 97"></polygon>
-        <polygon id="Fill-58" fill="#FFFFFF" points="418 33 493 33 493 65 418 65"></polygon>
-        <path d="M343.5,1 L343.5,161" id="Stroke-59" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M417.5,1 L417.5,161" id="Stroke-60" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M492.5,1 L492.5,161" id="Stroke-61" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M344.5,32.4847 L568.3,32.8" id="Stroke-62" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M343.9059,65.5 L567.7059,65.5" id="Stroke-63" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M344.5,96.5 L567.3091,96.5" id="Stroke-64" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M343.9059,128.5 L567.9052,128.5" id="Stroke-65" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M344.5,160.5 L567.3091,160.5" id="Stroke-66" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M567.5,1 L567.5,161" id="Stroke-67" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M442.7054,106.7186 C446.2982,110.3114 446.2982,116.1365 442.7054,119.7293 C439.1126,123.3222 433.2875,123.3222 429.6946,119.7293 C426.1018,116.1365 426.1018,110.3114 429.6946,106.7186 C433.2875,103.1257 439.1126,103.1257 442.7054,106.7186" id="Fill-68" fill="#4271AE"></path>
-        <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="432.756" y="117.075982">F</tspan>
-        </text>
-        <text id="2.-Filter-by-Output-Attribution" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill-opacity="0.8" fill="#000000">
-            <tspan x="348" y="202.608932">2. Filter by Output Attribution</tspan>
-        </text>
-        <text id="Next,-we-filter-for-specific-classes-by-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="348" y="227.184082">Next, we filter for specific classes by </tspan>
-        </text>
-        <text id="calculating-the-output-attribution." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="348" y="241.520081">calculating the output attribution.</tspan>
-        </text>
-        <path d="M537.0134,138.7249 C540.6062,142.3177 540.6062,148.1428 537.0134,151.7357 C533.4206,155.3285 527.5955,155.3285 524.0027,151.7357 C520.4098,148.1428 520.4098,142.3177 524.0027,138.7249 C527.5955,135.1321 533.4206,135.1321 537.0134,138.7249" id="Fill-69" fill="#768B29"></path>
-        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="527.064" y="149.082382">T</tspan>
-        </text>
-        <path d="M481.1405,106.7186 C484.7333,110.3114 484.7333,116.1365 481.1405,119.7293 C477.5477,123.3222 471.7225,123.3222 468.1297,119.7293 C464.5369,116.1365 464.5369,110.3114 468.1297,106.7186 C471.7225,103.1257 477.5477,103.1257 481.1405,106.7186" id="Fill-70" fill="#768B29"></path>
-        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="471.1911" y="117.075982">T</tspan>
-        </text>
-        <path d="M522.5231,140.6562 L492.1476,123.2558" id="Stroke-71" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Fill-72" fill="#768B29" points="485.4835 119.4384 490.716 125.7548 493.5791 120.7568"></polygon>
-        <polygon id="Stroke-73" stroke="#768B29" stroke-width="2" points="485.4835 119.4384 490.716 125.7548 493.5791 120.7568"></polygon>
-        <path d="M469.6223,120.9406 C464.8678,127.5575 457.484,136.0303 450.8471,136.0303 C447.4928,136.0303 444.8152,133.8662 442.7157,130.8712" id="Stroke-74" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Stroke-75" stroke="#768B29" stroke-width="2" points="439.5957 124.3832 438.9309 132.6921 446.5011 129.0518"></polygon>
-        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="440.3976" y="150.871723">filter</tspan>
-        </text>
-        <polygon id="Fill-76" fill="#FFFFFF" points="613 1 688 1 688 33 613 33"></polygon>
-        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="636.826" y="17.792023">Input</tspan>
-        </text>
-        <polygon id="Fill-77" fill="#FFFFFF" points="688 129 763 129 763 161 688 161"></polygon>
-        <polygon id="Fill-78" fill="#FFFFFF" points="763 33 838 33 838 65 763 65"></polygon>
-        <polygon id="Fill-79" fill="#FFFFFF" points="613 129 688 129 688 161 613 161"></polygon>
-        <polygon id="Fill-80" fill="#FFFFFF" points="613 33 688 33 688 65 613 65"></polygon>
-        <polygon id="Fill-81" fill="#FFFFFF" points="688 65 763 65 763 97 688 97"></polygon>
-        <polygon id="Fill-82" fill="#FFFFFF" points="613 65 688 65 688 97 613 97"></polygon>
-        <polygon id="Fill-83" fill="#FFFFFF" points="763 97 838 97 838 129 763 129"></polygon>
-        <polygon id="Fill-84" fill="#FFFFFF" points="613 97 688 97 688 129 613 129"></polygon>
-        <polygon id="Fill-85" fill="#FFFFFF" points="763 129 838 129 838 161 763 161"></polygon>
-        <polygon id="Fill-86" fill="#FFFFFF" points="763 1 838 1 838 33 763 33"></polygon>
-        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="781.936" y="17.792023">Output</tspan>
-        </text>
-        <polygon id="Fill-87" fill="#FFFFFF" points="688 97 763 97 763 129 688 129"></polygon>
-        <polygon id="Fill-88" fill="#FFFFFF" points="688 1 763 1 763 33 688 33"></polygon>
-        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
-            <tspan x="706.162" y="17.792023">Hidden</tspan>
-        </text>
-        <polygon id="Fill-89" fill="#FFFFFF" points="763 65 838 65 838 97 763 97"></polygon>
-        <polygon id="Fill-90" fill="#FFFFFF" points="688 33 763 33 763 65 688 65"></polygon>
-        <path d="M613.5,1 L613.5,161" id="Stroke-91" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M687.5,1 L687.5,161" id="Stroke-92" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M762.5,1 L762.5,161" id="Stroke-93" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M614.5,32.4847 L838.3,32.8" id="Stroke-94" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M613.9059,65.5 L837.7059,65.5" id="Stroke-95" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M614.5,96.5 L837.3091,96.5" id="Stroke-96" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M613.9059,128.5 L837.9052,128.5" id="Stroke-97" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M614.5,160.5 L837.3091,160.5" id="Stroke-98" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M837.5,1 L837.5,161" id="Stroke-99" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M712.7054,106.7186 C716.2982,110.3114 716.2982,116.1365 712.7054,119.7293 C709.1126,123.3222 703.2874,123.3222 699.6946,119.7293 C696.1018,116.1365 696.1018,110.3114 699.6946,106.7186 C703.2874,103.1257 709.1126,103.1257 712.7054,106.7186" id="Fill-100" fill="#4271AE"></path>
-        <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="702.756" y="117.075982">F</tspan>
-        </text>
-        <path d="M807.0134,138.7249 C810.6062,142.3177 810.6062,148.1428 807.0134,151.7357 C803.4206,155.3285 797.5955,155.3285 794.0027,151.7357 C790.4098,148.1428 790.4098,142.3177 794.0027,138.7249 C797.5955,135.1321 803.4206,135.1321 807.0134,138.7249" id="Fill-101" fill="#768B29"></path>
-        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="797.064" y="149.082382">T</tspan>
-        </text>
-        <path d="M749.1054,106.7186 C752.6982,110.3114 752.6982,116.1365 749.1054,119.7293 C745.5126,123.3222 739.6874,123.3222 736.0946,119.7293 C732.5018,116.1365 732.5018,110.3114 736.0946,106.7186 C739.6874,103.1257 745.5126,103.1257 749.1054,106.7186" id="Fill-102" fill="#768B29"></path>
-        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="739.156" y="117.075982">T</tspan>
-        </text>
-        <path d="M792.454,140.7787 L759.4237,122.5225" id="Stroke-103" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Fill-104" fill="#768B29" points="753.5422 119.2718 758.2046 124.7281 760.6427 120.317"></polygon>
-        <polygon id="Stroke-105" stroke="#768B29" stroke-width="2" points="753.5422 119.2718 758.2046 124.7281 760.6427 120.317"></polygon>
-        <path d="M737.9641,121.1732 C733.6807,127.7543 727.0591,136.0303 720.8471,136.0303 C717.6469,136.0303 715.0224,133.834 712.9244,130.8045" id="Stroke-106" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Stroke-107" stroke="#768B29" stroke-width="2" points="709.7718 124.3334 709.1494 132.6456 716.7009 128.9667"></polygon>
-        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="710.3976" y="150.871723">filter</tspan>
-        </text>
-        <path d="M722.6344,74.4946 C726.2273,78.0874 726.2273,83.9126 722.6344,87.5054 C719.0416,91.0982 713.2165,91.0982 709.6237,87.5054 C706.0308,83.9126 706.0308,78.0874 709.6237,74.4946 C713.2165,70.9018 719.0416,70.9018 722.6344,74.4946" id="Fill-108" fill="#768B29"></path>
-        <text id="C" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="711.797" y="84.8520816">C</tspan>
-        </text>
-        <path d="M708.1054,74.4946 C711.6982,78.0874 711.6982,83.9126 708.1054,87.5054 C704.5126,91.0982 698.6875,91.0982 695.0946,87.5054 C691.5018,83.9126 691.5018,78.0874 695.0946,74.4946 C698.6875,70.9018 704.5126,70.9018 708.1054,74.4946" id="Fill-109" fill="#4271AE"></path>
-        <text id="I" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="700.046" y="83.8520816">I</tspan>
-        </text>
-        <path d="M756.3054,74.4946 C759.8982,78.0874 759.8982,83.9126 756.3054,87.5054 C752.7126,91.0982 746.8875,91.0982 743.2946,87.5054 C739.7018,83.9126 739.7018,78.0874 743.2946,74.4946 C746.8875,70.9018 752.7126,70.9018 756.3054,74.4946" id="Fill-110" fill="#768B29"></path>
-        <text id="T" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="746.356" y="84.8520816">T</tspan>
-        </text>
-        <path d="M697.5737,110.0197 C690.5147,107.0177 681.57,102.1835 680.7902,96.7208 C680.3998,93.9861 682.1105,91.4792 684.6987,89.3089" id="Stroke-111" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Stroke-112" stroke="#768B29" stroke-width="2" points="690.8703 85.5957 682.5356 85.7088 686.8661 92.9065"></polygon>
-        <text id="3.-Drill-Down-on-Hover" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill-opacity="0.8" fill="#000000">
-            <tspan x="618" y="202.608932">3. Drill Down on Hover</tspan>
-        </text>
-        <text id="Hovering-over-channels,-we-get-a-heatmap-of-spatial-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="618" y="227.516081">Hovering over channels, we get a heatmap of spatial </tspan>
-        </text>
-        <text id="activations;-hovering-over-spatial-locations-gives-us-" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="618" y="241.852082">activations; hovering over spatial locations gives us </tspan>
-        </text>
-        <text id="position-specific-attribution-for-the-channels." font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill-opacity="0.8" fill="#000000">
-            <tspan x="618" y="256.188081">position-specific attribution for the channels.</tspan>
-        </text>
-        <polygon id="Fill-113" fill="#FFFFFF" points="645 85 679 85 679 110 645 110"></polygon>
-        <text id="filter" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#5F7C04">
-            <tspan x="650.444" y="98.055623">filter</tspan>
-        </text>
-        <path d="M747.7936,89.9797 L746.7914,94.4653" id="Stroke-114" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-        <polygon id="Fill-115" fill="#768B29" points="745.326 101.0236 749.2507 95.0148 744.332 93.9158"></polygon>
-        <polygon id="Stroke-116" stroke="#768B29" stroke-width="2" points="745.326 101.0236 749.2507 95.0148 744.332 93.9158"></polygon>
-        <path d="M466.5522,106.7186 C470.145,110.3114 470.145,116.1365 466.5522,119.7293 C462.9594,123.3222 457.1343,123.3222 453.5414,119.7293 C449.9486,116.1365 449.9486,110.3114 453.5414,106.7186 C457.1343,103.1257 462.9594,103.1257 466.5522,106.7186" id="Fill-117" fill="#4271AE"></path>
-        <text id="I" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="458.4928" y="116.075982">I</tspan>
-        </text>
-        <path d="M736.2589,106.9362 C739.8518,110.529 739.8518,116.3541 736.2589,119.9469 C732.6661,123.5398 726.841,123.5398 723.2482,119.9469 C719.6553,116.3541 719.6553,110.529 723.2482,106.9362 C726.841,103.3433 732.6661,103.3433 736.2589,106.9362" id="Fill-118" fill="#4271AE"></path>
-        <text id="I" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-            <tspan x="728.1996" y="116.293582">I</tspan>
-        </text>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="64 104 1082 304" width="1082pt" height="304pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata> Produced by OmniGraffle 7.6.1 
+    <dc:date>2018-02-07 19:56:05 +0000</dc:date>
+  </metadata>
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 5 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="-1e3" x-height="517" cap-height="714" ascent="957.0007" descent="-212.99744" font-style="italic" font-weight="normal">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Italic"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="14" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="bold">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="normal">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Monaco" font-size="12" units-per-em="1000" underline-position="-37.597656" underline-thickness="75.68359" slope="0" x-height="545.41016" cap-height="757.8125" ascent="1e3" descent="-250" font-weight="normal">
+      <font-face-src>
+        <font-face-name name="Monaco"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" viewBox="-1 -3 6 6" markerWidth="6" markerHeight="6" color="#718c01">
+      <g>
+        <path d="M 3.84 0 L 0 -1.44 L 0 1.44 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="UMLInheritance_Marker" viewBox="-1 -4 6 8" markerWidth="6" markerHeight="8" color="#424242">
+      <g>
+        <path d="M 3.6 0 L 0 -2.1 L 0 2.1 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" viewBox="-1 -3 6 6" markerWidth="6" markerHeight="6" color="#718c01">
+      <g>
+        <path d="M 3.36 0 L 0 -1.26 L 0 1.26 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_3" viewBox="-1 -3 7 6" markerWidth="7" markerHeight="6" color="#718c01">
+      <g>
+        <path d="M 4.8 0 L 0 -1.8 L 0 1.8 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>Teaser Steps 2</title>
+    <g>
+      <title>Layer 1</title>
+      <rect x="176.5" y="236" width="75" height="32" fill="white"/>
+      <rect x="326.5" y="236" width="75" height="32" fill="white"/>
+      <rect x="176.5" y="172" width="75" height="32" fill="white"/>
+      <rect x="101.5" y="236" width="75" height="32" fill="white"/>
+      <text transform="translate(111.5 244.832)" fill="#f99a27">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="10.984" y="11">Channel</tspan>
+      </text>
+      <rect x="326.5" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(331.5 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.936" y="11">Output</tspan>
+      </text>
+      <rect x="176.5" y="268" width="75" height="32" fill="white"/>
+      <rect x="176.5" y="204" width="75" height="32" fill="white"/>
+      <rect x="326.5" y="268" width="75" height="32" fill="white"/>
+      <rect x="251.5" y="268" width="75" height="32" fill="white"/>
+      <rect x="251.5" y="172" width="75" height="32" fill="white"/>
+      <rect x="251.5" y="236" width="75" height="32" fill="white"/>
+      <rect x="251.5" y="204" width="75" height="32" fill="white"/>
+      <rect x="101.5" y="172" width="75" height="32" fill="white"/>
+      <text transform="translate(111.5 180.832)" fill="#f99a27">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="21.436" y="11">Gr</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="34.324" y="11">oup</tspan>
+      </text>
+      <rect x="101.5" y="204" width="75" height="32" fill="white"/>
+      <text transform="translate(111.5 212.832)" fill="#f99a27">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="18.544" y="11">Spatial</tspan>
+      </text>
+      <rect x="326.5" y="204" width="75" height="32" fill="white"/>
+      <rect x="176.5" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(181.5 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="18.826" y="11">Input</tspan>
+      </text>
+      <rect x="101.5" y="140" width="75" height="32" fill="white"/>
+      <rect x="326.5" y="172" width="75" height="32" fill="white"/>
+      <rect x="101.5" y="268" width="75" height="32" fill="white"/>
+      <text transform="translate(111.5 276.832)" fill="#f99a27">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="15.88" y="11">Neur</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#f99a27" x="41.44" y="11">on</tspan>
+      </text>
+      <rect x="251.5" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(256.5 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.162" y="11">Hidden</tspan>
+      </text>
+      <line x1="177" y1="140" x2="177" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="251" y1="140" x2="251" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="326.21606" y1="140" x2="326.21606" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="101.8" y1="171.8" x2="401.8" y2="171.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="101.20588" y1="203.8" x2="401.2059" y2="203.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="100.80907" y1="235.72077" x2="400.80907" y2="235.72077" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="101.40521" y1="267.7271" x2="401.4052" y2="267.7271" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="100.80907" y1="299.73345" x2="400.80907" y2="299.73345" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="401.2059" y1="140" x2="401.2059" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="401.2059" y1="140" x2="401.2059" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <text transform="translate(178 109.29695)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#c92829" x="0" y="14">Layers</tspan>
+      </text>
+      <text transform="translate(70 295) rotate(-90)" fill="#f99a27">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#f99a27" x="37.363" y="14">Atoms</tspan>
+      </text>
+      <circle cx="289.10803" cy="252.22394" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(281.74803 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">F</tspan>
+      </text>
+      <text transform="translate(106.8 330.29695)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="0" y="14">1. Featur</tspan>
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="58.366" y="14">e V</tspan>
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="78.862" y="14">isualization of Channels</tspan>
+      </text>
+      <text transform="translate(106.8 358.16302)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="11">T</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="5.556" y="11">o understand a classifi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="126.24" y="11">cation, we focus on the </tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="26.336">channels of the </tspan>
+        <tspan font-family="Monaco" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="85.356" y="26.336">mixed4d</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="135.7642" y="26.336"> layer</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="163.5442" y="26.336">. Featur</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="204.2242" y="26.336">e visualization </tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="41.33795">makes these channels meaningful.</tspan>
+      </text>
+      <rect x="443" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(448 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="18.826" y="11">Input</tspan>
+      </text>
+      <rect x="518" y="268" width="75" height="32" fill="white"/>
+      <rect x="593" y="172" width="75" height="32" fill="white"/>
+      <rect x="443" y="268" width="75" height="32" fill="white"/>
+      <rect x="443" y="172" width="75" height="32" fill="white"/>
+      <rect x="518" y="204" width="75" height="32" fill="white"/>
+      <rect x="443" y="204" width="75" height="32" fill="white"/>
+      <rect x="593" y="236" width="75" height="32" fill="white"/>
+      <rect x="443" y="236" width="75" height="32" fill="white"/>
+      <rect x="593" y="268" width="75" height="32" fill="white"/>
+      <rect x="593" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(598 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.936" y="11">Output</tspan>
+      </text>
+      <rect x="518" y="236" width="75" height="32" fill="white"/>
+      <rect x="518" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(523 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.162" y="11">Hidden</tspan>
+      </text>
+      <rect x="593" y="204" width="75" height="32" fill="white"/>
+      <rect x="518" y="172" width="75" height="32" fill="white"/>
+      <line x1="443.5" y1="140" x2="443.5" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="517.5" y1="140" x2="517.5" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="592.71606" y1="140" x2="592.71606" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="444.5" y1="171.48474" x2="668.3" y2="171.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="443.9059" y1="203.8" x2="667.7059" y2="203.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="444.5" y1="235.72077" x2="667.3091" y2="235.72077" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="443.9059" y1="267.7271" x2="667.9052" y2="267.7271" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="444.5" y1="299.73345" x2="667.3091" y2="299.73345" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="667.3" y1="140" x2="667.3" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <circle cx="536.2" cy="252.22394" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(528.84 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">F</tspan>
+      </text>
+      <text transform="translate(448 330.29695)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="0" y="14">2. Filter by Output Attribution</tspan>
+      </text>
+      <text transform="translate(448 358.164)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="11">Next, we fi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="56.868" y="11">lter for specifi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="129.744" y="11">c classes by </tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="25.336">calculating the output attribution.</tspan>
+      </text>
+      <circle cx="630.508" cy="284.23028" r="9.200015" fill="#718c01"/>
+      <text transform="translate(623.148 277.06228)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <circle cx="574.6351" cy="252.22394" r="9.200015" fill="#718c01"/>
+      <text transform="translate(567.2751 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <line x1="622.5231" y1="279.65616" x2="592.1476" y2="262.2558" marker-end="url(#FilledArrow_Marker)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path d="M 569.6223 259.94056 C 564.86776 266.55752 557.484 275.03028 550.84705 275.03028 C 547.4928 275.03028 544.8152 272.86617 542.71566 269.87123" marker-end="url(#UMLInheritance_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="4,4"/>
+      <text transform="translate(539.95355 279.7486)" fill="#424242">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x=".444" y="11">fi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x="6.672" y="11">lter</tspan>
+      </text>
+      <rect x="713" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(718 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="18.826" y="11">Input</tspan>
+      </text>
+      <rect x="788" y="268" width="75" height="32" fill="white"/>
+      <rect x="863" y="172" width="75" height="32" fill="white"/>
+      <rect x="713" y="268" width="75" height="32" fill="white"/>
+      <rect x="713" y="172" width="75" height="32" fill="white"/>
+      <rect x="788" y="204" width="75" height="32" fill="white"/>
+      <rect x="713" y="204" width="75" height="32" fill="white"/>
+      <rect x="863" y="236" width="75" height="32" fill="white"/>
+      <rect x="713" y="236" width="75" height="32" fill="white"/>
+      <rect x="863" y="268" width="75" height="32" fill="white"/>
+      <rect x="863" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(868 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.936" y="11">Output</tspan>
+      </text>
+      <rect x="788" y="236" width="75" height="32" fill="white"/>
+      <rect x="788" y="140" width="75" height="32" fill="white"/>
+      <text transform="translate(793 148.832)" fill="#c92829">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#c92829" x="13.162" y="11">Hidden</tspan>
+      </text>
+      <rect x="863" y="204" width="75" height="32" fill="white"/>
+      <rect x="788" y="172" width="75" height="32" fill="white"/>
+      <line x1="713" y1="140" x2="713" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="787.5" y1="140" x2="787.5" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="862.7161" y1="140" x2="862.7161" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="714.5" y1="171.48474" x2="938.3" y2="171.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="713.9059" y1="203.8" x2="937.7059" y2="203.8" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="714.5" y1="235.72077" x2="937.3091" y2="235.72077" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="713.9059" y1="267.7271" x2="937.9052" y2="267.7271" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="714.5" y1="299.73345" x2="937.3091" y2="299.73345" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <line x1="937.3" y1="140" x2="937.3" y2="300" stroke="#929292" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+      <circle cx="806.2" cy="252.22394" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(798.84 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">F</tspan>
+      </text>
+      <circle cx="900.508" cy="284.23028" r="9.200015" fill="#718c01"/>
+      <text transform="translate(893.148 277.06228)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <circle cx="849.8645" cy="252.22394" r="9.200015" fill="#718c01"/>
+      <text transform="translate(842.5045 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <line x1="892.7293" y1="279.31418" x2="866.1135" y2="262.49316" marker-end="url(#FilledArrow_Marker_2)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path d="M 844.0334 259.3408 C 838.0739 266.033 828.6169 275.03028 820.8471 275.03028 C 817.1033 275.03028 814.2841 272.94147 812.1726 270.02814" marker-end="url(#UMLInheritance_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="4,4"/>
+      <rect x="781.4" y="275.03028" width="34" height="15" fill="white"/>
+      <text transform="translate(786.4 275.36228)" fill="#424242">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x=".444" y="11">fi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x="6.672" y="11">lter</tspan>
+      </text>
+      <circle cx="820.729" cy="220.10593" r="9.200015" fill="#718c01"/>
+      <text transform="translate(813.369 212.93793)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.028" y="11">C</tspan>
+      </text>
+      <circle cx="806.2" cy="220.10593" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(798.84 212.93793)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
+      </text>
+      <circle cx="849.8645" cy="284.23028" r="9.200015" fill="#718c01"/>
+      <text transform="translate(842.5045 277.06228)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <path d="M 797.5277 249.1466 C 790.1665 246.14995 780.7902 241.24813 780.7902 235.72077 C 780.7902 232.3685 784.239 229.3669 788.5955 226.91258" marker-end="url(#UMLInheritance_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="4,4"/>
+      <text transform="translate(718 330.29695)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="0" y="14">3. Drill Down on Hover</tspan>
+      </text>
+      <text transform="translate(718 358.496)" fill="black" fill-opacity=".8">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="11">Hovering over channels, we get a heatmap of spatial </tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="25.336">activations; hovering over spatial locations gives us </tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="0" y="39.671997">neur</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="23.568" y="39.671997">on-specifi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="black" fill-opacity=".8" x="76.68" y="39.671997">c attribution.</tspan>
+      </text>
+      <rect x="745" y="223.76356" width="34" height="25" fill="white"/>
+      <text transform="translate(750 229.09556)" fill="#424242">
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x=".444" y="11">fi</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#424242" x="6.672" y="11">lter</tspan>
+      </text>
+      <circle cx="560.0468" cy="252.22394" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(552.6868 245.05594)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
+      </text>
+      <circle cx="836.2" cy="284.23028" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(828.84 277.06228)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
+      </text>
+      <text transform="translate(982.7 109.29695)" fill="#718c00">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#718c00" x="0" y="14">Content</tspan>
+      </text>
+      <circle cx="1057.4" cy="147.4" r="9.200015" fill="#718c01"/>
+      <text transform="translate(1050.04 140.232)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.028" y="11">C</tspan>
+      </text>
+      <text transform="translate(982.7 139.132)" fill="#718c00">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#718c00" x="0" y="11">Activations</tspan>
+      </text>
+      <text transform="translate(982.7 171.132)" fill="#718c00">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#718c00" x="0" y="11">Attribution</tspan>
+      </text>
+      <text transform="translate(982.7 212.01772)" fill="#4271ae">
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#4271ae" x="0" y="14">Pr</tspan>
+        <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#4271ae" x="14.532" y="14">esentation</tspan>
+      </text>
+      <circle cx="1033.5957" cy="247.92077" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(1026.2357 240.75277)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
+      </text>
+      <text transform="translate(982.7 241.932)" fill="#4271ae">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#4271ae" x="0" y="11">InfoV</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#4271ae" x="27.336" y="11">is</tspan>
+      </text>
+      <circle cx="1136.1296" cy="249.1" r="9.200015" fill="#4271ae"/>
+      <text transform="translate(1128.7696 241.932)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">F</tspan>
+      </text>
+      <text transform="translate(1064.7 241.932)" fill="#4271ae">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#4271ae" x="0" y="11">Featur</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#4271ae" x="34.008" y="11">eV</tspan>
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="#4271ae" x="47.568" y="11">is</tspan>
+      </text>
+      <circle cx="1057.75" cy="179.75" r="9.200015" fill="#718c01"/>
+      <text transform="translate(1050.39 172.582)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <circle cx="1110.9" cy="179.75" r="9.200015" fill="#718c01"/>
+      <text transform="translate(1103.54 172.582)" fill="white">
+        <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
+      </text>
+      <line x1="1066.95" y1="179.75" x2="1088.8" y2="179.75" marker-end="url(#FilledArrow_Marker_3)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <line x1="891.308" y1="284.23028" x2="869.0845" y2="284.23028" marker-end="url(#FilledArrow_Marker_2)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
     </g>
+  </g>
 </svg>

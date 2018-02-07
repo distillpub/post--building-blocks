@@ -8,11 +8,11 @@
         <polygon id="Fill-3" fill="#FFFFFF" points="245 118 320 118 320 150 245 150"></polygon>
         <polygon id="Fill-4" fill="#FFFFFF" points="95 54 170 54 170 86 95 86"></polygon>
         <polygon id="Fill-5" fill="#FFFFFF" points="20 118 95 118 95 150 20 150"></polygon>
-        <text id="Channel" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+        <text id="Channel" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F4871F">
             <tspan x="41" y="137">Channel</tspan>
         </text>
         <polygon id="Fill-6" fill="#FFFFFF" points="245 22 320 22 320 54 245 54"></polygon>
-        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+        <text id="Output" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#BA1420">
             <tspan x="264.436" y="38.792023">Output</tspan>
         </text>
         <polygon id="Fill-7" fill="#FFFFFF" points="95 150 170 150 170 182 95 182"></polygon>
@@ -23,26 +23,26 @@
         <polygon id="Fill-12" fill="#FFFFFF" points="170 118 245 118 245 150 170 150"></polygon>
         <polygon id="Fill-13" fill="#FFFFFF" points="170 86 245 86 245 118 170 118"></polygon>
         <polygon id="Fill-14" fill="#FFFFFF" points="20 54 95 54 95 86 20 86"></polygon>
-        <text id="Group-15" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+        <text id="Group-15" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F4871F">
             <tspan x="52" y="74">Group</tspan>
         </text>
         <polygon id="Fill-16" fill="#FFFFFF" points="20 86 95 86 95 118 20 118"></polygon>
-        <text id="Spatial" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+        <text id="Spatial" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F4871F">
             <tspan x="49" y="106">Spatial</tspan>
         </text>
         <polygon id="Fill-17" fill="#FFFFFF" points="245 86 320 86 320 118 245 118"></polygon>
         <polygon id="Fill-18" fill="#FFFFFF" points="95 22 170 22 170 54 95 54"></polygon>
-        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+        <text id="Input" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#BA1420">
             <tspan x="119.326" y="38.792023">Input</tspan>
         </text>
         <polygon id="Fill-19" fill="#FFFFFF" points="20 22 95 22 95 54 20 54"></polygon>
         <polygon id="Fill-20" fill="#FFFFFF" points="245 54 320 54 320 86 245 86"></polygon>
         <polygon id="Fill-21" fill="#FFFFFF" points="20 150 95 150 95 182 20 182"></polygon>
-        <text id="Neuron" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#B9141F">
+        <text id="Neuron" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F4871F">
             <tspan x="47" y="169">Neuron</tspan>
         </text>
         <polygon id="Fill-22" fill="#FFFFFF" points="170 22 245 22 245 54 170 54"></polygon>
-        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#F5871F">
+        <text id="Hidden" font-family="HelveticaNeue-Italic, Helvetica Neue" font-size="12" font-style="italic" font-weight="normal" fill="#BA1420">
             <tspan x="188.662" y="38.792023">Hidden</tspan>
         </text>
         <path d="M96.5,22 L96.5,182" id="Stroke-23" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -54,7 +54,7 @@
         <path d="M19.8091,117.5 L319.8091,117.5" id="Stroke-29" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M20.4052,149.5 L320.4052,149.5" id="Stroke-30" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M19.8091,181.5 L319.8091,181.5" id="Stroke-31" stroke="#919191" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        <text id="Content" font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#718C00">
+        <text id="Content" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#718C00">
             <tspan x="354" y="11">Content</tspan>
         </text>
         <g id="Group" transform="translate(419.000000, 26.000000)">
@@ -69,26 +69,26 @@
         <text id="Attribution" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#718C00">
             <tspan x="354" y="69">Attribution</tspan>
         </text>
-        <text id="Presentation" font-family="HelveticaNeue" font-size="14" font-weight="bold" fill="#4271AE">
-            <tspan x="354" y="140">Presentation</tspan>
+        <text id="Presentation" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#4271AE">
+            <tspan x="354" y="109">Presentation</tspan>
         </text>
-        <g id="Group-4" transform="translate(399.000000, 156.000000)">
+        <g id="Group-4" transform="translate(399.000000, 125.000000)">
             <path d="M15.9011,3.48212 C19.4939,7.07494 19.4939,12.90005 15.9011,16.49287 C12.3083,20.08571 6.4831,20.08571 2.8903,16.49287 C-0.7025,12.90005 -0.7025,7.07494 2.8903,3.48212 C6.4831,-0.11072 12.3083,-0.11072 15.9011,3.48212" id="Fill-33" fill="#4271AE"></path>
             <text id="I" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-                <tspan x="7.8417" y="12.8395816">I</tspan>
+                <tspan x="7.8417" y="13.8395816">I</tspan>
             </text>
         </g>
         <text id="InfoVis" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#4271AE">
-            <tspan x="354" y="169">InfoVis</tspan>
+            <tspan x="354" y="138">InfoVis</tspan>
         </text>
-        <g id="Group-5" transform="translate(498.000000, 156.000000)">
+        <g id="Group-5" transform="translate(498.000000, 125.000000)">
             <path d="M16.435,3.66135 C20.0279,7.25417 20.0279,13.07928 16.435,16.6721 C12.8422,20.264941 7.0171,20.264941 3.4243,16.6721 C-0.1686,13.07928 -0.1686,7.25417 3.4243,3.66135 C7.0171,0.06851 12.8422,0.06851 16.435,3.66135" id="Fill-34" fill="#4271AE"></path>
             <text id="F" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#FFFFFF">
-                <tspan x="6.4856" y="13.0188116">F</tspan>
+                <tspan x="7.4856" y="13.0188116">F</tspan>
             </text>
         </g>
         <text id="FeatureVis" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#4271AE">
-            <tspan x="433" y="169">FeatureVis</tspan>
+            <tspan x="433" y="138">FeatureVis</tspan>
         </text>
         <g id="Group-6" transform="translate(419.000000, 56.000000)">
             <path d="M18.75,10 L40.6,10" id="Stroke-37" stroke="#768B29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -107,18 +107,11 @@
             </g>
             <polygon id="Stroke-39" stroke="#768B29" stroke-width="2" points="50.2 10 40.6 6.4 40.6 13.6"></polygon>
         </g>
-        <text id="Transformation" font-family="HelveticaNeue, Helvetica Neue" font-size="12" font-weight="normal" fill="#718C00">
-            <tspan x="354" y="100">Transformation</tspan>
-        </text>
-        <text id="Layers" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="bold" fill="#F4871F">
+        <text id="Layers" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#BA1420">
             <tspan x="97" y="11.4089322">Layers</tspan>
         </text>
-        <text id="Atoms" transform="translate(4.703049, 118.000000) rotate(-90.000000) translate(-4.703049, -118.000000) " font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#BA1420">
+        <text id="Atoms" transform="translate(4.703049, 118.000000) rotate(-90.000000) translate(-4.703049, -118.000000) " font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="14" font-weight="bold" fill="#F4871F">
             <tspan x="-16.9339513" y="123.296951">Atoms</tspan>
         </text>
-        <g id="Page-1" transform="translate(438.000000, 93.000000)" stroke="#768B29" stroke-width="2">
-            <path d="M0.5825,4 L40,4" id="Stroke-1" stroke-linecap="round" stroke-linejoin="round"></path>
-            <polygon id="Stroke-3" points="49.6 4 40 0.4 40 7.6"></polygon>
-        </g>
     </g>
 </svg>
