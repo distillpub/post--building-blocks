@@ -197,7 +197,7 @@
       neuron_size (winWidth) {
         const div = document.querySelector('#ActivationVecVis .semantic_dict');
         if (!div) return 110;
-        return ~~(div.getBoundingClientRect().width / 10);
+        return ~~(div.getBoundingClientRect().width / 6.5);
       },
 
       top_acts: ($top_act) => $top_act ? $top_act.slice(0, 4) : []
