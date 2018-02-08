@@ -17,10 +17,16 @@
       padding-bottom: 0;
     }
 
-    d-title h1 {
-      grid-column: page;
-      text-align: center;
-      margin-bottom: 25px;
+    d-title br.wide { display: none; }
+
+    @media(min-width: 1280px) {
+      d-title h1 {
+        grid-column: page;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      d-title br.wide { display: inline; }
     }
 
     #Teaser {
@@ -165,9 +171,9 @@
   <h1>Interpretability as Interface Design</h1>
   <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
   <p>
-    Interpretability techniques are normally studied in isolation. <br />
+    Interpretability techniques are normally studied in isolation. <br class="wide" />
 
-    We explore the powerful interfaces that arise when you combine them<br />-- and the rich structure of this combinatorial space.
+    We explore the powerful interfaces that arise when you combine them <br class="wide" />-- and the rich structure of this combinatorial space.
   </p>
 
   <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
