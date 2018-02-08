@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="template.v2.js"></script>
+  <script src="https://distill.pub/template.v2.js"></script>
 
   <style>
     body {
@@ -17,10 +17,16 @@
       padding-bottom: 0;
     }
 
-    d-title h1 {
-      grid-column: page;
-      text-align: center;
-      margin-bottom: 25px;
+    d-title br.wide { display: none; }
+
+    @media(min-width: 1280px) {
+      d-title h1 {
+        grid-column: page;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      d-title br.wide { display: inline; }
     }
 
     #Teaser {
@@ -145,6 +151,12 @@
       "affiliationURL": "https://g.co/brain"
     },
     {
+      "author": "Shan Carter",
+      "authorURL": "http://shancarter.com/",
+      "affiliation": "Google Brain",
+      "affiliationURL": "https://g.co/brain"
+    },    
+    {
       "author": "Katherine Ye",
       "authorURL": "https://cs.cmu.edu/~kqy/",
       "affiliation": "CMU",
@@ -165,6 +177,13 @@
 <d-title>
   <!-- <h1>Building Blocks<br />for Interpretability</h1> -->
   <h1>Interpretability as Interface Design</h1>
+  <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
+  <p>
+    Interpretability techniques are normally studied in isolation. <br class="wide" />
+
+    We explore the powerful interfaces that arise when you combine them <br class="wide" />-- and the rich structure of this combinatorial space.
+  </p>
+
   <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
 </d-title>
 
@@ -173,40 +192,31 @@
 
   <p>
     Designing meaningful user interfaces consists of two steps: constructing deep abstractions, and then reifying (or instantiating) them in interfaces <d-cite key="nielsen2016thought"></d-cite>.
-    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>.
-    However, it appears to us that the corresponding work of reifying these abstractions has been neglected.
+
+    With a few exceptions <d-cite key="olah2015visualizing,yosinski2015understanding,carter2017using,strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, existing work on interpretability has primarily focused on the former&mdash;we have seen the development of powerful abstractions, including feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>.
+
+    However, as each technique is generally studied in isolation, it appears to us that the corresponding work of reifying these abstractions has been neglected.
+
     This neglect has left us with impoverished interfaces (e.g., saliency maps) that leave a lot of value on the table.
+    
     Worse, these interfaces hinder the development of our abstractions by not pushing them to their limits.
   </p>
 
   <p>
-    When we treat interpretability as a user interface design problem, existing techniques become fundamental and composable building blocks.
+    When we treat interpretability as a user interface design problem, existing techniques become fundamental and composable building blocks. 
 
-    We present interfaces that show
-    <i>what</i> the network detects and explain
-    <i>how</i> it develops its understanding, while keeping things
-    <i>human-scale</i>.
+    Disparate threads of interpretability research now come together in a unified grammar,
+    fulfilling complementary roles in the resulting interfaces.
+
+    Moreover, this grammar allows us to systematically explore the space of interpretability interfaces, enabling us to evaluate whether they meet particular goals. 
+
+    We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
 
     For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
 
     Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action:
     the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
-    </p>
-
-  <!-- <p>
-    In this article, we consider interpretability through the lens of user interface design: iterating between reifying abstractions and pushing them further.
-    This process has allowed us to identify relatively basic operations with a lot of potential.
-    For instance, feature visualization naturally combines with a network's activations to create a "semantic dictionary" that makes hidden activations meaningful.
-    Moreover, we find that existing techniques can be applied in more general ways.
-    Attribution, for example, can be layered over semantic dictionaries to understand how concepts evolve through the network's hidden layers.
   </p>
-
-  <p>
-    With this lens, existing techniques now become fundamental and composable building blocks for a new generation of more meaningful user interfaces for interpretability.
-    We present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
-    For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
-    Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
-  </p> -->
 
   <p>
     From calculus to programming languages, there is a long history of new interface abstractions enabling progress in science and engineering.
@@ -648,19 +658,19 @@
     <img src="images/design_space/dataset.svg"></img>
     <figcaption style="margin-top: 10px;">
       Introducing dataset examples as a new substrate in the design space.
-      On the left, interfaces that help us understand the influence of dataset examples on the output classification as presented by Koh et al<d-cite key="koh2017understanding"></d-cite>.
-      On the right, interfaces that show which dataset examples caused which channels to increase the probability of the ultimate classification.
+      Left-to-right: an interface that helps us understand the influence of dataset examples on the output classification as presented by Koh et al
+      <d-cite key="koh2017understanding"></d-cite>; an interface showing how examples influence the channels of hidden layers; and, an interface for identifying which dataset examples most caused particular detectors to increase the output classification.
     </figcaption>
   </figure>
 
   <p>
-    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.
+    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
 
-    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training.
+    Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training<d-cite key="kapoor2010interactive,krause2016interacting,amershi2015modeltracker"></d-cite>.
     
     For example, a human might object to a woman's presence reducing the probability of an image being classified as a "punching bag" and adjust the model parameters accordingly.
 
-    (The danger here is that we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!)
+    (The danger here is that we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
   </p>
 
   <p>
@@ -679,8 +689,30 @@
 
   <p>
     There is a rich design space for interacting with enumerative algorithms, and we believe an equally rich space exists for interacting with neural networks.
+  </p>
 
-    These interfaces will be necessary for meaningful human oversight and critical for endorsing a model's decision-making process.
+  <p>
+    One reservation we have is that for interpretability interfaces to be effective, we must trust that they are telling us the whole story.
+
+    Model behavior is extremely complex, and our current building blocks force us to show only specific aspects of it.
+
+    An important direction for future interpretability research will be developing techniques that achieve broader coverage of model behavior. 
+
+    But, even with such improvements, we anticipate that a key marker of trustworthiness will be interfaces that do not mislead. 
+    
+    Interacting with the explicit information displayed should not cause users to implicitly draw incorrect assessments about the model (we see a similar principle articulated by Mackinlay for data visualization<d-cite key="mackinlay1986automating"></d-cite>).
+
+    For example, it is difficult to evaluate whether an interface as basic as our semantic dictionary is misleading (as many neurons it displays are polysemantic) or to what extent this can be remedied
+      <d-footnote>
+        Possible ways of resolving this include providing multiple icons constructed with diversity feature visualization that try to show the range of meanings of the neuron<d-cite key="olah2017feature,nguyen2016multifaceted"></d-cite> or techniques for disentangling representations into more semantically meaningful units (see e.g., the <a href="https://sites.google.com/corp/view/disentanglenips2017">NIPS workshop</a> on this subject).
+      </d-footnote>
+    .
+  </p>
+
+  <p>
+    We have a lot of work left ahead of us to build powerful and trusthworthy interfaces for interpretability.
+
+    But, if we succeed, interpretability promises to be a powerful tool in enabling meaningful human oversight and in building fair, safe, and aligned AI systems.
   </p>
 </d-article>
 
