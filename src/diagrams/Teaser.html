@@ -1,128 +1,189 @@
-<div class="container" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
-  <ExamplePicker />
+<div class="container base-grid" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
+  {{#if ready}}
 
-  <div>
-    <p class="heading">Input Image</p>
-
-    <div class="input_image">     
-      <img src="examples/input_images/{{$example}}.png" /> 
-    
-      {{#if hover_channel}}
-        <Sprite src_class="sprite_mixed4d_activations" 
-          bg_img="examples/activations/{{$example}}/sprite_mixed4d_activations.png"
-          n={{hover_channel}} 
-          sprite_size={{14}} 
-          size="{{img_size}}" /> 
-      {{else}}
-        <svg viewBox="0 0 14 14" on:mouseleave="set({pos: []})">
-          {{#each range(14) as x}}
-          {{#each range(14) as y}}
-            <rect x="{{x}}" y="{{y}}" width="1" height="1" 
-              class="{{(x == pos[0] && y == pos[1]) ? 'selected' : ''}}"
-              on:mouseover="set({pos: [x,y]})"></rect>
-          {{/each}}
-          {{/each}}
-        </svg>
-      {{/if}}
-    </div>
-  </div>
-
-  {{#if attr_data && $labels}}
-  <div>
-    <p class="heading">
-      Why does the model think the image is more likely a
-      <span class="label" on:click="change_label(event, 0)">{{$labels[selected_classes[0]]}}</span>
-      than a
-      <span class="label_nv1 label" on:click="change_label(event, 1)">{{$labels[selected_classes[1]]}}</span>?
-    </p>
-
-    <div id="change_label" class="nv{{change_label}}" 
-      style="display: {{change_label === null ? 'none' : 'block'}};
-      left: {{change_label_pos.left - 211}}px;">
-      <ul>
-        <li on:click="set({change_label: null})">{{$labels[selected_classes[change_label]]}}</li>
-        {{#each attr_data.classes as c}}
-          {{#if c !== selected_classes[0] && c !== selected_classes[1]}}
-            <li on:click="select_class(c)">{{$labels[c]}}</li>
-          {{/if}}
-        {{/each}}
-      </ul>
-    </div>
-
-    <div style="height: var(--img-size);">
-      <div class="subheading">
-        <p>Neurons that most support
-          <span>{{$labels[selected_classes[0]]}}</span>
-        </p>
-        <p style="text-align: center;">vs.</p>
-        <p>Neurons that most support
-          <span>{{$labels[selected_classes[1]]}}</span>
-        </p>
-      </div>
-
-      <div style="display: flex;" on:mouseleave="set({hover_channel: null})">
-        {{#each selected_data as d, i}}
-          {{#if d.c}}
-            <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" 
-              on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-              <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
-
-              <div class="bar">
-                <div class="bar_nv0 bar_filled" style="{{bar_filled(d, 'nv0', i < 3 ? 'nv1' : 'nv0')}}"></div>
-                <div class="bar_nv1 bar_filled" style="{{bar_filled(d, 'nv1', i < 3 ? 'nv1' : 'nv0')}}"></div>
-
-                <div class="bar_midpoint"></div>
-              </div>
-
-              <div class="outline"></div>
-            </div>
+    <!-- Intro -->
+    <div class="intro">
+      <div><p>
+        For instance, by combining feature visualization and class attribution we can 
+        start to answer complex questions like, 
+        “How does a neural network decide between a 
+        <b>{{left_selected_class_label}}</b>
+        and a
+        <b>{{right_selected_class_label}}</b>?”
+      </p></div>
+      <div>
+        <div class="input_image">
+          <img src="examples/input_images/{{$example}}.png" />
+          {{#if hover_channel}}
+            <Sprite src_class="sprite_mixed4d_activations"
+              bg_img="examples/activations/{{$example}}/sprite_mixed4d_activations.png"
+              n={{hover_channel}}
+              sprite_size={{14}}
+              size="{{img_size}}" />
           {{else}}
-            <div class="neuron" on:mouseover="set({hover_channel: null})" 
-              style="display: flex; align-items: center; cursor: auto;">...</div>
+            <svg viewBox="0 0 14 14" on:mouseleave="set({pos: []})">
+              {{#each range(14) as x}}
+              {{#each range(14) as y}}
+                <rect x="{{x}}" y="{{y}}" width="1" height="1"
+                  class="{{(x == pos[0] && y == pos[1]) ? 'selected' : ''}}"
+                  on:mouseover="set({pos: [x,y]})"></rect>
+              {{/each}}
+              {{/each}}
+            </svg>
           {{/if}}
-        {{/each}}
+        </div>
+      </div>
+      <div>
+        <ExamplePicker />
       </div>
     </div>
-  </div>
-  {{/if}}
 
-  <figcaption>Caption text goes here. Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity.
-  Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top
-  Cat.</figcaption>
+
+    <!-- Headers -->
+    <div class="headers">
+      <div class="left">
+        <span>Channels that most support</span>
+        <div class="wrapper">
+          <select bind:value="left_selected_class">
+            {{#each left_classes as c}} 
+            <option value="{{c.c}}" disabled={{c.c === right_selected_class}}>{{c.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="right">
+        <span>Channels that most support</span>
+        <div class="wrapper">
+          <select bind:value="right_selected_class">
+            {{#each right_classes as c}}
+            <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Feature Viz -->
+
+    <div class="row_label">Feature Visualization</div>
+    <div class="features" on:mouseleave="set({hover_channel: null})">
+      {{#each left_selected_data as d, i}}
+        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+          <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+        </div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+      </div>
+      {{/each}}
+    </div>
+
+
+    <!-- Evidence -->
+    <div class="row_label">Net evidence</div>
+    <div class="evidence net">
+      {{#each left_selected_data as d, i}}
+        <div class="value">
+          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+        </div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">
+          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="row_label">for "{{left_selected_class_label}}"</div>
+    <div class="evidence">
+      {{#each left_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv0)}}</div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv0)}}</div>
+      {{/each}}
+    </div>
+
+    <div class="row_label">for "{{right_selected_class_label}}"</div>
+    <div class="evidence">
+      {{#each left_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv1)}}</div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv1)}}</div>
+      {{/each}}
+    </div>
+
+
+    <!-- Caption -->
+    
+    <!-- <p class="caption">
+      By combining feature visualization with class attribution we can see which channels lead to the classsification. In this
+      instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
+    </p> -->
+
+
+  {{else}}
+    Loading
+  {{/if}}
 </div>
 
 <style>
+
   .container {
-    display: flex;
+    margin: 40px 0;
     position: relative;
     --blue: #3497FF;
     --orange: #ff6600;
   }
 
-  .example_picker { margin-right: 30px; }
+  .intro {
+    grid-column: text/page;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1.25fr;
+    grid-column-gap: 30px;
+  }
 
-   .example_picker img:hover,
-   .example_picker img.selected, .example_picker img.selected:hover {
-    opacity: 1;
-    border-color: goldenrod;
+  .intro p {
+    font-size: 1rem;
+  }
+
+  .intro figcaption {
+    margin-top: 10px;
+  }
+
+  .example_picker { 
+    width: inherit!important; 
   }
 
   .input_image {
-    width: var(--img-size);
-    height: var(--img-size);
+    position: relative;
+    width: 100%;
     position: relative;
     margin-right: 30px;
   }
 
-  .input_image img { 
-    position: absolute; 
-    top: 0;
-    right: 0;
+  .input_image img {
     border-radius: var(--border-radius);
   }
 
   .input_image .outer {
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
     opacity: 0.8;
     mix-blend-mode: multiply;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
@@ -131,7 +192,7 @@
     image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
     image-rendering: pixelated; /* Chrome */
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
     border-radius: var(--border-radius);
     overflow: hidden;
   }
@@ -151,135 +212,130 @@
     stroke-width: 0.01px;
   }
 
-  .heading {
-    font-size: 90%;
-    font-weight: bold;
-  }
-
-  .subheading {
-    display: flex;
-    width: 100%;
-    font-style: italic;
-  }
-
-  .subheading p { 
-    flex: 1;
-    font-size: 80%; 
-  }
-
-  .subheading p:last-child {
-    margin-left: auto;
-    justify-self: flex-end;
+  .row_label {
+    font-size: 12px;
+    grid-column: kicker;
     text-align: right;
   }
 
-  .subheading span { text-transform: capitalize; }
-
-  .label {
-    color: var(--blue);
-    text-transform: capitalize;
-    border-bottom: 1px dashed;
-    cursor: pointer;
+  .headers {
+    grid-column: text/page;
+    display: grid;
+    grid-template-columns: 1fr 0px 1fr;
+    grid-column-gap: 30px;
+    padding-top: 20px;
   }
 
-  .label:hover { color: goldenrod; }
+  .headers :last-child {
+    text-align: right;
+  }
 
-  .label_nv1 { color: var(--orange); }
+  .headers span {
+    font-size: 13px;
+    display: block;
+  }
 
-  #change_label {
-    position: absolute; 
-    top: -7px; 
-    padding: 7px;
-    z-index: 100;
-    background: white;
+  .headers select {
+    display: inline-block;
+    width: 200px;
+  }
+
+  .headers select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
-  }
-
-  #change_label ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 90%;
-    text-transform: capitalize;
-    cursor: pointer;
-  }
-
-  #change_label li:first-child, #change_label li:hover { 
-    color: goldenrod; 
+    border-radius: 6px;
+    padding: 0.5em 2em 0.5em 0.8em;
+    font-size: 16px;
     font-weight: bold;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    margin: 2px 0 12px 0;
   }
 
-  #change_label.nv0 { color: var(--blue); }
-  #change_label.nv1 { color: var(--orange); }
+  .headers .left select {
+    color: var(--blue);
+  }
 
-  .neuron { 
+  .headers .right select {
+    color: var(--orange);
+  }
+
+  .headers .wrapper {position:relative; display: inline;}
+
+  .headers .wrapper:after {content:""; width:0; height:0; position:absolute; pointer-events: none;}
+
+  .headers .wrapper:after {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      top: .3em;
+      right: .75em;
+      border-top: 8px solid black;
+      opacity: 0.4;
+  }
+
+  .headers select::-ms-expand {
+      display: none;
+  }
+
+  .divider {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .features {
+    grid-column: text/page;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    padding-bottom: 4px;
+  }
+
+  .evidence {
+    grid-column: text/page;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+  }
+
+  .evidence .value {
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
-    width: 110px;
-    height: 122px;
+  }
+
+  .evidence.net .value span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .evidence.net .background {
+    border-radius: 4px;
+  }
+
+  .evidence.net .value:nth-child(-n+3) .background{
+    background: var(--blue);
+  }
+
+  .evidence.net .value:nth-last-child(-n+3) .background{
+    background: var(--orange);
+  }
+
+  .neuron {
+    position: relative;
     justify-content: center;
-    margin-right: 20px; 
-    margin-bottom: 20px;
     cursor: pointer;
   }
 
-  .neuron:nth-child(3), .neuron:nth-child(4), .neuron:last-child { margin-right: 0; }
-
-  .neuron .inner { border-radius: var(--border-radius); }
-
-  .bar {
-    position: relative;
-    width: 100%;
-    height: 12px;  
-    margin-top: 10px;
-    border: 1px solid #aaa;
-    box-sizing: border-box;
-    border-radius: var(--border-radius);
-    overflow: hidden;
+  .caption {
+    grid-column: text/page;
+    margin-top: 40px;
   }
 
-  .bar_filled {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    opacity: 0.5;
-    /* transition: all 0.5s ease-in-out; */
-  }
 
-  .bar_nv0 { 
-    background-color: var(--blue);
-  }
-
-  .bar_nv1 {
-    background-color: var(--orange);
-  }
-
-  .bar_midpoint {
-    position: absolute;
-    left: 50%;
-    height: 100%;
-    border: 1px dashed #666;
-    box-sizing: border-box;
-  }
-
-  .outline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 110px;
-    height: 110px;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-    border-radius: var(--border-radius);
-  }
-
-  .neuron_hover .outline { border-color: goldenrod; }
-
-  figcaption {
-    position: absolute;
-    bottom: 5px;
-    left: 80px;
-  }
 </style>
 
 <script>
@@ -299,18 +355,24 @@
         attr_data: {classes: []},
         selected_classes: [],
         pos: [],
-        img_size: 165,
-        change_label: null
+        img_size: 236,
+        neuron_image_width: 133,
+        change_label: null,
+        loaded: false
       }
     },
 
     oncreate() {
       this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/teaser.json`, (err, attr_data) => {
+          console.log("loaded", attr_data)
           const selected_classes = attr_data.classes.slice(0, 2);
           this.set({
-            attr_data, selected_classes,
-            hover_channel: attr_data[`${selected_classes[0]}-${selected_classes[1]}`][0].c
+            loaded: true,
+            attr_data, 
+            left_selected_class: attr_data.classes[0],
+            right_selected_class: attr_data.classes[1]
+            // hover_channel: attr_data[`${selected_classes[0]}-${selected_classes[1]}`][0].c
           });
         });
 
@@ -321,6 +383,27 @@
     },
 
     computed: {
+      ready(attr_data, $labels, loaded) {
+        return loaded && attr_data != null && $labels != null
+      },
+      labels($labels) {
+        return $labels ? $labels : [];
+      },
+      left_classes(attr_data, labels) {
+        return attr_data.classes.map(c => { return {c, label: labels[c]}})
+      },
+      left_selected_class_label(left_selected_class, labels) {
+        return labels[left_selected_class];
+      },
+      right_selected_class_label(right_selected_class, labels) {
+        return labels[right_selected_class];
+      },
+      right_classes(attr_data, labels) {
+        return attr_data.classes.map(c => { return { c, label: labels[c] } })
+      },
+      selected_classes(left_selected_class, right_selected_class) {
+        return [left_selected_class, right_selected_class];
+      },
       selected_data(attr_data, selected_classes, pos, full_attr) {
         let data = attr_data[`${selected_classes[0]}-${selected_classes[1]}`];
         if (!data) {
@@ -356,10 +439,17 @@
 
         return data;
       },
+      left_selected_data(selected_data) {
+        console.log(selected_data);
+        return selected_data.slice(0, 3);
+      },
+      right_selected_data(selected_data) {
+        return selected_data.slice(4, 7);
+      },
 
       change_label_pos(change_label) {
         const label = document.querySelectorAll('p.heading span.label')[change_label];
-        return label ? label.getBoundingClientRect() : {};        
+        return label ? label.getBoundingClientRect() : {};
       }
     },
 
@@ -379,11 +469,17 @@
 
     helpers: {
       range,
+      evidence_opacity(v) {
+        return 2 * Math.pow(v, 2);
+      },
+      evidence_format(n) {
+        return n.toFixed(2);
+      },
 
       bar_filled(d, cls, base) {
         const val = d[cls] * 100;
         const width = Math.abs(val) / 2;
-        
+
         const start = cls === base ? 50 :
           Math.sign(val) === Math.sign(d[base]) ? 50 :
             50 + (Math.abs(d[base] * 100) / 2);

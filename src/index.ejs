@@ -16,26 +16,20 @@
       overflow-y: hidden;
       padding-bottom: 0;
     }
+    
+    d-title h1 {
+      margin-bottom: 20px;
+    }
 
-    d-title br.wide { display: none; }
-
-    @media(min-width: 1280px) {
-      d-title h1 {
-        grid-column: page;
-        text-align: center;
-        margin-bottom: 25px;
-      }
-
-      d-title br.wide { display: inline; }
+    d-title h1, d-title p {
+      grid-column: text/page;
     }
 
     #Teaser {
-      display: flex;
-      justify-content: center;
+      margin-top: 10px;
       margin-bottom: 0;
       background: var(--gray-bg);
       border-top: 1px solid var(--gray-border);
-      padding: 60px 0;
     }
 
     figure.full-width {
@@ -155,7 +149,7 @@
       "authorURL": "http://shancarter.com/",
       "affiliation": "Google Brain",
       "affiliationURL": "https://g.co/brain"
-    },    
+    },
     {
       "author": "Katherine Ye",
       "authorURL": "https://cs.cmu.edu/~kqy/",
@@ -177,10 +171,10 @@
 <d-title>
   <h1>The Building Blocks of Interpretability</h1>
   <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
-  <p>
-    Interpretability techniques are normally studied in isolation. <br class="wide" />
+  <p style="font-size: 1.35rem; line-height: 1.45em; font-weight: 400;">
+    Interpretability techniques are normally studied in isolation.
+    We explore the powerful interfaces that arise when you combine them — and the rich structure of this combinatorial space.
 
-    We explore the powerful interfaces that arise when you combine them <br class="wide" />-- and the rich structure of this combinatorial space.
   </p>
 
   <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
@@ -216,7 +210,7 @@
 
     We find that these disparate techniques now come together in a unified grammar, fulfilling complementary roles in the resulting interfaces.
 
-    Moreover, this grammar allows us to systematically explore the space of interpretability interfaces, enabling us to evaluate whether they meet particular goals. 
+    Moreover, this grammar allows us to systematically explore the space of interpretability interfaces, enabling us to evaluate whether they meet particular goals.
 
     We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
 
@@ -627,7 +621,7 @@
   <!-- Neuron Attribution. -->
 
   <p>
-    Moreover, each building block represents a broad class of techniques. 
+    Moreover, each building block represents a broad class of techniques.
 
     Our interfaces take only one approach but, as we saw in each section, there are a number of alternatives for feature visualization, attribution, and matrix factorization.
 
@@ -639,9 +633,9 @@
 
     For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
 
-    We can think of dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others. 
+    We can think of dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others.
 
-    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed), but also how examples influence the features of hidden layers, and how they influence the relationship between these features and the output. 
+    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed), but also how examples influence the features of hidden layers, and how they influence the relationship between these features and the output.
 
     For example, if we consider our "Labrador retriever" image, we can not only see which dataset examples most influenced the model to arrive at this classification, but also which dataset examples most caused the "floppy ear" detectors to fire, and which dataset examples most caused these detectors to increase the "Labrador retriever" classification.
   </p>
@@ -666,7 +660,7 @@
   </p>
 
   <p>
-    Another exciting possibility is interfaces for comparing multiple models. 
+    Another exciting possibility is interfaces for comparing multiple models.
 
     For instance, we might want to see how a model evolves during training, or how it changes when you transfer it to a new task. 
 
@@ -690,10 +684,10 @@
 
     Model behavior is extremely complex, and our current building blocks force us to show only specific aspects of it.
 
-    An important direction for future interpretability research will be developing techniques that achieve broader coverage of model behavior. 
+    An important direction for future interpretability research will be developing techniques that achieve broader coverage of model behavior.
 
-    But, even with such improvements, we anticipate that a key marker of trustworthiness will be interfaces that do not mislead. 
-    
+    But, even with such improvements, we anticipate that a key marker of trustworthiness will be interfaces that do not mislead.
+
     Interacting with the explicit information displayed should not cause users to implicitly draw incorrect assessments about the model (we see a similar principle articulated by Mackinlay for data visualization<d-cite key="mackinlay1986automating"></d-cite>).
 
     For example, it is difficult to evaluate whether an interface as basic as our semantic dictionary is misleading (as many neurons it displays are polysemantic) or to what extent this can be remedied
