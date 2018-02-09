@@ -366,23 +366,19 @@
 
     The meaning of each pixel is extremely entangled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
 
-    However, if we treat attribution as another user interface building block, we can instead apply it to the hidden layers of a neural network.
+    Second, traditional saliency maps are a very limited type of interface -- they only display the attribution for a single class at a time, and do not allow you to probe into individual points more deeply.
 
-    In doing so, we change the questions we are asking.
-
-    Rather than asking whether the color of a particular pixel was important for the "labrador retriever" classification, we instead ask whether the <i>high-level idea</i> detected at that position (such as "floppy ear") was important.
-
-    This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do, but they interpret their results back onto the input image.
-
-    As a result, they miss the opportunity to communicate in terms of the rich behaviour of a network's hidden layers.
+    As they do not explicitly deal with hidden layers, it has been difficult to fully explore their design space.
   </p>
 
   <p>
-    Second, traditional saliency maps are too limited of an interface.
+    We instead treat attribution as another user interface building block, and apply it to the hidden layers of a neural network. 
 
-    They only display the attribution for a single class at a time, and do not allow you to probe into individual points more deeply.
+    In doing so, we change the questions we can pose.
 
-    Moreover, as they are not explicitly dealing with hidden layers, we cannot fully explore their design space.
+    Rather than asking whether the color of a particular pixel was important for the "labrador retriever" classification, we instead ask whether the <i>high-level idea</i> detected at that position (such as "floppy ear") was important.
+
+    This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do but, because they interpret their results back onto the input image, they miss the opportunity to communicate in terms of the rich behavior of a network's hidden layers.
   </p>
 
   <figure id="AttributionSpatial" class="base-grid"></figure>
