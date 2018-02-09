@@ -90,11 +90,6 @@
   {{/if}}
 </div>
 
-
-<figcaption class="l-page">
-  Bringing together three building blocks: magnitude-sized activation grids, a heatmap depiction of dimensionality reduction techniques computed on the attribution vectors, and (on hover) saliency maps for attribution between hidden layers.
-</figcaption>
-
 <style>
   .hidden_layers {
     position: relative;
@@ -116,6 +111,7 @@
 
   .layer p {
     margin-top: calc(var(--layer-size) + 10px);
+    margin-bottom: 0;
   }
 
   div[slot='foreground'] .outer {

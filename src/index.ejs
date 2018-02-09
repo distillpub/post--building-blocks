@@ -212,7 +212,7 @@
   </p>
 
   <p>
-    We treat existing interpretability methods as fundamental and composable building blocks for rich user interfaces.
+    In this article, we treat existing interpretability methods as fundamental and composable building blocks for rich user interfaces.
 
     We find that these disparate techniques now come together in a unified grammar, fulfilling complementary roles in the resulting interfaces.
 
@@ -254,7 +254,7 @@
   <figure id="SemanticDict" class="base-grid"></figure>
 
   <p>
-    Activations now map to interpretable iconic representations that we can explicitly name—for example "floppy ear," "dog snout," or "fluffy fur." This gives us a kind of "MRI for neural networks."
+    Activations now map to interpretable iconic representations that we can explicitly name -- for example "floppy ear," "dog snout," or "fluffy fur." This gives us a kind of "MRI for neural networks."
   </p>
 
   <p>
@@ -272,9 +272,9 @@
 
     For instance, the network has multiple floppy ear detectors that seem to detect slightly different levels of droopiness and surrounding context to the ears.
 
-    Just like translating between two languages loses nuance, shoehorning these concepts into natural language is a lossy operation.
+    Just like translating between two languages loses nuance, shoehorning these learned concepts into natural language is a lossy operation.
 
-    The neural network is learning a set of visual abstractions, and images, rather than words, are the most natural symbols to represent them.
+    As the neural network is learning a set of visual abstractions, images (rather than words) are the most natural symbols to represent them.
 
     Were we working with audio, clips would most likely be the more natural symbols instead.
 
@@ -347,11 +347,15 @@
 
   <p>
     Attribution is a set of techniques that answers such questions by explaining the relationships between neurons.
-    There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet"></d-cite>.
-    So far, there doesn't seem to be a clear right answer.
+
+    There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet"></d-cite> but, so far, there doesn't seem to be a clear right answer.
+
     In fact, there's reason to think that all our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
-    We think there's a lot of import research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
+
+    We think there's a lot of important research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
+
     We use a fairly simple method, linearly approximating the relationship, but could easily substitute in essentially any other technique.
+
     Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
 
@@ -360,7 +364,7 @@
   <p>
     The most common interface for attribution is called a <i>saliency map</i> -- a simple heatmap that highlights pixels of the input image that most caused the output classification.
 
-    We see there being two weaknesses with this current approach.
+    We see two weaknesses with this current approach.
   </p>
 
   <p>
@@ -368,7 +372,7 @@
 
     The meaning of each pixel is extremely entangled with other pixels, is not robust to simple visual transforms (e.g., brightness, contrast, etc.), and is far-removed from high-level concepts like the output class.
 
-    However, if we treat attribution as another user interface building block, we can instead apply them to the hidden layers of a neural network.
+    However, if we treat attribution as another user interface building block, we can instead apply it to the hidden layers of a neural network.
 
     In doing so, we change the questions we are asking.
 
@@ -404,7 +408,7 @@
 
     Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers.
 
-    In doing so, we interactively conduct layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
+    In doing so, we interactively perform layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
 
     This type of layer-to-layer attribution is a prime example of how carefully considering interface design drives the generalization of our existing abstractions for interpretability.
   </p>
