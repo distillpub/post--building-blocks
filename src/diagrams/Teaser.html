@@ -4,11 +4,11 @@
     <!-- Intro -->
     <div class="intro">
       <div><p>
-        For instance, by combining feature visualization with class attribution we can 
-        answer answer complex questions like, 
-        “Why does a model classify this image as a 
+        For instance, by combining feature visualization and class attribution we can 
+        start to answer complex questions like, 
+        “How does a neural network decide between a 
         <b>{{left_selected_class_label}}</b>
-        rather than a
+        and a
         <b>{{right_selected_class_label}}</b>?”
       </p></div>
       <div>
@@ -221,9 +221,8 @@
   .headers {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1px 1fr;
+    grid-template-columns: 1fr 0px 1fr;
     grid-column-gap: 30px;
-    margin-bottom: 8px;
     padding-top: 20px;
   }
 
@@ -252,7 +251,7 @@
     font-size: 16px;
     font-weight: bold;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-    margin: 6px 0;
+    margin: 2px 0 12px 0;
   }
 
   .headers .left select {
@@ -281,21 +280,21 @@
   }
 
   .divider {
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
   }
 
   .features {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
-    margin-bottom: 4px;
+    padding-bottom: 4px;
   }
 
   .evidence {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
   }
 
@@ -356,7 +355,8 @@
         attr_data: {classes: []},
         selected_classes: [],
         pos: [],
-        img_size: 165,
+        img_size: 236,
+        neuron_image_width: 133,
         change_label: null,
         loaded: false
       }
