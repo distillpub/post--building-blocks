@@ -43,26 +43,40 @@
     <!-- Headers -->
     <div class="headers">
       <div class="left">
-        <span>Channels that most support</span>
-        <div class="wrapper">
-          <select bind:value="left_selected_class">
-            {{#each left_classes as c}} 
-            <option value="{{c.c}}" disabled={{c.c === right_selected_class}}>{{c.label}}</option>
-            {{/each}}
-          </select>
+        <div>
+          <span>Channels that most support</span>
+          <div class="wrapper">
+            <select bind:value="left_selected_class">
+              {{#each left_classes as c}}
+              <option value="{{c.c}}" disabled={{c.c===right_selected_class}}>{{c.label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="arrow_container">
+          <svg class="arrow" width="1000" height="12">
+            <path d="M0,6L1000,6M6,0L0,6L6,12" />
+          </svg>
         </div>
       </div>
 
       <div class="divider"></div>
 
       <div class="right">
-        <span>Channels that most support</span>
-        <div class="wrapper">
-          <select bind:value="right_selected_class">
-            {{#each right_classes as c}}
-            <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
-            {{/each}}
-          </select>
+        <div class="arrow_container">
+          <svg class="arrow" width="1000" height="12">
+            <path d="M0,6L1000,6M994,0L1000,6L994,12" />
+          </svg>
+        </div>
+        <div>
+          <span>Channels that most support</span>
+          <div class="wrapper">
+            <select bind:value="right_selected_class">
+              {{#each right_classes as c}}
+              <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
+              {{/each}}
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -224,6 +238,7 @@
   }
 
   .row_label {
+    margin-top: 4px;
     font-size: 12px;
     line-height: 1.2em;
     grid-column: screen-start/middle-start;
@@ -234,9 +249,39 @@
     grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 0px 1fr;
-    grid-column-gap: 30px;
+    grid-column-gap: 8px;
+  }
+  .headers .left {
+    display: grid;
+    grid-template-columns: 1fr 0.6fr;
   }
 
+  .headers .right {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+  }
+  .headers > * {
+    position: relative;
+  }
+  .headers .arrow_container {
+    position: relative;
+    overflow: hidden;
+  }
+  .headers .left .arrow {
+    position: absolute;
+    bottom: 25px;
+    left: 20px;
+  }
+  .headers .right .arrow {
+    position: absolute;
+    bottom: 25px;
+    right: 20px;
+  }
+  .headers svg path {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.4);
+    /* shape-rendering: crispEdges; */
+  }
   .headers :last-child {
     text-align: right;
   }
@@ -248,7 +293,7 @@
 
   .headers select {
     display: inline-block;
-    width: 200px;
+    width: 100%;
   }
 
   .headers select {
