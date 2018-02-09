@@ -1,4 +1,5 @@
-<div class="container base-grid" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
+<:Window on:resize="measure()" />
+<div ref:root class="container base-grid" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
   {{#if ready}}
 
     <!-- Intro -->
@@ -12,7 +13,7 @@
         <b>{{right_selected_class_label}}</b>?”
       </p></div>
       <div>
-        <div class="input_image">
+        <div ref:input_image class="input_image">
           <img src="examples/input_images/{{$example}}.png" />
           {{#if hover_channel}}
             <Sprite src_class="sprite_mixed4d_activations"
@@ -66,28 +67,26 @@
       </div>
     </div>
 
-    
-
     <!-- Feature Viz -->
 
     <div class="row_label">Feature Visualization</div>
     <div class="features" on:mouseleave="set({hover_channel: null})">
       {{#each left_selected_data as d, i}}
-        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-          <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+          <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
         </div>
       {{/each}}
       <div class="divider"></div>
       {{#each right_selected_data as d, i}}
-      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-        <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
       </div>
       {{/each}}
     </div>
 
 
     <!-- Evidence -->
-    <div class="row_label">Net evidence</div>
+    <div class="row_label">net evidence</div>
     <div class="evidence net">
       {{#each left_selected_data as d, i}}
         <div class="value">
@@ -107,22 +106,34 @@
     <div class="row_label">for "{{left_selected_class_label}}"</div>
     <div class="evidence">
       {{#each left_selected_data as d, i}}
-        <div class="value">{{evidence_format(d.nv0)}}</div>
+        <div class="value">
+          <span class="background" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
+          <span>{{evidence_format(d.nv0)}}</span>
+        </div>
       {{/each}}
       <div class="divider"></div>
       {{#each right_selected_data as d, i}}
-        <div class="value">{{evidence_format(d.nv0)}}</div>
+        <div class="value">
+          <span class="background" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
+          <span>{{evidence_format(d.nv0)}}</span>
+        </div>
       {{/each}}
     </div>
 
     <div class="row_label">for "{{right_selected_class_label}}"</div>
     <div class="evidence">
       {{#each left_selected_data as d, i}}
-        <div class="value">{{evidence_format(d.nv1)}}</div>
+        <div class="value">
+          <span class="background" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
+          <span>{{evidence_format(d.nv1)}}</span>
+        </div>
       {{/each}}
       <div class="divider"></div>
       {{#each right_selected_data as d, i}}
-        <div class="value">{{evidence_format(d.nv1)}}</div>
+        <div class="value">
+          <span class="background" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
+          <span>{{evidence_format(d.nv1)}}</span>
+        </div>
       {{/each}}
     </div>
 
@@ -305,14 +316,14 @@
     position: relative;
   }
 
-  .evidence.net .value span {
+  .evidence .value span {
     display: block;
     position: absolute;
     width: 100%;
     height: 100%;
   }
 
-  .evidence.net .background {
+  .evidence .background {
     border-radius: 4px;
   }
 
@@ -355,8 +366,8 @@
         attr_data: {classes: []},
         selected_classes: [],
         pos: [],
-        img_size: 207,
-        neuron_image_width: 133,
+        img_size: 100,
+        neuron_img_size: 100,
         change_label: null,
         loaded: false
       }
@@ -378,6 +389,7 @@
 
         require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
           this.set({full_attr});
+          this.measure();
         });
       });
     },
@@ -464,6 +476,15 @@
         const selected_classes = this.get('selected_classes');
         selected_classes[change_label] = cls;
         this.set({selected_classes, change_label: null, hover_channel: null});
+      },
+
+      measure() {
+        const neuron_el = this.refs.root.querySelector('.evidence .value');
+        const input_image_el = this.refs.input_image;
+        this.set({
+          neuron_img_size: neuron_el.clientWidth,
+          img_size: input_image_el.clientWidth
+        })
       }
     },
 
