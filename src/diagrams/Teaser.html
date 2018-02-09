@@ -4,12 +4,12 @@
     <!-- Intro -->
     <div class="intro">
       <div><p>
-        Interpretability techniques are normally studied in isolation. But answering questions like, 
+        For instance, by combining feature visualization with class attribution we can 
+        answer answer complex questions like, 
         “Why does a model classify this image as a 
         <b>{{left_selected_class_label}}</b>
         rather than a
-        <b>{{right_selected_class_label}}</b>?” 
-        requires a combination of techniques working together.
+        <b>{{right_selected_class_label}}</b>?”
       </p></div>
       <div>
         <div class="input_image">
@@ -34,150 +34,116 @@
         </div>
       </div>
       <div>
-        <div style="float: left;">
-          <ExamplePicker />
-        </div>
-        <figcaption>
-          By combining feature visualization with class attribution we can see which channels lead to the classsification. 
-          In this instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
-        </figcaption>
+        <ExamplePicker />
       </div>
     </div>
 
+
     <!-- Headers -->
     <div class="headers">
-      <div>
+      <div class="left">
         <span>Channels that most support</span>
-        <select bind:value="left_selected_class">
-          {{#each left_classes as c}} 
-          <option value="{{c.c}}" disabled={{c.c === right_selected_class}}>{{c.label}}</option>
-          {{/each}}
-        </select>
-        
+        <div class="wrapper">
+          <select bind:value="left_selected_class">
+            {{#each left_classes as c}} 
+            <option value="{{c.c}}" disabled={{c.c === right_selected_class}}>{{c.label}}</option>
+            {{/each}}
+          </select>
+        </div>
       </div>
-      <div>
+
+      <div class="divider"></div>
+
+      <div class="right">
         <span>Channels that most support</span>
-        <select bind:value="right_selected_class">
-          {{#each right_classes as c}}
-          <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
-          {{/each}}
-        </select>
+        <div class="wrapper">
+          <select bind:value="right_selected_class">
+            {{#each right_classes as c}}
+            <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
+            {{/each}}
+          </select>
+        </div>
       </div>
     </div>
+
+    
 
     <!-- Feature Viz -->
 
     <div class="row_label">Feature Visualization</div>
     <div class="features" on:mouseleave="set({hover_channel: null})">
-      {{#each selected_data as d, i}}{{#if d.c}}
-          <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}"
-            on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-            <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
-          </div>
-        {{/if}}{{/each}}
+      {{#each left_selected_data as d, i}}
+        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+          <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+        </div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: 133px; height: 133px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="133" sprite_size="110" />
+      </div>
+      {{/each}}
     </div>
 
 
     <!-- Evidence -->
     <div class="row_label">Net evidence</div>
-    <div class="evidence">
-      {{#each selected_data as d, i}}{{#if d.c}}
-        <div>value</div>
-      {{/if}}{{/each}}
+    <div class="evidence net">
+      {{#each left_selected_data as d, i}}
+        <div class="value">
+          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+        </div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">
+          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+        </div>
+      {{/each}}
     </div>
 
     <div class="row_label">for "{{left_selected_class_label}}"</div>
     <div class="evidence">
-      {{#each selected_data as d, i}}{{#if d.c}}
-        <div>value</div>
-      {{/if}}{{/each}}
+      {{#each left_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv0)}}</div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv0)}}</div>
+      {{/each}}
     </div>
 
     <div class="row_label">for "{{right_selected_class_label}}"</div>
     <div class="evidence">
-      {{#each selected_data as d, i}}{{#if d.c}}
-        <div>value</div>
-      {{/if}}{{/each}}
+      {{#each left_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv1)}}</div>
+      {{/each}}
+      <div class="divider"></div>
+      {{#each right_selected_data as d, i}}
+        <div class="value">{{evidence_format(d.nv1)}}</div>
+      {{/each}}
     </div>
+
 
     <!-- Caption -->
-
-    <p>
+    
+    <!-- <p class="caption">
       By combining feature visualization with class attribution we can see which channels lead to the classsification. In this
       instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
-    </p>
+    </p> -->
+
+
   {{else}}
-  Loading
+    Loading
   {{/if}}
-
-
 </div>
-<!-- 
-
-  {{#if attr_data && $labels}}
-  <div style="grid-column: screen">
-    <p class="heading">
-      Why does the model think the image is more likely a
-      <span class="label" on:click="change_label(event, 0)">{{$labels[selected_classes[0]]}}</span>
-      than a
-      <span class="label_nv1 label" on:click="change_label(event, 1)">{{$labels[selected_classes[1]]}}</span>?
-    </p>
-
-    <div id="change_label" class="nv{{change_label}}"
-      style="display: {{change_label === null ? 'none' : 'block'}};
-      left: {{change_label_pos.left - 211}}px;">
-      <ul>
-        <li on:click="set({change_label: null})">{{$labels[selected_classes[change_label]]}}</li>
-        {{#each attr_data.classes as c}}
-          {{#if c !== selected_classes[0] && c !== selected_classes[1]}}
-            <li on:click="select_class(c)">{{$labels[c]}}</li>
-          {{/if}}
-        {{/each}}
-      </ul>
-    </div>
-
-    <div style="height: var(--img-size);">
-      <div class="subheading">
-        <p>Neurons that most support
-          <span>{{$labels[selected_classes[0]]}}</span>
-        </p>
-        <p style="text-align: center;">vs.</p>
-        <p>Neurons that most support
-          <span>{{$labels[selected_classes[1]]}}</span>
-        </p>
-      </div>
-
-      <div style="display: flex;" on:mouseleave="set({hover_channel: null})">
-        {{#each selected_data as d, i}}
-          {{#if d.c}}
-            <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}"
-              on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-              <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="110" sprite_size="110" />
-
-              <div class="bar">
-                <div class="bar_nv0 bar_filled" style="{{bar_filled(d, 'nv0', i < 3 ? 'nv1' : 'nv0')}}"></div>
-                <div class="bar_nv1 bar_filled" style="{{bar_filled(d, 'nv1', i < 3 ? 'nv1' : 'nv0')}}"></div>
-
-                <div class="bar_midpoint"></div>
-              </div>
-
-              <div class="outline"></div>
-            </div>
-          {{else}}
-            <div class="neuron" on:mouseover="set({hover_channel: null})"
-              style="display: flex; align-items: center; cursor: auto;">...</div>
-          {{/if}}
-        {{/each}}
-      </div>
-    </div>
-  </div>
-  {{/if}}
-</div> -->
 
 <style>
 
   .container {
-    margin: 0 20px;
+    margin: 40px 0;
     position: relative;
     --blue: #3497FF;
     --orange: #ff6600;
@@ -186,33 +152,38 @@
   .intro {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 20px;
+    grid-template-columns: 1.25fr 1fr 1.25fr;
+    grid-column-gap: 30px;
   }
 
-  .example_picker { margin-right: 30px; }
+  .intro p {
+    font-size: 1rem;
+  }
 
-   .example_picker img:hover,
-   .example_picker img.selected, .example_picker img.selected:hover {
-    opacity: 1;
-    border-color: goldenrod;
+  .intro figcaption {
+    margin-top: 10px;
+  }
+
+  .example_picker { 
+    width: inherit!important; 
   }
 
   .input_image {
+    position: relative;
     width: 100%;
     position: relative;
     margin-right: 30px;
   }
 
   .input_image img {
-    position: absolute;
-    top: 0;
-    right: 0;
     border-radius: var(--border-radius);
   }
 
   .input_image .outer {
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
     opacity: 0.8;
     mix-blend-mode: multiply;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
@@ -244,159 +215,127 @@
   .row_label {
     font-size: 12px;
     grid-column: kicker;
+    text-align: right;
   }
 
   .headers {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1px 1fr;
+    grid-column-gap: 30px;
+    margin-bottom: 8px;
+    padding-top: 20px;
   }
 
-  .headers :nth-child(2) {
+  .headers :last-child {
+    text-align: right;
   }
 
   .headers span {
+    font-size: 13px;
     display: block;
   }
 
   .headers select {
-    display: block;
+    display: inline-block;
     width: 200px;
+  }
+
+  .headers select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 0.5em 2em 0.5em 0.8em;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    margin: 6px 0;
+  }
+
+  .headers .left select {
+    color: var(--blue);
+  }
+
+  .headers .right select {
+    color: var(--orange);
+  }
+
+  .headers .wrapper {position:relative; display: inline;}
+
+  .headers .wrapper:after {content:""; width:0; height:0; position:absolute; pointer-events: none;}
+
+  .headers .wrapper:after {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      top: .3em;
+      right: .75em;
+      border-top: 8px solid black;
+      opacity: 0.4;
+  }
+
+  .headers select::-ms-expand {
+      display: none;
+  }
+
+  .divider {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .features {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1px 1fr 1fr 1fr;
+    grid-column-gap: 15px;
+    margin-bottom: 4px;
   }
 
   .evidence {
     grid-column: text/page;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1px 1fr 1fr 1fr;
+    grid-column-gap: 15px;
   }
 
-  .heading {
-    font-size: 90%;
-    font-weight: bold;
+  .evidence .value {
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
   }
 
-  .subheading {
-    display: flex;
-    width: 100%;
-    font-style: italic;
-  }
-
-  .subheading p {
-    flex: 1;
-    font-size: 80%;
-  }
-
-  .subheading p:last-child {
-    margin-left: auto;
-    justify-self: flex-end;
-    text-align: right;
-  }
-
-  .subheading span { text-transform: capitalize; }
-
-  .label {
-    color: var(--blue);
-    text-transform: capitalize;
-    border-bottom: 1px dashed;
-    cursor: pointer;
-  }
-
-  .label:hover { color: goldenrod; }
-
-  .label_nv1 { color: var(--orange); }
-
-  #change_label {
+  .evidence.net .value span {
+    display: block;
     position: absolute;
-    top: -7px;
-    padding: 7px;
-    z-index: 100;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
+    width: 100%;
+    height: 100%;
   }
 
-  #change_label ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 90%;
-    text-transform: capitalize;
-    cursor: pointer;
+  .evidence.net .background {
+    border-radius: 4px;
   }
 
-  #change_label li:first-child, #change_label li:hover {
-    color: goldenrod;
-    font-weight: bold;
+  .evidence.net .value:nth-child(-n+3) .background{
+    background: var(--blue);
   }
 
-  #change_label.nv0 { color: var(--blue); }
-  #change_label.nv1 { color: var(--orange); }
+  .evidence.net .value:nth-last-child(-n+3) .background{
+    background: var(--orange);
+  }
 
   .neuron {
     position: relative;
-    width: 110px;
-    height: 122px;
     justify-content: center;
     cursor: pointer;
   }
 
-  .neuron:nth-child(3), .neuron:nth-child(4), .neuron:last-child { margin-right: 0; }
-
-  .neuron .inner { border-radius: var(--border-radius); }
-
-  .bar {
-    position: relative;
-    width: 100%;
-    height: 12px;
-    margin-top: 10px;
-    border: 1px solid #aaa;
-    box-sizing: border-box;
-    border-radius: var(--border-radius);
-    overflow: hidden;
+  .caption {
+    grid-column: text/page;
+    margin-top: 40px;
   }
 
-  .bar_filled {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    opacity: 0.5;
-    /* transition: all 0.5s ease-in-out; */
-  }
-
-  .bar_nv0 {
-    background-color: var(--blue);
-  }
-
-  .bar_nv1 {
-    background-color: var(--orange);
-  }
-
-  .bar_midpoint {
-    position: absolute;
-    left: 50%;
-    height: 100%;
-    border: 1px dashed #666;
-    box-sizing: border-box;
-  }
-
-  .outline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 110px;
-    height: 110px;
-    box-sizing: border-box;
-    border: 5px solid transparent;
-    border-radius: var(--border-radius);
-  }
-
-  .neuron_hover .outline { border-color: goldenrod; }
 
 </style>
 
@@ -500,6 +439,13 @@
 
         return data;
       },
+      left_selected_data(selected_data) {
+        console.log(selected_data);
+        return selected_data.slice(0, 3);
+      },
+      right_selected_data(selected_data) {
+        return selected_data.slice(4, 7);
+      },
 
       change_label_pos(change_label) {
         const label = document.querySelectorAll('p.heading span.label')[change_label];
@@ -523,6 +469,12 @@
 
     helpers: {
       range,
+      evidence_opacity(v) {
+        return 2 * Math.pow(v, 2);
+      },
+      evidence_format(n) {
+        return n.toFixed(2);
+      },
 
       bar_filled(d, cls, base) {
         const val = d[cls] * 100;
