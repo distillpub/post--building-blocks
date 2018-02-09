@@ -2,7 +2,7 @@
 
 <div class="l-body" style="--top: {{top}}px; --left: {{left}}px;">
   <div class="input_image">
-    <ExamplePicker pin="#ActivationCube" unpin="#FullVectorEq" />
+    <ExamplePicker pin="#ActivationCube" unpin="#AllActivationGridsMagnitude" />
 
     <img ref:img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
@@ -45,7 +45,7 @@
 
       <span class="colon annotation">:</span>
 
-      <div class="value">
+      <div class="value" title="Layer mixed4d, Unit {{top[0]}}: {{(top[1]+'').slice(0,4)}}">
         <span style="bottom: {{top[1]/$max_act*75}}px;">{{(top[1]+'').slice(0,4)}}</span>
         <div class="bar" style="height: {{top[1]/$max_act*75}}px;"></div>
       </div>
