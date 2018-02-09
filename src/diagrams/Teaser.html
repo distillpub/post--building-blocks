@@ -69,7 +69,7 @@
 
     <!-- Feature Viz -->
 
-    <div class="row_label">Feature Visualization</div>
+    <div class="row_label">feature visualization</div>
     <div class="features" on:mouseleave="set({hover_channel: null})">
       {{#each left_selected_data as d, i}}
         <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
@@ -161,7 +161,7 @@
   }
 
   .intro {
-    grid-column: text/page;
+    grid-column: middle;
     display: grid;
     grid-template-columns: 1.5fr 1fr 1.5fr;
     grid-column-gap: 30px;
@@ -225,12 +225,13 @@
 
   .row_label {
     font-size: 12px;
-    grid-column: kicker;
+    line-height: 1.2em;
+    grid-column: screen-start/middle-start;
     text-align: right;
   }
 
   .headers {
-    grid-column: text/page;
+    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 0px 1fr;
     grid-column-gap: 30px;
@@ -294,7 +295,7 @@
   }
 
   .features {
-    grid-column: text/page;
+    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
@@ -302,7 +303,7 @@
   }
 
   .evidence {
-    grid-column: text/page;
+    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
@@ -317,12 +318,15 @@
 
   .evidence .value span {
     display: block;
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
   }
 
-  .evidence .background {
+  .evidence .value span.background {
+    position: absolute;
+    left: 0;
+    top: 0;
     border-radius: 4px;
   }
 
@@ -341,7 +345,7 @@
   }
 
   .caption {
-    grid-column: text/page;
+    grid-column: middle;
     margin-top: 40px;
   }
 
