@@ -21,6 +21,12 @@
       grid-column: middle;
     }
 
+    @media (max-width: 1280px) {
+      d-title br.conditional {
+        display: none;
+      }
+    }
+
     #Teaser {
       margin-top: 10px;
       margin-bottom: 0;
@@ -169,8 +175,7 @@
   <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
   <p>
     Interpretability techniques are normally studied in isolation.<br>
-    We explore the powerful interfaces that arise when you combine them — <br>and the rich structure of this combinatorial space.
-
+    We explore the powerful interfaces that arise when you combine them — <br class="conditional">and the rich structure of this combinatorial space.
   </p>
 
   <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
