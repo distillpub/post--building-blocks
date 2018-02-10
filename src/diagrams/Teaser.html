@@ -60,7 +60,11 @@
         </div>
       </div>
 
-      <div class="divider"></div>
+      <div class="flow">
+        <svg width="20" height="120">
+          <path d="M10,0 L10,108 S10,118 0,118 M10,108 S10,118 20,118" />
+        </svg>
+      </div>
 
       <div class="right">
         <div class="arrow_container">
@@ -195,6 +199,7 @@
 
   .input_image {
     position: relative;
+    z-index: 100;
     width: 100%;
     position: relative;
     margin-right: 30px;
@@ -249,7 +254,17 @@
     grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 0px 1fr;
-    grid-column-gap: 8px;
+    grid-column-gap: 10px;
+  }
+
+  .headers .flow {
+    position: relative;
+  }
+
+  .headers .flow svg {
+    position: absolute;
+    bottom: 29px;
+    left: -10px;
   }
   .headers .left {
     display: grid;
