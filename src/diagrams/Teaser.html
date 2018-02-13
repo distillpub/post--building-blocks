@@ -87,7 +87,16 @@
 
     <!-- Feature Viz -->
 
-    <div class="row_label">feature visualization</div>
+    <div class="row_label">
+      feature visualization
+      <div class="prompt">
+        hover for attribution maps
+        <svg width=14 height=18>
+          <path d="M0,9 L12,9 M9,6 L12,9 L9,12"/>
+        </svg>
+
+      </div>
+    </div>
     <div class="features" on:mouseleave="set({hover_channel: null})">
       {{#each left_selected_data as d, i}}
         <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
@@ -252,6 +261,27 @@
     line-height: 1.2em;
     grid-column: screen-start/middle-start;
     text-align: right;
+    position: relative;
+  }
+
+  .row_label .prompt {
+    position: absolute;
+    bottom: 20%;
+    right: 0;
+    max-width: 100px;
+    font-style: italic;
+    opacity: 0.5;
+  }
+
+  .row_label .prompt svg {
+    position: absolute;
+    right: -17px;
+    top: 1em;
+  }
+
+  .row_label .prompt svg path {
+    fill: none;
+    stroke: black;
   }
 
   .headers {
