@@ -85,6 +85,13 @@
       </div>
     </div>
 
+    <!-- Chooser -->
+    <!-- <div style="display: flex; justify-content: space-evenly; flex-direction: row; align-items: center; grid-column: middle;margin-bottom: 10px;background: rgba(0, 0, 0, 0); border-radius: 4px; height: 14px;">
+      {{#each channels as channel}}
+      <div class="channel" style="width: 2px; height: 2px; background: black;"></div>
+      {{/each}}
+    </div> -->
+
     <!-- Feature Viz -->
 
     <div class="row_label">
@@ -99,13 +106,13 @@
     </div>
     <div class="features" on:mouseleave="set({hover_channel: null})">
       {{#each left_selected_data as d, i}}
-        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
           <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
         </div>
       {{/each}}
       <div class="divider"></div>
       {{#each right_selected_data as d, i}}
-      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
         <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
       </div>
       {{/each}}
@@ -437,6 +444,19 @@
     position: relative;
     justify-content: center;
     cursor: pointer;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .neuron.neuron_hover:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 6px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
   }
 
   .caption {
@@ -467,7 +487,8 @@
         img_size: 100,
         neuron_img_size: 100,
         change_label: null,
-        loaded: false
+        loaded: false,
+        channels: range(196)
       }
     },
 
