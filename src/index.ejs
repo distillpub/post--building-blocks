@@ -607,7 +607,38 @@
 
   <figure class="l-page">
     <img src="images/design_space/teaser.svg"></img>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 0.7fr; grid-gap: 4%; margin: 24px 0 0 10.2%;">
+      <figcaption>
+        <b>1. Feature visualization</b>
+        <img class="teaser-thumb" src="images/teaser-1.png"/>
+        <div>
+          To understand a classification, we focus on the channels of the <code>mixed4dlayer</code>. Feature visualization makes these channels meaningful.
+        </div>
+      </figcaption>
+      <figcaption>
+        <b>2. Filter by output attribution</b>
+        <img class="teaser-thumb" src="images/teaser-2.png"/>
+        <div>
+          Next, we filter for specific classes by calculating the output attribution.
+        </div>
+      </figcaption>
+      <figcaption>
+        <b>3. Drill down on hover</b>
+        <img class="teaser-thumb" src="images/teaser-3.png"/>
+        <div>
+          Hovering over channels, we get a heatmap of spatial activations; hovering over spatial locations gives us neuron-specific attribution.
+        </div>
+      </figcaption>
+    </div>
   </figure>
+  <style>
+    figure .teaser-thumb {
+      width: 100%;
+      border: 20px solid rgb(248, 248, 248);
+      box-sizing: border-box;
+      margin: 12px 0 10px;
+    }
+  </style>
 
   <p>
     In this article, we have only scratched the surface of possibilities.
