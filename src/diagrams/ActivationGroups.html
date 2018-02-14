@@ -1,0 +1,107 @@
+<div class="input_image l-body">
+  <ExamplePicker />
+
+  <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" />
+
+  <Sprite bg_img="{{heatmap_sprite_url}}" x={{(hover_group||0)}} 
+    sprite_size={{14}} size={{224}} />
+</div>
+
+<div class="neuron_groups l-body" on:mouseout="set({hover_group: null})">
+  {{#each range(num_groups) as i}}
+    <div class="neuron" on:mouseover="set({hover_group: i + 1})">
+      <div class="legend" style="background-color: rgb({{groups.colors[i]}})"></div>
+
+      <Sprite bg_img="{{neuron_sprite_url}}" x={{i}}
+        sprite_size={{110}} size={{110}} />
+    </div>
+  {{/each}}
+</div>
+
+<div class="labels" style="grid-column: kicker / kicker;">
+  <ul>
+    {{#each groups.labels as label}}
+      <li>{{$labels[label]}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<div class="bars l-body">
+  {{#each groups.attr as attr}}
+    <ul class="neuron">
+      {{#each attr as a}}
+        <li>{{a}}</li>
+      {{/each}}
+    </ul>
+  {{/each}}
+</div>
+
+
+<style>
+  .input_image, .neuron_groups, .bars {
+    display: flex;
+  }
+
+  .input_image > img { 
+    width: 224px; 
+    height: 224px;
+  }
+
+  .input_image .outer {
+    mix-blend-mode: multiply;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+  }
+
+  .neuron { flex: 1;}
+
+  .legend { height: 10px; }
+
+  .labels ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 90%;
+  }
+</style>
+
+<script>
+  import {range} from '../util';
+  import ExamplePicker from './ExamplePicker.html';
+  import Sprite from './Sprite.html';
+
+  export default {
+    data() {
+      return {
+        nmf_data: undefined,
+        // collab hooks
+        heatmap_sprite: undefined, 
+        neuron_sprite: undefined
+      };
+    },
+
+    computed: {
+      heatmap_sprite_url ($example, heatmap_sprite) {
+        return heatmap_sprite || 
+          `examples/activations/${$example}/sprite_mixed4d_nmf_heatmap.png`;
+      },
+
+      neuron_sprite_url ($example, neuron_sprite) {
+        return neuron_sprite ||
+          `examples/activations/${$example}/sprite_mixed4d_nmf_neurons.jpeg`;
+      },
+
+      num_groups: (groups) => groups.colors.length
+    },
+
+    components: {ExamplePicker, Sprite},
+    helpers: {range}
+  }
+
+</script>
