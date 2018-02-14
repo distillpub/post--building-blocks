@@ -233,34 +233,128 @@
 
   <p>
     However, the power of neural networks lies in their hidden layers -- at every layer, the network discovers a new representation of the input.
+
     In computer vision, we use neural networks that run the same feature detectors at every position in the image.
+
     We can think of each layer's learned representation as a three-dimensional cube. Each cell in the cube is an <em>activation</em>, or the amount a neuron fires.
+
     The x- and y-axes correspond to positions in the image, and the z-axis is the channel (or detector) being run.
   </p>
 
   <figure id="ActivationCube" class="l-body">
     <div id="CubeNatural" style="margin-bottom: 15px;"></div>
     <figcaption>
-      The cube of activations that a neural network for computer vision develops at each hidden layer. Different slices of the
-      cube allow us to target the activations of individual neurons, spatial positions, or channels.
+      The cube of activations that a neural network for computer vision develops at each hidden layer. 
+      
+      Different slices of the cube allow us to target the activations of individual neurons, spatial positions, or channels.
     </figcaption>
   </figure>
 
   <figure id="SemanticDict" class="base-grid"></figure>
 
   <p>
-    Activations now map to interpretable iconic representations that we can explicitly name -- for example "floppy ear," "dog snout," or "fluffy fur." This gives us a kind of "MRI for neural networks."
+    This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
+
+    Activations now map to iconic representations, instead of abstract indices.
+
+    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
   </p>
 
   <p>
-    This marriage of activations and feature visualizations realizes widespread intuition for what activation vectors really are.
+    Semantic dictionaries are powerful not just because they move away from meaningless indices, but because they express a neural network's learned abstractions in its most natural form.
+        
+    In the case of image classification, the neural network learns a set of visual abstractions and thus images are the most natural symbols to represent them.
 
-    It has always been suspected -- and increasingly shown -- that neurons are detecting important natural concepts.
+    Were we working with audio, clips would most likely be the more natural symbols instead.
 
-    By turning this intuition into an interface, we change our relationship with the underlying mathematical objects.
+    This is important because even when neurons correspond to a human idea -- and it might be tempting to reduce them to words -- they may express a deeper nuance that would be lost.
+
+    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
   </p>
 
   <p>
+    Moreover, there are some "poly-semantic" neurons which react to multiple different ideas.
+
+    Here, we likely need to use either diversity feature visualization<d-cite key="olah2017feature,nguyen2016multifaceted"></d-cite> to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled (we will explore this notion later in the article).
+
+    Finally, there are some neurons that don't seem to correspond to anything we find meaningful -- this may be an extreme case of neurons needing to be disentangled, but it may also be that the network is learning abstractions alien to us.
+  </p>
+
+  <p>
+    An important caveat is that in order for semantic dictionaries to be trustworthy, the basis (e.g., neurons) they operate on must have a relatively consistent meaning that is reified by feature visualization. 
+    
+    Recent literature has argued both for <d-cite key="szegedy2013intriguing,mikolov2013efficient"></d-cite> and against <d-cite key="jo2017measuring"></d-cite> the idea of neurons (or directions) corresponding to important ideas. 
+    
+    We have found <d-cite key="olah2017feature"></d-cite> that a large fraction of GoogLeNet's neurons seem to correspond to meaningful ideas.<d-footnote>For more details, see <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful. </d-footnote>
+  <!-- </p>
+
+
+
+
+
+
+  <p>
+    This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
+
+    Activations now map to iconic representations, instead of abstract indices.
+
+    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
+
+    
+
+
+  </p>
+
+  
+
+
+
+
+  <p>
+    This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
+
+    Activations now map to interpretable iconic representations, instead of abstract indices.
+
+    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
+    
+    (This seems to be unusually true for GoogLeNet.<d-footnote>Our previous article on feature visualization<d-cite key="olah2017feature"></d-cite> found that many neurons seem to correspond to <a href="">meaninful concepts</a>. See <a href="">the article's appendix</a> for more detail. We're not sure why GoogLeNet performs so well here, but we're actively researching it -- perhaps meaningful ideas are just more aligned with neurons.</d-footnote>)
+
+    However, we should be cautious about reducing neurons to these natural language descriptors: even when the neurons correspond to a human idea, they may express a deeper nuance than we have canonical natural language descriptions for.
+    
+    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
+  </p>
+
+  <p>
+    Moreover, there are some "poly-semantic" neurons which react to multiple different ideas, and some neurons that don't seem to correspond to anything we find meaningful.
+
+    - Neurons/linear combos seem to be meaningful.
+      - Some papers don't agree.
+    ~~~~~~~~~~- We find GoogLeNet, this is true (many neurons correspond to meaningful ideas): cite feature vis.~~~~~~~~
+    - To the extent there are polysemantic neurons: diversity feature vis.
+    - Perhaps individual neurons the most meaningful units: but this is not the atom we're wedded to.
+    - Some abstractions are simply alien.
+
+    Perhaps the neural network is learning abstractions that are alien to us?
+
+
+    Moreover, there are other neurons 
+
+
+    
+    it is important to note that these neurons may express a deeper nuance that 
+
+    However, there are some important caveats. 
+
+    First, even when these neurons seem to correspond to a human idea, they may express a deeper nuance than we have canonical natural language descriptions for.
+
+    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
+
+    Just like translating between two languages loses nuance, shoehorning these learned concepts into natural language is a lossy operation.
+
+
+    
+    can succinctly articulate with natural language.
+
     However, these concepts may not map precisely to those we are used to reasoning about, or even have good words to describe.
 
     Instead, they may be abstractions alien to us, or abstractions familiar to us but with deeper nuance.
@@ -275,6 +369,7 @@
 
     In general, canonical examples are a more natural way to represent the foreign abstractions that neural networks learn than native human language.
   </p>
+  -->
 
   <p>
     By bringing meaning to hidden layers, semantic dictionaries set the stage for our existing interpretability techniques to be composable building blocks.
@@ -534,6 +629,8 @@
      .
     Notice how the overwhelmingly large number of neurons has been reduced to a small set of groups, concisely summarizing the story of the neural network.
   </p>
+
+  <d-figure></d-figure>
 
   <figure class="l-page-outset">
     <img src="images/groups.png"></img>
