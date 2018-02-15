@@ -7,11 +7,13 @@
     width: {{(layer_size + 25) * layer_names.length}}px;">
 
     {{#each layer_names as layer}}
-      <ActivationGrid magnitude={{magnitude}} layer={{layer}} layer_size={{layer_size}} />
+      <ActivationGrid magnitude={{magnitude}} layer={{layer}} layer_size={{layer_size}}
+        show_zoom={{!!$ag_layer_hover}} />
     {{/each}}
   </div>
 </div>
 
+{{#if magnitude == false}}
 <figcaption class="l-body" style="margin-top: 20px; margin-left: 10px;">
   Reproduce activation grids in a
   <a href="https://colab.research.google.com/drive/1deMSuREL-mx3uMiL8UziGDSwFuexKlab" style="border: none;">
@@ -21,6 +23,7 @@
     CoLaboratory Notebook
   </a>.
 </figcaption>
+{{/if}}
 
 <style>
   .all_act_grids {
