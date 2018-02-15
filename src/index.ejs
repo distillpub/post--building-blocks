@@ -255,60 +255,42 @@
   <p>
     This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
 
-    Activations now map to iconic representations, instead of abstract indices.
-
-    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
+    Activations now map to iconic representations, instead of abstract indices, with many appearing to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
   </p>
 
   <p>
-    Semantic dictionaries are powerful not just because they move away from meaningless indices, but because they express a neural network's learned abstractions in its most natural form.
+    Semantic dictionaries are powerful not just because they move away from meaningless indices, but because they express a neural network's learned abstractions with canonical examples.
         
-    In the case of image classification, the neural network learns a set of visual abstractions and thus images are the most natural symbols to represent them.
+    With image classification, the neural network learns a set of visual abstractions and thus images are the most natural symbols to represent them.
 
-    Were we working with audio, clips would most likely be the more natural symbols instead.
+    Were we working with audio, the more natural symbols would most likely be audio clips.
 
-    This is important because even when neurons correspond to a human idea -- and it might be tempting to reduce them to words -- they may express a deeper nuance that would be lost.
+    This is important because when neurons appear to correspond to human ideas, it is tempting to reduce them to words.
 
-    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
+    Doing so, however, is a lossy operation -- even for familiar abstractions, the network may have learned a deeper nuance.
+
+    For instance, GoogLeNet has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
+
+    Moreover, the network may also learn new abstractions that appear alien to us -- here, natural language would fail us entirely!
+
+    In general, canonical examples are a more natural way to represent the foreign abstractions that neural networks learn than native human language.
   </p>
 
-  <p>
+  <!-- <p>
     Moreover, there are some "poly-semantic" neurons which react to multiple different ideas.
 
     Here, we likely need to use either diversity feature visualization<d-cite key="olah2017feature,nguyen2016multifaceted"></d-cite> to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled (we will explore this notion later in the article).
 
     Finally, there are some neurons that don't seem to correspond to anything we find meaningful -- this may be an extreme case of neurons needing to be disentangled, but it may also be that the network is learning abstractions alien to us.
-  </p>
+  </p> -->
 
-  <p>
+  <!-- <p>
     An important caveat is that in order for semantic dictionaries to be trustworthy, the basis (e.g., neurons) they operate on must have a relatively consistent meaning that is reified by feature visualization. 
     
     Recent literature has argued both for <d-cite key="szegedy2013intriguing,mikolov2013efficient"></d-cite> and against <d-cite key="jo2017measuring"></d-cite> the idea of neurons (or directions) corresponding to important ideas. 
     
-    We have found <d-cite key="olah2017feature"></d-cite> that a large fraction of GoogLeNet's neurons seem to correspond to meaningful ideas.<d-footnote>For more details, see <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful. </d-footnote>
+    We have found <d-cite key="olah2017feature"></d-cite> that a large fraction of GoogLeNet's neurons seem to correspond to meaningful ideas.<d-footnote>For more details, see <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful. </d-footnote> -->
   <!-- </p>
-
-
-
-
-
-
-  <p>
-    This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
-
-    Activations now map to iconic representations, instead of abstract indices.
-
-    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
-
-    
-
-
-  </p>
-
-  
-
-
-
 
   <p>
     This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
@@ -333,41 +315,6 @@
     - To the extent there are polysemantic neurons: diversity feature vis.
     - Perhaps individual neurons the most meaningful units: but this is not the atom we're wedded to.
     - Some abstractions are simply alien.
-
-    Perhaps the neural network is learning abstractions that are alien to us?
-
-
-    Moreover, there are other neurons 
-
-
-    
-    it is important to note that these neurons may express a deeper nuance that 
-
-    However, there are some important caveats. 
-
-    First, even when these neurons seem to correspond to a human idea, they may express a deeper nuance than we have canonical natural language descriptions for.
-
-    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
-
-    Just like translating between two languages loses nuance, shoehorning these learned concepts into natural language is a lossy operation.
-
-
-    
-    can succinctly articulate with natural language.
-
-    However, these concepts may not map precisely to those we are used to reasoning about, or even have good words to describe.
-
-    Instead, they may be abstractions alien to us, or abstractions familiar to us but with deeper nuance.
-
-    For instance, the network has multiple floppy ear detectors that seem to detect slightly different levels of droopiness and surrounding context to the ears.
-
-    Just like translating between two languages loses nuance, shoehorning these learned concepts into natural language is a lossy operation.
-
-    As the neural network is learning a set of visual abstractions, images (rather than words) are the most natural symbols to represent them.
-
-    Were we working with audio, clips would most likely be the more natural symbols instead.
-
-    In general, canonical examples are a more natural way to represent the foreign abstractions that neural networks learn than native human language.
   </p>
   -->
 
