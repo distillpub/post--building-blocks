@@ -191,7 +191,7 @@
   </p>
 
   <p>
-    The machine learning community has primarily focused on developing powerful methods, such as feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite> attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
+    The machine learning community has primarily focused on developing powerful methods, such as feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite> attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability,sundararajan2017axiomatic"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
 
     However, these techniques have been studied as isolated threads of research, and the corresponding work of reifying them has been neglected.
 
@@ -214,12 +214,19 @@
     We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
 
     For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
-
-    Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing."
+    <!-- Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing." -->
   </p>
 
+  <figcaption class="l-gutter">
+    Our interfaces are speculative and one might wonder how reliable they are. 
+
+    Rather than address this point piecemeal, we dedicate a section to it at the end of the article.
+  </figcaption>
+
   <p>
-    Although we focus on computer vision (in particular GoogLeNet<d-cite key="szegedy2015going"></d-cite>), we believe the techniques in this article generalize to other domains.
+    In this article, we use GoogLeNet<d-cite key="szegedy2015going"></d-cite>, an image classification model, to demonstrate our interface ideas.<d-footnote>Neurons in GoogLeNet seems to be unusually semantically meaningful. We're actively investigating why this is, and hope to uncover principles for designing interpretable models. In the mean time, while we demonstrate our techniques on GoogLeNet, we provide code for you to try them on other models.</d-footnote>
+
+    Despite this, all the ideas in this article are general, and could be applied to neural networks in other domains.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -274,48 +281,6 @@
     In general, canonical examples are a more natural way to represent the foreign abstractions that neural networks learn than native human language.
   </p>
 
-  <!-- <p>
-    Moreover, there are some "poly-semantic" neurons which react to multiple different ideas.
-
-    Here, we likely need to use either diversity feature visualization<d-cite key="olah2017feature,nguyen2016multifaceted"></d-cite> to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled (we will explore this notion later in the article).
-
-    Finally, there are some neurons that don't seem to correspond to anything we find meaningful -- this may be an extreme case of neurons needing to be disentangled, but it may also be that the network is learning abstractions alien to us.
-  </p> -->
-
-  <!-- <p>
-    An important caveat is that in order for semantic dictionaries to be trustworthy, the basis (e.g., neurons) they operate on must have a relatively consistent meaning that is reified by feature visualization. 
-    
-    Recent literature has argued both for <d-cite key="szegedy2013intriguing,mikolov2013efficient"></d-cite> and against <d-cite key="jo2017measuring"></d-cite> the idea of neurons (or directions) corresponding to important ideas. 
-    
-    We have found <d-cite key="olah2017feature"></d-cite> that a large fraction of GoogLeNet's neurons seem to correspond to meaningful ideas.<d-footnote>For more details, see <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful. </d-footnote> -->
-  <!-- </p>
-
-  <p>
-    This marriage of activations and feature visualization changes our relationship with the underlying mathematical object.
-
-    Activations now map to interpretable iconic representations, instead of abstract indices.
-
-    Many of these representations appear to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
-    
-    (This seems to be unusually true for GoogLeNet.<d-footnote>Our previous article on feature visualization<d-cite key="olah2017feature"></d-cite> found that many neurons seem to correspond to <a href="">meaninful concepts</a>. See <a href="">the article's appendix</a> for more detail. We're not sure why GoogLeNet performs so well here, but we're actively researching it -- perhaps meaningful ideas are just more aligned with neurons.</d-footnote>)
-
-    However, we should be cautious about reducing neurons to these natural language descriptors: even when the neurons correspond to a human idea, they may express a deeper nuance than we have canonical natural language descriptions for.
-    
-    For instance, the network has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
-  </p>
-
-  <p>
-    Moreover, there are some "poly-semantic" neurons which react to multiple different ideas, and some neurons that don't seem to correspond to anything we find meaningful.
-
-    - Neurons/linear combos seem to be meaningful.
-      - Some papers don't agree.
-    ~~~~~~~~~~- We find GoogLeNet, this is true (many neurons correspond to meaningful ideas): cite feature vis.~~~~~~~~
-    - To the extent there are polysemantic neurons: diversity feature vis.
-    - Perhaps individual neurons the most meaningful units: but this is not the atom we're wedded to.
-    - Some abstractions are simply alien.
-  </p>
-  -->
-
   <p>
     By bringing meaning to hidden layers, semantic dictionaries set the stage for our existing interpretability techniques to be composable building blocks.
 
@@ -327,6 +292,11 @@
 
     In principle, this work could have been done without semantic dictionaries but it would have been unclear what the results meant.
   </p>
+
+  <figcaption class="l-gutter">
+    While we introduce semantic dictionaries in terms of neurons, they can be used with any basis of activations. We will explore
+    this more later.
+  </figcaption>
 
   <h2>What Does the Network See?</h2>
 
@@ -389,7 +359,7 @@
 
     We think there's a lot of important research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
 
-    We use a fairly simple method, linearly approximating the relationship, but could easily substitute in essentially any other technique.
+    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces except the spatial attribution one, where we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.</d-footnote>, but could easily substitute in essentially any other technique.
 
     Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
@@ -744,38 +714,90 @@
     Zooming out, can we develop interfaces that allow us to evaluate large spaces of models at once<d-cite key="olah2015visualizing"></d-cite>?
   </p>
 
+  <h2>How Trustworthy Are These Interfaces?</h2>
+
+  <p>
+    In order for interpretability interfaces to be effective, we must trust the story they are telling us. 
+
+    We perceive two concerns with the set of building blocks we currently use.
+
+    First, do neurons have a relatively consistent meaning, and is it accurately reified by feature visualization?
+  
+    Semantic dictionaries, and the interfaces that build on top of them, are premised off this question being true.
+
+    Second, does attribution make sense and do we trust any of the attribution methods we presently have?
+  </p>
+
+  <p>
+    Much prior research has found that directions in neural networks are semantically meaningful<d-cite key="szegedy2013intriguing"></d-cite>.
+
+    One particularly striking example of this is "semantic arithmetic" (eg. "king" - "man" + "woman" = "queen")<d-cite key="mikolov2013efficient,radford2015unsupervised"></d-cite>. 
+
+    We explored this question, in depth, for GoogLeNet in our previous article<d-cite key="olah2017feature"></d-cite> and found that many of its neurons seem to correspond to meaningful ideas.<d-footnote>We validated this in a number of ways: we visualized them without a generative model prior, so that the content of the visualizations
+    was causally linked to the neuron firing; inspected the spectrum of examples that cause the neuron to fire; and used diversity
+    visualizations to try to create different inputs that cause the neuron to fire.<br><br>For more details, see
+      <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in
+      <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful.</d-footnote>
+
+    Besides these neurons, however, we also found many neurons that do not have as clean a meaning including "poly-semantic" neurons that respond to a mixture of salient ideas (e.g., "cat" and "car").
+
+    There are natural ways that interfaces could respond to this: we could use diversity visualizations to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled.
+
+    Of course, just like our models can be fooled, the features that make them up can be too -- including with adverserial examples <d-cite key="sabour2015adversarial"></d-cite>.
+
+    In our view, features do not need to be flawless detectors for it to be useful for us to think about them as such. 
+    
+    In fact, it can be interesting to identify when a detector misfires.    
+  </p>
+
+  <p>
+    With regards to attribution, recent work suggests that many of our current techniques are unreliable<d-cite key="kindermans2017reliability"></d-cite>.
+
+    One might even wonder if the idea is fundamentally flawed, since a function's output could be the result of non-linear interactions between its inputs. 
+
+    One way these interactions can pan out is as attribution being "path-dependent"<d-cite key="sundararajan2017axiomatic"></d-cite>.
+
+    A natural response to this would be for interfaces to explicitly surface this information: how path-dependent is the attribution?
+
+    A deeper concern, however, would be whether this path-dependency dominates the attribution. 
+
+    Clearly, this is not a concern for attribution between adjacent layers because of the simple (essentially linear) mapping between them. 
+    
+    While there may be technicalities about correlated inputs, we believe that attribution is on firm grounding here.
+
+    And even with layers further apart, our experience has been that attribution between high-level features at the output is much more consistent than attribution to the input -- we believe that path-dependence is not a dominating concern here. 
+  </p>
+
+  <p>
+    Model behavior is extremely complex, and our current building blocks force us to show only speciﬁc aspects of it. 
+    
+    An important direction for future interpretability research will be developing techniques that achieve broader coverage of model behavior. 
+    
+    But, even with such improvements, we anticipate that a key marker of trustworthiness will be interfaces that do not mislead. 
+    
+    Interacting with the explicit information displayed should not cause users to implicitly draw incorrect assessments about the model (we see a similar principle articulated by Mackinlay for data visualization<d-cite key="mackinlay1986automating"></d-cite>).
+
+    Undoubtedly, the interfaces we present in this article have room to improve in this regard. 
+
+    Fundamental research, at the intersection of machine learning and human-computer interaction, is necessary to resolve these issues.
+  </p>
+
+  <p>
+    Trusting our interfaces is essentially for many of the ways we want to use interpretability.
+
+    This is both because the stakes can be high (as in safety and fairness) and also because ideas like training models with interpretability feedback put our interpretability techniques in the middle of an adversarial setting.
+  </p>
+
   <h2>Conclusion &amp; Future Work</h2>
 
   <p>
     There is a rich design space for interacting with enumerative algorithms, and we believe an equally rich space exists for interacting with neural networks.
-  </p>
 
-  <p>
-    One reservation we have is that for interpretability interfaces to be effective, we must trust that they are telling us the whole story.
-
-    Model behavior is extremely complex, and our current building blocks force us to show only specific aspects of it.
-
-    An important direction for future interpretability research will be developing techniques that achieve broader coverage of model behavior.
-
-    But, even with such improvements, we anticipate that a key marker of trustworthiness will be interfaces that do not mislead.
-
-    Interacting with the explicit information displayed should not cause users to implicitly draw incorrect assessments about the model (we see a similar principle articulated by Mackinlay for data visualization<d-cite key="mackinlay1986automating"></d-cite>).
-
-    For example, it is difficult to evaluate whether an interface as basic as our semantic dictionary is misleading (as many neurons it displays are polysemantic) or to what extent this can be remedied
-      <d-footnote>
-        Possible ways of resolving this include providing multiple icons constructed with diversity feature visualization that try to show the range of meanings of the neuron<d-cite key="olah2017feature,nguyen2016multifaceted"></d-cite> or techniques for disentangling representations into more semantically meaningful units (see e.g., the <a href="https://sites.google.com/corp/view/disentanglenips2017">NIPS workshop</a> on this subject).
-      </d-footnote>
-    .
-  </p>
-
-  <p>
     We have a lot of work left ahead of us to build powerful and trusthworthy interfaces for interpretability.
 
     But, if we succeed, interpretability promises to be a powerful tool in enabling meaningful human oversight and in building fair, safe, and aligned AI systems.
   </p>
 </d-article>
-
-
 
 <d-appendix>
   <h3>Acknowledgments</h3>
