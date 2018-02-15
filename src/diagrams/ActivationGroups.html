@@ -1,53 +1,93 @@
-<div class="input_image l-body">
-  <ExamplePicker />
+<:Window on:resize="measure()" />
+<div ref:root class="root" style="grid-column: middle">
 
-  <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" />
+  <div class="input">
+    <ExamplePicker />
 
-  <Sprite bg_img="{{heatmap_sprite_url}}" x={{(hover_group||0)}} 
-    sprite_size={{14}} size={{224}} />
-</div>
-
-<div class="neuron_groups l-body" on:mouseout="set({hover_group: null})">
-  {{#each range(num_groups) as i}}
-    <div class="neuron" on:mouseover="set({hover_group: i + 1})">
-      <div class="legend" style="background-color: rgb({{groups.colors[i]}})"></div>
-
-      <Sprite bg_img="{{neuron_sprite_url}}" x={{i}}
-        sprite_size={{110}} size={{110}} />
+    <div ref:input class="input_images content" style="height: {{imageWidth}}px;">
+      <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
+      <Sprite bg_img="{{heatmap_sprite_url}}" x={{(hover_group||0)}} sprite_size={{14}} size={{imageWidth}} />
     </div>
-  {{/each}}
-</div>
+  </div>
 
-<div class="labels" style="grid-column: kicker / kicker;">
-  <ul>
-    {{#each groups.labels as label}}
-      <li>{{$labels[label]}}</li>
-    {{/each}}
-  </ul>
-</div>
-
-<div class="bars l-body">
-  {{#each groups.attr as attr}}
-    <ul class="neuron">
-      {{#each attr as a}}
-        <li>{{a}}</li>
+  <div class="groups" on:mouseout="set({hover_group: null})">
+    <div class="label">neuron groups</div>
+    <div class="content" style="grid-template-columns: repeat({{num_groups}}, 1fr);">
+      {{#each range(num_groups) as i}}
+        <div class="neuron" on:mouseover="set({hover_group: i + 1})" style="height: {{neuronWidth + 20}}px;">
+          <div class="legend" style="background-color: rgb({{groups.colors[i]}})"></div>
+          <Sprite bg_img="{{neuron_sprite_url}}" x={{i}} sprite_size={{110}} size={{neuronWidth}} />
+        </div>
       {{/each}}
-    </ul>
-  {{/each}}
+    </div>
+  </div>
+
+  
+
+  <div class="output" >
+    <div class="label">
+      {{#each groups.labels as label}}
+      <div>{{$labels[label]}}</div>
+      {{/each}}
+    </div>
+
+    <div class="content" style="grid-template-columns: repeat({{num_groups}}, 1fr);">
+      {{#each groups.attr as attr}}
+        <div>
+          {{#each attr as a}}
+            <div>{{format(a)}}</div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </div>
 
 
 <style>
-  .input_image, .neuron_groups, .bars {
+  .root {
+    font-size: 13px;
+  }
+
+  .example_picker { 
+    width: inherit!important; 
+  }
+
+  .input {
+    margin-bottom: 30px;
+  }
+
+ .input, .groups, .output {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 160px 1fr;
+  }
+
+  .content {
+    display: grid;
+    grid-gap: 10px;
+  }
+
+  .input_images {
+    position: relative;
     display: flex;
+    width: 100%;
   }
 
-  .input_image > img { 
-    width: 224px; 
-    height: 224px;
+  .input_images > * {
+    position: absolute;
+    top: 0;
   }
 
-  .input_image .outer {
+  .input_images :last-child {
+    right: 0;
+  }
+
+  .groups {
+    margin-bottom: 30px;
+  }
+
+  .input .outer {
     mix-blend-mode: multiply;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
@@ -58,9 +98,18 @@
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
   }
 
-  .neuron { flex: 1;}
+  .neuron {
+    position: relative;
+  }
 
-  .legend { height: 10px; }
+  .neuron .outer {
+    position: absolute;
+    top: 20px;
+  }
+
+  .legend {
+    height: 10px;
+  }
 
   .labels ul {
     list-style-type: none;
@@ -79,11 +128,24 @@
   export default {
     data() {
       return {
+        stageWidth: 500,
         nmf_data: undefined,
         // collab hooks
         heatmap_sprite: undefined, 
         neuron_sprite: undefined
       };
+    },
+
+    oncreate() {
+      // require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
+      //   this.set({ full_attr });
+      // })
+      this.store.observe('example', (example) => {
+        require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`).load((attr) => {
+          this.measure();
+          console.log("hey", attr)
+        });
+      });
     },
 
     computed: {
@@ -97,11 +159,27 @@
           `examples/activations/${$example}/sprite_mixed4d_nmf_neurons.jpeg`;
       },
 
-      num_groups: (groups) => groups.attr.length
+      num_groups: (groups) => groups.attr.length,
+
+      imageWidth: (stageWidth) => (stageWidth - 10) / 2,
+
+      neuronWidth: (stageWidth, num_groups) => (stageWidth - 10 * (num_groups - 1)) / num_groups
     },
 
     components: {ExamplePicker, Sprite},
-    helpers: {range}
+    methods: {
+      measure: function() {
+        const num_groups = this.get("num_groups");
+        const root = this.refs.root;
+        this.set({
+          stageWidth: this.refs.input.clientWidth
+        })
+      }
+    },
+    helpers: {
+      range,
+      format(v) { return v.toFixed(3); }
+    }
   }
 
 </script>

@@ -50,22 +50,14 @@
       border-bottom: 1px solid var(--gray-border);
     }
 
-    #AttributionChannel {
+    #AttributionChannel, #ActivationGroups, #AttributionGroups {
       background: var(--gray-bg);
       padding-top: 20px;
       padding-bottom: 20px;
       border-top: 1px solid var(--gray-border);
       border-bottom: 1px solid var(--gray-border);
     }
-    #AttributionGroups {
-      background: var(--gray-bg);
-      padding-top: 20px;
-      padding-bottom: 20px;
-      border-top: 1px solid var(--gray-border);
-      border-bottom: 1px solid var(--gray-border);
-    }
-
-
+    
     .attribution_list {
       display: inline-block;
       list-style-type: none;
@@ -630,11 +622,13 @@
     Notice how the overwhelmingly large number of neurons has been reduced to a small set of groups, concisely summarizing the story of the neural network.
   </p>
 
-  <d-figure id="ActivationGroups" class="base-grid" style="height: 520px;"></d-figure>
-
-  <figure class="l-page-outset">
-    <img src="images/groups.png"></img>
+  <figure class="l-screen">
+    <d-figure id="ActivationGroups" class="base-grid"></d-figure>
   </figure>
+
+  <!-- <figure class="l-page-outset">
+    <img src="images/groups.png"></img>
+  </figure> -->
 
   <p>
     This figure only focuses at a single layer but, as we saw earlier, it can be useful to look across multiple layers to understand how a neural network assembles together lower-level detectors into higher-level concepts.
