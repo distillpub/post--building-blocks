@@ -13,9 +13,9 @@
         <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
         
           <svg ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
-            <g>
+            <g class="activation">
               {{#each spatialActivations as a}}
-              <rect on:mouseover="set({hover_location: a})" x="{{10 * a.x}}" y="{{10 * a.y}}" width="10" height="10" stroke="black" fill="black" opacity="{{hover_group != null ? 1 - a.groups[hover_group].value / 10 : 0}}"></rect>
+              <rect on:mouseover="set({hover_location: a})" x="{{10 * a.x}}" y="{{10 * a.y}}" width="10" height="10" fill="black" opacity="{{hover_group != null ? 1 - a.groups[hover_group].value / 10 : 0}}"></rect>
               {{/each}}
             </g>
             {{#if hover_location != null}}
@@ -29,9 +29,11 @@
 
       <div>
         <svg viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
-          {{#each spatialActivations as a}}
-          <rect on:mouseover="set({hover_location: a})" x="{{10 * a.x}}" y="{{10 * a.y}}" width="10" height="10" fill="{{hover_group != null ? a.groups[hover_group].color : a.color}}"></rect>
-          {{/each}}
+          <g class="activation">
+            {{#each spatialActivations as a}}
+            <rect on:mouseover="set({hover_location: a})" x="{{10 * a.x}}" y="{{10 * a.y}}" width="10" height="10" fill="{{hover_group != null ? a.groups[hover_group].color : a.color}}"></rect>
+            {{/each}}
+          </g>
           {{#if hover_location != null}}
           <g>
             <rect class="reticle-shadow" width="10" height="10" x="{{10 * hover_location.x}}" y="{{10 * hover_location.y}}"></rect>
@@ -42,7 +44,7 @@
       </div>
     </div>
 
-    <h4>Neuron groups, based on matrix factorization</h4>
+    <h4>Neuron groups, based on matrix factorization of mixed4d layer</h4>
     <div class="colors">
       <div class="label cell">color key</div>
       <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
@@ -55,7 +57,15 @@
     </div>
 
     <div class="groups" >
-      <div class="label cell">feature visualization</div>
+      <div class="label cell">
+        feature visualization
+        <div class="prompt">
+          hover to isolate
+          <svg width=14 height=18>
+            <path d="M0,9 L12,9 M9,6 L12,9 L9,12" />
+          </svg>
+        </div>
+      </div>
       <div class="content " on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
         {{#each groupsData as g}}
           <div class="neuron cell {{hover_group === g.i ? 'hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;opacity: {{hover_location != null ? Math.abs(hover_location.groups[g.i].value) /10 : ''}}">
@@ -113,6 +123,12 @@
     vector-effect: non-scaling-stroke;
   }
 
+  svg .activation {
+    stroke: white;
+    stroke-opacity: 0.15;
+    shape-rendering: crispedges;
+  }
+
   .example_picker { 
     width: inherit!important; 
   }
@@ -139,6 +155,26 @@
 
   .headline :first-child {
     grid-column: 1/3;
+  }
+
+  .prompt {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    max-width: 120px;
+    font-style: italic;
+    opacity: 0.5;
+  }
+
+  .prompt svg {
+    position: absolute;
+    right: -18px;
+    top: 2px;
+  }
+
+  .prompt svg path {
+    fill: none;
+    stroke: black;
   }
 
   .content {
@@ -255,9 +291,6 @@
     },
 
     oncreate() {
-      // require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
-      //   this.set({ full_attr });
-      // })
       this.store.observe('example', (example) => {
         require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`).load((attr) => {
           this.measure();
