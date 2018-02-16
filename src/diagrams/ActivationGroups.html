@@ -1,14 +1,14 @@
 <:Window on:resize="measure()" />
 <div ref:root class="root" style="grid-column: middle">
-
-  <div class="input">
-    <div style="margin-top: 70px;">
-      <ExamplePicker />
+  <div class="wrapper">
+    <div class="headline">
+      <h4>Input image</h4>
+      <h4>Activations of neuron groups</h4>
     </div>
 
-    <div ref:input class="input_images content">
-      <h4>Input image</h4>
-      <h4>Activations</h4>
+    <div class="input">
+      <ExamplePicker />
+
       <div style="position: relative;">
         <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
         {{#if hover_group != null}}
@@ -19,6 +19,7 @@
           </svg>
         {{/if}}
       </div>
+
       <div>
         <svg viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}">
           {{#each spatialActivations as a}}
@@ -27,44 +28,51 @@
         </svg>
       </div>
     </div>
-  </div>
 
-  <h4 style="margin-left: 130px;">Neuron groups</h4>
-  <div class="colors">
-    <div class="label">color key</div>
-    <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
-      {{#each groupsData as g}}
-        <div class="legend" style="background-color: {{g.color}};"></div>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="groups" >
-    <div class="label">feature visualization</div>
-    <div class="content" on:mouseleave="set({hover_group: null})" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
-      {{#each groupsData as g}}
-        <div class="neuron {{hover_group === g.i ? 'neuron_hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;">
-          <Sprite bg_img="{{neuron_sprite_url}}" x={{g.i}} sprite_size={{110}} size={{neuronWidth}} />
-        </div>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="output" >
-    <div class="label">
-      {{#each groups.labels as label}}
-      <div class="cell">{{$labels[label]}}</div>
-      {{/each}}
+    <h4>Neuron groups, based on matrix factorization</h4>
+    <div class="colors">
+      <div class="label cell">color key</div>
+      <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
+        {{#each groupsData as g}}
+          <div class="cell" on:mouseover="set({hover_group: g.i})">
+            <div class="legend {{hover_group === g.i ? 'hover' : ''}}" style="background-color: {{g.color}};"></div>
+          </div>
+        {{/each}}
+      </div>
     </div>
 
-    <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
-      {{#each groups.attr as attr}}
-        <div>
-          {{#each attr as a}}
-            <div class="cell value">{{format(a)}}</div>
-          {{/each}}
-        </div>
-      {{/each}}
+    <div class="groups" >
+      <div class="label cell">feature visualization</div>
+      <div class="content " on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
+        {{#each groupsData as g}}
+          <div class="neuron cell {{hover_group === g.i ? 'hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;">
+            <Sprite bg_img="{{neuron_sprite_url}}" x={{g.i}} sprite_size={{110}} size={{neuronWidth}} />
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <h4>Effect of neuron groups on output classes</h4>
+
+    <div class="output" >
+      <div class="label">
+        {{#each groups.labels as label}}
+        <div class="cell">{{$labels[label]}}</div>
+        {{/each}}
+      </div>
+
+      <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
+        {{#each groups.attr as attr}}
+          <div>
+            {{#each attr as a}}
+              <div class="cell value">
+                {{format(a)}}
+                <div class="swatch {{ a > 0 ? 'positive' : 'negative' }}" style="opacity: {{Math.abs(a) * 2}};"></div>
+              </div>
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
     </div>
   </div>
 </div>
@@ -74,6 +82,18 @@
   .root {
     font-size: 13px;
     line-height: 1.5em;
+    max-width: 880px;
+    margin: 20px auto;
+  }
+
+  .wrapper {
+    margin: 0 20px;
+  }
+
+  .root h4 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin: 0;
   }
 
   .root svg rect {
@@ -84,14 +104,28 @@
     width: inherit!important; 
   }
 
-  .input {
-    margin-bottom: 10px;
+  .headline {
+    margin-bottom: 8px;
   }
 
- .input, .colors, .groups, .output {
+  .input, .headline {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 120px 1fr 1fr;
+  }
+
+  .input {
+    margin-bottom: 30px;
+  }
+
+ .colors, .groups, .output {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 120px 1fr;
+  }
+
+  .headline :first-child {
+    grid-column: 1/3;
   }
 
   .content {
@@ -109,41 +143,36 @@
     display: grid;
     width: 100%;
     grid-gap: 10px;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .label {
-    text-align: right;
   }
 
   .legend {
     height: 100%;
     border-radius: 4px;
+    box-sizing: border-box;
   }
 
-  .colors {
-    margin-bottom: 10px;
+  .legend.hover {
+    border: solid 4px rgba(0,0,0,0.3);
   }
 
   .groups {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   .neuron {
     position: relative;
-    cursor: pointer;
     border-radius: 4px;
     overflow: hidden;
   }
 
-  .neuron.neuron_hover:after {
+  .neuron.hover:after {
     content: "";
     position: absolute;
-    top: 0;
+    top: 6px;
     left: 0;
     width: 100%;
-    height: 100%;
-    border: 6px solid rgba(0, 0, 0, 0.4);
+    height: calc(100% - 12px);
+    border: 4px solid rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
   }
 
@@ -151,14 +180,31 @@
     position: absolute;
   }
 
-  .output .cell {
-    border-top: 1px solid rgba(0, 0, 0, 0);
-    padding: 4px 0;
+  .cell {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 6px 0;
+    position: relative;
   }
 
-  .output .cell.value {
+  .cell.value {
     text-align: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+  }
+
+  .output .swatch {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 10px);
+    top: 5px;
+    border-radius: 3px;
+  }
+
+  .output .swatch.positive {
+    background-color: grey;
+  }
+  .output .swatch.negative {
+    background-color: red;
   }
 
 </style>
@@ -261,9 +307,8 @@
     components: {ExamplePicker, Sprite},
     methods: {
       measure: function() {
-        const root = this.refs.root;
         this.set({
-          stageWidth: this.refs.input.clientWidth
+          stageWidth: this.refs.content.clientWidth
         })
       }
     },
