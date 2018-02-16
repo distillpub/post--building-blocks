@@ -619,7 +619,7 @@
     helpers: {
       range,
       evidence_opacity(v) {
-        return 2 * Math.pow(v, 2);
+        return v / 4;
       },
       evidence_format(n) {
         return n.toFixed(2);
