@@ -12,7 +12,7 @@
       <div style="position: relative;">
         <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
         
-          <svg ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
+          <svg preserveAspectRatio="xMinYMin" ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
             <g class="activation">
               {{#each spatialActivations as a}}
               <rect on:mouseover="set({hover_location: a})" x="{{10 * a.x}}" y="{{10 * a.y}}" width="10" height="10" fill="black" opacity="{{hover_group != null ? 1 - a.groups[hover_group].value / 10 : 0}}"></rect>
