@@ -553,7 +553,7 @@
   <p>
     The groups we constructed before were optimized to understand a single layer independent of the others. To understand multiple layers together, we would like each layer's factorization to be "compatible"&mdash;to have the groups of earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization for
       <d-footnote>
-        We formalize this "compatibility" in a manner described below, although we're not confident it's the best formalization and won't be surprised if it is superseded in future work.<br>
+        We formalize this "compatibility" in a manner described below, although we're not confident it's the best formalization and won't be surprised if it is superseded in future work.<br><br>
         Consider the attribution from every neuron in the layer to the set of <i>N</i> groups we want it to be compatible with.
         The basic idea is to split each entry in the activation matrix into <i>N</i> entries on the channel dimension, spreading the values proportional to the absolute value of its attribution to the corresponding group.
         Any factorization of this matrix induces a factorization of the original matrix by collapsing the duplicated entries in the column factors.
@@ -678,11 +678,33 @@
 
   <figure class="l-page">
     <img src="images/design_space/dataset.svg"></img>
-    <figcaption style="margin-top: 10px;">
-      Introducing dataset examples as a new substrate in the design space.
-      Left-to-right: an interface that helps us understand the influence of dataset examples on the output classification as presented by Koh et al
-      <d-cite key="koh2017understanding"></d-cite>; an interface showing how examples influence the channels of hidden layers; and, an interface for identifying which dataset examples most caused particular detectors to increase the output classification.
-    </figcaption>
+
+    <div style="display: grid; grid-template-columns: 0.35fr 1fr 1fr 1fr 0.7fr; grid-gap: 4%; margin-top: 10px; padding-left: 5px;">
+      <figcaption style="position: relative;">
+        <svg style="position: absolute; left: -30px; top: -30px;" viewBox="301.99964 641.4227 19.600364 47.01719" width="19.600364" height="47.01719">
+          <defs>
+            <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10"
+              viewBox="-1 -3 6 6" markerWidth="6" markerHeight="6" color="#aaa">
+              <g>
+                <path d="M 3.36 0 L 0 -1.26 L 0 1.26 Z" fill="currentColor" stroke="currentColor" stroke-width="1" />
+              </g>
+            </marker>
+          </defs>
+          <path d="M 318.2612 687.43985 C 318.2612 687.43985 302.3572 680.17626 303.0198 667.4227 C 303.3775 660.5377 308.4724 653.8006 313.0856 649.05815"
+            marker-end="url(#FilledArrow_Marker)" stroke="#aaa" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="none" />
+        </svg>
+        A new substrate.
+      </figcaption>
+      <figcaption>
+        An interface to understand how dataset examples influence the output classification, as presented by Koh et al.<d-cite key="koh2017understanding"></d-cite>
+      </figcaption>
+      <figcaption>
+        An interface showing how examples influence the channels of hidden layers.
+      </figcaption>
+      <figcaption>
+        An interface for identifying which dataset examples most caused particular detectors to increase the output classification.
+      </figcaption>
+    </div>
   </figure>
 
   <p>
@@ -729,7 +751,7 @@
     One particularly striking example of this is "semantic arithmetic" (eg. "king" - "man" + "woman" = "queen")<d-cite key="mikolov2013efficient,radford2015unsupervised"></d-cite>. 
 
     We explored this question, in depth, for GoogLeNet in our previous article<d-cite key="olah2017feature"></d-cite> and found that many of its neurons seem to correspond to meaningful ideas.<d-footnote>We validated this in a number of ways: we visualized them without a generative model prior, so that the content of the visualizations
-    was causally linked to the neuron firing; inspected the spectrum of examples that cause the neuron to fire; and used diversity
+    was causally linked to the neuron firing; we inspected the spectrum of examples that cause the neuron to fire; and used diversity
     visualizations to try to create different inputs that cause the neuron to fire.<br><br>For more details, see
       <a href="https://distill.pub/2017/feature-visualization/appendix/">the article's appendix</a> and the guided tour in
       <a href="https://twitter.com/ch402/status/927968700384153601">@ch402's Twitter thread</a>. We're actively investigating why GoogLeNet's neurons seem more meaningful.</d-footnote>
@@ -806,7 +828,7 @@
   </p>
 
   <p>
-    <strong>Conceptual Contributions.</strong> Many of these ideas have their earliest provenance with Alex. Chris generalized and refined them, and integrated attribution. Chris, Arvind, and Ian developed the building blocks framing. Ian and Chris coined "semantic dictionaries." Arvind and Chris crystallized this thinking into a grammar, and contextualized it with respect to both the machine learning and human-computer interaction communities.
+    <strong>Conceptual Contributions.</strong> Many of these ideas have their earliest provenance with Alex. Chris generalized and refined them, and integrated attribution. Chris, Arvind, and Ian developed the building blocks framing. Ian and Chris coined the term "semantic dictionaries." Arvind and Chris crystallized this thinking into a grammar, and contextualized it with respect to both the machine learning and human-computer interaction communities.
   </p>
 
   <p>
