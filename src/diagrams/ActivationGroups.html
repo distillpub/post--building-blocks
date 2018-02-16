@@ -313,7 +313,7 @@
 
       groupsData(numGroups) {
         return range(numGroups).map((groupIndex) => { 
-          const hue = (360 / numGroups) * groupIndex + 160;
+          const hue = (360 / numGroups) * groupIndex - 200;
           return {
             i: groupIndex, 
             hue,
