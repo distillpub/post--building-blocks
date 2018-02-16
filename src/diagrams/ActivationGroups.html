@@ -3,7 +3,7 @@
   <div class="wrapper">
     <div class="headline">
       <h4>Input image</h4>
-      <h4>Activations of neuron groups</h4>
+      <h4>Activations <span>of neuron groups</span></h4>
     </div>
 
     <div class="input">
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <h4>Neuron groups, based on matrix factorization of mixed4d layer</h4>
+    <h4>Neuron groups<span> based on matrix factorization of mixed4d layer</span></h4>
     <div class="colors">
       <div class="label cell">color key</div>
       <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <h4>Effect of neuron groups on output classes</h4>
+    <h4>Effect <span>of neuron groups on output classes</span></h4>
 
     <div class="output" >
       <div class="label">
@@ -117,16 +117,22 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 8px;
     margin: 0;
+    font-weight: 700;
+  }
+
+  .root h4 span {
+    font-weight: 400;
+    text-transform: none;
   }
 
   .root svg rect {
     vector-effect: non-scaling-stroke;
+    shape-rendering: crispedges;
   }
 
   svg .activation {
     stroke: white;
     stroke-opacity: 0.15;
-    shape-rendering: crispedges;
   }
 
   .example_picker { 
@@ -307,7 +313,7 @@
 
       groupsData(numGroups) {
         return range(numGroups).map((groupIndex) => { 
-          const hue = (360 / numGroups) * groupIndex;
+          const hue = (360 / numGroups) * groupIndex + 160;
           return {
             i: groupIndex, 
             hue,
