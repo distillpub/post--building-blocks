@@ -10,7 +10,7 @@
       <ExamplePicker />
 
       <div style="position: relative;">
-        <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
+        <img src="examples/input_images/{{$example}}.jpeg" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
         {{#if hover_group != null}}
           <svg ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}">
             {{#each spatialActivations as a}}

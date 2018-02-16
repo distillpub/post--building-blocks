@@ -4,7 +4,7 @@
   on:mouseover="clearTimer()" on:mouseleave="reSort()">
   {{#each examples as ex}}
     {{#if !hide_selected || ex !== $example}}
-      <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" 
+      <img src="examples/input_images/{{ex}}.jpeg" alt="{{ex}}" 
         class="{{ex === $example ? 'selected' : ''}}" on:click="store.set({example: ex})" />
     {{/if}}
   {{/each}}
