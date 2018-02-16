@@ -2,40 +2,67 @@
 <div ref:root class="root" style="grid-column: middle">
 
   <div class="input">
-    <ExamplePicker />
+    <div style="margin-top: 70px;">
+      <ExamplePicker />
+    </div>
 
-    <div ref:input class="input_images content" style="height: {{imageWidth}}px;">
-      <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
-      <Sprite bg_img="{{heatmap_sprite_url}}" x={{(hover_group||0)}} sprite_size={{14}} size={{imageWidth}} />
+    <div ref:input class="input_images content">
+      <h4>Input image</h4>
+      <h4>Activations</h4>
+      <div style="position: relative;">
+        <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
+        {{#if hover_group != null}}
+          <svg ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{spatialActivationsShape[0]}} {{spatialActivationsShape[1]}}">
+            {{#each spatialActivations as a}}
+            <rect x="{{a.x}}" y="{{a.y}}" width="1" height="1" stroke="#black" fill="#black" opacity="{{1 - a.groups[hover_group].value / 10}}"></rect>
+            {{/each}}
+          </svg>
+        {{/if}}
+      </div>
+      <div>
+        <svg viewBox="0 0 {{spatialActivationsShape[0]}} {{spatialActivationsShape[1]}}">
+          {{#each spatialActivations as a}}
+          <rect x="{{a.x}}" y="{{a.y}}" width="1.05" height="1.05" fill="{{hover_group != null ? a.groups[hover_group].color : a.color}}"></rect>
+          {{/each}}
+        </svg>
+      </div>
     </div>
   </div>
 
-  <div class="groups" on:mouseout="set({hover_group: null})">
-    <div class="label">neuron groups</div>
-    <div class="content" style="grid-template-columns: repeat({{num_groups}}, 1fr);">
-      {{#each range(num_groups) as i}}
-        <div class="neuron" on:mouseover="set({hover_group: i + 1})" style="height: {{neuronWidth + 20}}px;">
-          <div class="legend" style="background-color: rgb({{groups.colors[i]}})"></div>
-          <Sprite bg_img="{{neuron_sprite_url}}" x={{i}} sprite_size={{110}} size={{neuronWidth}} />
+
+  <h4 style="margin-left: 130px;">Neuron groups</h4>
+  <div class="colors">
+    <div class="label">color key</div>
+    <div class="content" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+      {{#each groupsData as g}}
+        <div class="legend" style="background-color: {{g.color}};"></div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="groups" >
+    <div class="label">feature visualization</div>
+    <div class="content" on:mouseleave="set({hover_group: null})" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+      {{#each groupsData as g}}
+        <div class="neuron {{hover_group === g.i ? 'neuron_hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;">
+          <Sprite bg_img="{{neuron_sprite_url}}" x={{g.i}} sprite_size={{110}} size={{neuronWidth}} />
         </div>
       {{/each}}
     </div>
   </div>
 
-  
-
   <div class="output" >
     <div class="label">
       {{#each groups.labels as label}}
-      <div>{{$labels[label]}}</div>
+      <div class="cell">{{$labels[label]}}</div>
       {{/each}}
     </div>
 
-    <div class="content" style="grid-template-columns: repeat({{num_groups}}, 1fr);">
+    <div class="content" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
       {{#each groups.attr as attr}}
         <div>
           {{#each attr as a}}
-            <div>{{format(a)}}</div>
+            <div class="cell value">{{format(a)}}</div>
           {{/each}}
         </div>
       {{/each}}
@@ -47,6 +74,11 @@
 <style>
   .root {
     font-size: 13px;
+    line-height: 1.5em;
+  }
+
+  .root svg rect {
+    vector-effect: non-scaling-stroke;
   }
 
   .example_picker { 
@@ -57,71 +89,84 @@
     margin-bottom: 30px;
   }
 
- .input, .groups, .output {
+ .input, .colors, .groups, .output {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 120px 1fr;
   }
 
   .content {
     display: grid;
     grid-gap: 10px;
+    position: relative;
+  }
+
+  .content svg {
+    width: 100%;
   }
 
   .input_images {
     position: relative;
-    display: flex;
+    display: grid;
     width: 100%;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .input_images > * {
-    position: absolute;
-    top: 0;
+  .label {
+    text-align: right;
   }
 
-  .input_images :last-child {
-    right: 0;
+  .legend {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  .colors {
+    margin-bottom: 5px;
   }
 
   .groups {
-    margin-bottom: 30px;
-  }
-
-  .input .outer {
-    mix-blend-mode: multiply;
-    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-    image-rendering: -moz-crisp-edges;          /* Firefox                        */
-    image-rendering: -o-crisp-edges;            /* Opera                          */
-    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-    image-rendering: pixelated; /* Chrome */
-    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+    margin-bottom: 10px;
   }
 
   .neuron {
     position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .neuron.neuron_hover:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 6px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
   }
 
   .neuron .outer {
     position: absolute;
-    top: 20px;
   }
 
-  .legend {
-    height: 10px;
+  .output .cell {
+    border-top: 1px solid rgba(0, 0, 0, 0);
+    padding: 4px 0;
   }
 
-  .labels ul {
-    list-style-type: none;
-    padding-left: 0;
-    text-transform: capitalize;
-    font-weight: bold;
-    font-size: 90%;
+  .output .cell.value {
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
+
 </style>
 
 <script>
   import {range} from '../util';
+  import {hcl, mean} from 'd3';
   import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html';
 
@@ -143,12 +188,61 @@
       this.store.observe('example', (example) => {
         require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`).load((attr) => {
           this.measure();
-          console.log("hey", attr)
+          this.set({attr})
+          console.log("hey", attr.shape, attr.stride, attr.offset);
         });
       });
     },
 
     computed: {
+      numGroups(spatialActivationsShape) {
+        return spatialActivationsShape[2];
+      },
+
+      groupsData(numGroups) {
+        return range(numGroups).map((groupIndex) => { 
+          const hue = (360 / numGroups) * groupIndex;
+          return {
+            i: groupIndex, 
+            hue,
+            hueTheta: hue * Math.PI / 180,
+            color: hcl(hue, 100, 80).toString()
+          };
+        });
+      },
+      spatialActivationsShape(attr) {
+        return attr != null ? attr.shape : [0, 0, 0]
+      },
+      spatialActivations(attr, numGroups, groupsData) {
+        const activations = [];
+        if (attr) {
+          const shape = attr.shape;
+          for (let y = 0; y < shape[0]; y++) {
+            for (let x = 0; x < shape[1]; x++) {
+              const groups = [];
+              for (let g = 0; g < shape[2]; g++) {
+                const value = attr.get(y, x, g);
+                groups.push({
+                  x,
+                  y,
+                  value,
+                  hueX: value * value * Math.cos(groupsData[g].hueTheta),
+                  hueY: value * value * Math.sin(groupsData[g].hueTheta),
+                  color: hcl(groupsData[g].hue, value * 4, value * 3).toString(),
+                });
+              }
+
+              const meanHueX = mean(groups, h => h.hueX);
+              const meanHueY = mean(groups, h => h.hueY);
+              const meanHue = Math.atan2(meanHueY, meanHueX) / Math.PI * 180;
+              const meanValue = mean(groups, h => h.value) * numGroups / 1.3;
+              activations.push({groups, x, y, color: hcl(meanHue, meanValue * 4, meanValue * 3).toString()});
+            }
+          }
+        }
+        return activations;
+      },
+
       heatmap_sprite_url ($example, heatmap_sprite) {
         return heatmap_sprite || 
           `examples/activations/${$example}/sprite_mixed4d_nmf_heatmap.png`;
@@ -159,17 +253,15 @@
           `examples/activations/${$example}/sprite_mixed4d_nmf_neurons.jpeg`;
       },
 
-      num_groups: (groups) => groups.attr.length,
-
       imageWidth: (stageWidth) => (stageWidth - 10) / 2,
 
-      neuronWidth: (stageWidth, num_groups) => (stageWidth - 10 * (num_groups - 1)) / num_groups
+      neuronWidth: (stageWidth, numGroups) => (stageWidth - 10 * (numGroups - 1)) / numGroups
     },
 
     components: {ExamplePicker, Sprite},
     methods: {
       measure: function() {
-        const num_groups = this.get("num_groups");
+        const numGroups = this.get("numGroups");
         const root = this.refs.root;
         this.set({
           stageWidth: this.refs.input.clientWidth
