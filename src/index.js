@@ -8,6 +8,7 @@ import ActivationVecVis from './diagrams/ActivationVecVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
+import ActivationGroups from './diagrams/ActivationGroups.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 import Grammar from './diagrams/Grammar.html';
 import CubeGroups from './diagrams/CubeGroups.html';
@@ -51,6 +52,24 @@ const attrChannel = new AttributionChannel({
   target: document.getElementById('AttributionChannel'),
   store
 });
+
+let actGroups = null;
+document.getElementById('ActivationGroups')
+  .addEventListener('ready', () => {
+    store.observe('example', (ex) => {
+      loadJSON(`examples/activations/${ex}/mixed4d_nmf.json`, (err, groups) => {
+        if (!actGroups) {
+          actGroups = new ActivationGroups({
+            target: document.getElementById('ActivationGroups'),
+            data: {groups},
+            store
+          });
+        } else {
+          actGroups.set({groups});
+        }
+      });
+    });
+  });
 
 const attrGroups = new AttributionGroups({
   target: document.getElementById('AttributionGroups'),
