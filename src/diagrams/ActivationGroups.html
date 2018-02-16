@@ -33,7 +33,7 @@
   <h4 style="margin-left: 130px;">Neuron groups</h4>
   <div class="colors">
     <div class="label">color key</div>
-    <div class="content" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+    <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
       {{#each groupsData as g}}
         <div class="legend" style="background-color: {{g.color}};"></div>
       {{/each}}
@@ -42,7 +42,7 @@
 
   <div class="groups" >
     <div class="label">feature visualization</div>
-    <div class="content" on:mouseleave="set({hover_group: null})" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+    <div class="content" on:mouseleave="set({hover_group: null})" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
       {{#each groupsData as g}}
         <div class="neuron {{hover_group === g.i ? 'neuron_hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;">
           <Sprite bg_img="{{neuron_sprite_url}}" x={{g.i}} sprite_size={{110}} size={{neuronWidth}} />
@@ -58,7 +58,7 @@
       {{/each}}
     </div>
 
-    <div class="content" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+    <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
       {{#each groups.attr as attr}}
         <div>
           {{#each attr as a}}
@@ -86,7 +86,7 @@
   }
 
   .input {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
  .input, .colors, .groups, .output {
@@ -123,7 +123,7 @@
   }
 
   .colors {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .groups {
@@ -177,7 +177,8 @@
         nmf_data: undefined,
         // collab hooks
         heatmap_sprite: undefined, 
-        neuron_sprite: undefined
+        neuron_sprite: undefined,
+        numColumns: 6
       };
     },
 
@@ -255,13 +256,12 @@
 
       imageWidth: (stageWidth) => (stageWidth - 10) / 2,
 
-      neuronWidth: (stageWidth, numGroups) => (stageWidth - 10 * (numGroups - 1)) / numGroups
+      neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
     components: {ExamplePicker, Sprite},
     methods: {
       measure: function() {
-        const numGroups = this.get("numGroups");
         const root = this.refs.root;
         this.set({
           stageWidth: this.refs.input.clientWidth
