@@ -709,12 +709,40 @@
   <p>
     Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
 
+    While most models today are trained to optimize simple objective functions that one can easily describe, many of the things we'd like models to do in the real world are subtle, nuanced, and hard to describe mathematically.
+    
+    <d-footnote>An extreme example of the subtle objective problem is something like "creating interesting art", but much more mundane examples arise more or less whenever humans are involved.</d-footnote>
+    
+    One very promising approach to training models for these subtle objectives is learning from human feedback <d-cite key="christiano2017deep"></d-cite>.
+    
+    However, even with human feedback, it may still be hard to train models to behave the way we want if the problematic aspect of the model doesn't surface strongly in the training regime where humans are giving feedback.
+    
+    <d-footnote>
+      There's lots of reasons why problematic behavior may not surface or may be hard for an evaluator to give feedback on.
+      
+      For example, discrimination and bias may be subtly present throughout the model's behavior, such that it's hard for a human evaluator to critique.
+      
+      Or the model may be making a decision in a way that has problematic consequences, but those consequences never play out in the problems we're training it on.
+    </d-footnote>
+    
+    Human feedback on the model's decision making process, facilitated by interpretability interfaces, could be a powerful solution to these problems.
+    
+    It might allow us to train models not just to make the <i>right decisions</i>, but to make them <i>for the right reasons</i>.
+
+    (There is however a danger here: we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
+  </p>
+
+<!--
+  <p>
+    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
+
     Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training.
     
     For example, a human might object to a woman's presence reducing the probability of an image being classified as a "punching bag" and adjust the model parameters accordingly.
 
     (The danger here is that we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
   </p>
+-->
 
   <p>
     Another exciting possibility is interfaces for comparing multiple models.
