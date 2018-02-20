@@ -3,6 +3,7 @@
   <p class="heading">Input Image</p>
   <div class="input_image">
     <img src="examples/input_images/{{$example}}.png" />
+    <img class="mask" src="{{maskSource}}" style="opacity:{{maskOpacity}}" />
   </div>
   <ExamplePicker />
 </div>
@@ -77,6 +78,12 @@
     right: 0;
     border-radius: var(--border-radius);
   }
+  .input_image mask { 
+    position: absolute; 
+    top: 0;
+    right: 0;
+    border-radius: var(--border-radius);
+  }
 
   .input_image .outer {
     position: absolute;
@@ -112,6 +119,9 @@
   import {calc_layer_size, range} from '../util';
   import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
   import {json as loadJSON} from 'd3-request';
+  import { tween } from 'svelte-extras'
+  import * as eases from 'eases-jsnext';
+
   const layers = require('../../static/examples').layers;
 
   export default {
@@ -121,11 +131,12 @@
         hidden_layers: ['mixed4a', 'mixed4d'],
         labels: require('../../static/examples/labels.json'),
         current_logit: null,
-        hoveredLayer: "",
-        hoveredElement: "",
+        hoveredLayer: "logit",
+        hoveredElement: "0",
         spacing: 30,
         width: 900,
         height: 600,
+        maskOpacity: 0,
       }
     },
     
@@ -135,6 +146,19 @@
           this.set({group_data});
         });
       });
+      this.observe('hovered', (hovered) => {
+        var split = hovered.split("|")
+        var example = split[0]
+        var hoveredLayer = split[1]
+        var hoveredElement = split[2]
+        if(hoveredLayer !== "logit") {
+          var maskUrl = `examples/groups/${example}/${hoveredLayer}/each_group/${hoveredElement}/dream_overlay_vlight.jpeg`
+          this.set({maskSource: maskUrl, maskOpacity: 1})
+        } else {
+          this.set({maskOpacity: 0})
+        }
+      })
+      
     },
 
     computed: {
@@ -154,6 +178,12 @@
 
       current_logit(logits) {
 
+      },
+      maskSource($example, hoveredLayer, hoveredElement) {
+      },
+      //combine the things the mask url depends on
+      hovered($example, hoveredLayer, hoveredElement) {
+        return $example + "|" + hoveredLayer + "|" + hoveredElement
       },
 
       // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
@@ -345,6 +375,7 @@
                   {x: tx - dx/2, y: ty},
                   {x: tx, y: ty},
                 ];
+
               var color = "#ccc"
               var opacity = opacityScale(Math.abs(link.attr))
               var weight = weightScale(Math.abs(link.attr))
