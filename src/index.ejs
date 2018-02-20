@@ -713,11 +713,9 @@
     
     <d-footnote>An extreme example of the subtle objective problem is something like "creating interesting art", but much more mundane examples arise more or less whenever humans are involved.</d-footnote>
     
-    One very promising approach to training models for these subtle objectives is learning from <i>human feedback</i> <d-cite key="christiano2017deep"></d-cite>.
+    One very promising approach to training models for these subtle objectives is learning from human feedback <d-cite key="christiano2017deep"></d-cite>.
     
-    <!--One very promising approach to training models for these subtle goals is <i>human feedback</i>, where Christiano <i>et al.</i> <d-cite key="christiano2017deep"></d-cite> have shown that relatively small amounts of human judgement can be used train models via reinforcement learning.-->
-    
-    However, even with human feedback, it may still be hard to train models to behave the way we want if the problematic aspect of the model doesn't surface strongly in the training regime where human's are giving feedback.
+    However, even with human feedback, it may still be hard to train models to behave the way we want if the problematic aspect of the model doesn't surface strongly in the training regime where humans are giving feedback.
     
     <d-footnote>
       There's lots of reasons why problematic behavior may not surface or may be hard for an evaluator to give feedback on.
@@ -727,7 +725,9 @@
       Or the model may be making a decision in a way that has problematic consequences, but those consequences never play out in the problems we're training it on.
     </d-footnote>
     
-    Human feedback on the model's decision making process, facilitated by interpretability interfaces, could be a powerful solution to these problems, allowing us to train models not just to make the right decisions, but to make them <i>for the right reasons</i>.
+    Human feedback on the model's decision making process, facilitated by interpretability interfaces, could be a powerful solution to these problems.
+    
+    It might allow us to train models not just to make the <i>right decisions</i>, but to make them <i>for the right reasons</i>.
 
     (There is however a danger here: we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
   </p>
