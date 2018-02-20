@@ -1,0 +1,69 @@
+<:Window bind:scrollY='scrollY' />
+
+<div class="root" >
+    <div class="sticky base-grid">
+        <div style="grid-column: page;">
+        {{#each examples as ex}} 
+        <img 
+            src="examples/input_images/{{ex}}.png" 
+            alt="{{ex}}" 
+            class="{{ex === $example ? 'selected' : ''}}" 
+            on:click="store.set({example: ex})"
+        />
+        {{/each}}
+        </div>
+    </div>
+</div>
+
+<style>
+    .test {
+        position: sticky;
+    }
+    .root {
+        position: relative;
+    }
+    .sticky {
+        position: fixed;
+        top: 1px;
+        width: 100%;
+    }
+
+    .root img {
+        width: 44px;
+        cursor: pointer;
+        opacity: 0.4;
+        border: 3px solid transparent;
+        border-radius: var(--border-radius);
+    }
+
+    img.selected,
+    img.selected:hover {
+        border-color: #ff6600;
+        opacity: 0.8;
+    }
+
+    img:hover {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    const examples = require('../../static/examples').examples;
+
+    export default {
+        data() {
+            return { examples };
+        },
+
+        oncreate() {
+            this.observe('scrollY', scrollY => {
+                console.log(scrollY);
+            });
+        },
+
+
+        methods: {
+
+        }
+    }
+</script>

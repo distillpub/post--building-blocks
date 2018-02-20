@@ -1,4 +1,5 @@
 <:Window on:resize="measure()" />
+
 <div ref:root class="container base-grid" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
   {{#if ready}}
 
@@ -482,6 +483,7 @@
 
   import {range} from '../util';
   import ExamplePicker from './ExamplePicker.html';
+
   import Sprite from './Sprite.html';
 
   const examples = require('../../static/examples').examples;
