@@ -37,28 +37,38 @@
   {{#if $dict_pos && $top_act}}
   <div class="output_dict" style="--neuron-size: {{neuron_size}}px;">
     <div class="semantic_dict">
-      <div class="neuron">
-        <div class="bar" style="height: 0px;"></div>
-        <div class="spacer"></div>
-        <span></span>
-        <Sprite bg_img="examples/activations/{{$example}}/mixed4d.jpeg" size="{{neuron_size}}"
-          sprite_size="46" x={{$dict_pos[0]}} y={{$dict_pos[1]}}></Sprite>
+      
+      <div>
+        <div class="dict-container">
+          <div class="neuron">
+            <div class="bar" style="height: 0px;"></div>
+            <div class="spacer"></div>
+            <span></span>
+            <Sprite bg_img="examples/activations/{{$example}}/mixed4d.jpeg" size="{{neuron_size}}"
+              sprite_size="46" x={{$dict_pos[0]}} y={{$dict_pos[1]}}></Sprite>
+          </div>
+        </div>
+        <figcaption>Activation Vector</figcaption>
       </div>
 
       <span class="annotation">=</span>
 
-      {{#each top_acts as top}}
-      <div class="neuron">
-        <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
-        <div class="spacer"></div>
-        <span>{{(top[1]+'').slice(0,4)}}</span>
-        <Sprite src_class="sprite_mixed4d_channel" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
+      <div>
+        <div class="dict-container">
+          {{#each top_acts as top}}
+            <div class="neuron">
+              <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
+              <div class="spacer"></div>
+              <span>{{(top[1]+'').slice(0,4)}}</span>
+              <Sprite src_class="sprite_mixed4d_channel" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
+            </div>
+            <span class="annotation">+</span>
+          {{/each}}
+          <span class="annotation">...</span>
+        </div>
+        <figcaption>Channels</figcaption>
       </div>
 
-      <span class="annotation">+</span>
-      {{/each}}
-
-      <span class="annotation">...</span>
     </div>
   </div>
   {{/if}}
@@ -124,9 +134,16 @@
     display: flex;
     justify-content: left;
   }
+  
+  .dict-container {
+    display: flex;
+    justify-content: left;
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+  }
 
   .neuron {
     height: calc(var(--neuron-size) + 40);
+    height: 180px;
   }
 
   .neuron .inner { border-radius: var(--border-radius); }
@@ -160,6 +177,10 @@
   }
 
   span.annotation:first-of-type { margin: auto 15px; }
+  
+  .semantic_dict figcaption {
+    padding-top: 5px;
+  }
 </style>
 
 <script>
