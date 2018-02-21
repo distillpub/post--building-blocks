@@ -1,6 +1,6 @@
-<:Window bind:scrollY="scrollY" />
+<:Window bind:scrollY="scrollY" bind:innerWidth="winWidth" />
 
-<div refs:layerDiv class="layer" style="--cell-size: {{cell_size}}px; 
+<div ref:layerDiv class="layer" style="--cell-size: {{cell_size}}px; 
   --layer-size: {{layer_size}}px; width: {{layer_size}}px;">
 
   <slot name="background"></slot>
@@ -21,7 +21,7 @@
   {{#if show_zoom}}
     <div class="sprite_container {{$ag_pos_hover === undefined ? 'transition' : ''}} 
                 {{$ag_layer_hover === layer ? 'layer_hover' : ''}}" 
-      style="left: {{pos[0]+15}}px; top: {{pos[1]+15}}px;">
+      style="left: {{zoom_left}}px; top: {{pos[1]+15}}px;">
       <Sprite bg_img="examples/activations/{{$example}}/{{layer}}.jpeg" 
         size="74" sprite_size="{{sprite_cell_size}}" 
         x="{{pos_snap[0]}}" y="{{pos_snap[1]}}"></Sprite>
@@ -39,7 +39,6 @@
   }
 
   .layer p {
-    margin-top: 10px;
     font-size: 90%;
     font-weight: bold;
   }
@@ -130,6 +129,13 @@
           Math.floor(layers[layer][0] * pos[0] / layer_size),
           Math.floor(layers[layer][0] * pos[1] / layer_size)
         ];
+      },
+
+      zoom_left (pos, layer_size) {
+        const width = 75;
+        const margin = 15;
+        return pos[0] + margin + width < layer_size ?
+          pos[0] + margin : pos[0] - margin - width;
       }
     },
 

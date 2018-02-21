@@ -5,14 +5,25 @@
 
     <!-- Intro -->
     <div class="intro">
-      <div><p>
+      <!-- <div><p>
         In machine learning, we often struggle to answer complex questions about network behavior, such as 
         “Why does a neural network classify this image as a 
         <b>{{left_selected_class_label}}</b>
         and not a
         <b>{{right_selected_class_label}}</b>?” 
         In this first example, we prototype an interface combining feature visualization and class attribution that starts to provide an answer to such questions that would not be possible with either technique in isolation.
-      </p></div>
+      </p></div> -->
+      <div>
+        <p>
+          For instance, by combining feature visualization (<i>what is a neuron looking for?</i>) 
+          with attribution (<i>how does it affect the output?</i>), we can explore how 
+          the network decides between labels like
+          <b>{{left_selected_class_label}}</b> 
+          and
+          <b>{{right_selected_class_label}}</b>.
+        </p>
+      </div>
+
       <div>
         <div ref:input_image class="input_image">
           <img src="examples/input_images/{{$example}}.png" />

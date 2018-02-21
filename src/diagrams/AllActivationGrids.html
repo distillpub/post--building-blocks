@@ -1,7 +1,6 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div ref:container class="all_act_grids" on:scroll="sync_scroll(event)" 
-  style="height: {{layer_size + 40}}px;">
+<div ref:container class="all_act_grids">
 
   <div style="--layer-size: {{layer_size}}px;
     width: {{(layer_size + 25) * layer_names.length}}px;">
@@ -14,7 +13,7 @@
 </div>
 
 {{#if magnitude == false}}
-<figcaption class="l-body" style="margin-top: 20px; margin-left: 10px;">
+<figcaption class="l-body" style="margin-left: 10px;">
   Reproduce activation grids in a
   <a href="https://goo.gl/cUZ9Uo" style="border: none;">
     <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
@@ -26,11 +25,11 @@
 {{/if}}
 
 <style>
-  .all_act_grids {
+  /* .all_act_grids {
     width: 100%;
     overflow-x: scroll; 
     overflow-y: hidden;
-  }
+  } */
 
   .sprite_container {
     padding: 5px;
@@ -56,18 +55,12 @@
     },
 
     oncreate() {
-      this.set({layer_size: calc_layer_size(this.refs.container, 3.25)});
+      this.set({layer_size: calc_layer_size(this.refs.container, 4)});
     },
 
     computed: {
       layer_size (winWidth, num_layer_width) {
         return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'), 3.25);
-      }
-    },
-
-    methods: {
-      sync_scroll (event) {
-        document.querySelectorAll('.all_act_grids').forEach((d) => d.scrollLeft = event.target.scrollLeft);
       }
     },
     
