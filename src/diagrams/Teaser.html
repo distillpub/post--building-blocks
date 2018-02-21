@@ -1,17 +1,17 @@
 <:Window on:resize="measure()" />
 
-<div ref:root class="container base-grid" style="--img-size: {{img_size}}px;" on:click="set({change_label: null})">
+<div ref:root class="container" style="grid-column: screen; --img-size: {{img_size}}px;" on:click="set({change_label: null})">
   {{#if ready}}
 
     <!-- Intro -->
     <div class="intro">
       <div><p>
-        For instance, by combining feature visualization and class attribution we can 
-        start to answer complex questions like, 
-        “How does a neural network decide between a 
+        In machine learning, we often struggle to answer complex questions about network behavior, such as 
+        “Why does a neural network classify this image as a 
         <b>{{left_selected_class_label}}</b>
-        and a
-        <b>{{right_selected_class_label}}</b>?”
+        and not a
+        <b>{{right_selected_class_label}}</b>?” 
+        In this first example, we prototype an interface combining feature visualization and class attribution that starts to provide an answer to such questions that would not be possible with either technique in isolation.
       </p></div>
       <div>
         <div ref:input_image class="input_image">
@@ -41,134 +41,140 @@
     </div>
 
 
-    <!-- Headers -->
-    <div class="headers">
-      <div class="left">
+    <div class="table">
+
+      <div class="cell">
         <div>
-          <span>Channels that most support</span>
-          <div class="wrapper">
-            <select bind:value="left_selected_class">
-              {{#each left_classes as c}}
-              <option value="{{c.c}}" disabled={{c.c===right_selected_class}}>{{c.label}}</option>
-              {{/each}}
-            </select>
+          <h4>channels that most support …</h4>
+        </div>
+      </div>
+      <!-- Headers -->
+      <div class="headers">
+        <div class="cell left">
+          <div>
+            <div class="wrapper">
+              <select bind:value="left_selected_class">
+                {{#each left_classes as c}}
+                <option value="{{c.c}}" disabled={{c.c===right_selected_class}}>{{c.label}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="arrow_container">
+            <svg class="arrow" width="1000" height="12">
+              <path d="M0,6L1000,6M6,0L0,6L6,12" />
+            </svg>
           </div>
         </div>
-        <div class="arrow_container">
-          <svg class="arrow" width="1000" height="12">
-            <path d="M0,6L1000,6M6,0L0,6L6,12" />
+
+        <div class="flow">
+          <svg width="40" height="120">
+            <path d="M20,0 L20,108 S20,118 10,118 L0,118 M20,108 S20,118 30,118 L40,118" />
+          </svg>
+        </div>
+
+        <div class="cell right">
+          <div class="arrow_container">
+            <svg class="arrow" width="1000" height="12">
+              <path d="M0,6L1000,6M994,0L1000,6L994,12" />
+            </svg>
+          </div>
+          <div>
+            <div class="wrapper">
+              <select bind:value="right_selected_class">
+                {{#each right_classes as c}}
+                <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chooser -->
+      <!-- <div style="display: flex; justify-content: space-evenly; flex-direction: row; align-items: center; grid-column: middle;margin-bottom: 10px;background: rgba(0, 0, 0, 0); border-radius: 4px; height: 14px;">
+        {{#each channels as channel}}
+        <div class="channel" style="width: 2px; height: 2px; background: black;"></div>
+        {{/each}}
+      </div> -->
+
+      <!-- Feature Viz -->
+
+      <div class="row_label cell">
+        feature visualization
+        <div class="prompt">
+          hover for attribution maps
+          <svg width=14 height=18>
+            <path d="M0,9 L12,9 M9,6 L12,9 L9,12"/>
           </svg>
         </div>
       </div>
-
-      <div class="flow">
-        <svg width="20" height="120">
-          <path d="M10,0 L10,108 S10,118 0,118 M10,108 S10,118 20,118" />
-        </svg>
-      </div>
-
-      <div class="right">
-        <div class="arrow_container">
-          <svg class="arrow" width="1000" height="12">
-            <path d="M0,6L1000,6M994,0L1000,6L994,12" />
-          </svg>
-        </div>
-        <div>
-          <span>Channels that most support</span>
-          <div class="wrapper">
-            <select bind:value="right_selected_class">
-              {{#each right_classes as c}}
-              <option value="{{c.c}}" disabled={{c.c === left_selected_class}}>{{c.label}}</option>
-              {{/each}}
-            </select>
+      <div class="features" on:mouseleave="set({hover_channel: null})">
+        {{#each left_selected_data as d, i}}
+          <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+            <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chooser -->
-    <!-- <div style="display: flex; justify-content: space-evenly; flex-direction: row; align-items: center; grid-column: middle;margin-bottom: 10px;background: rgba(0, 0, 0, 0); border-radius: 4px; height: 14px;">
-      {{#each channels as channel}}
-      <div class="channel" style="width: 2px; height: 2px; background: black;"></div>
-      {{/each}}
-    </div> -->
-
-    <!-- Feature Viz -->
-
-    <div class="row_label">
-      feature visualization
-      <div class="prompt">
-        hover for attribution maps
-        <svg width=14 height=18>
-          <path d="M0,9 L12,9 M9,6 L12,9 L9,12"/>
-        </svg>
-      </div>
-    </div>
-    <div class="features" on:mouseleave="set({hover_channel: null})">
-      {{#each left_selected_data as d, i}}
-        <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        {{/each}}
+        <div class="divider"></div>
+        {{#each right_selected_data as d, i}}
+        <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
           <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
         </div>
-      {{/each}}
-      <div class="divider"></div>
-      {{#each right_selected_data as d, i}}
-      <div class="neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="width: {{neuron_img_size}}px; height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
-        <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
+        {{/each}}
       </div>
-      {{/each}}
-    </div>
 
 
-    <!-- Evidence -->
-    <div class="row_label">net evidence</div>
-    <div class="evidence net">
-      {{#each left_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
-          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
-        </div>
-      {{/each}}
-      <div class="divider"></div>
-      {{#each right_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
-          <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
-        </div>
-      {{/each}}
-    </div>
+      <!-- Evidence -->
+      <div class="row_label cell">net evidence</div>
+      <div class="evidence net">
+        {{#each left_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+            <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+          </div>
+        {{/each}}
+        <div class="divider"></div>
+        {{#each right_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="opacity: {{evidence_opacity(Math.abs(d.nv0 - d.nv1))}};"></span>
+            <span>{{evidence_format(Math.abs(d.nv0 - d.nv1))}}</span>
+          </div>
+        {{/each}}
+      </div>
 
-    <div class="row_label">for "{{left_selected_class_label}}"</div>
-    <div class="evidence">
-      {{#each left_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
-          <span>{{evidence_format(d.nv0)}}</span>
-        </div>
-      {{/each}}
-      <div class="divider"></div>
-      {{#each right_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
-          <span>{{evidence_format(d.nv0)}}</span>
-        </div>
-      {{/each}}
-    </div>
+      <div class="row_label cell">for "{{left_selected_class_label}}"</div>
+      <div class="evidence">
+        {{#each left_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
+            <span>{{evidence_format(d.nv0)}}</span>
+          </div>
+        {{/each}}
+        <div class="divider"></div>
+        {{#each right_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="background-color: {{d.nv0 > 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv0))}};"></span>
+            <span>{{evidence_format(d.nv0)}}</span>
+          </div>
+        {{/each}}
+      </div>
 
-    <div class="row_label">for "{{right_selected_class_label}}"</div>
-    <div class="evidence">
-      {{#each left_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
-          <span>{{evidence_format(d.nv1)}}</span>
-        </div>
-      {{/each}}
-      <div class="divider"></div>
-      {{#each right_selected_data as d, i}}
-        <div class="value">
-          <span class="background" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
-          <span>{{evidence_format(d.nv1)}}</span>
-        </div>
-      {{/each}}
+      <div class="row_label cell">for "{{right_selected_class_label}}"</div>
+      <div class="evidence">
+        {{#each left_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
+            <span>{{evidence_format(d.nv1)}}</span>
+          </div>
+        {{/each}}
+        <div class="divider"></div>
+        {{#each right_selected_data as d, i}}
+          <div class="cell value">
+            <span class="swatch" style="background-color: {{d.nv1 < 0 ? 'var(--blue)' : 'var(--orange)'}};opacity: {{evidence_opacity(Math.abs(d.nv1))}};"></span>
+            <span>{{evidence_format(d.nv1)}}</span>
+          </div>
+        {{/each}}
+      </div>
     </div>
 
 
@@ -196,18 +202,35 @@
 </figcaption>
 
 <style>
+  p {
+    text-align: left;
 
-  .container {
-    margin: 40px 0;
+  }
+    .container {
+    margin: 40px 20px;
     position: relative;
     --blue: #3497FF;
     --orange: #ff6600;
   }
 
   .intro {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .table {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    grid-gap: 0 10px;
+  }
+
+
+
+  .intro {
     grid-column: middle;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1.5fr;
+    grid-template-columns: 1.7fr 1fr 1fr;
     grid-column-gap: 30px;
   }
 
@@ -272,27 +295,37 @@
     stroke-width: 0.01px;
   }
 
-  .row_label {
-    margin-top: 4px;
-    font-size: 12px;
+  h4 {
     line-height: 1.2em;
-    grid-column: screen-start/middle-start;
-    text-align: right;
+    margin: 0 0 8px;
+    position: relative; 
+    top: 2px; 
+    font-weight: 700; 
+    font-size: 14px; 
+    text-transform: uppercase;
+  }
+
+
+
+  .row_label {
     position: relative;
   }
 
   .row_label .prompt {
+    font-size: 12px;
+    line-height: 1.2em;
     position: absolute;
     bottom: 20%;
     right: 0;
     max-width: 100px;
     font-style: italic;
     opacity: 0.5;
+    padding-right: 15px;
   }
 
   .row_label .prompt svg {
     position: absolute;
-    right: -17px;
+    right: 0px;
     top: 1em;
   }
 
@@ -302,11 +335,9 @@
   }
 
   .headers {
-    margin-top: -12px;
-    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 0px 1fr;
-    grid-column-gap: 10px;
+    grid-column-gap: 20px;
   }
 
   .headers .flow {
@@ -316,7 +347,7 @@
   .headers .flow svg {
     position: absolute;
     bottom: 29px;
-    left: -10px;
+    left: -20px;
   }
   .headers .left {
     display: grid;
@@ -336,12 +367,12 @@
   }
   .headers .left .arrow {
     position: absolute;
-    bottom: 25px;
+    bottom: 20px;
     left: 20px;
   }
   .headers .right .arrow {
     position: absolute;
-    bottom: 25px;
+    bottom: 20px;
     right: 20px;
   }
   .headers svg path {
@@ -371,10 +402,11 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     padding: 0.5em 2em 0.5em 0.8em;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-    margin: 2px 0 12px 0;
+    margin: 2px 0 2px 0;
   }
 
   .headers .left select {
@@ -407,55 +439,62 @@
   }
 
   .features {
-    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
-    padding-bottom: 4px;
   }
 
   .evidence {
-    grid-column: middle;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
     grid-column-gap: 15px;
   }
 
-  .evidence .value {
-    text-align: center;
+  .cell {
+    line-height: 1.7em;
     font-size: 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 4px 0;
     position: relative;
   }
 
-  .evidence .value span {
+  .value {
+    text-align: center;
+    position: relative;
+  }
+
+  .value span {
     display: block;
     position: relative;
     width: 100%;
     height: 100%;
   }
 
-  .evidence .value span.background {
+  .value span.swatch {
+    text-align: center;
     position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: 4px;
+    width: 100%;
+    height: calc(100% - 6px);
+    top: 3px;
+    border-radius: 3px;
   }
 
-  .evidence.net .value:nth-child(-n+3) .background{
+  .evidence.net .value:nth-child(-n+3) .swatch{
     background: var(--blue);
   }
 
-  .evidence.net .value:nth-last-child(-n+3) .background{
+  .evidence.net .value:nth-last-child(-n+3) .swatch{
     background: var(--orange);
   }
 
-  .neuron {
+  .cell.neuron {
     position: relative;
     justify-content: center;
     cursor: pointer;
     border-radius: 4px;
     overflow: hidden;
+    padding: 0;
+    margin: 3px 0;
   }
 
   .neuron.neuron_hover:after {
