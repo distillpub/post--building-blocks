@@ -56,7 +56,7 @@
     <span class="annotation"> ... }</span>
   </div>
   
-  <figcaption class="l-body" style="margin-top: 20px;">
+  <figcaption class="l-body interactive-caption" style="margin-top: 20px;">
     {{#if $example == 'dog_cat'}}
       There seem to be detectors for 
       <a on:click="store.set({dict_pos: [1,4]})"
@@ -64,7 +64,7 @@
        floppy ears</a>, 
       <a on:click="store.set({dict_pos: [6,4]})" 
         style="{{pos_in_box([4,6], [3,5])? 'font-weight: bold;' : ''}}">
-        dog snout</a>, 
+        dog snouts</a>, 
       <a on:click="store.set({dict_pos: [10,6]})" 
         style="{{pos_in_box([9,11], [5,6])? 'font-weight: bold;' : ''}}">
         cat heads</a>, 
@@ -75,6 +75,14 @@
       <a on:click="store.set({dict_pos: [8,12]})" 
         style="{{pos_in_box([0,12], [12,13])? 'font-weight: bold;' : ''}}">
         grass</a>.
+      <br>
+      {{#if pos_in_box([0,2], [3,5])}}
+        GoogLeNet has a rich variety of ear detectors which help it distinguish between 100 species of dog.
+      {{elseif pos_in_box([0,12], [12,13])}}
+        Despite there being detectors for grass, they fire very weakly, suggesting it isn't very "interesting."
+      {{else}}
+        <br>
+      {{/if}}
     {{elseif $example == 'flowers'}}
       There seem to be detectors for 
       <a on:click="store.set({dict_pos:[6,8]})" 
@@ -100,7 +108,7 @@
         style="{{pos_in_box([5,7], [1,2])? 'font-weight: bold;' : ''}}">
         sunglasses</a>,
       <a on:click="store.set({dict_pos: [6,4]})"
-        style="{{(pos_in_box([5,8], [4,4]))? 'font-weight: bold;' : ''}}">
+        style="{{(pos_in_box([5,8], [3,4]))? 'font-weight: bold;' : ''}}">
         faces</a>,
       and
       <a on:click="store.set({dict_pos: [7,7]})"
@@ -227,6 +235,10 @@ sub { font-size: 65%; }
 .semantic_dict span.comma {
   padding-left: 10px;
   padding-right: 15px;
+}
+
+.interactive-caption a {
+  cursor: pointer;
 }
 </style>
 
