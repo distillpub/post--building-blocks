@@ -40,10 +40,6 @@
       padding-left: 90px;
     }
 
-    figure.act-grids {
-      overflow: hidden;
-    }
-
     #AttributionSpatial {
       background: var(--gray-bg);
       padding: 20px 0;
@@ -179,7 +175,7 @@
 
 <d-article>
   <p>
-    There is a growing sense that we need to be able to explain the decisions of neural networks.
+    With the growing success of neural networks, there is a corresponding need to be able to explain their decisions -- including building confidence about how they will behave in the real-world, detecting model bias, and for scientific curiosity.
 
     In order to do so, we need to both construct deep abstractions and reify (or instantiate) them in rich interfaces <d-cite key="nielsen2016thought"></d-cite>.
 
@@ -187,11 +183,11 @@
   </p>
 
   <p>
-    The machine learning community has primarily focused on developing powerful methods, such as feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite> attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability,sundararajan2017axiomatic"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
+    The machine learning community has primarily focused on developing powerful methods, such as <a href="https://distill.pub/2017/feature-visualization/">feature visualization</a> <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability,sundararajan2017axiomatic"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
 
     However, these techniques have been studied as isolated threads of research, and the corresponding work of reifying them has been neglected.
 
-    On the other hand, the human-computer interaction community has begun to explore rich user interfaces for neural networks <d-cite key="strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, but they have not yet engaged deeply with all the necessary abstractions. 
+    On the other hand, the human-computer interaction community has begun to explore rich user interfaces for neural networks <d-cite key="strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, but they have not yet engaged deeply with these abstractions. 
 
     To the extent these abstractions have been used, it has been in fairly standard ways.
 
@@ -207,7 +203,7 @@
 
     Moreover, this grammar allows us to systematically explore the space of interpretability interfaces, enabling us to evaluate whether they meet particular goals.
 
-    We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
+    We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping the amount of information <i>human-scale</i>.
 
     For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
     <!-- Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing." -->
@@ -222,7 +218,7 @@
   <p>
     In this article, we use GoogLeNet<d-cite key="szegedy2015going"></d-cite>, an image classification model, to demonstrate our interface ideas.<d-footnote>Neurons in GoogLeNet seems to be unusually semantically meaningful. We're actively investigating why this is, and hope to uncover principles for designing interpretable models. In the mean time, while we demonstrate our techniques on GoogLeNet, we provide code for you to try them on other models.</d-footnote>
 
-    Despite this, all the ideas in this article are general, and could be applied to neural networks in other domains.
+    Despite this, the basic abstractions and patterns for combining them that we present can be applied to neural networks in other domains.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -402,10 +398,12 @@
     The activation grids allow us to anchor attribution to the visual vocabulary our semantic dictionaries first established.
 
     On hover, we update the legend to depict attribution to the output classes (i.e., which classes does this spatial position most contribute to?).
+  </p>
 
-    Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers.
+  <p>
+    Perhaps most interestingly, this interface allows us to interactively perform attribution <i>between hidden layers</i>.
 
-    In doing so, we interactively perform layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
+    On hover, additional saliency maps mask the hidden layers, in a sense shining a light into their black boxes.
 
     This type of layer-to-layer attribution is a prime example of how carefully considering interface design drives the generalization of our existing abstractions for interpretability.
   </p>
@@ -413,9 +411,9 @@
   <p>
     With this diagram, we have begun to think of attribution in terms of higher-level concepts.
 
-    However, by continuing to focus on spatial positions, these concepts remain entangled.
-
-    At a particular position, many concepts are being detected together and this interface makes it difficult to split them apart.
+    However, at a particular position, many concepts are being detected together and this interface makes it difﬁcult to split them apart. 
+    
+    By continuing to focus on spatial positions, these concepts remain entangled.
   </p>
 
   <h3>Channel Attribution</h3>
