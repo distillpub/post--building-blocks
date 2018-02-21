@@ -315,7 +315,7 @@ sub { font-size: 65%; }
       },
 
       pointer_line_path: (N, pos, vector_y) => {
-        var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
+        var start_y = Math.min(Math.max(vector_y, pos[1]), pos[1]+1);
         var y_dist = Math.abs(start_y - vector_y);
         var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${vector_y} L ${N[0]+1.5} ${vector_y}`
