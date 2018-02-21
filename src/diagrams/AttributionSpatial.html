@@ -229,6 +229,8 @@
   import {calc_layer_size, range} from '../util';
   const layers = require('../../static/examples').layers;
 
+  const images = [];
+
   export default {
     data() {
       return {
@@ -238,7 +240,24 @@
     },
 
     oncreate() {
+      const hl = this.get('hidden_layers');
+
       this.store.observe('example', (example) => {
+        images.splice(0);
+        for (let i = hl.length - 1; i >= 0; i--) {
+          for (let j = i - 1; j >= 0; j--) {
+            const fwd = new Image(), back = new Image();
+            fwd.src = `examples/attributions/${example}/${hl[j]}-${hl[i]}.png`
+            back.src = `examples/attributions/${example}/${hl[i]}-${hl[j]}.png`
+            images.push(fwd, back);
+          }
+
+          const nmf = new Image(), out = new Image();
+          nmf.src = `examples/attributions/${example}/nmf-${hl[i]}.png`;
+          out.src = `examples/attributions/${example}/output-${hl[i]}.png`;
+          images.push(nmf, out);
+        }
+
         loadJSON(`examples/attributions/${example}/spatial_attr.json`, (err, attr_data) => {
           this.set({attr_data, layer_size: calc_layer_size(this.refs.container, 4)});
         });
