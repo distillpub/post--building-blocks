@@ -3,6 +3,7 @@ import {Store} from 'svelte/store.js';
 
 import Teaser from './diagrams/Teaser.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
+// import StickyPicker from './diagrams/StickyPicker.html';
 import SemanticDict from './diagrams/SemanticDict.html';
 import ActivationVecVis from './diagrams/ActivationVecVis.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
@@ -16,6 +17,11 @@ import CubeNatural from './diagrams/CubeNatural.html';
 
 const store = window.store = new Store({example: 'dog_cat'});
 loadJSON('examples/labels.json', (err, labels) => store.set({labels}));
+
+// const stickyPicker = new StickyPicker({
+//   target: document.getElementById('StickyPicker'),
+//   store
+// });
 
 const teaser = window.teaserFig = new Teaser({
   target: document.getElementById('Teaser'),
