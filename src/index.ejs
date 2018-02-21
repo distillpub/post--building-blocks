@@ -18,7 +18,8 @@
     }
 
     d-title h1, d-title p {
-      grid-column: middle;
+      grid-column: page;
+      text-align: center;
     }
 
     @media (max-width: 1280px) {
@@ -37,10 +38,6 @@
     figure.full-width {
       grid-column: screen;
       padding-left: 90px;
-    }
-
-    figure.act-grids {
-      overflow: hidden;
     }
 
     #AttributionSpatial {
@@ -114,7 +111,7 @@
 
 <d-front-matter>
   <script type="text/json">{
-  "title": "Interpretability as Interface Design",
+  "title": "The Building Blocks of Interpretability",
   "description": "Description of the post",
   "password": "interfaces",
   "authors": [
@@ -173,13 +170,12 @@
     Interpretability techniques are normally studied in isolation.<br>
     We explore the powerful interfaces that arise when you combine them — <br class="conditional">and the rich structure of this combinatorial space.
   </p>
-
   <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
 </d-title>
 
 <d-article>
   <p>
-    There is a growing sense that we need to be able to explain the decisions of neural networks.
+    With the growing success of neural networks, there is a corresponding need to be able to explain their decisions -- including building confidence about how they will behave in the real-world, detecting model bias, and for scientific curiosity.
 
     In order to do so, we need to both construct deep abstractions and reify (or instantiate) them in rich interfaces <d-cite key="nielsen2016thought"></d-cite>.
 
@@ -187,11 +183,11 @@
   </p>
 
   <p>
-    The machine learning community has primarily focused on developing powerful methods, such as feature visualization <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite> attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability,sundararajan2017axiomatic"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
+    The machine learning community has primarily focused on developing powerful methods, such as <a href="https://distill.pub/2017/feature-visualization/">feature visualization</a> <d-cite key="erhan2009visualizing,olah2017feature,simonyan2013deep,nguyen2015deep,mordvintsev2015inceptionism,nguyen2016plug"></d-cite>, attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,kindermans2017reliability,sundararajan2017axiomatic"></d-cite>, and dimensionality reduction <d-cite key="maaten2008visualizing"></d-cite>, for reasoning about neural networks. 
 
     However, these techniques have been studied as isolated threads of research, and the corresponding work of reifying them has been neglected.
 
-    On the other hand, the human-computer interaction community has begun to explore rich user interfaces for neural networks <d-cite key="strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, but they have not yet engaged deeply with all the necessary abstractions. 
+    On the other hand, the human-computer interaction community has begun to explore rich user interfaces for neural networks <d-cite key="strobelt2018lstmvis,kahng2018cti,bilal2018convolutional"></d-cite>, but they have not yet engaged deeply with these abstractions. 
 
     To the extent these abstractions have been used, it has been in fairly standard ways.
 
@@ -207,7 +203,7 @@
 
     Moreover, this grammar allows us to systematically explore the space of interpretability interfaces, enabling us to evaluate whether they meet particular goals.
 
-    We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping things <i>human-scale</i>.
+    We will present interfaces that show <i>what</i> the network detects and explain <i>how</i> it develops its understanding, while keeping the amount of information <i>human-scale</i>.
 
     For example, we will see how a network looking at a labrador retriever detects floppy ears and how that influences its classification.
     <!-- Similarly, when the network looks at an image of a woman with a punching bag, we can observe the model's bias in action: the model recognizes a feminine body which decreases the probability of a "punching bag" classification and increase "pole dancing." -->
@@ -222,7 +218,7 @@
   <p>
     In this article, we use GoogLeNet<d-cite key="szegedy2015going"></d-cite>, an image classification model, to demonstrate our interface ideas.<d-footnote>Neurons in GoogLeNet seems to be unusually semantically meaningful. We're actively investigating why this is, and hope to uncover principles for designing interpretable models. In the mean time, while we demonstrate our techniques on GoogLeNet, we provide code for you to try them on other models.</d-footnote>
 
-    Despite this, all the ideas in this article are general, and could be applied to neural networks in other domains.
+    Despite this, the basic abstractions and patterns for combining them that we present can be applied to neural networks in other domains.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -402,10 +398,12 @@
     The activation grids allow us to anchor attribution to the visual vocabulary our semantic dictionaries first established.
 
     On hover, we update the legend to depict attribution to the output classes (i.e., which classes does this spatial position most contribute to?).
+  </p>
 
-    Perhaps most interestingly, hovering displays additional saliency maps that mask the other hidden layers.
+  <p>
+    Perhaps most interestingly, this interface allows us to interactively perform attribution <i>between hidden layers</i>.
 
-    In doing so, we interactively perform layer-to-layer attribution, in a sense shining a light into the black box of these hidden layers.
+    On hover, additional saliency maps mask the hidden layers, in a sense shining a light into their black boxes.
 
     This type of layer-to-layer attribution is a prime example of how carefully considering interface design drives the generalization of our existing abstractions for interpretability.
   </p>
@@ -413,9 +411,9 @@
   <p>
     With this diagram, we have begun to think of attribution in terms of higher-level concepts.
 
-    However, by continuing to focus on spatial positions, these concepts remain entangled.
-
-    At a particular position, many concepts are being detected together and this interface makes it difficult to split them apart.
+    However, at a particular position, many concepts are being detected together and this interface makes it difﬁcult to split them apart. 
+    
+    By continuing to focus on spatial positions, these concepts remain entangled.
   </p>
 
   <h3>Channel Attribution</h3>
@@ -484,7 +482,7 @@
   <p>
     In previous sections, we've considered three ways of slicing the cube of activations: into spatial activations, channels, and individual neurons.
     Each of these has major downsides.
-    If one work's with only spatial activations or channels, they miss out on very important parts of the story.
+    If one only uses spatial activations or channels, they miss out on very important parts of the story.
     For example it's interesting that the floppy ear detector helped us classify an image as a Labrador retriever, but it's much more interesting when that's combined with the locations that fired to do so.
     One can try to drill down to the level of neurons to tell the whole story, but the tens of thousands of neurons are simply too much information.
     Even the hundreds of channels, before being split into individual neurons, can be overwhelming to show users!
@@ -666,11 +664,11 @@
   <p>
     Finally, this is not the complete set of building blocks; as new ones are discovered, they expand the space.
 
-    For example, Koh et al. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
+    For example, Koh & Liang. suggest ways of understanding the influence of dataset examples on model behavior <d-cite key="koh2017understanding"></d-cite>.
 
     We can think of dataset examples as another substrate in our design space, thus becoming another building block that fully composes with the others.
 
-    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh et al. proposed), but also how examples influence the features of hidden layers, and how they influence the relationship between these features and the output.
+    In doing so, we can now imagine interfaces that not only allow us to inspect the influence of dataset examples on the final output classification (as Koh & Liang proposed), but also how examples influence the features of hidden layers, and how they influence the relationship between these features and the output.
 
     For example, if we consider our "Labrador retriever" image, we can not only see which dataset examples most influenced the model to arrive at this classification, but also which dataset examples most caused the "floppy ear" detectors to fire, and which dataset examples most caused these detectors to increase the "Labrador retriever" classification.
   </p>
@@ -695,7 +693,7 @@
         A new substrate.
       </figcaption>
       <figcaption>
-        An interface to understand how dataset examples influence the output classification, as presented by Koh et al.<d-cite key="koh2017understanding"></d-cite>
+        An interface to understand how dataset examples influence the output classification, as presented by Koh & Liang<d-cite key="koh2017understanding"></d-cite>
       </figcaption>
       <figcaption>
         An interface showing how examples influence the channels of hidden layers.
@@ -709,12 +707,40 @@
   <p>
     Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
 
+    While most models today are trained to optimize simple objective functions that one can easily describe, many of the things we'd like models to do in the real world are subtle, nuanced, and hard to describe mathematically.
+    
+    <d-footnote>An extreme example of the subtle objective problem is something like "creating interesting art", but much more mundane examples arise more or less whenever humans are involved.</d-footnote>
+    
+    One very promising approach to training models for these subtle objectives is learning from human feedback <d-cite key="christiano2017deep"></d-cite>.
+    
+    However, even with human feedback, it may still be hard to train models to behave the way we want if the problematic aspect of the model doesn't surface strongly in the training regime where humans are giving feedback.
+    
+    <d-footnote>
+      There's lots of reasons why problematic behavior may not surface or may be hard for an evaluator to give feedback on.
+      
+      For example, discrimination and bias may be subtly present throughout the model's behavior, such that it's hard for a human evaluator to critique.
+      
+      Or the model may be making a decision in a way that has problematic consequences, but those consequences never play out in the problems we're training it on.
+    </d-footnote>
+    
+    Human feedback on the model's decision making process, facilitated by interpretability interfaces, could be a powerful solution to these problems.
+    
+    It might allow us to train models not just to make the <i>right decisions</i>, but to make them <i>for the right reasons</i>.
+
+    (There is however a danger here: we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
+  </p>
+
+<!--
+  <p>
+    Beyond interfaces for analyzing model behavior, if we add model <i>parameters</i> as a substrate, the design space now allows us to consider interfaces for <i>taking action</i> on neural networks.<d-footnote>Note that essentially all our interpretability techniques are differentiable, so you can backprop through them.</d-footnote>
+
     Simple such interfaces could visualize the weights learned by the model and, by making them interactive, provide a opportunity for human-in-the-loop training.
     
     For example, a human might object to a woman's presence reducing the probability of an image being classified as a "punching bag" and adjust the model parameters accordingly.
 
     (The danger here is that we are optimizing our model to look the way we want in our interface -- if we aren't careful, this may lead to the model fooling us!<d-footnote>Related ideas have occasionally been discussed under the term "cognitive steganography."</d-footnote>)
   </p>
+-->
 
   <p>
     Another exciting possibility is interfaces for comparing multiple models.

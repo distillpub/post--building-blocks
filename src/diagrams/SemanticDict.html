@@ -55,9 +55,73 @@
 
     <span class="annotation"> ... }</span>
   </div>
+  
+  <figcaption class="l-body interactive-caption" style="margin-top: 20px;">
+    {{#if $example == 'dog_cat'}}
+      There seem to be detectors for 
+      <a on:click="store.set({dict_pos: [1,4]})"
+       style="{{pos_in_box([0,2], [3,5])? 'font-weight: bold;' : ''}}">
+       floppy ears</a>, 
+      <a on:click="store.set({dict_pos: [6,4]})" 
+        style="{{pos_in_box([4,6], [3,5])? 'font-weight: bold;' : ''}}">
+        dog snouts</a>, 
+      <a on:click="store.set({dict_pos: [10,6]})" 
+        style="{{pos_in_box([9,11], [5,6])? 'font-weight: bold;' : ''}}">
+        cat heads</a>, 
+      <a on:click="store.set({dict_pos: [5,9]})" 
+        style="{{(pos_in_box([3,6], [9,10]) || pos_in_box([9,10], [9,10]))? 'font-weight: bold;' : ''}}">
+        furry legs</a>, 
+      and 
+      <a on:click="store.set({dict_pos: [8,12]})" 
+        style="{{pos_in_box([0,12], [12,13])? 'font-weight: bold;' : ''}}">
+        grass</a>.
+      <br>
+      {{#if pos_in_box([0,2], [3,5])}}
+        GoogLeNet has a rich variety of ear detectors which help it distinguish between 100 species of dog.
+      {{elseif pos_in_box([0,12], [12,13])}}
+        Despite there being detectors for grass, they fire very weakly, suggesting it isn't very "interesting."
+      {{else}}
+        <br>
+      {{/if}}
+    {{elseif $example == 'flowers'}}
+      There seem to be detectors for 
+      <a on:click="store.set({dict_pos:[6,8]})" 
+        style="{{pos_in_box([4,7], [6,8])? 'font-weight: bold;' : ''}}">
+        vases</a>,
+      <a on:click="store.set({dict_pos: [5,1]})"
+        style="{{(pos_in_box([3,7], [2,4]) || (pos[0]==5 && pos[1]==1))? 'font-weight: bold;' : ''}}">
+        flowers</a>,
+      and 
+      <a on:click="store.set({dict_pos: [6,12]})"
+        style="{{pos_in_box([5,13], [11,12])? 'font-weight: bold;' : ''}}">
+        yellow spheres</a>.
+      <br>
+      Interestingly, 
+      <a on:click="store.set({dict_pos: [9,8]})"
+        style="{{(pos_in_box([6,8], [9,9]) || (pos[0]==9 && pos[1]==8))? 'font-weight: bold;' : ''}}">
+        horn detectors</a>
+      seem to double for detecting the vase's handle.
+    {{elseif $example == 'sunglasses_tux'}}
+    
+      There seem to be detectors for
+      <a on:click="store.set({dict_pos: [5,2]})"
+        style="{{pos_in_box([5,7], [1,2])? 'font-weight: bold;' : ''}}">
+        sunglasses</a>,
+      <a on:click="store.set({dict_pos: [6,4]})"
+        style="{{(pos_in_box([5,8], [3,4]))? 'font-weight: bold;' : ''}}">
+        faces</a>,
+      and
+      <a on:click="store.set({dict_pos: [7,7]})"
+        style="{{pos_in_box([6,8], [6,8])? 'font-weight: bold;' : ''}}">
+        chin/bowtie</a>.
+    {{/if}}
+  </figcaption>
 {{/if}}
 
-<figcaption class="l-body" style="margin-top: 20px;">
+
+
+
+<figcaption class="l-body" style="margin-top: 15px;">
   Reproduce semantic dictionaries in a 
   <a href="https://goo.gl/VENUK8" style="border: none;">
     <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
@@ -172,6 +236,10 @@ sub { font-size: 65%; }
   padding-left: 10px;
   padding-right: 15px;
 }
+
+.interactive-caption a {
+  cursor: pointer;
+}
 </style>
 
 <script>
@@ -237,9 +305,17 @@ sub { font-size: 65%; }
 
     computed: {
       pos: ($dict_pos) => $dict_pos || [2, 3],
+      
+      
+      pos_in_box: (pos) => {
+        return (x_bound, y_bound) =>
+          ( pos && x_bound && y_bound
+          && pos[0] >= x_bound[0] && pos[0] <= x_bound[1]
+          && pos[1] >= y_bound[0] && pos[1] <= y_bound[1]);
+      },
 
       pointer_line_path: (N, pos, vector_y) => {
-        var start_y = Math.min(Math.max(1.7, pos[1]), pos[1]+1);
+        var start_y = Math.min(Math.max(vector_y, pos[1]), pos[1]+1);
         var y_dist = Math.abs(start_y - vector_y);
         var main_x_start = Math.min(N[0] + 0.5, pos[0] + 1 + y_dist);
         return `M ${pos[0]+1} ${start_y} L ${main_x_start} ${vector_y} L ${N[0]+1.5} ${vector_y}`
