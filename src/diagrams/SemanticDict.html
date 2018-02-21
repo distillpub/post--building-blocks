@@ -60,20 +60,20 @@
     {{#if $example == 'dog_cat'}}
       There seem to be detectors for 
       <a on:click="store.set({dict_pos: [1,4]})"
-       style="{{pos_in_box([0,2], [3,5])? 'font-weight: bold;' : ''}}">
+       class="{{pos_in_box([0,2], [3,5])? 'selected' : ''}}">
        floppy ears</a>, 
       <a on:click="store.set({dict_pos: [6,4]})" 
-        style="{{pos_in_box([4,6], [3,5])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([4,6], [3,5])? 'selected' : ''}}">
         dog snouts</a>, 
       <a on:click="store.set({dict_pos: [10,6]})" 
-        style="{{pos_in_box([9,11], [5,6])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([9,11], [5,6])? 'selected' : ''}}">
         cat heads</a>, 
       <a on:click="store.set({dict_pos: [5,9]})" 
-        style="{{(pos_in_box([3,6], [9,10]) || pos_in_box([9,10], [9,10]))? 'font-weight: bold;' : ''}}">
+        class="{{(pos_in_box([3,6], [9,10]) || pos_in_box([9,10], [9,10]))? 'selected' : ''}}">
         furry legs</a>, 
       and 
       <a on:click="store.set({dict_pos: [8,12]})" 
-        style="{{pos_in_box([0,12], [12,13])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([0,12], [12,13])? 'selected' : ''}}">
         grass</a>.
       <br>
       {{#if pos_in_box([0,2], [3,5])}}
@@ -86,33 +86,33 @@
     {{elseif $example == 'flowers'}}
       There seem to be detectors for 
       <a on:click="store.set({dict_pos:[6,8]})" 
-        style="{{pos_in_box([4,7], [6,8])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([4,7], [6,8])? 'selected' : ''}}">
         vases</a>,
       <a on:click="store.set({dict_pos: [5,1]})"
-        style="{{(pos_in_box([3,7], [2,4]) || (pos[0]==5 && pos[1]==1))? 'font-weight: bold;' : ''}}">
+        class="{{(pos_in_box([3,7], [2,4]) || (pos[0]==5 && pos[1]==1))? 'selected' : ''}}">
         flowers</a>,
       and 
       <a on:click="store.set({dict_pos: [6,12]})"
-        style="{{pos_in_box([5,13], [11,12])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([5,13], [11,12])? 'selected' : ''}}">
         yellow spheres</a>.
       <br>
       Interestingly, 
       <a on:click="store.set({dict_pos: [9,8]})"
-        style="{{(pos_in_box([6,8], [9,9]) || (pos[0]==9 && pos[1]==8))? 'font-weight: bold;' : ''}}">
+        class="{{(pos_in_box([6,8], [9,9]) || (pos[0]==9 && pos[1]==8))? 'selected' : ''}}">
         horn detectors</a>
       seem to double for detecting the vase's handle.
     {{elseif $example == 'sunglasses_tux'}}
     
       There seem to be detectors for
       <a on:click="store.set({dict_pos: [5,2]})"
-        style="{{pos_in_box([5,7], [1,2])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([5,7], [1,2])? 'selected' : ''}}">
         sunglasses</a>,
       <a on:click="store.set({dict_pos: [6,4]})"
-        style="{{(pos_in_box([5,8], [3,4]))? 'font-weight: bold;' : ''}}">
+        class="{{(pos_in_box([5,8], [3,4]))? 'selected' : ''}}">
         faces</a>,
       and
       <a on:click="store.set({dict_pos: [7,7]})"
-        style="{{pos_in_box([6,8], [6,8])? 'font-weight: bold;' : ''}}">
+        class="{{pos_in_box([6,8], [6,8])? 'selected' : ''}}">
         chin/bowtie</a>.
     {{/if}}
   </figcaption>
@@ -239,6 +239,12 @@ sub { font-size: 65%; }
 
 .interactive-caption a {
   cursor: pointer;
+}
+
+.interactive-caption .selected {
+  font-weight: bold;
+  color: hsl(24, 100%, 50%);
+  border-bottom: 1px solid hsl(24, 100%, 50%);
 }
 </style>
 
