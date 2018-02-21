@@ -274,6 +274,12 @@ sub { font-size: 65%; }
     return sorted_ns.slice(0, 5).map((n) => [n, vec[n]]);
   }
 
+  const DEFAULT_POS = {
+    dog_cat: [1, 4],
+    flowers: [6, 8],
+    sunglasses_tux: [5, 2]
+  };
+
   export default {
     data() {
       return {N: [14, 14]};
@@ -286,6 +292,7 @@ sub { font-size: 65%; }
       this.store.set({dict_pos: this.get('pos')});
 
       this.store.observe('example', (example) => {
+        this.store.set({dict_pos: DEFAULT_POS[example]});
         require(`../../static/examples/npy/${example}_mixed4d_activations.npy`)
           .load((activations) => {
             const _ = this.recalc_pos(activations);
@@ -310,8 +317,7 @@ sub { font-size: 65%; }
     },
 
     computed: {
-      pos: ($dict_pos) => $dict_pos || [2, 3],
-      
+      pos: ($dict_pos, $example) => $dict_pos || DEFAULT_POS[$example],
       
       pos_in_box: (pos) => {
         return (x_bound, y_bound) =>

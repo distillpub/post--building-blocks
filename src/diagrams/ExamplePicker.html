@@ -5,7 +5,7 @@
   {{#each examples as ex}}
     {{#if !hide_selected || ex !== $example}}
       <img src="examples/input_images/{{ex}}.png" alt="{{ex}}" 
-        class="{{ex === $example ? 'selected' : ''}}" on:click="set_example_smart(ex)" />
+        class="{{ex === $example ? 'selected' : ''}}" on:click="store.set({example: ex})" />
     {{/if}}
   {{/each}}
 </div>
@@ -128,24 +128,6 @@
               examples: [example].concat(examples.filter(e => e !== example))
             });
           }, 500);
-        }
-      },
-      
-      set_example_smart(ex){
-        if (ex == store.get('example'))
-        var smart_pos = undefined;
-        if (ex == 'dog_cat') {
-          smart_pos = [1, 4];
-        } else if (ex == 'flowers'){
-          smart_pos = [6, 8];
-        } else if (ex == 'flowers'){
-          smart_pos = [5, 2];
-        }
-        console.log(ex, smart_pos);
-        if (smart_pos != undefined) {
-          store.set({example: ex, dict_pos: smart_pos});
-        } else {
-          store.set({example: ex});
         }
       }
     },
