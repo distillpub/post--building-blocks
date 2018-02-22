@@ -9,7 +9,7 @@
     body {
       --gray-bg: hsl(0, 0%, 97%);
       --gray-border: rgba(0, 0, 0, 0.1);
-      --border-radius: 7px;
+      --border-radius: 5px;
     }
 
     d-title {
@@ -68,25 +68,23 @@
 
     .attribution_list li {
       position: relative;
-      display: flex;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-column-gap: 10px;
       margin-bottom: 0;
-      font-size: 90%;
       text-transform: capitalize;
+      width: 100%;
     }
 
     .attribution_list li span {
-      display: inline-block;
-      width: 150px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      margin-right: 10px;
     }
 
     .attribution_list .scent {
       display: flex;
       position: relative;
-      width: 40px;
       align-items: center;
     }
 
@@ -94,7 +92,7 @@
       position: absolute;
       left: 0;
       background: #ccc;
-      height: calc(100% - 10px);
+      height: 10px;
     }
 
     .red { color: #c82829; }
@@ -434,7 +432,7 @@
     (This approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.)
   </p>
 
-  <figure class="base-grid" id="AttributionChannel"></figure>
+  <figure style="grid-column: screen;" id="AttributionChannel"></figure>
 
   <p>
     This diagram is analogous to the previous one we saw: we conduct layer-to-layer attribution but this time over channels rather than spatial positions.

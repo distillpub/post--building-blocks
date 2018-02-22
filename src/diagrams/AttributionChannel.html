@@ -1,98 +1,134 @@
+<:Window on:resize="measure()" />
+
 {{#if attr_data && $labels}}
-<div class="side_labels" style="grid-column: kicker;">
-  <div>
-    <p class="heading">Input Image</p>
-  
-    <div class="input_image">
-      <img src="examples/input_images/{{$example}}.png" /> 
-      {{#if hover.length || selected !== 'output'}}
-        <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
-          bg_img="examples/activations/{{$example}}/sprite_{{hover[0] || selected[0]}}_activations.png"
-          n={{hover[1] || selected[1]}} 
-          sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="150" /> 
-      {{/if}}
-    </div>
-
-    <ExamplePicker />
-  </div>
-
-  <div>
-    <p class="heading">Output Classes</p>
-    <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-      {{#each hover_data.l.slice(0, 5) as attr, i}}
-      <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-        <span>{{$labels[attr.c]}}</span>
-        <div class="scent">
-          <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-  </div>
-</div>
-
-<div style="grid-column: text;">
-  <p class="heading">
-    Top Channels Supporting
-    {{#if selected === 'output'}} 
-      {{$labels[attr_data.output.l[0].c]}}
-    {{else}}
-      <span class="selected">
-        Layer {{selected[0]}}, Channel {{selected[1]}}
-      </span>
-    {{/if}}
-  </p>
-
-  <div class="channel_attribution">
-    {{#each hidden_layers as layer}}
-      <div class="
-        {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
-        {{selected[0] === layer ? 'selected_layer' : ''}} 
-        layer_{{layer}} layer" 
-        on:mouseout="set({hover: []})">
-
-        <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
-
-        {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 3) as d, i}} 
-          <div title="Layer {{layer}}, Unit {{d.c}}" on:mouseover="set({hover: [layer, d.c, i]})" on:click="setSelected(layer, d.c)"
-            class="
-                    {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
-                    {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
-                    {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
-                    channel
-                  ">
-
-            <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="110" sprite_size="110" />
-            <div class="bar">
-              <div class="bar_filled" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 100}}%;"></div>
-            </div>
-
-          </div>
-        {{/each}}
-
-        <div class="spacer channel">
-          ... <br />
-          <span>Showing 3 of <b>{{num_channels[layer]}}</b></span>
+<div class="root" ref:root>
+  <div class="side_labels">
+    <div>
+      <h4>Input Image</h4>
+    
+      <div class="input_image" ref:input_image>
+        <img src="examples/input_images/{{$example}}.png" /> 
+        <div class="image_overlay">
+          {{#if hover.length || selected !== 'output'}}
+            <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
+              bg_img="examples/activations/{{$example}}/sprite_{{hover[0] || selected[0]}}_activations.png"
+              n={{hover[1] || selected[1]}} 
+              sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="{{input_image_size}}" /> 
+          {{/if}}
         </div>
       </div>
-    {{/each}}
+
+      <ExamplePicker />
+    </div>
+
+    <div class="channels">
+      <h4>Output Classes</h4>
+      <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+        {{#each hover_data.l.slice(0, 5) as attr, i}}
+        <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+          <span>{{$labels[attr.c]}}</span>
+          <div class="scent">
+            <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <h4>
+      Top Channels Supporting
+      {{#if selected === 'output'}} 
+        {{$labels[attr_data.output.l[0].c]}}
+      {{else}}
+        <span class="selected">
+          Layer {{selected[0]}}, Channel {{selected[1]}}
+        </span>
+      {{/if}}
+      </h4>
+
+    <div class="channel_attribution">
+      {{#each hidden_layers as layer}}
+        <div class="
+          {{selected !== 'output' && selected[0] !== layer ? 'supporting_layer' : ''}}
+          {{selected[0] === layer ? 'selected_layer' : ''}} 
+          layer_{{layer}} layer" 
+          on:mouseout="set({hover: []})">
+
+          <p class="heading" on:mouseover="set({hover: []})">{{layer}}</p>
+
+          {{#each (selected_data[layer] || prev_selected_data[layer]).slice(0, 3) as d, i}} 
+            <div title="Layer {{layer}}, Unit {{d.c}}" on:mouseover="set({hover: [layer, d.c, i]})" on:click="setSelected(layer, d.c)"
+              class="
+                      {{hover[0] === layer && hover[1] === d.c ? 'hovered_channel' : ''}} 
+                      {{selected[0] === layer && selected[1] === d.c ? 'selected_channel' : ''}} 
+                      {{selected[0] === layer && selected[1] !== d.c ? 'selected_layer_channel' : ''}}
+                      channel
+                    ">
+              <div class="sprite" style="height: {{neuron_image_size}}px;">
+                <Sprite src_class="sprite_{{layer}}_channel" n={{d.c}} size="{{neuron_image_size}}" sprite_size="110" />
+              </div>
+              <div class="bar">
+                <div class="bar_filled" style="width: {{d.v / max_attr(selected_data[layer] || prev_selected_data[layer]) * 100}}%;"></div>
+              </div>
+
+            </div>
+          {{/each}}
+
+          <div class="spacer channel">
+            ... <br />
+            <span>Showing 3 of <b>{{num_channels[layer]}}</b></span>
+          </div>
+        </div>
+      {{/each}}
+    </div>
   </div>
 </div>
 {{/if}}
 
 <style>
+  .root {
+    max-width: 1000px;
+    padding: 0 20px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-gap: 30px;
+  }
+
+  h4 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  
+  .sprite {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sprite > * {
+    position: absolute;
+    top: 0;
+  }
+
   .channel_attribution {
-    display: flex;
-    margin-left: -20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin: 0 -10px;
     --selected-color: #d1e5f0;
   }
 
   .layer {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     flex: 1;
     padding: 0 10px;
-    border-right: 1px solid #e9e9e9;
+    border-radius: 4px;
   }
 
   .layer:last-child { border-right: 0; }
@@ -104,27 +140,31 @@
     text-transform: capitalize;
   }
 
-  .heading .selected {
+  h4 .selected {
     display: inline-block;
-    padding: 0 10px;
+    padding: 0 4px;
     background: #d1e5f0;
-    border-radius: 7px;
+    border-radius: 2px;
+
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   }
 
   .layer p.heading {
     margin: 0;
     font-weight: normal;
-    font-style: italic;
-    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 3px;
+    margin-bottom: 6px;
   }
 
   .channel {
-    display: inline-block;
     position: relative;
-    padding: 5px;
-    border: 5px solid transparent;
-    border-radius: var(--border-radius);
     cursor: pointer;
+    margin-bottom: 6px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    padding-bottom: 6px;
   }
 
   .channel .inner { border-radius: var(--border-radius); }
@@ -132,24 +172,55 @@
   .bar {
     position: absolute;
     bottom: 10px;
-    left: 10px;
-    width: 55px;
-    height: 12px;  
-    border: 2px solid #fff;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: 14px;
     box-sizing: border-box;
+    background: rgba(200, 200, 200, 0.9);
+    border-radius: 7px;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    overflow: hidden;
+    padding: 1px 2px;
   }
 
   .bar_filled { 
-    background-color: rgba(255, 255, 255, 0.8); 
-    height: 100%;
-    /* transition: width 0.5s ease-in-out; */
+    background-color: hsla(30, 100%, 55%, 1);
+    height: calc(100%);
+    box-sizing: border-box;
+    border-top: solid 1px rgba(255, 255, 255, 0.2);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
   }
 
-  .hovered_channel, .selected_channel, .supporting_layer .hovered_channel { border-color: #4393c3; }
-  .supporting_layer .channel:not(.hovered_channel) { border-color: var(--selected-color); }
+  .hovered_channel:after,
+  .selected_channel:after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: calc(100% + 8px);
+    height: calc(100% + 2px);
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
 
-  .supporting_layer, .selected_layer { border-right-color: #ccc; }
-  .supporting_layer { background-color: var(--selected-color); }
+  .hovered_channel:after {
+    border: 2px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .selected_channel:after {
+    border: 4px solid #4393c3;
+  }
+
+  /* .hovered_channel, .selected_channel, .supporting_layer .hovered_channel { border-color: #4393c3; } */
+  /* .supporting_layer .channel:not(.hovered_channel) { border-color: var(--selected-color); } */
+
+  /* .supporting_layer, .selected_layer { border-right-color: #ccc; } */
+  .supporting_layer { 
+    background-color: var(--selected-color); 
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+  }
 
   /* .hovered_channel .bar, .selected_channel .bar, .supporting_layer .bar { border-color: #b0b0b0; } */
   /* .hovered_channel .bar_filled, .selected_channel .bar_filled, .supporting_layer .bar_filled { background-color: #b0b0b0; } */
@@ -184,11 +255,11 @@
 
   .spacer {
     display: flex;
-    width: 110px;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     cursor: auto;
+    border: none;
   }
 
   .spacer span { 
@@ -218,17 +289,19 @@
   }
 
   .input_image {
-    width: 150px;
-    height: 150px;
     position: relative;
     margin-bottom: 20px;
+    margin-top: 10px;
   }
 
   .input_image img { 
-    position: absolute; 
-    top: 0;
-    right: 0;
     border-radius: var(--border-radius);
+  }
+
+  .image_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .input_image .outer {
@@ -270,6 +343,8 @@
   export default {
     data() {
       return {
+        neuron_image_size: 110,
+        input_image_size: 150,
         all_layers: examples.layers,
         hidden_layers: HIDDEN_LAYERS,
         hover: [],
@@ -286,6 +361,7 @@
       this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/channel_attr.json`, (err, attr_data) => {
           this.set({attr_data, selected: 'output', prev_selected: 'output'});
+          this.measure();
         });
       });
     },
@@ -314,6 +390,16 @@
           selected: sel[0] === layer && sel[1] === channel ? 
             'output' : [layer, channel]
         });
+      },
+
+      measure() {
+        const layer_el = this.refs.root.querySelector('.sprite');
+        console.log(layer_el);
+        const input_image_el = this.refs.input_image;
+        this.set({
+          neuron_image_size: layer_el.clientWidth,
+          input_image_size: input_image_el.clientWidth
+        })
       }
     },
 
