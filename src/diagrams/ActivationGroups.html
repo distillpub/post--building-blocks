@@ -312,7 +312,7 @@
         require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`).load((attr) => {
           this.measure();
           this.set({attr})
-          console.log("hey", attr.shape, attr.stride, attr.offset);
+          // console.log("hey", attr.shape, attr.stride, attr.offset);
         });
       });
     },
@@ -368,14 +368,9 @@
         return activations;
       },
 
-      heatmap_sprite_url ($example, heatmap_sprite) {
-        return heatmap_sprite || 
-          `examples/activations/${$example}/sprite_mixed4d_nmf_heatmap.png`;
-      },
-
       neuron_sprite_url ($example, neuron_sprite) {
         return neuron_sprite ||
-          `examples/activations/${$example}/sprite_mixed4d_nmf_neurons.jpeg`;
+          `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
       },
 
       imageWidth: (stageWidth) => (stageWidth - 10) / 2,

@@ -557,7 +557,7 @@
     oncreate() {
       this.store.observe('example', (example) => {
         loadJSON(`examples/attributions/${example}/teaser.json`, (err, attr_data) => {
-          console.log("loaded", attr_data)
+          // console.log("loaded", attr_data)
           const selected_classes = attr_data.classes.slice(0, 2);
           this.set({
             loaded: true,
@@ -633,7 +633,7 @@
         return data;
       },
       left_selected_data(selected_data) {
-        console.log(selected_data);
+        // console.log(selected_data);
         return selected_data.slice(0, 3);
       },
       right_selected_data(selected_data) {

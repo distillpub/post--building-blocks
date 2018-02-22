@@ -3,7 +3,10 @@
   <p class="heading">Input Image</p>
   <div class="input_image">
     <img src="examples/input_images/{{$example}}.png" />
-    <img class="mask" src="{{maskSource}}" style="opacity:{{maskOpacity}}" />
+    {{#if hoveredLayer && hoveredLayer !== "logit"}}
+      <Sprite bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+        sprite_size={{224}} size={{150}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
+    {{/if}}
   </div>
   <ExamplePicker />
 </div>
@@ -74,24 +77,9 @@
     right: 0;
     border-radius: var(--border-radius);
   }
-  .input_image mask { 
-    position: absolute; 
-    top: 0;
-    right: 0;
-    border-radius: var(--border-radius);
-  }
 
   .input_image .outer {
     position: absolute;
-    opacity: 0.8;
-    mix-blend-mode: multiply;
-    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-    image-rendering: -moz-crisp-edges;          /* Firefox                        */
-    image-rendering: -o-crisp-edges;            /* Opera                          */
-    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
-    image-rendering: pixelated; /* Chrome */
-    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */  
     border-radius: var(--border-radius);
     overflow: hidden;
   }
@@ -105,8 +93,6 @@
   .graph text {
     alignment-baseline: middle;
   }
-
-
 </style>
 
 <script>
@@ -119,6 +105,8 @@
   import * as eases from 'eases-jsnext';
 
   const layers = require('../../static/examples').layers;
+
+  const sprites = [];
 
   export default {
     data() {
@@ -137,11 +125,22 @@
     },
     
     oncreate() {
+      const hl = this.get('hidden_layers');
+      
       this.store.observe('example', (example) => {
         loadJSON(`examples/groups/${example}/info.json`, (err, group_data) => {
           this.set({group_data});
         });
+
+        // Prefetch sprites
+        sprites.splice(0);
+        for (const layer of hl) {
+          const img = new Image();
+          img.src = `examples/groups/${example}/sprite_${layer}_dream_overlay_vlight.jpeg`;
+          sprites.push(img);
+        }
       });
+
       this.observe('hovered', (hovered) => {
         var split = hovered.split("|")
         var example = split[0]
@@ -153,14 +152,14 @@
         } else {
           this.set({maskOpacity: 0})
         }
-      })
+      });
       
     },
 
     computed: {
       logits(group_data) {
         if (!group_data) return null;
-        console.log("computing", group_data)
+        // console.log("computing", group_data)
         var keys = Object.keys(group_data.output)
         var logits = keys.map((key) => {
           var d = group_data.output[key]
