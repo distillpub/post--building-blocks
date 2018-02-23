@@ -308,13 +308,6 @@
     },
 
     oncreate() {
-      this.store.observe('example', (example) => {
-        require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`).load((attr) => {
-          this.measure();
-          this.set({attr})
-          // console.log("hey", attr.shape, attr.stride, attr.offset);
-        });
-      });
     },
 
     computed: {

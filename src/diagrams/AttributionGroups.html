@@ -124,6 +124,7 @@
     top: 0;
     right: 0;
     border-radius: var(--border-radius);
+    width: 100%;
   }
 
   .input_image .outer {
@@ -176,10 +177,6 @@
       const hl = this.get('hidden_layers');
       
       this.store.observe('example', (example) => {
-        loadJSON(`examples/groups/${example}/info.json`, (err, group_data) => {
-          this.set({group_data});
-        });
-
         // Prefetch sprites
         sprites.splice(0);
         for (const layer of hl) {
@@ -187,7 +184,6 @@
           img.src = `examples/groups/${example}/sprite_${layer}_dream_overlay_vlight.jpeg`;
           sprites.push(img);
         }
-        this.measure();
       });
 
       this.observe('hovered', (hovered) => {
