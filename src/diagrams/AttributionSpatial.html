@@ -1,69 +1,70 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
 <div ref:container class="container">
-
   {{#if attr_data && $labels}}
-  <div class="legend">
-    <div>
-      <h4 class="heading">Input Image</h4>
-      <div style="position: relative;">
-        <img class="input_image" src="examples/input_images/{{$example}}.png" />
-        {{#if layer_hover && layer_hover !== 'output'}}
-          <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
-            width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
-            left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
-            top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
-        {{/if}}
-
-        <ExamplePicker />
-      </div>
-    </div>
-
-    <div class="nmf">
-      <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</h4>
-
-      <div class="factors_bars">
-        <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-          {{#if attr_data}} 
-            {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
-              <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
-                <span>{{$labels[attr.n]}}</span>
-                <div class="scent">
-                  <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
-                </div>
-              </li>
-            {{/each}} 
+  <div class="legend_container">
+    <div class="legend">
+      <div>
+        <h4 class="heading">Input Image</h4>
+        <div style="position: relative;">
+          <img class="input_image" src="examples/input_images/{{$example}}.png" />
+          {{#if layer_hover && layer_hover !== 'output'}}
+            <div style="position: absolute; background: rgba(255, 255, 255, 0.5); 
+              width: {{150/layer_hover_size}}px; height: {{150/layer_hover_size}}px;
+              left: {{pos_snap[layer_hover][0] * 150 / layer_hover_size}}px;
+              top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
           {{/if}}
-        </ul>
-        
-        <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-          {{#if attr_data}} 
-            {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
-              <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
-                <span>{{$labels[attr.n]}}</span>
-                <div class="scent">
-                  <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
-                </div>
-              </li>
-            {{/each}} 
-          {{/if}}
+
+          <ExamplePicker />
+        </div>
+      </div>
+
+      <div class="nmf">
+        <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</h4>
+
+        <div class="factors_bars">
+          <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+            {{#if attr_data}} 
+              {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
+                <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [0, i]})">
+                  <span>{{$labels[attr.n]}}</span>
+                  <div class="scent">
+                    <div style="width: {{100 * (attr.v/attr_data.max.nmf[0])}}%;"></div>
+                  </div>
+                </li>
+              {{/each}} 
+            {{/if}}
+          </ul>
+          
+          <ul class="factors_2 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+            {{#if attr_data}} 
+              {{#each attr_data.nmf[1].slice(0, 5) as attr, i}}
+                <li on:mouseover="set({layer_hover: 'nmf', pos_hover: [1, i]})">
+                  <span>{{$labels[attr.n]}}</span>
+                  <div class="scent">
+                    <div style="width: {{100 * (attr.v/attr_data.max.nmf[1])}}%;"></div>
+                  </div>
+                </li>
+              {{/each}} 
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</h4>
+
+        <ul class="attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+          {{#if output_attr}} {{#each output_attr.slice(0, 5) as attr, i}}
+          <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+            <span>{{$labels[attr.n]}}</span>
+            <div class="scent">
+              <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
+            </div>
+          </li>
+          {{/each}} {{/if}}
         </ul>
       </div>
-    </div>
-
-    <div>
-      <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</h4>
-
-      <ul class="attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-        {{#if output_attr}} {{#each output_attr.slice(0, 5) as attr, i}}
-        <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-          <span>{{$labels[attr.n]}}</span>
-          <div class="scent">
-            <div style="width: {{100 * (attr.v/attr_max)}}%;"></div>
-          </div>
-        </li>
-        {{/each}} {{/if}}
-      </ul>
     </div>
   </div>
 
@@ -102,8 +103,12 @@
 
 <style>
   .container {
-    margin: 20px auto;
   }
+
+  .legend_container {
+    margin: 0 10px;
+  }
+
   .hidden_layers {
     position: relative;
   }
