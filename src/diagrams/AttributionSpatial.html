@@ -90,7 +90,40 @@
   </div>
   {{/if}}
 
-  <figcaption style="padding: 10px 0 0 10px; grid-column: screen;">
+  <figcaption style="padding: 10px 0 0 10px; grid-column: screen;" class="interactive-caption">
+    {{(pos_snap)? pos_snap.mixed4d : ''}}<br>
+    {{#if $example && $example == 'dog_cat'}}
+      One interesting property of this example is the 
+          <a on:click="set_ag_hover('mixed4d', [6,6])"
+           class="{{pos_in_box([5,6], [6,6])? 'selected' : ''}}">
+           lower snout at mixed4d</a>,
+     which seems entangled with the idea of a tennis ball,
+     increasing the probability of both "tennis ball" and "granny smith apple."
+    {{elseif $example && $example == 'flowers'}}
+      In this example, the 
+          <a on:click="set_ag_hover('mixed4d', [8,12])"
+           class="{{pos_in_box([5,9], [11,12])? 'selected' : ''}}">
+           center lemons</a>,
+      drive the classification as "lemon", although one
+          <a on:click="set_ag_hover('mixed4d', [11,11])"
+           class="{{pos_in_box([11,12], [11,12])? 'selected' : ''}}">
+           darker lemon</a>,
+      supports "orange" more.<br> The 
+          <a on:click="set_ag_hover('mixed4d', [5,6])"
+           class="{{pos_in_box([,], [,])? 'selected' : ''}}">
+           rim of the vase</a>,
+      supports many container-like classes,
+      while the
+          <a on:click="set_ag_hover('mixed4d', [8,6])"
+           class="{{pos_in_box([,], [,])? 'selected' : ''}}">
+           handle</a>,
+      supports containers with handles.
+    {{elseif $example &&  $example == 'sunglasses_tux'}}
+
+    {{/if}}
+    </figcaption>
+    
+    <figcaption style="padding: 10px 0 0 10px; grid-column: screen;">
     Reproduce spatial attribution in a
     <a href="https://goo.gl/ZBf4b8" style="border: none;">
       <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
@@ -219,6 +252,16 @@
   .factors_2 .scent div { background: #92c5de; }
   .factors_2 li:hover { color: #0571b0; }
   .factors_2 li:hover .scent div { background: #0571b0; }
+  
+  .interactive-caption a {
+    cursor: pointer;
+  }
+
+  .interactive-caption .selected {
+    font-weight: bold;
+    color: hsl(24, 100%, 50%);
+    border-bottom: 1px solid hsl(24, 100%, 50%);
+  }
 </style>
 
 <script>
@@ -307,8 +350,30 @@
         if (!attr_data) return null;
         return attr_data.max[valid_layer_hover ? layer_hover : 'output'];
       },
+      
+      pos_in_box: (pos_hover, pos_snap) => {
+        return (x_bound, y_bound) => {
+          var valid = pos_hover && x_bound && y_bound;
+          if (!valid) return false;
+          var pos = pos_snap.mixed4d;
+          return ( pos
+          && pos[0] >= x_bound[0] && pos[0] <= x_bound[1]
+          && pos[1] >= y_bound[0] && pos[1] <= y_bound[1]);
+        }
+      },
+
+        
     },
 
-    components: {ActivationGrid, ExamplePicker, Sprite}
+    components: {ActivationGrid, ExamplePicker, Sprite},
+    
+    methods: {
+      set_ag_hover (layer, pos) {
+          var layer_size = this.get('layer_size');
+          var k = layer_size / layers[layer][0];
+          store.set({ag_layer_hover: layer, ag_pos_hover: [k*pos[0], k*pos[1]]})
+        }
+    }
+    
   }
 </script>
