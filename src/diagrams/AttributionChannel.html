@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="columns">
     <h4>
       Top Channels Supporting
       {{#if selected === 'output'}} 
@@ -93,8 +93,12 @@
     padding: 0 20px;
     margin: 20px auto;
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 30px;
+  }
+
+  .columns {
+    grid-column: 2/7;
   }
 
   h4 {
@@ -206,7 +210,7 @@
   }
 
   .hovered_channel:after {
-    border: 2px solid rgba(0, 0, 0, 0.3);
+    border: 4px solid rgba(0, 0, 0, 0.3);
   }
 
   .selected_channel:after {
