@@ -196,28 +196,30 @@
       instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
     </p> -->
 
+    <figcaption>
+      Reproduce channel attribution in a
+      <a href="https://goo.gl/gnCfGL" style="border: none;">
+        <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
+      </a>
+      <a href="https://goo.gl/gnCfGL">
+        Colaboratory Notebook.
+      </a>
+    </figcaption>
 
   {{else}}
     Loading
   {{/if}}
 </div>
 
-<figcaption class="l-body" style="margin-bottom: 10px;">
-  Reproduce channel attribution in a
-  <a href="https://goo.gl/gnCfGL" style="border: none;">
-    <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-  </a>
-  <a href="https://goo.gl/gnCfGL">
-    Colaboratory Notebook.
-  </a>
-</figcaption>
+
 
 <style>
   p {
     text-align: left;
 
   }
-    .container {
+
+  .container {
     margin: 40px 20px;
     position: relative;
     --blue: #3497FF;
@@ -228,6 +230,7 @@
     max-width: 1000px;
     margin: 0 auto;
   }
+
   .table {
     max-width: 1000px;
     margin: 0 auto;
@@ -236,7 +239,10 @@
     grid-gap: 0 10px;
   }
 
-
+  figcaption {
+    max-width: 1000px;
+    margin: 30px auto 0;
+  }
 
   .intro {
     grid-column: middle;
@@ -271,6 +277,7 @@
 
   .input_image img {
     border-radius: var(--border-radius);
+    width: 100%;
   }
 
   .input_image .outer {
@@ -555,24 +562,6 @@
     },
 
     oncreate() {
-      this.store.observe('example', (example) => {
-        loadJSON(`examples/attributions/${example}/teaser.json`, (err, attr_data) => {
-          // console.log("loaded", attr_data)
-          const selected_classes = attr_data.classes.slice(0, 2);
-          this.set({
-            loaded: true,
-            attr_data, 
-            left_selected_class: attr_data.classes[0],
-            right_selected_class: attr_data.classes[1]
-            // hover_channel: attr_data[`${selected_classes[0]}-${selected_classes[1]}`][0].c
-          });
-        });
-
-        require(`../../static/examples/npy/${example}_teaser.npy`).load((full_attr) => {
-          this.set({full_attr});
-          this.measure();
-        });
-      });
     },
 
     computed: {

@@ -103,6 +103,7 @@
 
 <style>
   .container {
+    margin: 20px 0;
   }
 
   .legend_container {
@@ -259,10 +260,7 @@
           out.src = `examples/attributions/${example}/output-${hl[i]}.png`;
           images.push(nmf, out);
         }
-
-        loadJSON(`examples/attributions/${example}/spatial_attr.json`, (err, attr_data) => {
-          this.set({attr_data, layer_size: calc_layer_size(this.refs.container, 4)});
-        });
+        this.set({ layer_size: calc_layer_size(this.refs.container, 4) });
       });
     },
 

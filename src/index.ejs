@@ -22,6 +22,10 @@
       text-align: center;
     }
 
+    d-figure {
+      margin: 20px 0 40px;
+    }
+
     @media (max-width: 1280px) {
       d-title br.conditional {
         display: none;
@@ -30,6 +34,7 @@
 
     #Teaser {
       margin-top: 10px;
+      min-height: 631px;
       margin-bottom: 0;
       background: var(--gray-bg);
       border-top: 1px solid var(--gray-border);
@@ -168,7 +173,7 @@
     Interpretability techniques are normally studied in isolation.<br>
     We explore the powerful interfaces that arise when you combine them — <br class="conditional">and the rich structure of this combinatorial space.
   </p>
-  <figure id="Teaser" class="base-grid" onclick="teaserFig.set({change_label: null});"></figure>
+  <d-figure id="Teaser" style="grid-column: screen;"></d-figure>
 </d-title>
 
 <d-article>
@@ -384,7 +389,7 @@
     This approach is similar to what Class Activation Mapping (CAM) methods<d-cite key="zhou2016learning,selvaraju2016grad"></d-cite> do but, because they interpret their results back onto the input image, they miss the opportunity to communicate in terms of the rich behavior of a network's hidden layers.
   </p>
 
-  <figure id="AttributionSpatial" style="grid-column: screen;"></figure>
+  <d-figure id="AttributionSpatial" style="grid-column: screen;"></d-figure>
 
   <p>
     The above interface affords us a more flexible relationship with attribution.
@@ -432,7 +437,7 @@
     (This approach is similar to contemporaneous work by Kim et al.<d-cite key="kim2017tcav"></d-cite>, who do attribution to learned combination of channels.)
   </p>
 
-  <figure style="grid-column: screen;" id="AttributionChannel"></figure>
+  <d-figure style="grid-column: screen;" id="AttributionChannel"></d-figure>
 
   <p>
     This diagram is analogous to the previous one we saw: we conduct layer-to-layer attribution but this time over channels rather than spatial positions.
@@ -539,9 +544,7 @@
     Notice how the overwhelmingly large number of neurons has been reduced to a small set of groups, concisely summarizing the story of the neural network.
   </p>
 
-  <figure class="l-screen">
-    <d-figure id="ActivationGroups" class=""></d-figure>
-  </figure>
+  <d-figure id="ActivationGroups" style="grid-column: screen"></d-figure>
 
   <p>
     This figure only focuses at a single layer but, as we saw earlier, it can be useful to look across multiple layers to understand how a neural network assembles together lower-level detectors into higher-level concepts.
@@ -559,7 +562,7 @@
     .
   </p>
 
-  <figure id="AttributionGroups" style="grid-column: screen"></figure>
+  <d-figure id="AttributionGroups" style="grid-column: screen"></d-figure>
 
   <p>
     In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behavior of the network.
