@@ -1,53 +1,102 @@
-<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
-<div class="side_labels" style="grid-column: kicker;">
-  <p class="heading">Input Image</p>
-  <div class="input_image">
-    <img src="examples/input_images/{{$example}}.png" />
-    {{#if hoveredLayer && hoveredLayer !== "logit"}}
-      <Sprite bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-        sprite_size={{224}} size={{150}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
-    {{/if}}
-  </div>
-  <ExamplePicker />
-</div>
+<:Window on:resize="measure()" />
+<div ref:root class="root">
 
-<div style="grid-column: text;">
-  <p class="heading">
-    Attribution by Factorized Groups
-  </p>
-
-  <div class="container">
-    <!-- where we render the graph lines -->
-    {{#if group_data}}
-    <svg class="graph" ref:graph width={{width}} height={{height}}>
-
-        {{#each links as line,i}}
-          <path d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="{{line.color}}" fill="none"></path>
-        {{/each}}
-
-        {{#each nodesLayout.nodes as node,i}}
-          {{#if node.layer == "logit"}}
-            <rect x={{node.x}} y={{node.y}} width=175 height={{node.h}} fill="{{node.i == hoveredElement && hoveredLayer == 'logit' ? "#ddd" : 'rgb(248, 248, 248)'}}"
-              on:mouseover="set({hoveredLayer: 'logit', hoveredElement: node.i})"></rect>
-              <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
-
-            <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
-            <text class="layer_text" x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
-          {{else}}
-            <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} 
-              width={{node.w + node.px}} height={{node.h + node.px}} 
-              fill="#bbb" rx=3 ry=3
-              on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"></rect>
-              <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
-            <image class="layer_image" xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
-          {{/if}}
-        {{/each}}
-      </svg>
+  <div class="side_labels">
+    <h4>Input Image</h4>
+    <div class="input_image">
+      <img src="examples/input_images/{{$example}}.png" />
+      {{#if hoveredLayer && hoveredLayer !== "logit"}}
+        <Sprite bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          sprite_size={{224}} size={{150}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
       {{/if}}
+    </div>
+    <ExamplePicker />
   </div>
+
+  <div class="paths" ref:paths>
+    <h4>
+      Attribution by Factorized Groups
+    </h4>
+
+    <div class="container">
+      <!-- where we render the graph lines -->
+      <div class="paths_headers">
+        <h5>Mixed4a</h5>
+        <h5>Mixed4d</h5>
+        <h5>Output class</h5>
+      </div>
+      {{#if group_data}}
+      <svg class="graph" ref:graph width={{width}} height={{height}}>
+
+          {{#each links as line,i}}
+            <path d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="{{line.color}}" fill="none"></path>
+          {{/each}}
+
+          {{#each nodesLayout.nodes as node,i}}
+            {{#if node.layer == "logit"}}
+              <rect x={{node.x}} y={{node.y}} width=175 height={{node.h}} fill="{{node.i == hoveredElement && hoveredLayer == 'logit' ? "#ddd" : 'rgb(248, 248, 248)'}}"
+                on:mouseover="set({hoveredLayer: 'logit', hoveredElement: node.i})"></rect>
+                <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
+
+              <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
+              <text class="layer_text" x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
+            {{else}}
+              <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} 
+                width={{node.w + node.px}} height={{node.h + node.px}} 
+                fill="#bbb" rx=3 ry=3
+                on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"></rect>
+                <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
+              <image class="layer_image" xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
+            {{/if}}
+          {{/each}}
+        </svg>
+        {{/if}}
+    </div>
+  </div>
+
 </div>
 
 <style>
+
+  .root {
+    margin: 20px auto;
+    padding: 0 20px;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 150px 5fr;
+    grid-gap: 30px;
+  }
+
+  .side_labels {
+    overflow: hidden;
+  }
+
+  .paths {
+    overflow: hidden;
+  }
+
+  .paths_headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+  }
+
+  h4 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+
+  h5 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+  }
 
   .heading {
     font-size: 90%;
@@ -55,8 +104,7 @@
     margin-bottom: 10px;
     text-transform: capitalize;
   }
-  .side_labels {
-  }
+
   
   .example_picker {
     width: 100%;
@@ -139,6 +187,7 @@
           img.src = `examples/groups/${example}/sprite_${layer}_dream_overlay_vlight.jpeg`;
           sprites.push(img);
         }
+        this.measure();
       });
 
       this.observe('hovered', (hovered) => {
@@ -190,7 +239,7 @@
           .range([0, height])
           .padding(0.2)
         
-        var layerWidth = 250; // TODO: reactive
+        var layerWidth = width / 3.5;
 
         // generate all the nodes for the hidden layers
         var nodes = []
@@ -363,11 +412,11 @@
               var dx = tx - sx
               var points = [
                   {x: sx, y: sy},
-                  {x: sx + dx/2, y: sy },
+                  {x: sx + dx/4, y: sy },
                   // {x: sx, y: sy - link.source.h*1.5 },
                   // {x: sx + (tx - sx)/2, y: sy + (ty - sy)/2},
                   // {x: tx, y: ty + link.target.h*1.5 },
-                  {x: tx - dx/2, y: ty},
+                  {x: tx - dx/4, y: ty},
                   {x: tx, y: ty},
                 ];
 
@@ -435,6 +484,14 @@
       // attr_max(attr_data, valid_layer_hover, layer_hover) {
       //   return attr_data.max[valid_layer_hover ? layer_hover : 'output'];
       // },
+    },
+
+    methods: {
+      measure: function () {
+        this.set({
+          width: this.refs.paths.clientWidth
+        })
+      }
     },
 
     components: { ExamplePicker, Sprite }
