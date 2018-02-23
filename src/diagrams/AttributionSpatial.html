@@ -1,11 +1,11 @@
 <:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
 
-<div ref:container class="base-grid">
+<div ref:container class="container">
 
   {{#if attr_data && $labels}}
-  <div class="legend l-page">
+  <div class="legend">
     <div>
-      <p class="heading">Input Image</p>
+      <h4 class="heading">Input Image</h4>
       <div style="position: relative;">
         <img class="input_image" src="examples/input_images/{{$example}}.png" />
         {{#if layer_hover && layer_hover !== 'output'}}
@@ -20,9 +20,9 @@
     </div>
 
     <div class="nmf">
-      <p class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</p>
+      <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Factors</h4>
 
-      <div style="display: flex">
+      <div class="factors_bars">
         <ul class="factors_1 attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
           {{#if attr_data}} 
             {{#each attr_data.nmf[0].slice(0, 5) as attr, i}}
@@ -52,7 +52,7 @@
     </div>
 
     <div>
-      <p class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</p>
+      <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output Classes</h4>
 
       <ul class="attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
         {{#if output_attr}} {{#each output_attr.slice(0, 5) as attr, i}}
@@ -101,6 +101,9 @@
 </div>
 
 <style>
+  .container {
+    margin: 20px auto;
+  }
   .hidden_layers {
     position: relative;
   }
@@ -137,8 +140,11 @@
   }
 
   .legend {
-    display: flex;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto 20px auto;
   }
 
   .legend > * {
@@ -165,46 +171,37 @@
     margin: 2px; 
   }
 
-  p.heading, .legend p {
-    font-size: 90%;
-    font-weight: bold;
-    margin: 0 0 15px 0;
-    border-bottom: 1px solid #ccc;
+
+  h4 {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 8px;
+    margin: 0 0 10px;
+    font-weight: 700;
   }
 
-  .nmf {
-    flex: 2;
-    margin: 0 60px;
+  .factors_bars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
   }
+
 
   .attribution_list { 
-    flex: 1;
-    display: table;
-    table-layout: fixed;
+    font-size: 13px;
+    display: block;
+    margin-top: -8px;
   }
-
-  .factors_1 { margin-right: 30px; }
 
   .attribution_list li { 
-    display: table-row;
     cursor: pointer; 
-  }
-
-  .attribution_list li span {
-    display: table-cell;
-    width: auto;
-    max-width: 160px;
-    padding-right: 15px;
-  }
-
-  .attribution_list .scent {
-    display: table-cell;
-    width: 50px;
-  }
-
-  .attribution_list .scent div {
-    top: 6px;
-    height: calc(100% - 12px);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 10px;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 13px;
   }
  
   .attribution_list li:hover { color: #666; }
