@@ -91,18 +91,20 @@
   {{/if}}
 
   <figcaption style="padding: 10px 0 0 10px; grid-column: screen;" class="interactive-caption">
+    Attribution tends to be more meaningful in later layers.
+    <br>
     {{#if $example && $example == 'dog_cat'}}
       The 
       <a on:click="set_ag_hover('mixed4d', [1,4])"
        class="{{pos_in_box([0,2], [3,5])? 'selected' : ''}}">
-       floppy ears</a>, 
+       floppy ear</a>, 
       <a on:click="set_ag_hover('mixed4d', [6,4])" 
         class="{{pos_in_box([4,6], [3,5])? 'selected' : ''}}">
-        dog snouts</a>, 
+        dog snout</a>, 
       <a on:click="set_ag_hover('mixed4d', [10,6])" 
         class="{{pos_in_box([9,11], [5,6])? 'selected' : ''}}">
-        cat heads</a>, 
-      etc, do roughly what you expect.
+        cat head</a>, 
+      etc, do mostly what you expect.
       <br>
       Surprisingly, the
           <a on:click="set_ag_hover('mixed4d', [6,6])"
