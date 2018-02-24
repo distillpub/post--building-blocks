@@ -7,7 +7,7 @@
       <img src="examples/input_images/{{$example}}.png" />
       {{#if hoveredLayer && hoveredLayer !== "logit"}}
         <Sprite bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-          sprite_size={{224}} size={{150}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
+          sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
       {{/if}}
     </div>
     <ExamplePicker />
@@ -63,7 +63,7 @@
     padding: 0 20px;
     max-width: 1000px;
     display: grid;
-    grid-template-columns: 150px 5fr;
+    grid-template-columns: 250px 5fr;
     grid-gap: 30px;
   }
 
@@ -113,8 +113,8 @@
   }
 
   .input_image {
-    width: 150px;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     position: relative;
     margin-bottom: 20px;
   }

@@ -34,7 +34,6 @@
 
     #Teaser {
       margin-top: 10px;
-      min-height: 631px;
       margin-bottom: 0;
       background: var(--gray-bg);
       border-top: 1px solid var(--gray-border);
@@ -107,6 +106,39 @@
     .aqua { color: #3e999f; }
     .blue { color: #4271ae; }
     .purple { color: #8959a8; }
+
+    /* Heights for progressively loaded graphics */
+    @media (min-width: 1000px) {
+      #Teaser {
+        min-height: 660px;
+      }
+
+      #AttributionChannel {
+        min-height: 608px;
+      }
+
+      #AllActivationGrids {
+        min-height: 250px;
+      }
+
+      #AllActivationGridsMagnitude {
+        min-height: 250px;
+      }
+
+      #AttributionSpatial {
+        min-height: 500px;
+      }
+
+      #ActivationGroups {
+        min-height: 850px;
+      }
+
+      #AttributionGroups{
+        min-height: 722px;
+      }
+    }
+
+
   </style>
 </head>
 
