@@ -91,35 +91,76 @@
   {{/if}}
 
   <figcaption style="padding: 10px 0 0 10px; grid-column: screen;" class="interactive-caption">
-    {{(pos_snap)? pos_snap.mixed4d : ''}}<br>
     {{#if $example && $example == 'dog_cat'}}
-      One interesting property of this example is the 
+      The 
+      <a on:click="set_ag_hover('mixed4d', [1,4])"
+       class="{{pos_in_box([0,2], [3,5])? 'selected' : ''}}">
+       floppy ears</a>, 
+      <a on:click="set_ag_hover('mixed4d', [6,4])" 
+        class="{{pos_in_box([4,6], [3,5])? 'selected' : ''}}">
+        dog snouts</a>, 
+      <a on:click="set_ag_hover('mixed4d', [10,6])" 
+        class="{{pos_in_box([9,11], [5,6])? 'selected' : ''}}">
+        cat heads</a>, 
+      etc, do roughly what you expect.
+      <br>
+      Surprisingly, the
           <a on:click="set_ag_hover('mixed4d', [6,6])"
            class="{{pos_in_box([5,6], [6,6])? 'selected' : ''}}">
-           lower snout at mixed4d</a>,
-     which seems entangled with the idea of a tennis ball,
-     increasing the probability of both "tennis ball" and "granny smith apple."
+           lower snout at mixed4d</a>
+     seems entangled with the idea of a tennis ball and
+     supports "tennis ball" and "granny smith apple."
+
     {{elseif $example && $example == 'flowers'}}
       In this example, the 
           <a on:click="set_ag_hover('mixed4d', [8,12])"
            class="{{pos_in_box([5,9], [11,12])? 'selected' : ''}}">
-           center lemons</a>,
-      drive the classification as "lemon", although one
-          <a on:click="set_ag_hover('mixed4d', [11,11])"
+           center lemons</a>
+      cause a "lemon" classification, although one
+          <a on:click="set_ag_hover('mixed4a', [11,11])"
            class="{{pos_in_box([11,12], [11,12])? 'selected' : ''}}">
-           darker lemon</a>,
-      supports "orange" more.<br> The 
+           darker lemon</a>
+      supports "orange" more.
+      <br>
+      The 
           <a on:click="set_ag_hover('mixed4d', [5,6])"
-           class="{{pos_in_box([,], [,])? 'selected' : ''}}">
-           rim of the vase</a>,
+           class="{{(pos_in_box([4,7], [6,7]))? 'selected' : ''}}">
+           rim of the vase</a>
       supports many container-like classes,
       while the
           <a on:click="set_ag_hover('mixed4d', [8,6])"
-           class="{{pos_in_box([,], [,])? 'selected' : ''}}">
-           handle</a>,
+           class="{{pos_in_box([8,9], [6,7])? 'selected' : ''}}">
+           handle</a>
       supports containers with handles.
+      <!--<br>
+      By mixed5a a lot of this fine details washes out: the
+        <a on:click="set_ag_hover('mixed5a', [3,3])"
+         class="{{(layer_hover == 'mixed5a' && pos_in_box([4,7], [6,8]))? 'selected' : ''}}">
+         vase</a>
+      mostly supports "vase", although the
+        <a on:click="set_ag_hover('mixed5a', [2,4])"
+         class="{{(layer_hover == 'mixed5a' && pos_in_box([4,7], [8,9]))? 'selected' : ''}}">
+         bottom</a>
+      supports "squash",
+      and the 
+        lemons
+        <a on:click="set_ag_hover('mixed5a', [4,6])"
+         class="{{(layer_hover == 'mixed5a' && pos_in_box([4,7], [8,9]))? 'selected' : ''}}">
+         lemons</a>
+      support "lemon" and "orange"
+    -->
     {{elseif $example &&  $example == 'sunglasses_tux'}}
-
+      The
+      <a on:click="set_ag_hover('mixed4d', [7,1])"
+        class="{{pos_in_box([5,7], [1,2])? 'selected' : ''}}">
+        sunglasses</a>
+      support "sunglasses" as expected, but also "cowboy hat" and "bolo tie."
+      <br>
+      The
+      <a on:click="set_ag_hover('mixed4d', [7,7])"
+        class="{{pos_in_box([6,8], [6,8])? 'selected' : ''}}">
+        bowtie</a>
+       supports various kinds of ties, as expected, but also fancy instruments.
     {{/if}}
     </figcaption>
     
@@ -368,7 +409,7 @@
     methods: {
       set_ag_hover (layer, pos) {
           var layer_size = this.get('layer_size');
-          var k = layer_size / layers[layer][0];
+          var k = layer_size / (layers[layer][0]-1);
           store.set({ag_layer_hover: layer, ag_pos_hover: [k*pos[0], k*pos[1]]})
         }
     }
