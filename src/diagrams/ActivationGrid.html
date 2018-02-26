@@ -1,7 +1,8 @@
 <:Window bind:scrollY="scrollY" bind:innerWidth="winWidth" />
 
 <div ref:layerDiv class="layer" style="--cell-size: {{cell_size}}px; 
-  --layer-size: {{layer_size}}px; width: {{layer_size}}px;">
+  --layer-size: {{layer_size}}px; width: {{layer_size}}px;
+  min-height: {{layer_size}}px;">
 
   <slot name="background"></slot>
 
@@ -28,7 +29,9 @@
     </div>
   {{/if}}
 
+  {{#if show_layer_name}}
   <p>{{layer}}</p>
+  {{/if}}
 </div>
 
 <style>
@@ -97,7 +100,8 @@
         layer_hover: 'mixed4d',
         pos_hover: undefined,
         pos_snap: [0, 0],
-        show_zoom: true
+        show_zoom: true,
+        show_layer_name: true
       };
     },
 
