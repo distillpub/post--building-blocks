@@ -1,17 +1,25 @@
 <:Window on:resize="measure()" />
 <div ref:root class="root" style="grid-column: middle">
   <div class="wrapper">
-    <div class="headline">
-      <h4>Input image</h4>
-      <h4>Activations <span>of neuron groups</span></h4>
-    </div>
 
     <div class="input">
-      <ExamplePicker />
 
-      <div style="position: relative;">
-        <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
-        
+      <figcaption>
+        By using non-negative matrix factorization we can reduce the large number of neurons to a small set of groups that concisely summarize the story of the network.
+        <br>
+        (Reproduce this visualization in a
+        <a href="https://goo.gl/EWMzGH" style="border: none;">
+          <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
+        </a>
+        <a href="https://goo.gl/EWMzGH">
+          Colaboratory Notebook.)
+        </a>
+      </figcaption>
+
+      <div ref:inputImage style="position: relative;">
+        <h4>Input image</h4>
+        <div style="position: absolute; overflow: hidden;">
+          <img src="examples/input_images/{{$example}}.png" alt="{{$example}} input image" style="width: {{imageWidth}}px; height: {{imageWidth}}px;" />
           <svg preserveAspectRatio="xMinYMin" ref:inputOverlay style="box-sizing: border-box; border: 1px solid rgba(0, 0, 0, 0.2); position: absolute; top: 0;" viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
             <g class="activation">
               {{#each spatialActivations as a}}
@@ -25,9 +33,13 @@
             </g>
             {{/if}}
           </svg>
+        </div>
       </div>
 
       <div>
+        <h4>Activations
+          <span>of neuron groups</span>
+        </h4>
         <svg viewBox="0 0 {{10 * spatialActivationsShape[0]}} {{10 * spatialActivationsShape[1]}}" on:mouseleave="set({hover_location: null})">
           <g class="activation">
             {{#each spatialActivations as a}}
@@ -42,6 +54,8 @@
           {{/if}}
         </svg>
       </div>
+
+
     </div>
 
     <h4>Neuron groups <span>based on matrix factorization of mixed4d layer</span></h4>
@@ -100,15 +114,7 @@
   </div>
 </div>
 
-<figcaption class="root" style="margin-bottom: 10px; margin-top: 20px; padding-left: 40px; grid-column: middle;">
-  Reproduce neuron groups in a
-  <a href="https://goo.gl/EWMzGH" style="border: none;">
-    <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-  </a>
-  <a href="https://goo.gl/EWMzGH">
-    Colaboratory Notebook.
-  </a>
-</figcaption>
+
 
 
 <style>
@@ -135,6 +141,10 @@
     text-transform: none;
   }
 
+  .input h4 {
+    margin-bottom: 8px;
+  }
+
   .root svg rect {
     vector-effect: non-scaling-stroke;
     shape-rendering: crispedges;
@@ -153,31 +163,28 @@
     margin-bottom: 8px;
   }
 
-  .input, .headline {
+  .input{
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 120px 1fr 1fr;
+    grid-template-columns: 170px 1fr 1fr;
+    margin-bottom: 30px;
   }
 
-  .input {
-    margin-bottom: 30px;
+  .input figcaption {
+    margin-right: 20px;
   }
 
  .colors, .groups, .output {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 120px 1fr;
-  }
-
-  .headline :first-child {
-    grid-column: 1/3;
+    grid-template-columns: 170px 1fr;
   }
 
   .prompt {
     position: absolute;
     bottom: 20%;
-    left: 0;
-    max-width: 120px;
+    right: 20px;
+    max-width: 170px;
     font-style: italic;
     opacity: 0.5;
   }
@@ -292,7 +299,6 @@
 <script>
   import {range} from '../util';
   import {hcl, mean} from 'd3';
-  import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html';
 
   export default {
@@ -366,16 +372,18 @@
           `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
       },
 
-      imageWidth: (stageWidth) => (stageWidth - 10) / 2,
+      // imageWidth: (stageWidth) => (stageWidth - 10) / 2,
 
       neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
-    components: {ExamplePicker, Sprite},
+    components: {Sprite},
     methods: {
       measure: function() {
+        console.log(this.refs.inputImage)
         this.set({
-          stageWidth: this.refs.content.clientWidth
+          stageWidth: this.refs.content.clientWidth,
+          imageWidth: this.refs.inputImage.clientWidth
         })
       }
     },

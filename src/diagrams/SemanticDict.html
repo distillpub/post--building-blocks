@@ -2,7 +2,7 @@
 
 <div class="l-body" style="--top: {{top}}px; --left: {{left}}px;">
   <div class="input_image">
-    <ExamplePicker pin="#ActivationCube" unpin="#AllActivationGridsMagnitude" />
+    <!-- <ExamplePicker pin="#ActivationCube" unpin="#AllActivationGridsMagnitude" /> -->
 
     <img ref:img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
 
@@ -249,7 +249,6 @@ sub { font-size: 65%; }
 <script>
   import {argmax} from 'ndarray-ops';
   import {desc, fmtAct, range} from '../util';
-  import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html'
 
   function vector_y (N) {
@@ -365,7 +364,7 @@ sub { font-size: 65%; }
       }
     },
 
-    components: {ExamplePicker, Sprite},
+    components: {Sprite},
     helpers: {range}
   }
 </script>

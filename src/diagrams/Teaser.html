@@ -1,6 +1,6 @@
 <:Window on:resize="measure()" />
 
-<div ref:root class="container" style="grid-column: screen; --img-size: {{img_size}}px;" on:click="set({change_label: null})">
+<div ref:root class="container base-grid" style="grid-column: screen; --img-size: {{img_size}}px;" on:click="set({change_label: null})">
   {{#if ready}}
 
     <!-- Intro -->
@@ -47,7 +47,16 @@
         </div>
       </div>
       <div>
-        <ExamplePicker />
+            <figcaption>
+              Reproduce this in a <br>
+              <a href="https://goo.gl/gnCfGL" style="border: none;">
+                <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
+              </a>
+              <a href="https://goo.gl/gnCfGL">
+                Colaboratory Notebook.
+              </a>
+            </figcaption>
+        <!-- <ExamplePicker /> -->
       </div>
     </div>
 
@@ -101,13 +110,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Chooser -->
-      <!-- <div style="display: flex; justify-content: space-evenly; flex-direction: row; align-items: center; grid-column: middle;margin-bottom: 10px;background: rgba(0, 0, 0, 0); border-radius: 4px; height: 14px;">
-        {{#each channels as channel}}
-        <div class="channel" style="width: 2px; height: 2px; background: black;"></div>
-        {{/each}}
-      </div> -->
 
       <!-- Feature Viz -->
 
@@ -196,15 +198,7 @@
       instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
     </p> -->
 
-    <figcaption>
-      Reproduce channel attribution in a
-      <a href="https://goo.gl/gnCfGL" style="border: none;">
-        <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-      </a>
-      <a href="https://goo.gl/gnCfGL">
-        Colaboratory Notebook.
-      </a>
-    </figcaption>
+
 
   {{else}}
     Loading
@@ -227,32 +221,29 @@
   }
 
   .intro {
-    max-width: 1000px;
+    grid-column: page;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    grid-column-gap: 30px;
   }
 
   .table {
-    max-width: 1000px;
-    margin: 0 auto;
+    grid-column: page;
+    /* margin: 0 auto; */
     display: grid;
     grid-template-columns: 140px 1fr;
     grid-gap: 0 10px;
   }
 
   figcaption {
-    max-width: 1000px;
+    grid-column: page;
     margin: 30px auto 0;
-  }
-
-  .intro {
-    grid-column: middle;
-    display: grid;
-    grid-template-columns: 1.7fr 1fr 1fr;
-    grid-column-gap: 30px;
   }
 
   .intro p {
     font-size: 1rem;
+    line-height: 1.7em;
   }
 
   .intro b {
