@@ -21,7 +21,7 @@
       <div>
         <h4 class="heading" on:mouseover="set({layer_hover: undefined, pos_hover: undefined})">Output {{(layer_hover && layer_hover != 'output' && layer_hover != 'nmf')? 'Attribution' : 'Classes'}}</h4>
 
-        <ul class="attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+        <ul class="attribution_list {{(layer_hover != undefined && layer_hover_n < 4)? 'attribution_active' : ''}}" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
           {{#if output_attr}} {{#each output_attr.slice(0, 5) as attr, i}}
           <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
             <span>{{$labels[attr.n]}}</span>
@@ -70,54 +70,29 @@
     </div>
   </div>
 
-  <div class="hidden_layers hidden_layer_labels base-grid" style="display: flex; width: 100%; height: 30px; margin-right: 10px; margin-left: 10px; margin-bottom: 10px;">
-    {{#if layer_hover == undefined || layer_hover == 'nmf' || layer_hover == 'output'}}
-      <div style="width: {{1*layer_size}}px; margin-right: 20px;">
-        <h4>mixed3a</h4>
+  <div class="hidden_layers hidden_layer_labels base-grid" style="display: flex; width: 100%; height: 30px; margin-bottom: 10px;">
+    {{#if layer_hover == undefined}}
+      {{#each hidden_layers as layer}}
+      <div style="width: {{1*layer_size}}px; margin-left: 10px; margin-right: 10px;">
+        <h4 class="layer_name">{{layer}}</h4>
       </div>
-      <div style="width: {{1*layer_size}}px; margin-right: 20px;">
-        <h4>mixed4a</h4>
+      {{/each}}
+    {{else}}
+      {{#if layer_hover_n > 0}}
+      <div style="width: {{layer_hover_n*layer_size + (layer_hover_n-1)*20}}px; margin-right: 10px; margin-left: 10px;">
+        <h4>Influences</h4>
       </div>
-      <div style="width: {{1*layer_size}}px; margin-right: 20px;">
-        <h4>mixed4d</h4>
+      {{/if}}
+      {{#if layer_hover_n < 4}}
+      <div style="width: {{layer_size}}px; margin-left: 10px; margin-right: 10px">
+        <h4 class="layer_name">{{layer_hover}}</h4>
       </div>
-      <div style="width: {{1*layer_size}}px;\">
-        <h4>mixed5a</h4>
+      {{/if}}
+      {{#if layer_hover_n < 3}}
+      <div style="width: {{(4-layer_hover_n-1)*layer_size + (4-layer_hover_n-2)*20}}px; margin-right: 10px; margin-left: 10px;">
+        <h4>Influenced By</h4>
       </div>
-    {{elseif layer_hover == 'mixed3a'}}
-      <div style="width: {{1*layer_size}}px; margin-right: 20px;">
-        <h4>{{layer_hover}}</h4>
-      </div>
-      <div style="width: {{3*layer_size + 2*20}}px;">
-        <h4>Influenced By {{layer_hover}}</h4>
-      </div>
-    {{elseif layer_hover == 'mixed4a'}}
-      <div style="width: {{1*layer_size + 0*20}}px;">
-        <h4>Influences {{layer_hover}}</h4>
-      </div>
-      <div style="width: {{1*layer_size}}px; margin-left: 20px; margin-right: 20px">
-        <h4>{{layer_hover}}</h4>
-      </div>
-      <div style="width: {{2*layer_size + 2*20}}px;">
-        <h4>Influenced By {{layer_hover}}</h4>
-      </div>
-    {{elseif layer_hover == 'mixed4d'}}
-      <div style="width: {{2*layer_size + 1*20}}px;">
-        <h4>Influences {{layer_hover}}</h4>
-      </div>
-      <div style="width: {{1*layer_size}}px; margin-left: 20px; margin-right: 20px">
-        <h4>{{layer_hover}}</h4>
-      </div>
-      <div style="width: {{1*layer_size + 1*20}}px;">
-        <h4>Influenced By {{layer_hover}}</h4>
-      </div>
-    {{elseif layer_hover == 'mixed5a'}}
-      <div style="width: {{3*layer_size + 2*20}}px;">
-        <h4>Influences {{layer_hover}}</h4>
-      </div>
-      <div style="width: {{1*layer_size}}px; margin-left: 20px; margin-right: 20px">
-        <h4>{{layer_hover}}</h4>
-      </div>
+      {{/if}}
     {{/if}}
     <!--
     <div style="width: {{layer_size}}px; height: 20px; background: #333; margin-right: 10px; margin-left: 10px;"></div>
@@ -154,8 +129,7 @@
   
 
   {{/if}}
-
-  <figcaption style="padding: 10px 0 0 10px; grid-column: screen; max-width: 600px;" class="interactive-caption">
+  <figcaption style="padding: 10px 0 0 10px; grid-column: screen; max-width: 600px; margin-top: 10px;" class="interactive-caption">
     Attribution tends to be more meaningful in later layers.
     
     {{#if $example && $example == 'dog_cat'}}
@@ -173,7 +147,7 @@
       
       Surprisingly, the
           <a on:click="set_ag_hover('mixed4d', [6,6])"
-           class="{{pos_in_box([5,6], [6,6])? 'selected' : ''}}">
+           class="{{(layer_hover == 'mixed4d' && pos_in_box([5,6], [6,6]))? 'selected' : ''}}">
            lower snout at mixed4d</a>
      seems entangled with the idea of a tennis ball and
      supports "tennis ball" and "granny smith apple."
@@ -350,8 +324,8 @@
     font-size: 13px;
   }
  
-  .attribution_list li:hover { color: #666; }
-  .attribution_list li:hover .scent div { background: #666; }
+  .attribution_list li:hover, .attribution_active li { color: #000; }
+  .attribution_list li:hover .scent div, .attribution_active li .scent div { background: #666; }
 
   .factors_1 .scent div { background: #f4a582; }
   .factors_1 li:hover { color: #e66101; }
@@ -371,7 +345,7 @@
     text-shadow: 1px 0 0 hsl(24, 100%, 50%);
   }
   
-  .hidden_layer_labels h4 {
+  .hidden_layer_labels .layer_name {
     text-transform: none;
   }
 </style>
@@ -467,6 +441,14 @@
           return ( pos
           && pos[0] >= x_bound[0] && pos[0] <= x_bound[1]
           && pos[1] >= y_bound[0] && pos[1] <= y_bound[1]);
+        }
+      },
+      
+      layer_hover_n: (layer_hover, hidden_layers) => {
+        if (layer_hover == 'nmf' || layer_hover == 'output') {
+          return 4;
+        } else {
+          return hidden_layers.indexOf(layer_hover);
         }
       },
 
