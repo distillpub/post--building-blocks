@@ -15,7 +15,6 @@
               top:  {{pos_snap[layer_hover][1] * 150 / layer_hover_size}}px;"></div>
           {{/if}}
 
-          <ExamplePicker />
         </div>
       </div>
 
@@ -223,7 +222,7 @@
 
   .legend {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr;
     grid-gap: 40px;
     max-width: 1000px;
     margin: 0 auto 20px auto;
@@ -236,7 +235,6 @@
   .input_image {
     height: 150px;
     width: auto;
-    margin-right: 105px;
     border-radius: var(--border-radius);
   }
 
@@ -311,7 +309,6 @@
 <script>
   import {json as loadJSON} from 'd3-request';
 
-  import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html';
   import ActivationGrid from './ActivationGrid.html';
 
@@ -406,7 +403,7 @@
         
     },
 
-    components: {ActivationGrid, ExamplePicker, Sprite},
+    components: {ActivationGrid, Sprite},
     
     methods: {
       set_ag_hover (layer, pos) {

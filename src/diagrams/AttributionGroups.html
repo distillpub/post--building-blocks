@@ -10,7 +10,6 @@
           sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
       {{/if}}
     </div>
-    <ExamplePicker />
   </div>
 
   <div class="paths" ref:paths>
@@ -146,7 +145,6 @@
 
 <script>
   import Sprite from './Sprite.html'
-  import ExamplePicker from './ExamplePicker.html';
   import {calc_layer_size, range} from '../util';
   import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
   import {json as loadJSON} from 'd3-request';
@@ -490,6 +488,6 @@
       }
     },
 
-    components: { ExamplePicker, Sprite }
+    components: { Sprite }
   }
 </script>
