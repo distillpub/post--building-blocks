@@ -19,7 +19,6 @@
 
     d-title h1, d-title p {
       grid-column: page;
-      text-align: center;
     }
 
     d-figure {
@@ -33,7 +32,7 @@
     }
 
     #Teaser {
-      margin-top: 10px;
+      margin-top: 0;
       margin-bottom: 0;
       background: var(--gray-bg);
       border-top: 1px solid var(--gray-border);
@@ -110,7 +109,7 @@
     /* Heights for progressively loaded graphics */
     @media (min-width: 1000px) {
       #Teaser {
-        min-height: 660px;
+        /* min-height: 660px; */
       }
 
       #AttributionChannel {
@@ -201,11 +200,13 @@
 <d-title>
   <h1>The Building Blocks of Interpretability</h1>
   <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
-  <p>
+  <p style="font-size: 1.5rem;">
     Interpretability techniques are normally studied in isolation.<br>
     We explore the powerful interfaces that arise when you combine them — <br class="conditional">and the rich structure of this combinatorial space.
   </p>
+  
   <d-figure id="Teaser" style="grid-column: screen;"></d-figure>
+  <div id="StickyPicker" style="grid-column: screen;"></div>
 </d-title>
 
 <d-article>
@@ -281,6 +282,8 @@
       Different slices of the cube allow us to target the activations of individual neurons, spatial positions, or channels.
     </figcaption>
   </figure>
+  <div id="StickyPicker" style="grid-column: screen;"></div>
+  
 
   <figure id="SemanticDict" class="base-grid"></figure>
 
