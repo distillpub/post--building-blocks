@@ -232,13 +232,7 @@
     </figcaption>
     
     <figcaption style="padding: 10px 0 0 10px; grid-column: screen;">
-    Reproduce spatial attribution in a
-    <a href="https://goo.gl/ZBf4b8" style="border: none;">
-      <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-    </a>
-    <a href="https://goo.gl/ZBf4b8">
-      Colaboratory Notebook.
-    </a>
+    <ColabLink url="https://goo.gl/ZBf4b8" />
   </figcaption>
 </div>
 
@@ -381,6 +375,7 @@
 
   import Sprite from './Sprite.html';
   import ActivationGrid from './ActivationGrid.html';
+  import ColabLink from './ColabLink.html';
 
   import {calc_layer_size, range} from '../util';
   const layers = require('../../static/examples').layers;
@@ -473,7 +468,7 @@
         
     },
 
-    components: {ActivationGrid, Sprite},
+    components: {ActivationGrid, ColabLink, Sprite},
     
     methods: {
       set_ag_hover (layer, pos) {

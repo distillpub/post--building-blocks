@@ -7,13 +7,7 @@
       <figcaption>
         By using non-negative matrix factorization we can reduce the large number of neurons to a small set of groups that concisely summarize the story of the network.
         <br>
-        (Reproduce in a 
-        <a href="https://goo.gl/EWMzGH" style="border: none;">
-          <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-        </a>
-        <a href="https://goo.gl/EWMzGH">
-           Notebook.)
-        </a>
+        <ColabLink url="https://goo.gl/EWMzGH" />
       </figcaption>
 
       <div ref:inputImage style="position: relative;">
@@ -300,6 +294,7 @@
   import {range} from '../util';
   import {hcl, mean} from 'd3';
   import Sprite from './Sprite.html';
+  import ColabLink from './ColabLink.html';
 
   export default {
     data() {
@@ -377,7 +372,7 @@
       neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
-    components: {Sprite},
+    components: {Sprite, ColabLink},
     methods: {
       measure: function() {
         console.log(this.refs.inputImage)

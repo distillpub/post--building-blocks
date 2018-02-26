@@ -48,15 +48,8 @@
       </div>
       <div>
             <figcaption>
-              Reproduce this in a <br>
-              <a href="https://goo.gl/gnCfGL" style="border: none;">
-                <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-              </a>
-              <a href="https://goo.gl/gnCfGL">
-                Colaboratory Notebook.
-              </a>
+              <ColabLink url="https://goo.gl/gnCfGL"/>
             </figcaption>
-        <!-- <ExamplePicker /> -->
       </div>
     </div>
 
@@ -532,6 +525,7 @@
   import {range} from '../util';
   import ExamplePicker from './ExamplePicker.html';
   import StickyPicker from './StickyPicker.html';
+  import ColabLink from './ColabLink.html';
 
   import Sprite from './Sprite.html';
 
@@ -672,6 +666,6 @@
       }
     },
 
-    components: {ExamplePicker, Sprite, StickyPicker}
+    components: {ExamplePicker, Sprite, StickyPicker, ColabLink}
   }
 </script>
