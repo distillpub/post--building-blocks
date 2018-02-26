@@ -3,7 +3,8 @@
 <div class="root {{fixed ? 'fixed' : ''}}" ref:root>
     <div class="sticky base-grid">
         <div class="container">
-            <h4>Change example</h4>
+            <h4>Choose an input image</h4>
+            <div class="images">
             {{#each examples as ex}} 
             <img 
                 src="examples/input_images/{{ex}}.png" 
@@ -12,6 +13,7 @@
                 on:click="store.set({example: ex})"
             />
             {{/each}}
+            </div>
         </div>
     </div>
 </div>
@@ -22,12 +24,12 @@
         background: white;
         z-index: 1000000;
         height: 59px;
+        border-top: solid 1px rgba(0, 0, 0, 0.1);
     }
     .container {
         grid-column: page; 
-        padding: 4px;
         display: grid;
-        grid-template-columns: 180px 50px 50px 50px 2fr;
+        grid-template-columns: 180px 1fr;
     }
     h4 {
         text-transform: uppercase;
@@ -36,6 +38,7 @@
         line-height: 50px;
         margin: 0;
         opacity: 0.5;
+        align-self: center;
     }
     .fixed .sticky {
         position: fixed;
@@ -44,23 +47,25 @@
         top: 0px;
         width: 100%;
         background: hsla(0, 0%, 99%, 1);
-        border-top: solid 1px rgba(0, 0, 0, 0.1);
         border-bottom: solid 1px rgba(0, 0, 0, 0.1);
         z-index: 1000000;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
     }
 
     .root img {
-        width: 44px;
+        width: 45px;
         cursor: pointer;
-        opacity: 0.4;
-        border: 3px solid transparent;
-        border-radius: var(--border-radius);
+        opacity: 0.3;
+        border-bottom: 3px solid transparent;
+        border-top: 2px solid transparent;
+        padding: 7px 0;
+        margin-right: 5px;
+        position: relative;
+        top: 1px;
+        float: left;
     }
 
-    img.selected,
-    img.selected:hover {
-        border-color: #ff6600;
+    img.selected {
+        border-bottom-color: #ff6600;
         opacity: 0.8;
     }
 
