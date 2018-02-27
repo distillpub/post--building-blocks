@@ -10,6 +10,7 @@ import ExamplePicker from './diagrams/ExamplePicker.html';
 import StickyPicker from './diagrams/StickyPicker.html';
 import SemanticDict from './diagrams/SemanticDict.html';
 import ActivationVecVis from './diagrams/ActivationVecVis.html';
+import ActivationGrid from './diagrams/ActivationGridSingle.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
@@ -19,8 +20,10 @@ import Grammar from './diagrams/Grammar.html';
 import CubeGroups from './diagrams/CubeGroups.html';
 import CubeNatural from './diagrams/CubeNatural.html';
 
+
 const store = window.store = new Store({
   example: 'dog_cat',
+  activation_zoom: 1,
   labels: require('../static/examples/labels.json')
 });
 
@@ -54,7 +57,6 @@ const stickyPicker = new StickyPicker({
   store
 });
 
-
 const semanticDict = new SemanticDict({
   target: document.getElementById('SemanticDict'),
   store
@@ -65,8 +67,20 @@ const actVis = new ActivationVecVis({
   store
 });
 
+const actGridSingle = new ActivationGrid({
+  target: document.getElementById('ActivationGridSingle'),
+  data: {
+    magnitude: false,
+    layer: "mixed4d",
+    layer_size: 700,
+    show_zoom: false
+  },
+  store
+});
+
 const actGrid = new AllActivationGrids({
   target: document.getElementById('AllActivationGrids'),
+  data: { controls: true },
   store
 });
 
@@ -75,6 +89,11 @@ const actGridMag = new AllActivationGrids({
   data: {magnitude: true},
   store
 });
+
+actGrid.observe('center', center => actGridMag.set({ center }))
+actGridMag.observe('center', center => actGrid.set({ center }))
+actGrid.observe('zoom', zoom => actGridMag.set({ zoom }))
+actGridMag.observe('zoom', zoom => actGrid.set({ zoom }))
 
 
 initialize(

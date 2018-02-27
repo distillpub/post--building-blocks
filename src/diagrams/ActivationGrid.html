@@ -4,6 +4,8 @@
   --layer-size: {{layer_size}}px; width: {{layer_size}}px;
   min-height: {{layer_size}}px;">
 
+
+
   <slot name="background"></slot>
 
   <img src="{{img_src}}"
@@ -29,9 +31,10 @@
     </div>
   {{/if}}
 
-  {{#if show_layer_name}}
-  <p>{{layer}}</p>
-  {{/if}}
+       {{#if show_layer_name}}
+      <h4>{{layer}}</h4>
+      {{/if}}
+
 </div>
 
 <style>
@@ -41,9 +44,10 @@
     margin: 0 10px;
   }
 
-  .layer p {
-    font-size: 90%;
-    font-weight: bold;
+  h4 {
+    margin-top: 2px;
+    margin-bottom: 20px;
+    font-size: 12px;
   }
 
   .layer img { 

@@ -199,7 +199,7 @@
 <d-title>
   <h1>The Building Blocks of Interpretability</h1>
   <!-- <p>Developing a Grammar of Interfaces for Understanding Neural Networks</p> -->
-  <p>
+  <p style="font-size: 1.6rem;">
     Interpretability techniques are normally studied in isolation.<br>
     We explore the powerful interfaces that arise when you combine them — <br class="conditional">and the rich structure of this combinatorial space.
   </p>
@@ -333,11 +333,13 @@
 
   <p>
     Applying this technique to all the activation vectors allows us to not only see what the network detects at each position, but also what the network understands of the input image as a whole.
-
-    And, by working across layers, we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
   </p>
 
-  <!-- Include a blown up version of most interesting grid? -->
+  <figure id="ActivationGridSingle" style="grid-column: text;"></figure>
+  
+  <p>
+    And, by working across layers, we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
+  </p>
 
   <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 

@@ -1,31 +1,35 @@
-<:Window bind:innerWidth="winWidth" bind:scrollY="scrollY" />
+<:Window bind:innerWidth="winWidth" />
 
-<div ref:container class="all_act_grids">
+{{#if controls}}
+<div class="base-grid controls">
+  <div style="grid-column: text">
+    <button on:click="zoomIn()">Zoom In</button>
+    <button on:click="zoomOut()">Zoom Out</button>
+  </div>
+</div>
+{{/if}}
 
-  <div style="--layer-size: {{layer_size}}px;
-    width: {{(layer_size + 25) * layer_names.length}}px;">
+<div ref:container class="all_act_grids" on:scroll="scroll()">
+
+  <div class="scroll" style="--layer-size: {{layer_size}}px; width: {{scroll_panel_width}}px;">
 
     {{#each layer_names as layer}}
-      <ActivationGrid magnitude={{magnitude}} layer={{layer}} layer_size={{layer_size}}
+      <ActivationGrid magnitude={{magnitude}} layer={{layer}} layer_size={{layer_size_zoom}}
         show_zoom={{!!$ag_layer_hover}} />
     {{/each}}
   </div>
 </div>
-
-{{#if magnitude == false}}
-<div class="base-grid">
-  <figcaption style="grid-column: text;">
-    <ColabLink url="https://goo.gl/cUZ9Uo" />
-  </figcaption>
-</div>
-{{/if}}
-
 <style>
-  /* .all_act_grids {
+
+  .controls {
+    margin: -10px 0 20px 0;
+  }
+
+  .all_act_grids {
     width: 100%;
     overflow-x: scroll; 
     overflow-y: hidden;
-  } */
+  }
 
   .sprite_container {
     padding: 5px;
@@ -42,22 +46,63 @@
   import ActivationGrid from './ActivationGrid.html';
   import ColabLink from './ColabLink.html';
   import {calc_layer_size} from '../util';
+  import { tween } from 'svelte-extras';
+  import * as eases from 'eases-jsnext';
 
   export default {
     data() {
       return {
         layer_names: ['mixed3a', 'mixed4a', 'mixed4d', 'mixed5a'],
-        magnitude: false
+        magnitude: false,
+        zoom: 1,
+        center: 0.5
       };
     },
 
     oncreate() {
       this.set({layer_size: calc_layer_size(this.refs.container, 4)});
+      this.observe("scroll_left", (scroll) => {
+        this.refs.container.scrollLeft = scroll;
+      });
     },
 
     computed: {
-      layer_size (winWidth, num_layer_width) {
-        return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'), 3.25);
+      layer_size (winWidth) {
+        return calc_layer_size(document.querySelector('#AllActivationGrids .all_act_grids'), 4);
+      },
+      layer_size_zoom (layer_size, zoom) {
+        return layer_size * zoom;
+      },
+      scroll_panel_width(layer_size_zoom, layer_names) {
+        return (layer_size_zoom + 20) * layer_names.length;
+      },
+      scroll_left(center, scroll_panel_width, winWidth) {
+        return Math.round(scroll_panel_width * center - winWidth * 0.5);
+      }
+    },
+
+    methods: {
+      tween,
+      scroll: function() {
+        console.log('scroll', this.refs.container.scrollLeft);
+        const scrollLeft = this.refs.container.scrollLeft;
+        const {winWidth, scroll_panel_width} = this.get();
+        const center = (scrollLeft + winWidth / 2) / scroll_panel_width;
+        this.set({center: center})
+
+      },
+      zoomIn: function() {
+        const newValue = this.get('zoom') * 1.5;
+        this.tween('zoom',  newValue, {
+          duration: 400,
+          easing: eases.cubicInOut
+        });
+      },
+      zoomOut: function() {
+        this.tween('zoom', 1, {
+          duration: 500,
+          easing: eases.cubicInOut
+        });
       }
     },
     

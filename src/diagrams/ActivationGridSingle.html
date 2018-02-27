@@ -1,0 +1,41 @@
+<div ref:layerDiv class="layer">
+
+    <img src="{{img_src}}"/> 
+    <figcaption>
+        <ColabLink url="https://goo.gl/cUZ9Uo" />
+    </figcaption>
+
+</div>
+
+<style>
+   
+</style>
+
+<script>
+    import ColabLink from './ColabLink.html';
+    const layers = require('../../static/examples').layers;
+
+    export default {
+        data() {
+            return {
+                layer: 'mixed4d',
+                show_layer_name: true
+            };
+        },
+
+        computed: {
+            img_src($example, layer, magnitude) {
+                const src = `examples/activations/${$example}/${layer}`;
+                return src + (magnitude ? '-magnitude.png' : '.jpeg');
+            },
+
+        },
+
+        methods: {
+
+        },
+
+        components: { ColabLink }
+    }
+
+</script>

@@ -26,7 +26,7 @@
     "numpy-loader": "^1.2.0",
     "numpy-parser": "^1.0.1",
     "svelte": "^1.50.1",
-    "svelte-extras": "^1.5.3",
+    "svelte-extras": "^1.6.0",
     "svelte-hot-loader": "^1.5.0",
     "svelte-loader": "^2.1.0",
     "webpack": "^3.1.0",
