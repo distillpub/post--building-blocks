@@ -13,8 +13,8 @@
         <b>{{right_selected_class_label}}</b>?” 
         In this first example, we prototype an interface combining feature visualization and class attribution that starts to provide an answer to such questions that would not be possible with either technique in isolation.
       </p></div> -->
-      <div>
-        <p>
+      <div style="grid-column: 1/4">
+        <p style="margin-top: 10px;margin-right: 15%;">
           For instance, by combining feature visualization (<i>what is a neuron looking for?</i>) 
           with attribution (<i>how does it affect the output?</i>), we can explore how 
           the network decides between labels like
@@ -24,7 +24,7 @@
         </p>
       </div>
 
-      <div>
+      <div style="grid-column: 4/7">
         <div ref:input_image class="input_image">
           <img src="examples/input_images/{{$example}}.jpeg" />
           {{#if hover_channel}}
@@ -46,7 +46,7 @@
           {{/if}}
         </div>
       </div>
-      <div>
+      <div style="grid-column: 7/9">
             <figcaption>
               Several ear-type detectors seem to be very important in distinguishing different types of animals.
             </figcaption>
@@ -81,8 +81,8 @@
         </div>
 
         <div class="flow">
-          <svg width="40" height="120">
-            <path d="M20,0 L20,108 S20,118 10,118 L0,118 M20,108 S20,118 30,118 L40,118" />
+          <svg width="70" height="120">
+            <path d="M35,0 L35,108 S35,118 25,118 L0,118 M35,108 S35,118 45,118 L70,118" />
           </svg>
         </div>
 
@@ -121,7 +121,7 @@
             <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
           </div>
         {{/each}}
-        <div class="divider"></div>
+        <div class="divider" style="text-align: center; font-size: 18px; line-height: {{neuron_img_size}}px;">…</div>
         {{#each right_selected_data as d, i}}
         <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
           <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
@@ -211,8 +211,9 @@
     grid-column: page;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.8fr 1fr 1fr;
-    grid-column-gap: 30px;
+    grid-template-columns: 170px 1fr 1fr 1fr 1px 1fr 1fr 1fr;
+    /* //1.8fr 1fr 1fr; */
+    grid-column-gap: 15px;
   }
 
   .table {
@@ -332,7 +333,7 @@
 
   .headers {
     display: grid;
-    grid-template-columns: 1fr 0px 1fr;
+    grid-template-columns: 1fr 30px 1fr;
     grid-column-gap: 20px;
   }
 
@@ -342,17 +343,17 @@
 
   .headers .flow svg {
     position: absolute;
-    bottom: 29px;
+    bottom: 26px;
     left: -20px;
   }
   .headers .left {
     display: grid;
-    grid-template-columns: 1fr 0.6fr;
+    grid-template-columns: 1fr 0.3fr;
   }
 
   .headers .right {
     display: grid;
-    grid-template-columns: 0.6fr 1fr;
+    grid-template-columns: 0.3fr 1fr;
   }
   .headers > * {
     position: relative;
@@ -363,12 +364,12 @@
   }
   .headers .left .arrow {
     position: absolute;
-    bottom: 20px;
+    bottom: 17px;
     left: 20px;
   }
   .headers .right .arrow {
     position: absolute;
-    bottom: 20px;
+    bottom: 17px;
     right: 20px;
   }
   .headers svg path {
@@ -431,18 +432,19 @@
   }
 
   .divider {
-    border-left: 1px solid rgba(0, 0, 0, 0.3);
+    content: "…"
+    /* border-left: 1px solid rgba(0, 0, 0, 0.3); */
   }
 
   .features {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 30px 1fr 1fr 1fr;
     grid-column-gap: 15px;
   }
 
   .evidence {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0px 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 30px 1fr 1fr 1fr;
     grid-column-gap: 15px;
   }
 
