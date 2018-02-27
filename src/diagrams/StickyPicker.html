@@ -7,7 +7,7 @@
             <div class="images">
             {{#each examples as ex}} 
             <img 
-                src="examples/input_images/{{ex}}.png" 
+                src="examples/input_images/{{ex}}.jpeg" 
                 alt="{{ex}}" 
                 class="{{ex === $example ? 'selected' : ''}}" 
                 on:click="store.set({example: ex})"
@@ -75,29 +75,19 @@
 </style>
 
 <script>
-    const examples = require('../../static/examples').examples;
+  const examples = require('../../static/examples').examples;
 
-    export default {
-        data() {
-            return { examples };
-        },
+  export default {
+    data() {
+      return { examples };
+    },
 
-        oncreate() {
-            this.observe('scrollY', scrollY => {
-                const el = this.refs.root;
-                const bbox = el.getBoundingClientRect();
-                if (bbox.top < 0) {
-                    this.set({fixed: true});
-                } else {
-                    this.set({ fixed: false });
-                }
-                console.log(bbox);
-            });
-        },
-
-
-        methods: {
-
-        }
+    oncreate() {
+      this.observe('scrollY', scrollY => {
+        const el = this.refs.root;
+        const bbox = el.getBoundingClientRect();
+        this.set({ fixed: bbox.top < 0 });
+      });
     }
+  }
 </script>

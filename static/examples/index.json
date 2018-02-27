@@ -1,6 +1,7 @@
 {
   "examples": [
-    "dog_cat", "flowers", "sunglasses_tux"
+    "dog_cat", "flowers", "bowtie_guy",
+    "pig", "beer", "chain"
   ],
   "layers": {
     "mixed3a": [28, 26],

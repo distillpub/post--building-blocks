@@ -4,7 +4,7 @@
   <div class="input_image">
     <!-- <ExamplePicker pin="#ActivationCube" unpin="#AllActivationGridsMagnitude" /> -->
 
-    <img ref:img src="examples/input_images/{{$example}}.png" alt="{{$example}}" />
+    <img ref:img src="examples/input_images/{{$example}}.jpeg" alt="{{$example}}" />
 
       <svg class="pointer_container" viewBox="0 0 {{N[0]}} {{N[1]}}">
         <filter id="background_rect_blur">
@@ -101,7 +101,7 @@
         class="{{(pos_in_box([6,8], [9,9]) || (pos[0]==9 && pos[1]==8))? 'selected' : ''}}">
         horn detectors</a>
       seem to double for detecting the vase's handle.
-    {{elseif $example == 'sunglasses_tux'}}
+    {{elseif $example == 'bowtie_guy'}}
     
       There seem to be detectors for
       <a on:click="store.set({dict_pos: [5,2]})"
@@ -273,7 +273,10 @@ sub { font-size: 65%; }
   const DEFAULT_POS = {
     dog_cat: [1, 4],
     flowers: [6, 8],
-    sunglasses_tux: [5, 2]
+    bowtie_guy: [5, 2],
+    pig: [2, 3],
+    beer: [2, 3],
+    chain: [2, 3]
   };
 
   export default {

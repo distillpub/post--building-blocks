@@ -7,7 +7,7 @@
       <h4>Input Image</h4>
     
       <div class="input_image" ref:input_image>
-        <img src="examples/input_images/{{$example}}.png" /> 
+        <img src="examples/input_images/{{$example}}.jpeg" /> 
         <div class="image_overlay">
           {{#if hover.length || selected !== 'output'}}
             <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
@@ -38,8 +38,12 @@
   <div class="columns">
     <h4>
       Top Channels Supporting
-      {{#if selected === 'output'}} 
-        {{$labels[attr_data.output.l[0].c]}}
+      {{#if selected === 'output'}}
+        {{#if $example === 'chain'}}
+          {{$labels[attr_data.output.l[1].c]}}
+        {{else}}
+          {{$labels[attr_data.output.l[0].c]}}
+        {{/if}}
       {{else}}
         <span class="selected">
           Layer {{selected[0]}}, Channel {{selected[1]}}
