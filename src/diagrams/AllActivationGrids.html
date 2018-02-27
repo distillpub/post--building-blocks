@@ -64,6 +64,9 @@
       this.observe("scroll_left", (scroll) => {
         this.refs.container.scrollLeft = scroll;
       });
+      this.observe("zoom", (zoom) => {
+        this.scroll();
+      });
     },
 
     computed: {
