@@ -7,13 +7,8 @@
       <figcaption>
         By using non-negative matrix factorization we can reduce the large number of neurons to a small set of groups that concisely summarize the story of the network.
         <br>
-        (Reproduce in a 
-        <a href="https://goo.gl/EWMzGH" style="border: none;">
-          <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-        </a>
-        <a href="https://goo.gl/EWMzGH">
-           Notebook.)
-        </a>
+        <br>
+        <ColabLink url="https://goo.gl/EWMzGH" />
       </figcaption>
 
       <div ref:inputImage style="position: relative;">
@@ -72,7 +67,7 @@
 
     <div class="groups" >
       <div class="label cell">
-        feature visualization
+        <a href="https://distill.pub/2017/feature-visualization/">feature visualization</a> of each group
         <div class="prompt">
           hover to isolate
           <svg width=14 height=18>
@@ -166,7 +161,7 @@
   .input{
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 170px 1fr 1fr;
+    grid-template-columns: 160px 1fr 1fr;
     margin-bottom: 30px;
   }
 
@@ -177,14 +172,14 @@
  .colors, .groups, .output {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 170px 1fr;
+    grid-template-columns: 160px 1fr;
   }
 
   .prompt {
     position: absolute;
     bottom: 20%;
     right: 20px;
-    max-width: 170px;
+    max-width: 160px;
     font-style: italic;
     opacity: 0.5;
   }
@@ -300,6 +295,7 @@
   import {range} from '../util';
   import {hcl, mean} from 'd3';
   import Sprite from './Sprite.html';
+  import ColabLink from './ColabLink.html';
 
   export default {
     data() {
@@ -377,7 +373,7 @@
       neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
-    components: {Sprite},
+    components: {Sprite, ColabLink},
     methods: {
       measure: function() {
         console.log(this.refs.inputImage)

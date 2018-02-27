@@ -13,15 +13,11 @@
 </div>
 
 {{#if magnitude == false}}
-<figcaption class="l-body" style="margin-left: 10px;">
-  Reproduce activation grids in a
-  <a href="https://goo.gl/cUZ9Uo" style="border: none;">
-    <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-  </a>
-  <a href="https://goo.gl/cUZ9Uo">
-    Colaboratory Notebook.
-  </a>
-</figcaption>
+<div class="base-grid">
+  <figcaption style="grid-column: text;">
+    <ColabLink url="https://goo.gl/cUZ9Uo" />
+  </figcaption>
+</div>
 {{/if}}
 
 <style>
@@ -44,6 +40,7 @@
 
 <script>
   import ActivationGrid from './ActivationGrid.html';
+  import ColabLink from './ColabLink.html';
   import {calc_layer_size} from '../util';
 
   export default {
@@ -64,6 +61,6 @@
       }
     },
     
-    components: {ActivationGrid}
+    components: {ActivationGrid, ColabLink}
   }
 </script>

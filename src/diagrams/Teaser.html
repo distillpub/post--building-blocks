@@ -48,15 +48,8 @@
       </div>
       <div>
             <figcaption>
-              Reproduce this in a <br>
-              <a href="https://goo.gl/gnCfGL" style="border: none;">
-                <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-              </a>
-              <a href="https://goo.gl/gnCfGL">
-                Colaboratory Notebook.
-              </a>
+              Several ear-type detectors seem to be very important in distinguishing different types of animals.
             </figcaption>
-        <!-- <ExamplePicker /> -->
       </div>
     </div>
 
@@ -114,7 +107,7 @@
       <!-- Feature Viz -->
 
       <div class="row_label cell">
-        feature visualization
+        <a href="https://distill.pub/2017/feature-visualization/">feature visualization</a> of channel
         <div class="prompt">
           hover for attribution maps
           <svg width=14 height=18>
@@ -190,15 +183,9 @@
       </div>
     </div>
 
-
-    <!-- Caption -->
-    
-    <!-- <p class="caption">
-      By combining feature visualization with class attribution we can see which channels lead to the classsification. In this
-      instance it’s clear that the network is using “ear shape” to distinguish between the two difference animals.
-    </p> -->
-
-
+    <div style="grid-column: page; margin-top: 20px;">
+      <ColabLink url="https://goo.gl/gnCfGL" />
+    </div>
 
   {{else}}
     Loading
@@ -214,7 +201,7 @@
   }
 
   .container {
-    margin: 40px 20px;
+    margin: 30px 20px 20px;
     position: relative;
     --blue: #3497FF;
     --orange: #ff6600;
@@ -532,6 +519,7 @@
   import {range} from '../util';
   import ExamplePicker from './ExamplePicker.html';
   import StickyPicker from './StickyPicker.html';
+  import ColabLink from './ColabLink.html';
 
   import Sprite from './Sprite.html';
 
@@ -672,6 +660,6 @@
       }
     },
 
-    components: {ExamplePicker, Sprite, StickyPicker}
+    components: {ExamplePicker, Sprite, StickyPicker, ColabLink}
   }
 </script>

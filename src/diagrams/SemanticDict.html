@@ -119,13 +119,7 @@
 {{/if}}
 
 <figcaption class="l-body" style="margin-top: 15px;">
-  Reproduce semantic dictionaries in a 
-  <a href="https://goo.gl/VENUK8" style="border: none;">
-    <img src="images/colab.svg" alt="" style="height: 13px; width: auto;" />
-  </a>
-  <a href="https://goo.gl/VENUK8">
-    Colaboratory Notebook.
-  </a>
+  <ColabLink url="https://goo.gl/VENUK8" />
 </figcaption>
 
 <style>
@@ -249,6 +243,7 @@ sub { font-size: 65%; }
   import {argmax} from 'ndarray-ops';
   import {desc, fmtAct, range} from '../util';
   import Sprite from './Sprite.html'
+  import ColabLink from './ColabLink.html'
 
   function vector_y (N) {
     const p = document.querySelector('#SemanticDict #abstract_vector');
@@ -366,7 +361,7 @@ sub { font-size: 65%; }
       }
     },
 
-    components: {Sprite},
+    components: {ColabLink, Sprite},
     helpers: {range}
   }
 </script>
