@@ -129,7 +129,8 @@
   
 
   {{/if}}
-  <figcaption style="padding: 10px 0 0 10px; grid-column: screen; max-width: 600px; margin-top: 10px;" class="interactive-caption">
+  <div class="base-grid">
+  <figcaption style="padding: 10px 0 0 10px; grid-column: middle; max-width: 600px; margin-top: 10px;" class="interactive-caption">
     Attribution tends to be more meaningful in later layers.
     
     {{#if $example && $example == 'dog_cat'}}
@@ -205,9 +206,10 @@
     {{/if}}
     </figcaption>
     
-    <figcaption style="padding: 10px 0 0 10px; grid-column: screen;">
+    <figcaption style="padding: 10px 0 0 10px; grid-column: middle;">
     <ColabLink url="https://goo.gl/ZBf4b8" />
   </figcaption>
+  </div>
 </div>
 
 <style>
@@ -336,7 +338,7 @@
   .interactive-caption .selected {
     color: hsl(24, 100%, 50%);
     border-bottom: 1px solid hsl(24, 100%, 50%);
-    text-shadow: 1px 0 0 hsl(24, 100%, 50%);
+    text-shadow: 0.5px 0 0 hsl(24, 100%, 50%);
   }
   
   .hidden_layer_labels .layer_name {
