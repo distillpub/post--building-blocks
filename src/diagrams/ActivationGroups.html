@@ -345,17 +345,26 @@
                   x,
                   y,
                   value,
+                  theta: groupsData[g].hueTheta,
                   hueX: value * value * Math.cos(groupsData[g].hueTheta),
                   hueY: value * value * Math.sin(groupsData[g].hueTheta),
                   color: hcl(groupsData[g].hue, value * 4, value * 3).toString(),
                 });
               }
 
-              const meanHueX = mean(groups, h => h.hueX);
-              const meanHueY = mean(groups, h => h.hueY);
+              
+
+              const meanHueX = mean(groups, g => g.value * g.value * Math.cos(g.theta));
+              const meanHueY = mean(groups, g => g.value * g.value * Math.sin(g.theta));
               const meanHue = Math.atan2(meanHueY, meanHueX) / Math.PI * 180;
               const meanValue = mean(groups, h => h.value) * numGroups / 1.3;
-              activations.push({groups, x, y, i, color: hcl(meanHue, meanValue * 4, meanValue * 3).toString()});
+              
+              const meanValue2 = mean(groups, h => h.value * h.value);
+              const saturation = Math.sqrt(meanHueX * meanHueX + meanHueY * meanHueY) / meanValue2;
+              console.log(saturation)
+              
+              
+              activations.push({groups, x, y, i, color: hcl(meanHue, meanValue * 5 * saturation * saturation, meanValue * 3).toString()});
               i++;
             }
           }
