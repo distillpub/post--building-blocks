@@ -397,7 +397,7 @@
 
     We think there's a lot of important research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
 
-    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces except the spatial attribution one, where we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.</d-footnote>, but could easily substitute in essentially any other technique.
+    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces. That is, we estimate that effect of a neuron on the output is it's activation times the rate at which increasing its activation increases the output. When we talk about a linear combination of activations, the attribution can be thought of as the linear combination of the attributions of the units, or equivalently as the dot product between the activation of that combination and the gradient.<br><br> For spatial attribution, we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.<br><br>The notebooks attached to diagrams provide reference implementations.</d-footnote>, but could easily substitute in essentially any other technique.
 
     Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
@@ -829,7 +829,7 @@
 
     There are natural ways that interfaces could respond to this: we could use diversity visualizations to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled.
 
-    Of course, just like our models can be fooled, the features that make them up can be too -- including with adverserial examples <d-cite key="sabour2015adversarial"></d-cite>.
+    Of course, just like our models can be fooled, the features that make them up can be too -- including with adversarial examples <d-cite key="sabour2015adversarial"></d-cite>.
 
     In our view, features do not need to be flawless detectors for it to be useful for us to think about them as such. 
     
