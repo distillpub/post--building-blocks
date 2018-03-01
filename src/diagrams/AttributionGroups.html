@@ -41,7 +41,7 @@
             {{#each nodesLayout.nodes as node,i}}
               <div 
                 on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"
-                class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer  && node.i == hoveredElement ? 'hover' : ''}}"
+                class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer ? 'hovered-layer' : ''}} {{node.i == hoveredElement ? 'hovered-element' : ''}}"
                 style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
@@ -160,15 +160,17 @@
   .node {
     border-radius: 6px;
     border: 3px solid rgba(220, 220, 220, 1);
-    color: rgb(220, 220, 220);
+    color: black;
     overflow: hidden;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
   }
-  .node.hover {
+  .node.hovered-layer {
+    opacity: 0.3;
+  }
+  .node.hovered-element.hovered-layer {
+    opacity: 1;
     border: 3px solid rgba(0, 0, 0, 1);
-    color: black;
-    background: white;
   }
   .node.logit {
     padding: 10px;
@@ -178,8 +180,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-  }
-  .node.logit.hover {
   }
   .html {
     position: absolute;
@@ -484,7 +484,7 @@
                 ];
 
               var color = "#ccc"
-              var opacity = opacityScale(Math.abs(link.attr))
+              var opacity = 0//opacityScale(Math.abs(link.attr))
               var weight = weightScale(Math.abs(link.attr))
               if(hoveredLayer == "logit") {
                 // we only want to color the line if its connecting 2 hidden layers 
