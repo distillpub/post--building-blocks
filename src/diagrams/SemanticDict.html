@@ -114,6 +114,41 @@
       <a on:click="store.set({dict_pos: [7,7]})"
         class="{{pos_in_box([6,8], [6,8])? 'selected' : ''}}">
         chin/bowtie</a>.
+    {{elseif $example == 'pig'}}
+      There seem to be detectors for different kinds of animal 
+      <a on:click="store.set({dict_pos: [10, 5]})"
+        class="{{pos_in_box([7, 10], [2, 5]) ? 'selected': ''}}">ears</a> and  
+      <a on:click="store.set({dict_pos: [6, 9]})"
+        class="{{pos_in_box([4, 8], [6, 9]) ? 'selected' : ''}}">faces</a>. 
+      Interestingly, 
+        <a on:click="store.set({dict_pos: [7, 11]})"
+          class="{{pos_in_box([7, 10], [10, 13]) ? 'selected' : ''}}">nose</a>
+      detectors appear to take on floral (or petal-like) aspects.
+    {{elseif $example == 'beer'}}
+      There seem to be detectors for  
+      <a on:click="store.set({dict_pos: [6, 1]})"
+        class="{{pos_in_box([5, 7], [0, 2]) ? 'selected' : ''}}">glass rims</a> 
+      and
+      <a on:click="store.set({dict_pos: [3, 7]})" 
+        class="{{pos_in_box([3, 5], [5, 8]) ? 'selected' : ''}}">bottles</a>.
+    {{elseif $example == 'chain'}}
+      There seem to be detectors for bird features including
+      <a on:click="store.set({dict_pos: [6, 4]})" 
+        class="{{pos_in_box([4, 6], [4, 4]) ? 'selected' : ''}}">the head</a>,
+      <a on:click="store.set({dict_pos: [10, 6]})" 
+        class="{{pos_in_box([10, 11], [6, 6]) ? 'selected' : ''}}">feathers</a> 
+      and
+      <a on:click="store.set({dict_pos: [9, 8]})" 
+        class="{{pos_in_box([7, 9], [8, 8]) ? 'selected' : ''}}">legs</a>.
+      Detectors for the chain primarily look for 
+      <a on:click="store.set({dict_pos: [0, 4]})" 
+        class="{{pos[0] === 0 && pos[1] === 4 ? 'selected' : ''}}">curved shapes</a>
+      (including as expressed with a 
+      <a on:click="store.set({dict_pos: [10, 10]})" 
+        class="{{pos[0] === 10 && pos[1] === 10 ? 'selected' : ''}}">dog snout</a>), 
+      but also pick up on 
+      <a on:click="store.set({dict_pos: [11, 11]})" 
+        class="{{pos[0] === 11 && pos[1] === 11 ? 'selected' : ''}}">metallic elements</a>.
     {{/if}}
   </figcaption>
 {{/if}}
@@ -269,9 +304,9 @@ sub { font-size: 65%; }
     dog_cat: [1, 4],
     flowers: [6, 8],
     bowtie_guy: [5, 2],
-    pig: [2, 3],
-    beer: [2, 3],
-    chain: [2, 3]
+    pig: [10, 5],
+    beer: [6, 1],
+    chain: [6, 4]
   };
 
   export default {

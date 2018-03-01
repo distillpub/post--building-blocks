@@ -295,6 +295,11 @@
     Activations now map to iconic representations, instead of abstract indices, with many appearing to be similar to salient human ideas, such as "floppy ear," "dog snout," or "fur."
   </p>
 
+  <figcaption class="l-gutter">
+    We use optimization-based feature visualization<d-cite key="olah2017feature"></d-cite> to avoid spurious correlation, but one could use other methods.
+  </figcaption>
+
+
   <p>
     Semantic dictionaries are powerful not just because they move away from meaningless indices, but because they express a neural network's learned abstractions with canonical examples.
         
@@ -341,14 +346,15 @@
   <figure id="ActivationGridSingle" style="grid-column: text;"></figure>
   
   <p>
-    And, by working across layers, we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
+    And, by working across layers (eg. "mixed3a", "mixed4d"), we can observe how the network's understanding evolves: from detecting edges in earlier layers, to more sophisticated shapes and object parts in the latter.
   </p>
 
   <figure id="AllActivationGrids" class="act-grids full-width"></figure>
 
   <p>
     These visualizations, however, omit a crucial piece of information: the magnitude of the activations.
-    By sizing each of the cells of the visualization by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
+    
+    By scaling the area of each cell by the magnitude of the activation vector, we can indicate how strongly the network detected features at that position:
   </p>
 
   <figure id="AllActivationGridsMagnitude" class="act-grids full-width"></figure>
@@ -387,13 +393,13 @@
   <p>
     Attribution is a set of techniques that answers such questions by explaining the relationships between neurons.
 
-    There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet"></d-cite> but, so far, there doesn't seem to be a clear right answer.
+    There are a wide variety of approaches to attribution <d-cite key="simonyan2013deep,zeiler2014visualizing,springenberg2014striving,selvaraju2016grad,fong2017interpretable,kindermans2017patternnet,sundararajan2017axiomatic"></d-cite> but, so far, there doesn't seem to be a clear right answer.
 
     In fact, there's reason to think that all our present answers aren't quite right <d-cite key="kindermans2017reliability"></d-cite>.
 
     We think there's a lot of important research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
 
-    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces except the spatial attribution one, where we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.</d-footnote>, but could easily substitute in essentially any other technique.
+    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces. That is, we estimate that effect of a neuron on the output is it's activation times the rate at which increasing its activation increases the output. When we talk about a linear combination of activations, the attribution can be thought of as the linear combination of the attributions of the units, or equivalently as the dot product between the activation of that combination and the gradient.<br><br> For spatial attribution, we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.<br><br>The notebooks attached to diagrams provide reference implementations.</d-footnote>, but could easily substitute in essentially any other technique.
 
     Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
@@ -825,7 +831,7 @@
 
     There are natural ways that interfaces could respond to this: we could use diversity visualizations to reveal the variety of meanings the neuron can take, or rotate our semantic dictionaries so their components are more disentangled.
 
-    Of course, just like our models can be fooled, the features that make them up can be too -- including with adverserial examples <d-cite key="sabour2015adversarial"></d-cite>.
+    Of course, just like our models can be fooled, the features that make them up can be too -- including with adversarial examples <d-cite key="sabour2015adversarial"></d-cite>.
 
     In our view, features do not need to be flawless detectors for it to be useful for us to think about them as such. 
     

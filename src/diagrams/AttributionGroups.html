@@ -6,7 +6,7 @@
     <div class="input_image">
       <img src="examples/input_images/{{$example}}.jpeg" />
       {{#if hoveredLayer && hoveredLayer !== "logit"}}
-        <Sprite bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+        <Sprite bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
           sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
       {{/if}}
     </div>
@@ -180,22 +180,25 @@
       const hl = this.get('hidden_layers');
       
       this.store.observe('example', (example) => {
+        const base_path = this.get('base_path');
+
         // Prefetch sprites
         sprites.splice(0);
         for (const layer of hl) {
           const img = new Image();
-          img.src = `examples/groups/${example}/sprite_${layer}_dream_overlay_vlight.jpeg`;
+          img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
           sprites.push(img);
         }
       });
 
       this.observe('hovered', (hovered) => {
+        const base_path = this.get('base_path');
         var split = hovered.split("|")
         var example = split[0]
         var hoveredLayer = split[1]
         var hoveredElement = split[2]
         if(hoveredLayer !== "logit") {
-          var maskUrl = `examples/groups/${example}/${hoveredLayer}/each_group/${hoveredElement}/dream_overlay_vlight.jpeg`
+          var maskUrl = `${base_path}/${hoveredLayer}/each_group/${hoveredElement}/dream_overlay_vlight.jpeg`
           this.set({maskSource: maskUrl, maskOpacity: 1})
         } else {
           this.set({maskOpacity: 0})
@@ -205,6 +208,10 @@
     },
 
     computed: {
+      base_path ($example) {
+        return `examples/groups/${$example}`;
+      },
+
       logits(group_data) {
         if (!group_data) return null;
         // console.log("computing", group_data)
@@ -230,7 +237,7 @@
       },
 
       // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
-      nodesLayout(group_data, logits, hidden_layers, $example, width, height) {
+      nodesLayout(base_path, group_data, logits, hidden_layers, $example, width, height) {
         if (!group_data) return {};
         var logitHeight = 40;
         var spacing = 5;
@@ -258,7 +265,7 @@
               w: yscale.bandwidth(),//imgw,
               h: yscale.bandwidth(),//imgw,
               px: 5,
-              url: `examples/groups/${$example}/${layer}/each_group/${i}/icon.jpeg`
+              url: `${base_path}/${layer}/each_group/${i}/icon.jpeg`
             }
           })
           nodesByLayer[layer] = layerNodes
