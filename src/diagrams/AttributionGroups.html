@@ -42,7 +42,7 @@
               <div 
                 on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"
                 class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer  && node.i == hoveredElement ? 'hover' : ''}}"
-                style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - 15}}px)"
+                style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
                   <Sprite bg_img="{{neuron_sprite_url_4a}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
@@ -60,21 +60,6 @@
   </div>
 
 </div>
-
-
-             <!-- {{#if node.layer == "logit"}}
-            <rect x={{node.x}} y={{node.y}} width=175 height={{node.h}} fill="{{node.i == hoveredElement && hoveredLayer == 'logit' ? "
-              #ddd " : 'rgb(248, 248, 248)'}}" on:mouseover="set({hoveredLayer: 'logit', hoveredElement: node.i})"></rect>
-            
-            <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
-            <text class="layer_text" x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
-            {{else}}
-            <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} width={{node.w + node.px}} height={{node.h + node.px}} fill="#bbb"
-              rx=3 ry=3 on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"></rect>
-            <image class="layer_image" xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
-            {{/if}} -->
-
-
 
 <style>
 
