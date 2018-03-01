@@ -23,42 +23,58 @@
     </h4>
 
     <div class="container">
-      <!-- where we render the graph lines -->
       <div class="paths_headers">
         <h5>Mixed4a</h5>
         <h5>Mixed4d</h5>
         <h5>Output class</h5>
       </div>
-      {{#if group_data}}
-      <svg class="graph" ref:graph width={{width}} height={{height}}>
-
-          {{#each links as line,i}}
+      <div class="stage" style="width: {{width}}px; height: {{height}}px;">
+       {{#if group_data}}
+          <!-- SVG -->
+          <svg class="graph" ref:graph>
+            {{#each links as line,i}}
             <path d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="{{line.color}}" fill="none"></path>
-          {{/each}}
-
-          {{#each nodesLayout.nodes as node,i}}
-            {{#if node.layer == "logit"}}
-              <rect x={{node.x}} y={{node.y}} width=175 height={{node.h}} fill="{{node.i == hoveredElement && hoveredLayer == 'logit' ? "#ddd" : 'rgb(248, 248, 248)'}}"
-                on:mouseover="set({hoveredLayer: 'logit', hoveredElement: node.i})"></rect>
-                <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
-
-              <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
-              <text class="layer_text" x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
-            {{else}}
-              <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} 
-                width={{node.w + node.px}} height={{node.h + node.px}} 
-                fill="#bbb" rx=3 ry=3
-                on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"></rect>
-                <!-- on:mouseout="set({hoveredLayer: '', hoveredElement: ''})"></rect> -->
-              <image class="layer_image" xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
-            {{/if}}
-          {{/each}}
-        </svg>
+            {{/each}}
+          </svg>
+          <!-- HTML -->
+          <div class="html">
+            {{#each nodesLayout.nodes as node,i}}
+              <div 
+                on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"
+                class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer  && node.i == hoveredElement ? 'hover' : ''}}"
+                style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - 15}}px)"
+              >
+                {{#if node.layer == 'mixed4a'}}
+                  <Sprite bg_img="{{neuron_sprite_url_4a}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                {{elseif node.layer == 'mixed4d'}}
+                  <Sprite bg_img="{{neuron_sprite_url_4d}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                {{elseif node.layer == 'logit'}}
+                  <div>{{node.logit.name}}</div>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
         {{/if}}
+        </div>
     </div>
   </div>
 
 </div>
+
+
+             <!-- {{#if node.layer == "logit"}}
+            <rect x={{node.x}} y={{node.y}} width=175 height={{node.h}} fill="{{node.i == hoveredElement && hoveredLayer == 'logit' ? "
+              #ddd " : 'rgb(248, 248, 248)'}}" on:mouseover="set({hoveredLayer: 'logit', hoveredElement: node.i})"></rect>
+            
+            <rect x={{node.x}} y={{node.y}} width=2 height={{node.h}} fill="#111"></rect>
+            <text class="layer_text" x={{node.x + 10}} y={{node.y + node.h/2}}>{{node.logit.name}}</text>
+            {{else}}
+            <rect x={{node.x - node.px/2}} y={{node.y - node.px/2}} width={{node.w + node.px}} height={{node.h + node.px}} fill="#bbb"
+              rx=3 ry=3 on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"></rect>
+            <image class="layer_image" xlink:href={{node.url}} x={{node.x}} y={{node.y}} width={{node.w}} height={{node.h}}></image>
+            {{/if}} -->
+
+
 
 <style>
 
@@ -69,6 +85,9 @@
     display: grid;
     grid-template-columns: 250px 5fr;
     grid-gap: 30px;
+  }
+  .stage {
+    position: relative;
   }
 
   .side_labels {
@@ -146,6 +165,49 @@
   .graph text {
     alignment-baseline: middle;
   }
+  .graph {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .node {
+    border-radius: 6px;
+    border: 3px solid rgba(220, 220, 220, 1);
+    color: rgb(220, 220, 220);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+  }
+  .node.hover {
+    border: 3px solid rgba(0, 0, 0, 1);
+    color: black;
+    background: white;
+  }
+  .node.logit {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .node.logit.hover {
+  }
+  .html {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .html > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 </style>
 
 <script>
@@ -183,12 +245,12 @@
         const base_path = this.get('base_path');
 
         // Prefetch sprites
-        sprites.splice(0);
-        for (const layer of hl) {
-          const img = new Image();
-          img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
-          sprites.push(img);
-        }
+        // sprites.splice(0);
+        // for (const layer of hl) {
+        //   const img = new Image();
+        //   img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
+        //   sprites.push(img);
+        // }
       });
 
       this.observe('hovered', (hovered) => {
@@ -210,6 +272,16 @@
     computed: {
       base_path ($example) {
         return `examples/groups/${$example}`;
+      },
+
+      neuron_sprite_url_4d($example, neuron_sprite) {
+        return neuron_sprite ||
+          `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
+      },
+
+      neuron_sprite_url_4a($example, neuron_sprite) {
+        return neuron_sprite ||
+          `examples/groups/${$example}/sprite_mixed4a_icon.jpeg`;
       },
 
       logits(group_data) {
@@ -402,16 +474,16 @@
                 .padding(0.3)
               var tyscale = scaleBand()
                 .domain(range(maxJ+1))
-                .range([4, link.target.h - 2])
+                .range([2, link.target.h - 2])
                 .padding(0.3)
 
               var sx = link.source.x + link.source.w
-              var sy = link.source.y + syscale(link.i) + syscale.bandwidth()/2 //link.i / maxI * link.source.h/1.5 + link.source.h/6
+              var sy = link.source.y + syscale(link.i) //link.i / maxI * link.source.h/1.5 + link.source.h/6
               // var sx = link.source.x + link.i / maxI * link.source.w/1.5 + link.source.w/6
               // var sy = link.source.y// + link.source.h/2
 
               var tx = link.target.x// - link.target.w/2
-              var ty = link.target.y + tyscale(link.j) + tyscale.bandwidth()/2 //link.j / maxJ * link.target.h/1.5 + link.target.h/6
+              var ty = link.target.y + tyscale(link.j) //link.j / maxJ * link.target.h/1.5 + link.target.h/6
               // var tx = link.target.x + link.j / maxJ * link.target.w/1.5 + link.target.w/6
               // var ty = link.target.y + link.target.h/2
 
