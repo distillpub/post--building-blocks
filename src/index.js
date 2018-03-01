@@ -6,6 +6,7 @@ import {default as ndarray} from 'ndarray';
 import {Store} from 'svelte/store.js';
 
 import Teaser from './diagrams/Teaser.html';
+import Atoms from './diagrams/Atoms.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
 import StickyPicker from './diagrams/StickyPicker.html';
 import SemanticDict from './diagrams/SemanticDict.html';
@@ -159,6 +160,10 @@ initialize(
   }
 );
 
+const atoms = new Atoms({
+  target: document.getElementById('Atoms'),
+  store
+});
 
 const grammar = new Grammar({
   target: document.getElementById('Grammar'),
