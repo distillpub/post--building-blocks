@@ -5,16 +5,22 @@
     <h4>Input Image</h4>
     <div class="input_image">
       <img src="examples/input_images/{{$example}}.jpeg" />
-      {{#if hoveredLayer && hoveredLayer !== "logit"}}
-      <div class="outline"></div>
-        <Sprite bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-          sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
-      {{/if}}
+      <div class="sprite {{hoveredLayer && hoveredLayer !== 'logit' ? 'active' : ''}}">
+        <div class="outline"></div>
+        <Sprite
+          bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}
+        ></Sprite>
+      </div>
     </div>
     <figcaption>
        To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
       earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
       for.
+      <div class="key">
+        <div><svg width="20" height="10"><line stroke="black" stroke-width="4" x1=0 y1=7 x2=20 y2=7></line></svg> positive influence</div>
+        <div><svg width="20" height="10"><line stroke="black" stroke-width="4" stroke-dasharray="1 2" x1=0 y1=7 x2=20 y2=7></line></svg> negative influence</div>
+      </div>
     </figcaption>
   </div>
 
@@ -34,7 +40,7 @@
           <!-- SVG -->
           <svg class="graph" ref:graph>
             {{#each links as line,i}}
-            <path d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="{{line.color}}" fill="none"></path>
+            <path class="{{line.sign}}" d={{line.path}} opacity={{line.opacity}} stroke-width={{line.weight}} stroke="{{line.color}}" fill="none"></path>
             {{/each}}
           </svg>
           <!-- HTML -->
@@ -45,7 +51,7 @@
                 on:mouseout="set({hoveredLayer: 'logit', hoveredElement: null})"
                 on:click="set({selectedLayer: node.layer, selectedElement: node.i})"
                 class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer ? 'hovered-layer' : ''}} {{node.i == hoveredElement ? 'hovered-element' : ''}} {{node.layer == selectedLayer ? 'selected-layer' : ''}} {{node.i == selectedElement ? 'selected-element' : ''}}"
-                style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
+                style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x - 2}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
                   <Sprite bg_img="{{neuron_sprite_url_4a}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
@@ -110,6 +116,31 @@
     font-weight: bold;
     margin-bottom: 10px;
     text-transform: capitalize;
+  }
+
+  .key {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .key svg {
+    margin-right: 6px;
+  }
+  .key line {
+    stroke: #a1adb7;
+  }
+
+  .sprite {
+    display: none;
+  }
+
+  .sprite.active {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   
@@ -202,6 +233,12 @@
     justify-content: center;
     text-align: center;
   }
+  path {
+    stroke: #a1adb7;
+  }
+  path.negative {
+    stroke-dasharray: 1 2;
+  }
   .html {
     position: absolute;
     top: 0;
@@ -219,7 +256,7 @@
 <script>
   import Sprite from './Sprite.html'
   import {calc_layer_size, range} from '../util';
-  import { max, line, curveBasis, scaleLinear, scaleBand, nest } from 'd3'
+  import { max, line, curveBasis, curveBundle, scaleLinear, scaleBand, nest } from 'd3'
   import {json as loadJSON} from 'd3-request';
   import { tween } from 'svelte-extras'
   import * as eases from 'eases-jsnext';
@@ -449,7 +486,7 @@
         var path = line()
           .x(function(d) { return d.x })
           .y(function(d) { return d.y })
-          .curve(curveBasis)
+          .curve(curveBundle.beta(0.9))
 
         var maxLogitAttr = max(links, function(l) { return Math.abs(l.sourceLogitAttr) })
         if(selectedLayer && selectedLayer != "logit") {
@@ -564,6 +601,7 @@
                 weight: weight,
                 opacity: opacity,
                 color: color,
+                sign: (color === "#7FBBB4" ? 'positive' : 'negative'),
                 path: path(points)
               })
             })
