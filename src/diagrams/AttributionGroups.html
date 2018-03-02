@@ -6,6 +6,7 @@
     <div class="input_image">
       <img src="examples/input_images/{{$example}}.jpeg" />
       {{#if hoveredLayer && hoveredLayer !== "logit"}}
+      <div class="outline"></div>
         <Sprite bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
           sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}></Sprite>
       {{/if}}
@@ -41,7 +42,9 @@
             {{#each nodesLayout.nodes as node,i}}
               <div 
                 on:mouseover="set({hoveredLayer: node.layer, hoveredElement: node.i})"
-                class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer ? 'hovered-layer' : ''}} {{node.i == hoveredElement ? 'hovered-element' : ''}}"
+                on:mouseout="set({hoveredLayer: 'logit', hoveredElement: null})"
+                on:click="set({selectedLayer: node.layer, selectedElement: node.i})"
+                class="node {{node.layer === 'logit' ? 'logit' : 'layer'}} {{node.layer == hoveredLayer ? 'hovered-layer' : ''}} {{node.i == hoveredElement ? 'hovered-element' : ''}} {{node.layer == selectedLayer ? 'selected-layer' : ''}} {{node.i == selectedElement ? 'selected-element' : ''}}"
                 style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
@@ -73,10 +76,6 @@
   }
   .stage {
     position: relative;
-  }
-
-  .side_labels {
-    overflow: hidden;
   }
 
   .paths {
@@ -121,10 +120,22 @@
   }
 
   .input_image {
+    position: relative;
     width: 250px;
     height: 250px;
     position: relative;
     margin-bottom: 20px;
+  }
+
+  .input_image .outline {
+    border: 3px solid hsla(30, 100%, 60%, 1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    z-index: 1;
+    border-radius: 5px;    
   }
 
   .input_image img { 
@@ -165,12 +176,22 @@
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
   }
-  .node.hovered-layer {
+  .node.selected-layer {
     opacity: 0.3;
   }
-  .node.hovered-element.hovered-layer {
+  .node.hovered-element.hovered-layer.layer {
+    border: 3px solid hsla(30, 100%, 60%, 1);
+    opacity: 1;
+  }
+  .node.hovered-element.hovered-layer.logit {
+    border: 3px solid rgba(220, 220, 220, 1);
+    text-decoration: underline;
+  }
+  .node.selected-element.selected-layer,
+  .node.selected-element.selected-layer.logit {
     opacity: 1;
     border: 3px solid rgba(0, 0, 0, 1);
+    text-decoration: none;
   }
   .node.logit {
     padding: 10px;
@@ -216,6 +237,8 @@
         current_logit: null,
         hoveredLayer: "logit",
         hoveredElement: "0",
+        selectedLayer: "logit",
+        selectedElement: "0",
         spacing: 30,
         width: 900,
         height: 600,
@@ -236,6 +259,15 @@
         //   img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
         //   sprites.push(img);
         // }
+      });
+
+      this.observe('selected', (selected) => {
+        const base_path = this.get('base_path');
+        var split = selected.split("|")
+        var example = split[0]
+        var selectedLayer = split[1]
+        var selectedElement = split[2]
+
       });
 
       this.observe('hovered', (hovered) => {
@@ -291,6 +323,10 @@
       //combine the things the mask url depends on
       hovered($example, hoveredLayer, hoveredElement) {
         return $example + "|" + hoveredLayer + "|" + hoveredElement
+      },
+      //combine the things the mask url depends on
+      selected($example, selectedLayer, selectedElement) {
+        return $example + "|" + selectedLayer + "|" + selectedElement
       },
 
       // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
@@ -354,8 +390,8 @@
         }
       },
 
-      links(group_data, nodesLayout, logits, hidden_layers, $example, width, height, hoveredLayer, hoveredElement) {
-        // console.log("hovered", hoveredLayer, hoveredElement)
+      links(group_data, nodesLayout, logits, hidden_layers, $example, width, height, selectedLayer, selectedElement) {
+        // console.log("hovered", selectedLayer, selectedElement)
         // console.log("group_data", group_data)
 
 
@@ -375,7 +411,7 @@
                   source: a,
                   target: l,
                   attr: attr,
-                  sourceLogitAttr: i == hoveredElement ? attr : 0
+                  sourceLogitAttr: i == selectedElement ? attr : 0
                 }
                 links.push(link)
               })
@@ -390,8 +426,8 @@
             nodesByLayer[layerA].forEach(function(a, j) {
               var attr = group.attribution[layerA][j]
               var logitAttr = 0;
-              if(hoveredLayer == "logit") {
-                var logit = nodesByLayer.logits[hoveredElement].logit
+              if(selectedLayer == "logit") {
+                var logit = nodesByLayer.logits[selectedElement].logit
                 var sourceLogitAttr = group_data.output[logit.name].attribution[layerA][j]
                 var targetLogitAttr = group_data.output[logit.name].attribution[layerB][i]
               }
@@ -416,12 +452,12 @@
           .curve(curveBasis)
 
         var maxLogitAttr = max(links, function(l) { return Math.abs(l.sourceLogitAttr) })
-        if(hoveredLayer && hoveredLayer != "logit") {
+        if(selectedLayer && selectedLayer != "logit") {
           var maxHoveredLogitAttr = max(nodesByLayer.logits, function(d) { 
-            return Math.abs(group_data.output[d.logit.name].attribution[hoveredLayer][hoveredElement])
+            return Math.abs(group_data.output[d.logit.name].attribution[selectedLayer][selectedElement])
           })
           var maxHoveredAttr = max(links, function(d) { 
-            if(d.source.layer != hoveredLayer) return 0;
+            if(d.source.layer != selectedLayer) return 0;
             return d.attr
           })
         }
@@ -486,7 +522,7 @@
               var color = "#ccc"
               var opacity = 0//opacityScale(Math.abs(link.attr))
               var weight = weightScale(Math.abs(link.attr))
-              if(hoveredLayer == "logit") {
+              if(selectedLayer == "logit") {
                 // we only want to color the line if its connecting 2 hidden layers 
                 // or if its connecting to the hovered logit
                 if(!link.target.logit) {
@@ -494,30 +530,30 @@
                   color = link.sourceLogitAttr > 0 ? "#7FBBB4" :  "#FFAB91"
                   opacity = 0.8
                   weight = weight * Math.abs(link.targetLogitAttr)/maxLogitAttr
-                } else if(hoveredElement == link.target.i) {
+                } else if(selectedElement == link.target.i) {
                   // link connects to logit
                   color = link.attr > 0 ? "#7FBBB4" :  "#FFAB91"
                   opacity = 0.8
                 }
-              } else if(hoveredLayer) {
+              } else if(selectedLayer) {
                 // hovering one of the hidden layers
-                if(link.source.layer == hoveredLayer && link.source.i == hoveredElement)  {
+                if(link.source.layer == selectedLayer && link.source.i == selectedElement)  {
                   // we want to color all of the links coming out of the hovered group
                   color = link.attr > 0 ? "#7FBBB4" :  "#FFAB91"
                   opacity = 0.8
-                } else if(link.target.layer == hoveredLayer && link.target.i == hoveredElement) { 
+                } else if(link.target.layer == selectedLayer && link.target.i == selectedElement) { 
                   // we want to color all of the links coming into the hovered group
                   color = link.attr > 0 ? "#7FBBB4" :  "#FFAB91"
                   opacity = 0.8
-                } else if(link.source.layer != hoveredLayer && link.target.layer == "logit") {
+                } else if(link.source.layer != selectedLayer && link.target.layer == "logit") {
                   color = link.attr > 0 ? "#7FBBB4" :  "#FFAB91"
                   opacity = 0.8
                   // if the links are for a later layer, scale their attribution by the hovered group's attribution to the logit
                   // as well as 
                   // TODO this will break with more than 2 hidden layers, we'd need to cascade the attribution thru
-                  var hoveredLogitAttr = group_data.output[link.target.logit.name].attribution[hoveredLayer][hoveredElement]
+                  var hoveredLogitAttr = group_data.output[link.target.logit.name].attribution[selectedLayer][selectedElement]
                   var hoveredSourceLink = links.filter(function(l) { 
-                    return l.source.layer == hoveredLayer && l.source.i == hoveredElement && l.target.i == link.source.i
+                    return l.source.layer == selectedLayer && l.source.i == selectedElement && l.target.i == link.source.i
                   })[0]
                   var hoveredSourceAttr = hoveredSourceLink.attr;
                   weight = weight * Math.abs(hoveredLogitAttr)/maxHoveredLogitAttr * Math.abs(hoveredSourceAttr)/maxHoveredAttr
