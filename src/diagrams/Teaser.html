@@ -5,14 +5,6 @@
 
     <!-- Intro -->
     <div class="intro">
-      <!-- <div><p>
-        In machine learning, we often struggle to answer complex questions about network behavior, such as 
-        “Why does a neural network classify this image as a 
-        <b>{{left_selected_class_label}}</b>
-        and not a
-        <b>{{right_selected_class_label}}</b>?” 
-        In this first example, we prototype an interface combining feature visualization and class attribution that starts to provide an answer to such questions that would not be possible with either technique in isolation.
-      </p></div> -->
       <div style="grid-column: 1/4">
         <p style="margin-top: 10px;margin-right: 15%;">
           For instance, by combining feature visualization (<i>what is a neuron looking for?</i>) 
@@ -47,9 +39,22 @@
         </div>
       </div>
       <div style="grid-column: 7/9; position: relative;">
-            <figcaption style="position: absolute; bottom: 30px; width: 60%;">
-              Several ear-type detectors seem to be very important in distinguishing different types of animals.
-            </figcaption>
+        <figcaption style="position: absolute; bottom: 30px; width: 60%;" on:mouseleave="set({hover_channel: null})">
+          {{#if $example == 'dog_cat'}}
+            <a on:mouseover="set({hover_channel: 426})">Several</a> <a on:mouseover="set({hover_channel: 436})">floppy ear</a> ear detectors seem to be important when distinguishing dogs, whereas <a on:mouseover="set({hover_channel: 221})">pointy ears</a> are used to classify "tiger cat".
+          {{elseif $example == 'flowers'}}
+            "Vase" classification is dominated by <a  on:mouseover="set({hover_channel: 2})">leaf</a> and <a  on:mouseover="set({hover_channel: 469})">top of vase</a> detectors, as opposed to <a  on:mouseover="set({hover_channel: 119})">bumpy</a>, <a  on:mouseover="set({hover_channel: 185})">round</a> and <a  on:mouseover="set({hover_channel: 25})">yellow</a> detectors used for "lemon".
+          {{elseif $example == 'bowtie_guy'}}
+            A unit seems to fire quite high on <a  on:mouseover="set({hover_channel: 490})">bowties</a>, as well as one on <a on:mouseover="set({hover_channel: 16})">lapels</a>.
+          {{elseif $example == 'pig'}}
+            <a on:mouseover="set({hover_channel: 403})">Pointy ears</a> seem to be used to classify a "hog". A <a  on:mouseover="set({hover_channel: 520})">dot detector</a> is contributing highly to a "dalmation" classification.
+          {{elseif $example == 'beer'}}
+          <a on:mouseover="set({hover_channel: 57})">upward sloping glass edges</a> are a negative signal for a "wine bottle" classification.
+          {{elseif $example == 'chain'}}
+            <a on:mouseover="set({hover_channel: 466})">bird heads</a> and <a on:mouseover="set({hover_channel: 100})">plant-like backgrounds</a> seem to contribute to "brambling". A <a on:mouseover="set({hover_channel: 292})">curvy shape detector</a> seems to used to classify the "chain".
+          {{/if}}           
+
+        </figcaption>
       </div>
     </div>
 
@@ -117,13 +122,13 @@
       </div>
       <div class="features" on:mouseleave="set({hover_channel: null})">
         {{#each left_selected_data as d, i}}
-          <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+          <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
             <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
           </div>
         {{/each}}
         <div class="divider" style="text-align: center; font-size: 18px; line-height: {{neuron_img_size}}px;">…</div>
         {{#each right_selected_data as d, i}}
-        <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;"on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
+        <div class="cell neuron {{hover_channel === d.c ? 'neuron_hover' : ''}}" style="height: {{neuron_img_size}}px;" on:mouseover="set({hover_channel: d.c})" title="Layer mixed4d, Unit {{d.c}}">
           <Sprite src_class="sprite_mixed4d_channel" n={{d.c}} size="{{neuron_img_size}}" sprite_size="110" />
         </div>
         {{/each}}
@@ -227,6 +232,18 @@
   figcaption {
     grid-column: page;
     margin: 30px auto 0;
+  }
+
+  figcaption a {
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+  }
+
+  figcaption a:hover {
+    color: hsl(24, 100%, 50%);
+    border-bottom: 1px solid hsl(24, 100%, 50%);
+    text-shadow: 0.5px 0 0 hsl(24, 100%, 50%);
   }
 
   .intro p {
