@@ -8,8 +8,8 @@
       <div class="sprite {{hoveredLayer && hoveredLayer !== 'logit' ? 'active' : ''}}">
         <div class="outline"></div>
         <Sprite
-          bg_img="examples/groups/${$example}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-          sprite_size={{224}} size={{250}} y={{sprite_index}} x={{hovered.split('|')[2]}}
+          bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          sprite_size={{224}} size={{250}} y={{$groups_sprite_y}} x={{mask_sprite_x}}
         ></Sprite>
       </div>
     </div>
@@ -46,7 +46,7 @@
         <h5>Output class</h5>
       </div>
       <div class="stage" style="width: {{width}}px; height: {{height}}px;">
-       {{#if group_data}}
+       {{#if $groups_attr}}
           <!-- SVG -->
           <svg class="graph" ref:graph>
             {{#each links as line,i}}
@@ -306,14 +306,17 @@
           `examples/groups/${$example}/sprite_mixed4a_icon.jpeg`;
       },
 
-      group_data: ($groups_attr) => $groups_attr,
+      mask_sprite_x($groups_sprite_x, $max_4a, $max_4d, hoveredLayer, hovered) {
+        const max = hoveredLayer === 'mixed4a' ? $max_4a : $max_4d;
+        return ($groups_sprite_x * max) + hovered.split('|')[2];
+      },
 
-      logits(group_data, $labels) {
-        if (!group_data) return null;
-        // console.log("computing", group_data)
-        var keys = Object.keys(group_data.output)
+      logits($groups_attr, $labels) {
+        if (!$groups_attr) return null;
+        // console.log("computing", $groups_attr)
+        var keys = Object.keys($groups_attr.output)
         var logits = keys.map((key) => {
-          var d = group_data.output[key]
+          var d = $groups_attr.output[key]
           d.name = key
           return d
         }).sort(function(a,b) {
@@ -336,9 +339,9 @@
         return $example + "|" + selectedLayer + "|" + selectedElement
       },
 
-      // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
-      nodesLayout(group_data, logits, hidden_layers, $example, width, height) {
-        if (!group_data) return {};
+      // layout($groups_attr, logits, hidden_layers, $example, width, height, selected, hovered) {
+      nodesLayout($groups_attr, logits, hidden_layers, $example, width, height) {
+        if (!$groups_attr) return {};
         var logitHeight = 40;
         var spacing = 5;
         var yscale = scaleBand()
@@ -351,7 +354,7 @@
         var nodes = []
         var nodesByLayer = {}
         hidden_layers.forEach(function(layer,j) {
-          var layer_n = group_data[layer].n_groups
+          var layer_n = $groups_attr[layer].n_groups
           yscale.domain(range(layer_n))
           // TODO: scale imagew by # of elements and height of graphic
           var imgw = height/layer_n - spacing;
@@ -397,9 +400,9 @@
         }
       },
 
-      links(group_data, nodesLayout, logits, hidden_layers, $example, width, height, selectedLayer, selectedElement) {
+      links($groups_attr, nodesLayout, logits, hidden_layers, $example, width, height, selectedLayer, selectedElement) {
         // console.log("hovered", selectedLayer, selectedElement)
-        // console.log("group_data", group_data)
+        // console.log("$groups_attr", $groups_attr)
 
 
         if(!nodesLayout.byLayer) return [];
@@ -411,7 +414,7 @@
             //last layer, lets connect it to the logits
             nodesByLayer.logits.forEach(function(l,i) {
               nodesByLayer[layer].forEach(function(a, j) {
-                var attr = group_data.output[l.logit.name].attribution[layer][j]
+                var attr = $groups_attr.output[l.logit.name].attribution[layer][j]
                 var link = {
                   i: i,
                   j: j,
@@ -429,14 +432,14 @@
           var layerA = layer;
           var layerB = hidden_layers[i+1]
           nodesByLayer[layerB].forEach(function(b, i) {
-            var group = group_data[layerB].each_group[i]
+            var group = $groups_attr[layerB].each_group[i]
             nodesByLayer[layerA].forEach(function(a, j) {
               var attr = group.attribution[layerA][j]
               var logitAttr = 0;
               if(selectedLayer == "logit") {
                 var logit = nodesByLayer.logits[selectedElement].logit
-                var sourceLogitAttr = group_data.output[logit.name].attribution[layerA][j]
-                var targetLogitAttr = group_data.output[logit.name].attribution[layerB][i]
+                var sourceLogitAttr = $groups_attr.output[logit.name].attribution[layerA][j]
+                var targetLogitAttr = $groups_attr.output[logit.name].attribution[layerB][i]
               }
               var link = {
                 i: i,
@@ -461,7 +464,7 @@
         var maxLogitAttr = max(links, function(l) { return Math.abs(l.sourceLogitAttr) })
         if(selectedLayer && selectedLayer != "logit") {
           var maxHoveredLogitAttr = max(nodesByLayer.logits, function(d) { 
-            return Math.abs(group_data.output[d.logit.name].attribution[selectedLayer][selectedElement])
+            return Math.abs($groups_attr.output[d.logit.name].attribution[selectedLayer][selectedElement])
           })
           var maxHoveredAttr = max(links, function(d) { 
             if(d.source.layer != selectedLayer) return 0;
@@ -558,7 +561,7 @@
                   // if the links are for a later layer, scale their attribution by the hovered group's attribution to the logit
                   // as well as 
                   // TODO this will break with more than 2 hidden layers, we'd need to cascade the attribution thru
-                  var hoveredLogitAttr = group_data.output[link.target.logit.name].attribution[selectedLayer][selectedElement]
+                  var hoveredLogitAttr = $groups_attr.output[link.target.logit.name].attribution[selectedLayer][selectedElement]
                   var hoveredSourceLink = links.filter(function(l) { 
                     return l.source.layer == selectedLayer && l.source.i == selectedElement && l.target.i == link.source.i
                   })[0]

@@ -242,7 +242,21 @@ function initializeGroups() {
           const all_groups_attr = values[0];
           const mixed4d_raw = fromArrayBuffer(values[1]);
           const all_groups_mixed4d = ndarray(mixed4d_raw.data, mixed4d_raw.shape);
-          store.set({all_groups_attr, all_groups_mixed4d, groups_align: true});
+
+          store.set({
+            all_groups_attr, 
+            all_groups_mixed4d, 
+            groups_align: true,
+
+            num_4a: all_groups_attr.default[0],
+            num_4d: all_groups_attr.default[1],
+            card_4a: all_groups_attr.num_4a.length,
+            card_4d: all_groups_attr.num_4d.length,
+            min_4a: min(all_groups_attr.num_4a),
+            min_4d: min(all_groups_attr.num_4d),
+            max_4a: max(all_groups_attr.num_4a),
+            max_4d: max(all_groups_attr.num_4d)
+          });
 
           for (let i = 0; i < cmpts.length; i++) {
             if (instances[i] === null) instances[i] = new cmpts[i]({target: els[i], store});
@@ -258,47 +272,39 @@ function initializeGroups() {
         });
       });
 
-      store.observe('all_groups_attr', (all_attr) => {
-        if (!all_attr) return;
-        store.set({
-          num_4a: all_attr.default[0],
-          num_4d: all_attr.default[1],
-          card_4a: all_attr.num_4a.length,
-          card_4d: all_attr.num_4d.length,
-          min_4a: min(all_attr.num_4a),
-          min_4d: min(all_attr.num_4d),
-          max_4a: max(all_attr.num_4a),
-          max_4d: max(all_attr.num_4d),
-          idx_4a: all_attr.num_4a.indexOf(all_attr.default[0]),
-          idx_4d: all_attr.num_4d.indexOf(all_attr.default[1])
-        });
-      });
+      store.compute(
+        'idx_4a', 
+        ['all_groups_attr', 'num_4a'], 
+        (all_groups_attr, num_4a) => all_groups_attr && all_groups_attr.num_4a.indexOf(num_4a)
+      );
 
-      function calc_group_idx() {
-        const num_4a = store.get('num_4a');
-        const num_4d = store.get('num_4d');
-        const card_4a = store.get('card_4a');
-        const card_4d = store.get('card_4d');
-        const idx_4a = store.get('idx_4a');
-        const idx_4d = store.get('idx_4d');
-        const align = store.get('groups_align');
-        const all_groups_attr = store.get('all_groups_attr');
+      store.compute(
+        'idx_4d',
+        ['all_groups_attr', 'num_4d'],
+        (all_groups_attr, num_4d) => all_groups_attr && all_groups_attr.num_4d.indexOf(num_4d)
+      );
 
-        if (!all_groups_attr) return;
+      store.compute(
+        'groups_sprite_x',
+        ['align'],
+        (align) => align === true ? 1 : 0
+      );
 
-        const groups_sprite_x = align === true ? 1 : 0;
-        const groups_sprite_y = (idx_4a * card_4d) + idx_4d;
-        const groups_attr = all_groups_attr.data[(groups_sprite_x * card_4a * card_4d) + groups_sprite_y];
+      store.compute(
+        'groups_sprite_y',
+        ['idx_4a', 'idx_4d', 'card_4d'],
+        (idx_4a, idx_4d, card_4d) => (idx_4a * card_4d) + idx_4d
+      );
 
-        store.set({
-          groups_sprite_x,
-          groups_sprite_y,
-          groups_attr
-        });
-      }
-
-      store.observe('num_4a', calc_group_idx);
-      store.observe('num_4d', calc_group_idx);
+      store.compute(
+        'groups_attr',
+        ['all_groups_attr', 'card_4a', 'card_4d', 
+          'groups_sprite_x', 'groups_sprite_y'],
+        (all_groups_attr, card_4a, card_4d, 
+          groups_sprite_x, groups_sprite_y) => {
+            return all_groups_attr && all_groups_attr.data[(groups_sprite_x * card_4a * card_4d) + groups_sprite_y];
+          }
+      );
 
       groupsInitialized = true;
     });
