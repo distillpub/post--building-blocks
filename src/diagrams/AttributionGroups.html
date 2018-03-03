@@ -8,8 +8,8 @@
       <div class="sprite {{hoveredLayer && hoveredLayer !== 'logit' ? 'active' : ''}}">
         <div class="outline"></div>
         <Sprite
-          bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-          sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}
+          bg_img="examples/groups/${$example}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          sprite_size={{224}} size={{250}} y={{sprite_index}} x={{hovered.split('|')[2]}}
         ></Sprite>
       </div>
     </div>
@@ -54,11 +54,13 @@
                 style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x - 2}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
-                  <Sprite bg_img="{{neuron_sprite_url_4a}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                  <Sprite bg_img="{{neuron_sprite_url_4a}}" sprite_size={{110}} size={{node.w}}
+                     y={{$groups_sprite_y}} x={{($groups_sprite_x * $max_4a) + node.i}} />
                 {{elseif node.layer == 'mixed4d'}}
-                  <Sprite bg_img="{{neuron_sprite_url_4d}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                  <Sprite bg_img="{{neuron_sprite_url_4d}}" sprite_size={{110}} size={{node.w}}
+                     y={{$groups_sprite_y}} x={{($groups_sprite_x * $max_4d) + node.i}} />
                 {{elseif node.layer == 'logit'}}
-                  <div>{{node.logit.name}}</div>
+                  <div>{{$labels[node.logit.name]}}</div>
                 {{/if}}
               </div>
             {{/each}}
@@ -279,55 +281,11 @@
         spacing: 30,
         width: 900,
         height: 600,
-        maskOpacity: 0,
+        align: true,
       }
-    },
-    
-    oncreate() {
-      const hl = this.get('hidden_layers');
-      
-      this.store.observe('example', (example) => {
-        const base_path = this.get('base_path');
-
-        // Prefetch sprites
-        // sprites.splice(0);
-        // for (const layer of hl) {
-        //   const img = new Image();
-        //   img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
-        //   sprites.push(img);
-        // }
-      });
-
-      this.observe('selected', (selected) => {
-        const base_path = this.get('base_path');
-        var split = selected.split("|")
-        var example = split[0]
-        var selectedLayer = split[1]
-        var selectedElement = split[2]
-
-      });
-
-      this.observe('hovered', (hovered) => {
-        const base_path = this.get('base_path');
-        var split = hovered.split("|")
-        var example = split[0]
-        var hoveredLayer = split[1]
-        var hoveredElement = split[2]
-        if(hoveredLayer !== "logit") {
-          var maskUrl = `${base_path}/${hoveredLayer}/each_group/${hoveredElement}/dream_overlay_vlight.jpeg`
-          this.set({maskSource: maskUrl, maskOpacity: 1})
-        } else {
-          this.set({maskOpacity: 0})
-        }
-      });
-      
     },
 
     computed: {
-      base_path ($example) {
-        return `examples/groups/${$example}`;
-      },
-
       neuron_sprite_url_4d($example, neuron_sprite) {
         return neuron_sprite ||
           `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
@@ -338,7 +296,9 @@
           `examples/groups/${$example}/sprite_mixed4a_icon.jpeg`;
       },
 
-      logits(group_data) {
+      group_data: ($groups_attr) => $groups_attr,
+
+      logits(group_data, $labels) {
         if (!group_data) return null;
         // console.log("computing", group_data)
         var keys = Object.keys(group_data.output)
@@ -367,7 +327,7 @@
       },
 
       // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
-      nodesLayout(base_path, group_data, logits, hidden_layers, $example, width, height) {
+      nodesLayout(group_data, logits, hidden_layers, $example, width, height) {
         if (!group_data) return {};
         var logitHeight = 40;
         var spacing = 5;
@@ -395,7 +355,7 @@
               w: yscale.bandwidth(),//imgw,
               h: yscale.bandwidth(),//imgw,
               px: 5,
-              url: `${base_path}/${layer}/each_group/${i}/icon.jpeg`
+              url: `examples/groups/${$example}/${layer}/each_group/${i}/icon.jpeg`
             }
           })
           nodesByLayer[layer] = layerNodes
