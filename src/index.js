@@ -1,6 +1,6 @@
 import {json as loadJSON} from 'd3-request';
 import {json as fetchJSON, buffer as fetchBuffer} from 'd3-fetch';
-import {max} from 'd3';
+import {min, max} from 'd3';
 import {fromArrayBuffer} from 'numpy-parser';
 import {default as ndarray} from 'ndarray';
 
@@ -218,7 +218,7 @@ function initializeGroups() {
     document.getElementById('ActivationGroups'),
     document.getElementById('AttributionGroups')
   ];
-  const sprites_urls = [
+  const sprite_urls = [
     'sprite_mixed4a_dream_overlay_vlight',
     'sprite_mixed4a_icon',
     'sprite_mixed4d_dream_overlay_vlight',
@@ -265,6 +265,8 @@ function initializeGroups() {
           num_4d: all_attr.default[1],
           card_4a: all_attr.num_4a.length,
           card_4d: all_attr.num_4d.length,
+          min_4a: min(all_attr.num_4a),
+          min_4d: min(all_attr.num_4d),
           max_4a: max(all_attr.num_4a),
           max_4d: max(all_attr.num_4d),
           idx_4a: all_attr.num_4a.indexOf(all_attr.default[0]),

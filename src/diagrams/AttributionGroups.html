@@ -31,8 +31,18 @@
 
     <div class="container">
       <div class="paths_headers">
-        <h5>Mixed4a</h5>
-        <h5>Mixed4d</h5>
+        <h5>
+          Mixed4a
+
+          <input type="range" min={{$min_4a}} max={{$max_4a}} step="2" bind:value=$num_4a />
+        </h5>
+
+        <h5>
+          Mixed4d
+
+          <input type="range" min={{$min_4d}} max={{$max_4d}} step="2" bind:value=$num_4d />
+        </h5>
+
         <h5>Output class</h5>
       </div>
       <div class="stage" style="width: {{width}}px; height: {{height}}px;">

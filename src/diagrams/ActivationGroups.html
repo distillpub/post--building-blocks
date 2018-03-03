@@ -53,7 +53,11 @@
 
     </div>
 
-    <h4>Neuron groups <span>based on matrix factorization of mixed4d layer</span></h4>
+    <h4>
+      {{$num_4d}} neuron groups <span>based on matrix factorization of mixed4d layer</span>
+
+      <input type="range" min={{$min_4d}} max={{$max_4d}} step="2" bind:value=$num_4d />
+    </h4>
     <div class="colors">
       <div class="label cell">color key</div>
       <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numGroups}}, 1fr);">
