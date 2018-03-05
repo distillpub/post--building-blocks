@@ -313,6 +313,8 @@
     },
 
     computed: {
+      attr: ($mixed4d_nmf) => $mixed4d_nmf,
+
       numGroups(spatialActivationsShape) {
         return spatialActivationsShape[2];
       },
@@ -361,8 +363,6 @@
               
               const meanValue2 = mean(groups, h => h.value * h.value);
               const saturation = Math.sqrt(meanHueX * meanHueX + meanHueY * meanHueY) / meanValue2;
-              console.log(saturation)
-              
               
               activations.push({groups, x, y, i, color: hcl(meanHue, meanValue * 5 * saturation * saturation, meanValue * 3).toString()});
               i++;
