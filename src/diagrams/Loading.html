@@ -1,0 +1,21 @@
+{{#if !loaded}}
+<div class="progress">{{message}}</div>
+{{/if}}
+
+<script>
+    export default {
+        data() {
+            return {
+                message: "Loading",
+                loaded: false
+            };
+        }
+    }
+</script>
+
+<style>
+    .progress {
+        text-align: center;
+        margin: 40px 0;
+    }
+</style>

@@ -5,6 +5,7 @@ import {default as ndarray} from 'ndarray';
 
 import {Store} from 'svelte/store.js';
 
+import Loading from './diagrams/Loading.html';
 import Teaser from './diagrams/Teaser.html';
 import Atoms from './diagrams/Atoms.html';
 import ExamplePicker from './diagrams/ExamplePicker.html';
@@ -186,28 +187,34 @@ const cubeNatural = new CubeNatural({
 // Initializes a component with custom fetchers for data
 function initialize(id, component, store, promisesGenerator, parse) {
   const el = document.getElementById(id);
+  const loader = new Loading({target: el});
   let instance = null;
   el.addEventListener('ready', () => {
     store.observe('example', example => {
-      Promise.all(promisesGenerator(example)).then(values => {
-        const data = parse(values, example);
-        data.loaded = true;
-        if (instance != null) {
-          instance.set(data)
-          if (instance.measure) {
-            instance.measure();
+      Promise.all(promisesGenerator(example))
+      .then(values => {
+          loader.set({loaded: true});
+          const data = parse(values, example);
+          data.loaded = true;
+          if (instance != null) {
+            instance.set(data)
+            if (instance.measure) {
+              instance.measure();
+            }
+          } else {
+            instance = new component({
+              target: el,
+              data,
+              store
+            })
+            if (instance.measure) {
+              instance.measure();
+            }
           }
-        } else {
-          instance = new component({
-            target: el,
-            data,
-            store
-          })
-          if (instance.measure) {
-            instance.measure();
-          }
-        }
-      })
+        })
+        .catch(reason => {
+          loader.set({message: reason})
+        });
     })
   })
 }
