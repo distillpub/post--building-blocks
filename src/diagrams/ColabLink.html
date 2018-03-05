@@ -1,7 +1,24 @@
-<a href="{{url}}" class="colab-root">
+<a href="{{url}}" on:click="track()" class="colab-root">
     Reproduce in a
     <span>Notebook</span>
 </a>
+
+<script>
+    export default {
+            methods: {
+                track: function () {
+                    const { url } = this.get();
+                    console.log(url);
+                    if (window.ga != null) {
+                        window.ga('send', 'event', 'outbound', 'click', url, {
+                            transport: 'beacon',
+                            hitCallback: function () { document.location = url; }
+                        });
+                    }
+                }
+            }
+        }
+</script>
 
 <style>
     .colab-root {
