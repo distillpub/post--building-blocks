@@ -14,19 +14,19 @@
       </div>
     </div>
     <figcaption>
-       <!-- To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
+       To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
       earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
-      for. -->
+      for.
 
       {{#if $example == 'dog_cat'}} 
-       Well-defined <a>Floppy ears</a> seem to be the most influential signal for "Labrador retriever". 
+       <!-- Well-defined <a>Floppy ears</a> seem to be the most influential signal for "Labrador retriever".  -->
       {{elseif $example == 'flowers'}} 
-        A <a>"vase" classification</a> seems to be influenced most heavily by the <a>background</a> of the image. 
+        <!-- A <a>"vase" classification</a> seems to be influenced most heavily by the <a>background</a> of the image.  -->
       {{elseif $example == 'bowtie_guy'}} 
       {{elseif $example == 'pig'}} 
       {{elseif $example == 'beer'}} 
       {{elseif $example == 'chain'}} 
-        The <a>top of the bird</a> is very influential in singling out "house finches". There is a strong <a>chain detector</a> that lessens the likelihood of all birds.
+        <!-- The <a>top of the bird</a> is very influential in singling out "house finches". There is a strong <a>chain detector</a> that lessens the likelihood of all birds. -->
       {{/if}}
 
 
