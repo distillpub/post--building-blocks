@@ -202,8 +202,57 @@
       <a on:click="set_ag_hover('mixed4d', [7,7])"
         class="{{pos_in_box([6,8], [6,8])? 'selected' : ''}}">
         bowtie</a>
-       supports various kinds of ties, as expected, but also fancy instruments.
-    {{/if}}
+      supports various kinds of ties, as expected, but also fancy instruments.
+    {{elseif $example == 'pig'}}
+      <!-- Nose -> Dog; fur -> animals; ear -> hog -->
+      By mixed4d
+      <a on:click="set_ag_hover('mixed4d', [8,10])"
+        class="{{pos_in_box([7,8], [10,12])? 'selected' : ''}}">
+        tip of the nose</a>
+      primarily supports different kinds of dogs, while the
+      <a on:click="set_ag_hover('mixed4d', [7,7])"
+        class="{{pos_in_box([7,8], [6,8])? 'selected' : ''}}">
+        center of the snout</a>
+      and the
+      <a on:click="set_ag_hover('mixed4d', [10,5])"
+        class="{{pos_in_box([9,10], [4,6])? 'selected' : ''}}">
+        right ear</a>
+      support hog. The 
+      <a on:click="set_ag_hover('mixed4d', [7,2])"
+        class="{{pos_in_box([5,7], [2,5])? 'selected' : ''}}">
+        fur</a>
+      supports furry animals and teddy bears.
+      Interestingly, attribution for hog is much more concentrated at the left ear earlier at mixed4a.
+    {{elseif $example == 'beer'}}
+      By mixed4d, the
+      <a on:click="set_ag_hover('mixed4d', [3,12])"
+        class="{{pos_in_box([2,4], [10,13])? 'selected' : ''}}">
+        label</a>
+      supports cylindrical objects with labels; the
+      <a on:click="set_ag_hover('mixed4d', [2,3])"
+        class="{{pos_in_box([2,3], [3,7])? 'selected' : ''}}">
+        bottle neck</a>
+      supports bottles;
+      the 
+      <a on:click="set_ag_hover('mixed4d', [8,5])"
+        class="{{( pos_in_box([7,10], [4,6]) || pos_in_box([8,9], [7,8]) )? 'selected' : ''}}">
+        beer</a>
+      supports dark liquids;
+      and the
+      <a on:click="set_ag_hover('mixed4d', [6,1])"
+        class="{{( pos_in_box([5,8], [0,1]) || pos_in_box([11,12], [0,1]) )? 'selected' : ''}}">
+        glass rim</a>
+      supports cups of different kinds.
+     {{elseif $example == 'chain'}}
+       The <a on:click="set_ag_hover('mixed4d', [6,3])"
+        class="{{pos_in_box([4,6], [3,5])? 'selected' : ''}}">
+        bird head</a>
+        supports various bird classes, while the 
+        <a on:click="set_ag_hover('mixed4d', [,])"
+         class="{{( pos_in_box([0,1], [4,4]) || pos_in_box([1,2], [5,6]) || pos_in_box([3,3], [6,7,]) || pos_in_box([8,11], [9,9]) || pos_in_box([9,12], [10,10]) || pos_in_box([10,13], [11,12]) )? 'selected' : ''}}">
+         chain</a>
+         supports chains, necklace, and metallic objects.
+     {{/if}}
     </figcaption>
     
     <figcaption style="padding: 10px 0 0 10px; grid-column: middle;">
