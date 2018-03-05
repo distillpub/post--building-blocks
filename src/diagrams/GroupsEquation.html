@@ -26,13 +26,7 @@
     </div>
 
     <p>
-      Semantic dictionaries give us a fine-grained look at an activation: what does each single neuron detect?
-
-      Building off this representation, we can also consider an activation vector as a whole.
-
-      Instead of visualizing individual neurons, we can instead visualize the <i>combination</i> of neurons that fire at a given spatial location.
-
-      (Concretely, we optimize the image to maximize the dot product of its activations with the original activation vector.)
+    The groups that come out of this factorization will be the atoms of the interface a user works with. 
     </p>
   </div>
 
@@ -57,20 +51,33 @@
 
       <div>
         <div class="dict-container">
+          {{#each group_pos_acts as g, i}}
+          <div class="neuron">
+            <div class="bar" style="height: {{g/max_group_act*40}}px;"></div>
+            <div class="spacer"></div>
+            <span>{{(g+'').slice(0,4)}}</span>
+            <Sprite bg_img="examples/groups/{{$example}}/sprite_mixed4d_icon.jpeg" 
+              x={{i}} size="{{neuron_size}}" sprite_size="110" />
+          </div>
+            {{#if i !== group_pos_acts.length - 1}}<span class="annotation">+</span>{{/if}}
+          {{/each}}
+        </div>
+        <figcaption>Groups</figcaption>
+
+        <div class="dict-container" style="margin-top: 20px;">
           {{#each top_acts as top}}
-            <div class="neuron">
-              <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
-              <div class="spacer"></div>
-              <span>{{(top[1]+'').slice(0,4)}}</span>
-              <Sprite src_class="sprite_mixed4d_channel" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
-            </div>
-            <span class="annotation">+</span>
+          <div class="neuron">
+            <div class="bar" style="height: {{top[1]/$max_act*40}}px;"></div>
+            <div class="spacer"></div>
+            <span>{{(top[1]+'').slice(0,4)}}</span>
+            <Sprite src_class="sprite_mixed4d_channel" n={{top[0]}} size="{{neuron_size}}" sprite_size="110" />
+          </div>
+          <span class="annotation">+</span>
           {{/each}}
           <span class="annotation">...</span>
         </div>
         <figcaption>Channels</figcaption>
       </div>
-
     </div>
   </div>
   {{/if}}
@@ -178,7 +185,7 @@
     color: #666;
   }
 
-  span.annotation.equals { margin: auto 15px; }
+  span.annotation.equals { margin: 80px 15px; }
   
   .semantic_dict figcaption {
     padding-top: 5px;
@@ -186,6 +193,7 @@
 </style>
 
 <script>
+  import {argmax} from 'ndarray-ops';
   import {range, fmtAct} from '../util';
   import ExamplePicker from './ExamplePicker.html';
   import Sprite from './Sprite.html'
@@ -193,6 +201,17 @@
   export default {
     data() {
       return {N: [14, 14]};
+    },
+
+    oncreate() {
+      this.store.observe("top_act", () => {
+        this.set({width: Math.random()});
+      }, {defer: true});
+
+      this.store.observe('example', (example) => {
+        require(`../../static/examples/npy/${example}_mixed4d_nmf.npy`)
+          .load((mixed4d_nmf) => this.store.set({mixed4d_nmf}));
+      });
     },
 
     computed: {
@@ -223,13 +242,14 @@
         return ~~(div.getBoundingClientRect().width / 6.5);
       },
 
-      top_acts: ($top_act) => $top_act ? $top_act.slice(0, 4) : []
-    },
+      top_acts: ($top_act) => $top_act ? $top_act.slice(0, 4) : [],
+      
+      max_group_act: ($mixed4d_nmf) => $mixed4d_nmf && $mixed4d_nmf.get(...argmax($mixed4d_nmf)),
 
-    oncreate() {
-      this.store.observe("top_act", () => {
-        this.set({width: Math.random()});
-      }, {defer: true})
+      group_pos_acts($mixed4d_nmf, $dict_pos) {
+        if ($mixed4d_nmf == null) return [];
+        return range($mixed4d_nmf.shape[2]).map((n) => $mixed4d_nmf.get($dict_pos[1], $dict_pos[0], n));
+      },
     },
 
     components: {ExamplePicker, Sprite},

@@ -16,6 +16,7 @@ import ActivationGrid from './diagrams/ActivationGridSingle.html';
 import AllActivationGrids from './diagrams/AllActivationGrids.html';
 import AttributionSpatial from './diagrams/AttributionSpatial.html';
 import AttributionChannel from './diagrams/AttributionChannel.html';
+import GroupsEquation from './diagrams/GroupsEquation.html';
 import ActivationGroups from './diagrams/ActivationGroups.html';
 import AttributionGroups from './diagrams/AttributionGroups.html';
 import Grammar from './diagrams/Grammar.html';
@@ -123,6 +124,10 @@ initialize(
   }
 );
 
+const groupsEq = new GroupsEquation({
+  target: document.getElementById('GroupsEquation'),
+  store
+});
 
 initialize(
   'ActivationGroups',
@@ -131,16 +136,10 @@ initialize(
   function (example) {
     return [
       fetchJSON(`examples/activations/${example}/mixed4d_nmf.json`),
-      fetchBuffer(`examples/npy/${example}_mixed4d_nmf.npy`)
     ];
   },
     function (values) {
-  const attr_raw = fromArrayBuffer(values[1]);
-  const attr = ndarray(attr_raw.data, attr_raw.shape);
-    return {
-      groups: values[0],
-      attr
-    };
+    return {groups: values[0]};
   }
 );
 

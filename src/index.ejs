@@ -561,10 +561,15 @@
     </figcaption>
   </figure>
 
-  <p>
-    The groups that come out of this factorization will be the atoms of the interface a user works with. Unfortunately, any grouping is inherently a tradeoff between reducing things to human scale and, because any aggregation is lossy, preserving information. Matrix factorization lets us pick what our groupings are optimized for, giving us a better tradeoff than the natural groupings we saw earlier.
-  </p>
+  <figure id="GroupsEquation"></figure>
 
+  <p>
+    Unfortunately, any grouping is inherently a tradeoff between reducing things to human scale and, because any aggregation is lossy, preserving information. 
+    
+    Matrix factorization lets us pick what our groupings are optimized for, giving us a better tradeoff than the natural groupings we saw earlier.Unfortunately, any grouping is inherently a tradeoff between reducing things to human scale and, because any aggregation is lossy, preserving information. 
+    
+    Matrix factorization lets us pick what our groupings are optimized for, giving us a better tradeoff than the natural groupings we saw earlier.
+  </p>
 
   <p>
     The goals of our user interface should influence what we optimize our matrix factorization to prioritize. For example, if we want to prioritize what the network detected, we would want the factorization to fully describe the activations. If we instead wanted to prioritize what would change the network's behavior, we would want the factorization to fully describe the gradient. Finally, if we want to prioritize what caused the present behavior, we would want the factorization to fully describe the attributions. Of course, we can strike a balance between these three objectives rather than optimizing one to the exclusion of the others.
@@ -625,9 +630,7 @@
 
   <p>We can think of an interface as a union of individual elements.</p>
 
-  <figure id="Atoms">
-    
-  </figure>
+  <figure id="Atoms"></figure>
 
   <p>
     Each element displays a specific type of <i class="green">content</i> (e.g., activations or attribution) using a particular style of <i class="blue">presentation</i> (e.g., feature visualization or traditional information visualization).
