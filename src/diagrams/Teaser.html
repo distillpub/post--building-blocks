@@ -7,10 +7,10 @@
     <div class="intro">
       <div style="grid-column: 1/4">
         <p style="margin-top: 10px;margin-right: 15%;">
-          For instance, by combining feature visualization (<i>what is a neuron looking for?</i>) 
-          with attribution (<i>how does it affect the output?</i>), we can explore how 
+          For instance, by combining feature visualization (<i>what is a neuron looking for?</i>)
+          with attribution (<i>how does it affect the output?</i>), we can explore how
           the network decides between labels like
-          <b>{{left_selected_class_label}}</b> 
+          <b>{{left_selected_class_label}}</b>
           and
           <b>{{right_selected_class_label}}</b>.
         </p>
@@ -25,7 +25,7 @@
               n={{hover_channel}}
               sprite_size={{14}}
               size="{{img_size}}" />
-          {{else}}
+          {{elseif false}}
             <svg viewBox="0 0 14 14" on:mouseleave="set({pos: []})">
               {{#each range(14) as x}}
               {{#each range(14) as y}}
@@ -52,7 +52,7 @@
           <a on:mouseleave="set({hover_channel: null})" class="{{hover_channel == 57 ? 'hover' : ''}}" on:mouseover="set({hover_channel: 57})">upward sloping glass edges</a> are a negative signal for a "wine bottle" classification.
           {{elseif $example == 'chain'}}
             <a on:mouseleave="set({hover_channel: null})" class="{{hover_channel == 466 ? 'hover' : ''}}" on:mouseover="set({hover_channel: 466})">bird beaks</a> and <a on:mouseleave="set({hover_channel: null})" class="{{hover_channel == 100 ? 'hover' : ''}}" on:mouseover="set({hover_channel: 100})">plant-like backgrounds</a> contribute to a "brambling" classification. A <a on:mouseleave="set({hover_channel: null})" class="{{hover_channel == 292 ? 'hover' : ''}}" on:mouseover="set({hover_channel: 292})">curvy shape detector</a> is used to classify the "chain".
-          {{/if}}           
+          {{/if}}
 
         </figcaption>
       </div>
@@ -260,8 +260,8 @@
     margin-top: 10px;
   }
 
-  .example_picker { 
-    width: inherit!important; 
+  .example_picker {
+    width: inherit!important;
   }
 
   .input_image {
@@ -313,10 +313,10 @@
   h4 {
     line-height: 1.2em;
     margin: 0 0 8px;
-    position: relative; 
-    top: 2px; 
-    font-weight: 700; 
-    font-size: 14px; 
+    position: relative;
+    top: 2px;
+    font-weight: 700;
+    font-size: 14px;
     text-transform: uppercase;
   }
 
@@ -352,7 +352,7 @@
   .headers {
     display: grid;
     grid-template-columns: 1fr 30px 1fr;
-    grid-column-gap: 20px;
+    grid-column-gap: 15px;
   }
 
   .headers .flow {
@@ -380,6 +380,12 @@
     position: relative;
     overflow: hidden;
   }
+  .headers .left .arrow_container {
+    right: 5px;
+  }
+  .headers .right .arrow_container {
+    right: -5px;
+  }
   .headers .left .arrow {
     position: absolute;
     bottom: 17px;
@@ -393,7 +399,6 @@
   .headers svg path {
     fill: none;
     stroke: rgba(0, 0, 0, 0.4);
-    /* shape-rendering: crispEdges; */
   }
   .headers :last-child {
     text-align: right;
@@ -418,7 +423,7 @@
     border-radius: 6px;
     padding: 0.5em 2em 0.5em 0.8em;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
     margin: 2px 0 2px 0;
@@ -507,10 +512,11 @@
     position: relative;
     justify-content: center;
     cursor: pointer;
-    border-radius: 4px;
     overflow: hidden;
-    padding: 0;
-    margin: 3px 0;
+  }
+
+  .cell.neuron .inner {
+    border-radius: var(--border-radius);
   }
 
   .neuron.neuron_hover:after {
@@ -520,7 +526,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border: 6px solid rgba(0, 0, 0, 0.4);
+    border: 4px solid var(--orange);
+    border-radius: var(--border-radius);
     box-sizing: border-box;
   }
 

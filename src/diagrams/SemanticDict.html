@@ -53,26 +53,26 @@
       <span class="comma annotation">,</span>
     {{/each}}
 
-    <span class="annotation"> ... }</span>
+    <span class="annotation"> ...&nbsp;}</span>
   </div>
-  
+
   <figcaption class="l-body interactive-caption" style="margin-top: 20px;">
     {{#if $example == 'dog_cat'}}
-      There seem to be detectors for 
+      There seem to be detectors for
       <a on:click="store.set({dict_pos: [1,4]})"
        class="{{pos_in_box([0,2], [3,5])? 'selected' : ''}}">
-       floppy ears</a>, 
-      <a on:click="store.set({dict_pos: [6,4]})" 
+       floppy ears</a>,
+      <a on:click="store.set({dict_pos: [6,4]})"
         class="{{pos_in_box([4,6], [3,5])? 'selected' : ''}}">
-        dog snouts</a>, 
-      <a on:click="store.set({dict_pos: [10,6]})" 
+        dog snouts</a>,
+      <a on:click="store.set({dict_pos: [10,6]})"
         class="{{pos_in_box([9,11], [5,6])? 'selected' : ''}}">
-        cat heads</a>, 
-      <a on:click="store.set({dict_pos: [5,9]})" 
+        cat heads</a>,
+      <a on:click="store.set({dict_pos: [5,9]})"
         class="{{(pos_in_box([3,6], [9,10]) || pos_in_box([9,10], [9,10]))? 'selected' : ''}}">
-        furry legs</a>, 
-      and 
-      <a on:click="store.set({dict_pos: [8,12]})" 
+        furry legs</a>,
+      and
+      <a on:click="store.set({dict_pos: [8,12]})"
         class="{{pos_in_box([0,12], [12,13])? 'selected' : ''}}">
         grass</a>.
       {{#if pos_in_box([0,2], [3,5])}}
@@ -83,25 +83,25 @@
         <br>
       {{/if}}
     {{elseif $example == 'flowers'}}
-      There seem to be detectors for 
-      <a on:click="store.set({dict_pos:[6,8]})" 
+      There seem to be detectors for
+      <a on:click="store.set({dict_pos:[6,8]})"
         class="{{pos_in_box([4,7], [6,8])? 'selected' : ''}}">
         vases</a>,
       <a on:click="store.set({dict_pos: [5,1]})"
         class="{{(pos_in_box([3,7], [2,4]) || (pos[0]==5 && pos[1]==1))? 'selected' : ''}}">
         flowers</a>,
-      and 
+      and
       <a on:click="store.set({dict_pos: [6,12]})"
         class="{{pos_in_box([5,13], [11,12])? 'selected' : ''}}">
         yellow spheres</a>.
       <br>
-      Interestingly, 
+      Interestingly,
       <a on:click="store.set({dict_pos: [9,8]})"
         class="{{(pos_in_box([6,8], [9,9]) || (pos[0]==9 && pos[1]==8))? 'selected' : ''}}">
         horn detectors</a>
       seem to double for detecting the vase's handle.
     {{elseif $example == 'bowtie_guy'}}
-    
+
       There seem to be detectors for
       <a on:click="store.set({dict_pos: [5,2]})"
         class="{{pos_in_box([5,7], [1,2])? 'selected' : ''}}">
@@ -114,39 +114,39 @@
         class="{{pos_in_box([6,8], [6,8])? 'selected' : ''}}">
         chin/bowtie</a>.
     {{elseif $example == 'pig'}}
-      There seem to be detectors for different kinds of animal 
+      There seem to be detectors for different kinds of animal
       <a on:click="store.set({dict_pos: [10, 5]})"
-        class="{{pos_in_box([7, 10], [2, 5]) ? 'selected': ''}}">ears</a> and  
+        class="{{pos_in_box([7, 10], [2, 5]) ? 'selected': ''}}">ears</a> and
       <a on:click="store.set({dict_pos: [6, 9]})"
-        class="{{pos_in_box([4, 8], [6, 9]) ? 'selected' : ''}}">faces</a>. 
-      Interestingly, 
+        class="{{pos_in_box([4, 8], [6, 9]) ? 'selected' : ''}}">faces</a>.
+      Interestingly,
         <a on:click="store.set({dict_pos: [7, 11]})"
           class="{{pos_in_box([7, 10], [10, 13]) ? 'selected' : ''}}">nose</a>
       detectors appear to take on floral (or petal-like) aspects.
     {{elseif $example == 'beer'}}
-      There seem to be detectors for  
+      There seem to be detectors for
       <a on:click="store.set({dict_pos: [6, 1]})"
-        class="{{pos_in_box([5, 7], [0, 2]) ? 'selected' : ''}}">glass rims</a> 
+        class="{{pos_in_box([5, 7], [0, 2]) ? 'selected' : ''}}">glass rims</a>
       and
-      <a on:click="store.set({dict_pos: [3, 7]})" 
+      <a on:click="store.set({dict_pos: [3, 7]})"
         class="{{pos_in_box([3, 5], [5, 8]) ? 'selected' : ''}}">bottles</a>.
     {{elseif $example == 'chain'}}
       There seem to be detectors for bird features including
-      <a on:click="store.set({dict_pos: [6, 4]})" 
+      <a on:click="store.set({dict_pos: [6, 4]})"
         class="{{pos_in_box([4, 6], [4, 4]) ? 'selected' : ''}}">the head</a>,
-      <a on:click="store.set({dict_pos: [10, 6]})" 
-        class="{{pos_in_box([10, 11], [6, 6]) ? 'selected' : ''}}">feathers</a> 
+      <a on:click="store.set({dict_pos: [10, 6]})"
+        class="{{pos_in_box([10, 11], [6, 6]) ? 'selected' : ''}}">feathers</a>
       and
-      <a on:click="store.set({dict_pos: [9, 8]})" 
+      <a on:click="store.set({dict_pos: [9, 8]})"
         class="{{pos_in_box([7, 9], [8, 8]) ? 'selected' : ''}}">legs</a>.
-      Detectors for the chain primarily look for 
-      <a on:click="store.set({dict_pos: [0, 4]})" 
+      Detectors for the chain primarily look for
+      <a on:click="store.set({dict_pos: [0, 4]})"
         class="{{pos[0] === 0 && pos[1] === 4 ? 'selected' : ''}}">curved shapes</a>
-      (including as expressed with a 
-      <a on:click="store.set({dict_pos: [10, 10]})" 
-        class="{{pos[0] === 10 && pos[1] === 10 ? 'selected' : ''}}">dog snout</a>), 
-      but also pick up on 
-      <a on:click="store.set({dict_pos: [11, 11]})" 
+      (including as expressed with a
+      <a on:click="store.set({dict_pos: [10, 10]})"
+        class="{{pos[0] === 10 && pos[1] === 10 ? 'selected' : ''}}">dog snout</a>),
+      but also pick up on
+      <a on:click="store.set({dict_pos: [11, 11]})"
         class="{{pos[0] === 11 && pos[1] === 11 ? 'selected' : ''}}">metallic elements</a>.
     {{/if}}
   </figcaption>
@@ -225,7 +225,7 @@ sub { font-size: 65%; }
 .semantic_dict .value {
   display: flex;
   position: relative;
-  width: 25px;
+  min-width: 25px;
   height: 75px;
   align-self: flex-end;
   font-size: 80%;
@@ -346,7 +346,7 @@ sub { font-size: 65%; }
 
     computed: {
       pos: ($dict_pos, $example) => $dict_pos || DEFAULT_POS[$example],
-      
+
       pos_in_box: (pos) => {
         return (x_bound, y_bound) =>
           ( pos && x_bound && y_bound
