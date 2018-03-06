@@ -189,7 +189,6 @@ function initialize(id, component, store, promisesGenerator, parse) {
   const loader = new Loading({target: el});
   let instance = null;
   el.addEventListener('ready', () => {
-<<<<<<< HEAD
     store.observe('example', example => {
       Promise.all(promisesGenerator(example))
       .then(values => {
@@ -210,16 +209,6 @@ function initialize(id, component, store, promisesGenerator, parse) {
             if (instance.measure) {
               instance.measure();
             }
-=======
-    store.observe('example', (example) => {
-      Promise.all(promisesGenerator(example)).then((values) => {
-        const data = parse(values, example);
-        data.loaded = true;
-        if (instance != null) {
-          instance.set(data)
-          if (instance.measure) {
-            instance.measure();
->>>>>>> as/groupsMultiplex
           }
         })
         .catch(reason => {
