@@ -54,12 +54,12 @@
     </div>
 
     <h4>
-      {{$num_4d}} neuron groups <span>based on matrix factorization of mixed4d layer</span>
+      neuron groups <span>based on matrix factorization of mixed4d layer</span>
 
       <div style="float: right; display: flex;">
-        <div style="width: 100px; margin-right: 5px;">
-          <d-slider type="range" min={{$min_4d}} max={{$max_4d}} step="2" 
-            ticks value={{$num_4d}} on:input="store.set({num_4d: this.value})"></d-slider>
+        <div style="width: 100px; margin-right: 5px; position: relative;">
+          <input style="width: 100%;" type="range" min={{$min_4d}} max={{$max_4d}} step="2" 
+            ticks bind:value=$num_4d />
         </div>
           <span style="font-size: 12px; width: 65px; text-align: right; opacity: 0.8;">{{$num_4d}} groups</span>
       </div>

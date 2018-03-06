@@ -28,36 +28,38 @@
     <h4>
       Attribution by Factorized Groups
 
-      <div style="float: right; font-weight: normal; text-transform: none;">
-        <label><input type="checkbox" bind:checked=$groups_align /> Align layer factors</label>
-      </div>
+      
     </h4>
 
     <div class="container">
       <div class="paths_headers">
+        <div>
         <h5>
           Mixed4a
-
-          <div style="float: right; display: flex;">
-            <div style="width: 100px;">
-              <d-slider type="range" min={{$min_4a}} max={{$max_4a}} 
-                step="2" ticks value={{$num_4a}} on:input="store.set({num_4a: this.value})"></d-slider>
-            </div>
-          </div>
         </h5>
+        <div style="display: flex;">
+          <input style="width: 80px;" type="range" min={{$min_4a}} max={{$max_4a}} step="2" ticks bind:value=$num_4a />
+          <label style="margin-left: 10px;">{{$num_4a}} groups</label>
+        </div>
+        </div>
 
+        <div>
         <h5>
           Mixed4d
-
-          <div style="float: right; display: flex;">
-            <div style="width: 100px;">
-              <d-slider type="range" min={{$min_4d}} max={{$max_4d}} 
-                step="2" ticks value={{$num_4d}} on:input="store.set({num_4d: this.value})"></d-slider>
-            </div>
-          </div>
         </h5>
+        <div style="display: flex;">
+          <input style="width: 80px;" type="range" min={{$min_4d}} max={{$max_4d}} step="2" ticks bind:value=$num_4d />
+          <label style="margin-left: 10px;">{{$num_4d}} groups</label>
+        </div>
+        </div>
 
-        <h5>Output class</h5>
+        <div>
+          <h5>Output class</h5>
+          <div style="font-weight: normal; text-transform: none;">
+            <label>
+              <input type="checkbox" bind:checked=$groups_align /> Align layer factors</label>
+          </div>
+        </div>
       </div>
       <div class="stage" style="width: {{width}}px; height: {{height}}px;">
        {{#if $groups_attr}}
@@ -156,6 +158,10 @@
     stroke: #a1adb7;
   }
 
+  label {
+    font-size: 12px;
+    opacity: 0.8;
+  }
   .sprite {
     display: none;
   }
