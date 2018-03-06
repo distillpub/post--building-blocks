@@ -384,13 +384,14 @@
           var imgw = height/layer_n - spacing;
           var layerNodes = range(layer_n).map(function(i) {
             var y = yscale(i);//i * (imgw + spacing) + spacing
+            const w = Math.min(100, yscale.bandwidth())
             return {
               layer: layer,
               i: i,
-              x: j * (layerWidth + yscale.bandwidth()/2) + spacing,
+              x: j * (layerWidth + w / 2) + spacing,
               y: y,
-              w: yscale.bandwidth(),//imgw,
-              h: yscale.bandwidth(),//imgw,
+              w: w,//imgw,
+              h: w,//imgw,
               px: 5,
               url: `examples/groups/${$example}/${layer}/each_group/${i}/icon.jpeg`
             }
