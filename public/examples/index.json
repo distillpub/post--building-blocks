@@ -1,0 +1,16 @@
+{
+  "examples": [
+    "dog_cat", "flowers", "bowtie_guy",
+    "pig", "beer", "chain"
+  ],
+  "layers": {
+    "mixed3a": [28, 26],
+    "mixed3b": [28, 26],
+    "mixed4a": [14, 40],
+    "mixed4b": [14, 40],
+    "mixed4c": [14, 46],
+    "mixed4d": [14, 46],
+    "mixed4e": [14, 46],
+    "mixed5a": [7, 46]
+  }
+}

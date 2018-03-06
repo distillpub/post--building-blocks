@@ -62,6 +62,3 @@ typings/
 
 # silly MacOS
 .DS_Store
-
-# don't need the built files
-public

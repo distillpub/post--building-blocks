@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 856 240" style="enable-background:new 0 0 856 240;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.4;}
+	.st1{fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:10;}
+	.st2{opacity:0.9;}
+	.st3{fill:#E8E8E8;stroke:#231F20;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;}
+	.st4{fill:#D8D8D8;stroke:#231F20;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;}
+	.st5{fill:#C9C9C9;stroke:#231F20;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;}
+	.st6{fill:#231F20;}
+	.st7{font-family:'Helvetica-Bold';}
+	.st8{font-size:14.6839px;}
+	.st9{fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;}
+	.st10{fill:#666666;}
+	.st11{font-family:'Helvetica';}
+	.st12{font-size:11px;}
+	.st13{fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+<g id="Layer_2">
+	<g id="img0" class="st0">
+		<g id="WW79td.tif">
+
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_1_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 70.015 181.8185)">
+			</image>
+		</g>
+		<polygon class="st1" points="231.8,220.9 121.4,220.9 70,181.8 180.4,181.8 		"/>
+	</g>
+	<g id="img1" class="st0">
+		<g id="WW79td.tif_1_">
+
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_2_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 284.489 181.8185)">
+			</image>
+		</g>
+		<polygon class="st1" points="446.3,220.9 335.9,220.9 284.5,181.8 394.9,181.8 		"/>
+	</g>
+	<g id="img2" class="st0">
+		<g id="WW79td.tif_2_">
+
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_3_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 485.7777 181.8185)">
+			</image>
+		</g>
+		<polygon class="st1" points="647.6,220.9 537.2,220.9 485.8,181.8 596.2,181.8 		"/>
+	</g>
+	<g id="img3" class="st0">
+		<g id="WW79td.tif_3_">
+
+				<image style="overflow:visible;" width="224" height="224" id="Layer_0_4_" xlink:href="../examples/input_images/dog_cat.png"  transform="matrix(0.493 0 0.2293 0.1746 691.6298 181.8185)">
+			</image>
+		</g>
+		<polygon class="st1" points="853.4,220.9 743,220.9 691.6,181.8 802.1,181.8 		"/>
+	</g>
+</g>
+<g id="Layer_1">
+	<desc>Created with Sketch.</desc>
+	<g id="Shape" transform="translate(0.000000, 90.000000)" class="st2">
+		<g>
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="68.2,48.7 84.5,48.7 92,54.3 75.6,54.3 				"/>
+				<polygon class="st4" points="75.7,70.7 75.6,54.3 92,54.3 92.1,70.7 				"/>
+				<polygon class="st5" points="75.6,54.3 75.7,70.7 68,64.7 68.2,48.7 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="70.2,48.7 86.5,48.7 94,54.3 77.7,54.3 				"/>
+				<polygon class="st4" points="77.7,70.7 77.7,54.3 94,54.3 94.1,70.7 				"/>
+				<polygon class="st5" points="77.7,54.3 77.7,70.7 70,64.7 70.2,48.7 				"/>
+			</g>
+			<g transform="translate(47.000000, 0.000000)">
+				<polygon class="st3" points="71.9,48.7 88.2,48.7 95.6,54.3 79.3,54.3 				"/>
+				<polygon class="st4" points="79.4,70.7 79.3,54.3 95.6,54.3 95.8,70.7 				"/>
+				<polygon class="st5" points="79.3,54.3 79.4,70.7 71.7,64.7 71.9,48.7 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="75,48.7 91.3,48.7 98.8,54.3 82.5,54.3 				"/>
+				<polygon class="st4" points="82.5,70.7 82.5,54.3 98.8,54.3 98.9,70.7 				"/>
+				<polygon class="st5" points="82.5,54.3 82.5,70.7 74.8,64.7 75,48.7 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="77.1,48.7 93.5,48.7 100.9,54.3 84.6,54.3 				"/>
+				<polygon class="st4" points="84.6,70.7 84.6,54.3 100.9,54.3 101.1,70.7 				"/>
+				<polygon class="st5" points="84.6,54.3 84.6,70.7 76.9,64.7 77.1,48.7 				"/>
+			</g>
+		</g>
+		<g transform="translate(12.000000, 9.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="66.9,48.1 83.2,48.1 90.7,53.8 74.4,53.8 				"/>
+				<polygon class="st4" points="74.4,70.2 74.4,53.8 90.7,53.8 90.8,70.1 				"/>
+				<polygon class="st5" points="74.4,53.8 74.4,70.2 66.7,64.2 66.9,48.1 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="68.9,48.1 85.2,48.1 92.7,53.8 76.4,53.8 				"/>
+				<polygon class="st4" points="76.4,70.2 76.4,53.8 92.7,53.8 92.8,70.1 				"/>
+				<polygon class="st5" points="76.4,53.8 76.4,70.2 68.7,64.2 68.9,48.1 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="71.6,48.1 87.9,48.1 95.4,53.8 79.1,53.8 				"/>
+				<polygon class="st4" points="79.1,70.2 79.1,53.8 95.4,53.8 95.5,70.1 				"/>
+				<polygon class="st5" points="79.1,53.8 79.1,70.2 71.4,64.2 71.6,48.1 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="73.7,48.1 90,48.1 97.5,53.8 81.2,53.8 				"/>
+				<polygon class="st4" points="81.2,70.2 81.2,53.8 97.5,53.8 97.7,70.1 				"/>
+				<polygon class="st5" points="81.2,53.8 81.2,70.2 73.5,64.2 73.7,48.1 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="75.9,48.1 92.2,48.1 99.6,53.8 83.3,53.8 				"/>
+				<polygon class="st4" points="83.3,70.2 83.3,53.8 99.6,53.8 99.8,70.1 				"/>
+				<polygon class="st5" points="83.3,53.8 83.3,70.2 75.7,64.2 75.9,48.1 				"/>
+			</g>
+		</g>
+		<g transform="translate(24.000000, 19.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="65.6,46.6 82,46.6 89.4,52.3 73.1,52.3 				"/>
+				<polygon class="st4" points="73.1,68.6 73.1,52.3 89.4,52.3 89.6,68.6 				"/>
+				<polygon class="st5" points="73.1,52.3 73.1,68.6 65.4,62.6 65.6,46.6 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="67.6,46.6 83.9,46.6 91.4,52.3 75.1,52.3 				"/>
+				<polygon class="st4" points="75.1,68.6 75.1,52.3 91.4,52.3 91.6,68.6 				"/>
+				<polygon class="st5" points="75.1,52.3 75.1,68.6 67.4,62.6 67.6,46.6 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="70.3,46.6 86.6,46.6 94.1,52.3 77.8,52.3 				"/>
+				<polygon class="st4" points="77.8,68.6 77.8,52.3 94.1,52.3 94.2,68.6 				"/>
+				<polygon class="st5" points="77.8,52.3 77.8,68.6 70.1,62.6 70.3,46.6 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="72.5,46.6 88.8,46.6 96.2,52.3 79.9,52.3 				"/>
+				<polygon class="st4" points="79.9,68.6 79.9,52.3 96.2,52.3 96.4,68.6 				"/>
+				<polygon class="st5" points="79.9,52.3 79.9,68.6 72.3,62.6 72.5,46.6 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="74.6,46.6 90.9,46.6 98.3,52.3 82,52.3 				"/>
+				<polygon class="st4" points="82,68.6 82,52.3 98.3,52.3 98.5,68.6 				"/>
+				<polygon class="st5" points="82,52.3 82,68.6 74.4,62.6 74.6,46.6 				"/>
+			</g>
+		</g>
+		<g transform="translate(36.000000, 28.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="64.4,46.1 80.7,46.1 88.1,51.7 71.8,51.7 				"/>
+				<polygon class="st4" points="71.8,68.1 71.8,51.7 88.1,51.7 88.3,68 				"/>
+				<polygon class="st5" points="71.8,51.7 71.8,68.1 64.2,62.1 64.4,46.1 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="66.4,46.1 82.7,46.1 90.1,51.7 73.8,51.7 				"/>
+				<polygon class="st4" points="73.8,68.1 73.8,51.7 90.1,51.7 90.3,68 				"/>
+				<polygon class="st5" points="73.8,51.7 73.8,68.1 66.2,62.1 66.4,46.1 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="69,46.1 85.4,46.1 92.8,51.7 76.5,51.7 				"/>
+				<polygon class="st4" points="76.5,68.1 76.5,51.7 92.8,51.7 93,68 				"/>
+				<polygon class="st5" points="76.5,51.7 76.5,68.1 68.8,62.1 69,46.1 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="71.2,46.1 87.5,46.1 94.9,51.7 78.6,51.7 				"/>
+				<polygon class="st4" points="78.6,68.1 78.6,51.7 94.9,51.7 95.1,68 				"/>
+				<polygon class="st5" points="78.6,51.7 78.6,68.1 71,62.1 71.2,46.1 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="73.3,46.1 89.6,46.1 97.1,51.7 80.7,51.7 				"/>
+				<polygon class="st4" points="80.8,68.1 80.7,51.7 97.1,51.7 97.2,68 				"/>
+				<polygon class="st5" points="80.7,51.7 80.8,68.1 73.1,62.1 73.3,46.1 				"/>
+			</g>
+		</g>
+		<g transform="translate(48.000000, 37.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="63.1,45.5 79.4,45.5 86.8,51.2 70.5,51.2 				"/>
+				<polygon class="st4" points="70.5,67.5 70.5,51.2 86.8,51.2 87,67.5 				"/>
+				<polygon class="st5" points="70.5,51.2 70.5,67.5 62.9,61.6 63.1,45.5 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="65.1,45.5 81.4,45.5 88.8,51.2 72.5,51.2 				"/>
+				<polygon class="st4" points="72.5,67.5 72.5,51.2 88.8,51.2 89,67.5 				"/>
+				<polygon class="st5" points="72.5,51.2 72.5,67.5 64.9,61.6 65.1,45.5 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="67.8,45.5 84.1,45.5 91.5,51.2 75.2,51.2 				"/>
+				<polygon class="st4" points="75.2,67.5 75.2,51.2 91.5,51.2 91.7,67.5 				"/>
+				<polygon class="st5" points="75.2,51.2 75.2,67.5 67.6,61.6 67.8,45.5 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="69.9,45.5 86.2,45.5 93.7,51.2 77.3,51.2 				"/>
+				<polygon class="st4" points="77.4,67.5 77.3,51.2 93.7,51.2 93.8,67.5 				"/>
+				<polygon class="st5" points="77.3,51.2 77.4,67.5 69.7,61.6 69.9,45.5 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="72,45.5 88.3,45.5 95.8,51.2 79.5,51.2 				"/>
+				<polygon class="st4" points="79.5,67.5 79.5,51.2 95.8,51.2 95.9,67.5 				"/>
+				<polygon class="st5" points="79.5,51.2 79.5,67.5 71.8,61.6 72,45.5 				"/>
+			</g>
+		</g>
+	</g>
+	<g id="Shape_1_" transform="translate(0.000000, 67.000000)" class="st2">
+		<g>
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="68.2,51.4 84.5,51.4 92,57 75.6,57 				"/>
+				<polygon class="st4" points="75.7,73.4 75.6,57 92,57 92.1,73.4 				"/>
+				<polygon class="st5" points="75.6,57 75.7,73.4 68,67.4 68.2,51.4 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="70.2,51.4 86.5,51.4 94,57 77.7,57 				"/>
+				<polygon class="st4" points="77.7,73.4 77.7,57 94,57 94.1,73.4 				"/>
+				<polygon class="st5" points="77.7,57 77.7,73.4 70,67.4 70.2,51.4 				"/>
+			</g>
+			<g transform="translate(47.000000, 0.000000)">
+				<polygon class="st3" points="71.9,51.4 88.2,51.4 95.6,57 79.3,57 				"/>
+				<polygon class="st4" points="79.4,73.4 79.3,57 95.6,57 95.8,73.4 				"/>
+				<polygon class="st5" points="79.3,57 79.4,73.4 71.7,67.4 71.9,51.4 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="75,51.4 91.3,51.4 98.8,57 82.5,57 				"/>
+				<polygon class="st4" points="82.5,73.4 82.5,57 98.8,57 98.9,73.4 				"/>
+				<polygon class="st5" points="82.5,57 82.5,73.4 74.8,67.4 75,51.4 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="77.1,51.4 93.5,51.4 100.9,57 84.6,57 				"/>
+				<polygon class="st4" points="84.6,73.4 84.6,57 100.9,57 101.1,73.4 				"/>
+				<polygon class="st5" points="84.6,57 84.6,73.4 76.9,67.4 77.1,51.4 				"/>
+			</g>
+		</g>
+		<g transform="translate(12.000000, 10.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="66.9,49.8 83.2,49.8 90.7,55.5 74.4,55.5 				"/>
+				<polygon class="st4" points="74.4,71.8 74.4,55.5 90.7,55.5 90.8,71.8 				"/>
+				<polygon class="st5" points="74.4,55.5 74.4,71.8 66.7,65.9 66.9,49.8 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="68.9,49.8 85.2,49.8 92.7,55.5 76.4,55.5 				"/>
+				<polygon class="st4" points="76.4,71.8 76.4,55.5 92.7,55.5 92.8,71.8 				"/>
+				<polygon class="st5" points="76.4,55.5 76.4,71.8 68.7,65.9 68.9,49.8 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="71.6,49.8 87.9,49.8 95.4,55.5 79.1,55.5 				"/>
+				<polygon class="st4" points="79.1,71.8 79.1,55.5 95.4,55.5 95.5,71.8 				"/>
+				<polygon class="st5" points="79.1,55.5 79.1,71.8 71.4,65.9 71.6,49.8 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="73.7,49.8 90,49.8 97.5,55.5 81.2,55.5 				"/>
+				<polygon class="st4" points="81.2,71.8 81.2,55.5 97.5,55.5 97.7,71.8 				"/>
+				<polygon class="st5" points="81.2,55.5 81.2,71.8 73.5,65.9 73.7,49.8 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="75.9,49.8 92.2,49.8 99.6,55.5 83.3,55.5 				"/>
+				<polygon class="st4" points="83.3,71.8 83.3,55.5 99.6,55.5 99.8,71.8 				"/>
+				<polygon class="st5" points="83.3,55.5 83.3,71.8 75.7,65.9 75.9,49.8 				"/>
+			</g>
+		</g>
+		<g transform="translate(24.000000, 19.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="65.6,49.3 82,49.3 89.4,54.9 73.1,54.9 				"/>
+				<polygon class="st4" points="73.1,71.3 73.1,54.9 89.4,54.9 89.6,71.3 				"/>
+				<polygon class="st5" points="73.1,54.9 73.1,71.3 65.4,65.3 65.6,49.3 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="67.6,49.3 83.9,49.3 91.4,54.9 75.1,54.9 				"/>
+				<polygon class="st4" points="75.1,71.3 75.1,54.9 91.4,54.9 91.6,71.3 				"/>
+				<polygon class="st5" points="75.1,54.9 75.1,71.3 67.4,65.3 67.6,49.3 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="70.3,49.3 86.6,49.3 94.1,54.9 77.8,54.9 				"/>
+				<polygon class="st4" points="77.8,71.3 77.8,54.9 94.1,54.9 94.2,71.3 				"/>
+				<polygon class="st5" points="77.8,54.9 77.8,71.3 70.1,65.3 70.3,49.3 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="72.5,49.3 88.8,49.3 96.2,54.9 79.9,54.9 				"/>
+				<polygon class="st4" points="79.9,71.3 79.9,54.9 96.2,54.9 96.4,71.3 				"/>
+				<polygon class="st5" points="79.9,54.9 79.9,71.3 72.3,65.3 72.5,49.3 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="74.6,49.3 90.9,49.3 98.3,54.9 82,54.9 				"/>
+				<polygon class="st4" points="82,71.3 82,54.9 98.3,54.9 98.5,71.3 				"/>
+				<polygon class="st5" points="82,54.9 82,71.3 74.4,65.3 74.6,49.3 				"/>
+			</g>
+		</g>
+		<g transform="translate(36.000000, 29.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="64.4,47.8 80.7,47.8 88.1,53.4 71.8,53.4 				"/>
+				<polygon class="st4" points="71.8,69.8 71.8,53.4 88.1,53.4 88.3,69.7 				"/>
+				<polygon class="st5" points="71.8,53.4 71.8,69.8 64.2,63.8 64.4,47.8 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="66.4,47.8 82.7,47.8 90.1,53.4 73.8,53.4 				"/>
+				<polygon class="st4" points="73.8,69.8 73.8,53.4 90.1,53.4 90.3,69.7 				"/>
+				<polygon class="st5" points="73.8,53.4 73.8,69.8 66.2,63.8 66.4,47.8 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="69,47.8 85.4,47.8 92.8,53.4 76.5,53.4 				"/>
+				<polygon class="st4" points="76.5,69.8 76.5,53.4 92.8,53.4 93,69.7 				"/>
+				<polygon class="st5" points="76.5,53.4 76.5,69.8 68.8,63.8 69,47.8 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="71.2,47.8 87.5,47.8 94.9,53.4 78.6,53.4 				"/>
+				<polygon class="st4" points="78.6,69.8 78.6,53.4 94.9,53.4 95.1,69.7 				"/>
+				<polygon class="st5" points="78.6,53.4 78.6,69.8 71,63.8 71.2,47.8 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="73.3,47.8 89.6,47.8 97.1,53.4 80.7,53.4 				"/>
+				<polygon class="st4" points="80.8,69.8 80.7,53.4 97.1,53.4 97.2,69.7 				"/>
+				<polygon class="st5" points="80.7,53.4 80.8,69.8 73.1,63.8 73.3,47.8 				"/>
+			</g>
+		</g>
+		<g transform="translate(48.000000, 38.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="63.1,47.2 79.4,47.2 86.8,52.9 70.5,52.9 				"/>
+				<polygon class="st4" points="70.5,69.2 70.5,52.9 86.8,52.9 87,69.2 				"/>
+				<polygon class="st5" points="70.5,52.9 70.5,69.2 62.9,63.3 63.1,47.2 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="65.1,47.2 81.4,47.2 88.8,52.9 72.5,52.9 				"/>
+				<polygon class="st4" points="72.5,69.2 72.5,52.9 88.8,52.9 89,69.2 				"/>
+				<polygon class="st5" points="72.5,52.9 72.5,69.2 64.9,63.3 65.1,47.2 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="67.8,47.2 84.1,47.2 91.5,52.9 75.2,52.9 				"/>
+				<polygon class="st4" points="75.2,69.2 75.2,52.9 91.5,52.9 91.7,69.2 				"/>
+				<polygon class="st5" points="75.2,52.9 75.2,69.2 67.6,63.3 67.8,47.2 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="69.9,47.2 86.2,47.2 93.7,52.9 77.3,52.9 				"/>
+				<polygon class="st4" points="77.4,69.2 77.3,52.9 93.7,52.9 93.8,69.2 				"/>
+				<polygon class="st5" points="77.3,52.9 77.4,69.2 69.7,63.3 69.9,47.2 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="72,47.2 88.3,47.2 95.8,52.9 79.5,52.9 				"/>
+				<polygon class="st4" points="79.5,69.2 79.5,52.9 95.8,52.9 95.9,69.2 				"/>
+				<polygon class="st5" points="79.5,52.9 79.5,69.2 71.8,63.3 72,47.2 				"/>
+			</g>
+		</g>
+	</g>
+	<g id="Shape_2_" transform="translate(0.000000, 45.000000)" class="st2">
+		<g>
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="68.2,53.1 84.5,53.1 92,58.7 75.6,58.7 				"/>
+				<polygon class="st4" points="75.7,75.1 75.6,58.7 92,58.7 92.1,75 				"/>
+				<polygon class="st5" points="75.6,58.7 75.7,75.1 68,69.1 68.2,53.1 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="70.2,53.1 86.5,53.1 94,58.7 77.7,58.7 				"/>
+				<polygon class="st4" points="77.7,75.1 77.7,58.7 94,58.7 94.1,75 				"/>
+				<polygon class="st5" points="77.7,58.7 77.7,75.1 70,69.1 70.2,53.1 				"/>
+			</g>
+			<g transform="translate(47.000000, 0.000000)">
+				<polygon class="st3" points="71.9,53.1 88.2,53.1 95.6,58.7 79.3,58.7 				"/>
+				<polygon class="st4" points="79.4,75.1 79.3,58.7 95.6,58.7 95.8,75 				"/>
+				<polygon class="st5" points="79.3,58.7 79.4,75.1 71.7,69.1 71.9,53.1 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="75,53.1 91.3,53.1 98.8,58.7 82.5,58.7 				"/>
+				<polygon class="st4" points="82.5,75.1 82.5,58.7 98.8,58.7 98.9,75 				"/>
+				<polygon class="st5" points="82.5,58.7 82.5,75.1 74.8,69.1 75,53.1 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="77.1,53.1 93.5,53.1 100.9,58.7 84.6,58.7 				"/>
+				<polygon class="st4" points="84.6,75.1 84.6,58.7 100.9,58.7 101.1,75 				"/>
+				<polygon class="st5" points="84.6,58.7 84.6,75.1 76.9,69.1 77.1,53.1 				"/>
+			</g>
+		</g>
+		<g transform="translate(12.000000, 9.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="66.9,52.5 83.2,52.5 90.7,58.2 74.4,58.2 				"/>
+				<polygon class="st4" points="74.4,74.5 74.4,58.2 90.7,58.2 90.8,74.5 				"/>
+				<polygon class="st5" points="74.4,58.2 74.4,74.5 66.7,68.6 66.9,52.5 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="68.9,52.5 85.2,52.5 92.7,58.2 76.4,58.2 				"/>
+				<polygon class="st4" points="76.4,74.5 76.4,58.2 92.7,58.2 92.8,74.5 				"/>
+				<polygon class="st5" points="76.4,58.2 76.4,74.5 68.7,68.6 68.9,52.5 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="71.6,52.5 87.9,52.5 95.4,58.2 79.1,58.2 				"/>
+				<polygon class="st4" points="79.1,74.5 79.1,58.2 95.4,58.2 95.5,74.5 				"/>
+				<polygon class="st5" points="79.1,58.2 79.1,74.5 71.4,68.6 71.6,52.5 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="73.7,52.5 90,52.5 97.5,58.2 81.2,58.2 				"/>
+				<polygon class="st4" points="81.2,74.5 81.2,58.2 97.5,58.2 97.7,74.5 				"/>
+				<polygon class="st5" points="81.2,58.2 81.2,74.5 73.5,68.6 73.7,52.5 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="75.9,52.5 92.2,52.5 99.6,58.2 83.3,58.2 				"/>
+				<polygon class="st4" points="83.3,74.5 83.3,58.2 99.6,58.2 99.8,74.5 				"/>
+				<polygon class="st5" points="83.3,58.2 83.3,74.5 75.7,68.6 75.9,52.5 				"/>
+			</g>
+		</g>
+		<g transform="translate(24.000000, 19.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="65.6,51 82,51 89.4,56.6 73.1,56.6 				"/>
+				<polygon class="st4" points="73.1,73 73.1,56.6 89.4,56.6 89.6,73 				"/>
+				<polygon class="st5" points="73.1,56.6 73.1,73 65.4,67 65.6,51 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="67.6,51 83.9,51 91.4,56.6 75.1,56.6 				"/>
+				<polygon class="st4" points="75.1,73 75.1,56.6 91.4,56.6 91.6,73 				"/>
+				<polygon class="st5" points="75.1,56.6 75.1,73 67.4,67 67.6,51 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="70.3,51 86.6,51 94.1,56.6 77.8,56.6 				"/>
+				<polygon class="st4" points="77.8,73 77.8,56.6 94.1,56.6 94.2,73 				"/>
+				<polygon class="st5" points="77.8,56.6 77.8,73 70.1,67 70.3,51 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="72.5,51 88.8,51 96.2,56.6 79.9,56.6 				"/>
+				<polygon class="st4" points="79.9,73 79.9,56.6 96.2,56.6 96.4,73 				"/>
+				<polygon class="st5" points="79.9,56.6 79.9,73 72.3,67 72.5,51 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="74.6,51 90.9,51 98.3,56.6 82,56.6 				"/>
+				<polygon class="st4" points="82,73 82,56.6 98.3,56.6 98.5,73 				"/>
+				<polygon class="st5" points="82,56.6 82,73 74.4,67 74.6,51 				"/>
+			</g>
+		</g>
+		<g transform="translate(36.000000, 28.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="64.4,50.4 80.7,50.4 88.1,56.1 71.8,56.1 				"/>
+				<polygon class="st4" points="71.8,72.5 71.8,56.1 88.1,56.1 88.3,72.4 				"/>
+				<polygon class="st5" points="71.8,56.1 71.8,72.5 64.2,66.5 64.4,50.4 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="66.4,50.4 82.7,50.4 90.1,56.1 73.8,56.1 				"/>
+				<polygon class="st4" points="73.8,72.5 73.8,56.1 90.1,56.1 90.3,72.4 				"/>
+				<polygon class="st5" points="73.8,56.1 73.8,72.5 66.2,66.5 66.4,50.4 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="69,50.4 85.4,50.4 92.8,56.1 76.5,56.1 				"/>
+				<polygon class="st4" points="76.5,72.5 76.5,56.1 92.8,56.1 93,72.4 				"/>
+				<polygon class="st5" points="76.5,56.1 76.5,72.5 68.8,66.5 69,50.4 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="71.2,50.4 87.5,50.4 94.9,56.1 78.6,56.1 				"/>
+				<polygon class="st4" points="78.6,72.5 78.6,56.1 94.9,56.1 95.1,72.4 				"/>
+				<polygon class="st5" points="78.6,56.1 78.6,72.5 71,66.5 71.2,50.4 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="73.3,50.4 89.6,50.4 97.1,56.1 80.7,56.1 				"/>
+				<polygon class="st4" points="80.8,72.5 80.7,56.1 97.1,56.1 97.2,72.4 				"/>
+				<polygon class="st5" points="80.7,56.1 80.8,72.5 73.1,66.5 73.3,50.4 				"/>
+			</g>
+		</g>
+		<g transform="translate(48.000000, 37.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="63.1,49.9 79.4,49.9 86.8,55.6 70.5,55.6 				"/>
+				<polygon class="st4" points="70.5,71.9 70.5,55.6 86.8,55.6 87,71.9 				"/>
+				<polygon class="st5" points="70.5,55.6 70.5,71.9 62.9,66 63.1,49.9 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="65.1,49.9 81.4,49.9 88.8,55.6 72.5,55.6 				"/>
+				<polygon class="st4" points="72.5,71.9 72.5,55.6 88.8,55.6 89,71.9 				"/>
+				<polygon class="st5" points="72.5,55.6 72.5,71.9 64.9,66 65.1,49.9 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="67.8,49.9 84.1,49.9 91.5,55.6 75.2,55.6 				"/>
+				<polygon class="st4" points="75.2,71.9 75.2,55.6 91.5,55.6 91.7,71.9 				"/>
+				<polygon class="st5" points="75.2,55.6 75.2,71.9 67.6,66 67.8,49.9 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="69.9,49.9 86.2,49.9 93.7,55.6 77.3,55.6 				"/>
+				<polygon class="st4" points="77.4,71.9 77.3,55.6 93.7,55.6 93.8,71.9 				"/>
+				<polygon class="st5" points="77.3,55.6 77.4,71.9 69.7,66 69.9,49.9 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="72,49.9 88.3,49.9 95.8,55.6 79.5,55.6 				"/>
+				<polygon class="st4" points="79.5,71.9 79.5,55.6 95.8,55.6 95.9,71.9 				"/>
+				<polygon class="st5" points="79.5,55.6 79.5,71.9 71.8,66 72,49.9 				"/>
+			</g>
+		</g>
+	</g>
+	<g id="Shape_3_" transform="translate(0.000000, 22.000000)" class="st2">
+		<g>
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="68.2,55.7 84.5,55.7 92,61.4 75.6,61.4 				"/>
+				<polygon class="st4" points="75.7,77.8 75.6,61.4 92,61.4 92.1,77.7 				"/>
+				<polygon class="st5" points="75.6,61.4 75.7,77.8 68,71.8 68.2,55.7 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="70.2,55.7 86.5,55.7 94,61.4 77.7,61.4 				"/>
+				<polygon class="st4" points="77.7,77.8 77.7,61.4 94,61.4 94.1,77.7 				"/>
+				<polygon class="st5" points="77.7,61.4 77.7,77.8 70,71.8 70.2,55.7 				"/>
+			</g>
+			<g transform="translate(47.000000, 0.000000)">
+				<polygon class="st3" points="71.9,55.7 88.2,55.7 95.6,61.4 79.3,61.4 				"/>
+				<polygon class="st4" points="79.4,77.8 79.3,61.4 95.6,61.4 95.8,77.7 				"/>
+				<polygon class="st5" points="79.3,61.4 79.4,77.8 71.7,71.8 71.9,55.7 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="75,55.7 91.3,55.7 98.8,61.4 82.5,61.4 				"/>
+				<polygon class="st4" points="82.5,77.8 82.5,61.4 98.8,61.4 98.9,77.7 				"/>
+				<polygon class="st5" points="82.5,61.4 82.5,77.8 74.8,71.8 75,55.7 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="77.1,55.7 93.5,55.7 100.9,61.4 84.6,61.4 				"/>
+				<polygon class="st4" points="84.6,77.8 84.6,61.4 100.9,61.4 101.1,77.7 				"/>
+				<polygon class="st5" points="84.6,61.4 84.6,77.8 76.9,71.8 77.1,55.7 				"/>
+			</g>
+		</g>
+		<g transform="translate(12.000000, 10.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="66.9,54.2 83.2,54.2 90.7,59.9 74.4,59.9 				"/>
+				<polygon class="st4" points="74.4,76.2 74.4,59.9 90.7,59.9 90.8,76.2 				"/>
+				<polygon class="st5" points="74.4,59.9 74.4,76.2 66.7,70.2 66.9,54.2 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="68.9,54.2 85.2,54.2 92.7,59.9 76.4,59.9 				"/>
+				<polygon class="st4" points="76.4,76.2 76.4,59.9 92.7,59.9 92.8,76.2 				"/>
+				<polygon class="st5" points="76.4,59.9 76.4,76.2 68.7,70.2 68.9,54.2 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="71.6,54.2 87.9,54.2 95.4,59.9 79.1,59.9 				"/>
+				<polygon class="st4" points="79.1,76.2 79.1,59.9 95.4,59.9 95.5,76.2 				"/>
+				<polygon class="st5" points="79.1,59.9 79.1,76.2 71.4,70.2 71.6,54.2 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="73.7,54.2 90,54.2 97.5,59.9 81.2,59.9 				"/>
+				<polygon class="st4" points="81.2,76.2 81.2,59.9 97.5,59.9 97.7,76.2 				"/>
+				<polygon class="st5" points="81.2,59.9 81.2,76.2 73.5,70.2 73.7,54.2 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="75.9,54.2 92.2,54.2 99.6,59.9 83.3,59.9 				"/>
+				<polygon class="st4" points="83.3,76.2 83.3,59.9 99.6,59.9 99.8,76.2 				"/>
+				<polygon class="st5" points="83.3,59.9 83.3,76.2 75.7,70.2 75.9,54.2 				"/>
+			</g>
+		</g>
+		<g transform="translate(24.000000, 19.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="65.6,53.7 82,53.7 89.4,59.3 73.1,59.3 				"/>
+				<polygon class="st4" points="73.1,75.7 73.1,59.3 89.4,59.3 89.6,75.7 				"/>
+				<polygon class="st5" points="73.1,59.3 73.1,75.7 65.4,69.7 65.6,53.7 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="67.6,53.7 83.9,53.7 91.4,59.3 75.1,59.3 				"/>
+				<polygon class="st4" points="75.1,75.7 75.1,59.3 91.4,59.3 91.6,75.7 				"/>
+				<polygon class="st5" points="75.1,59.3 75.1,75.7 67.4,69.7 67.6,53.7 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="70.3,53.7 86.6,53.7 94.1,59.3 77.8,59.3 				"/>
+				<polygon class="st4" points="77.8,75.7 77.8,59.3 94.1,59.3 94.2,75.7 				"/>
+				<polygon class="st5" points="77.8,59.3 77.8,75.7 70.1,69.7 70.3,53.7 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="72.5,53.7 88.8,53.7 96.2,59.3 79.9,59.3 				"/>
+				<polygon class="st4" points="79.9,75.7 79.9,59.3 96.2,59.3 96.4,75.7 				"/>
+				<polygon class="st5" points="79.9,59.3 79.9,75.7 72.3,69.7 72.5,53.7 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="74.6,53.7 90.9,53.7 98.3,59.3 82,59.3 				"/>
+				<polygon class="st4" points="82,75.7 82,59.3 98.3,59.3 98.5,75.7 				"/>
+				<polygon class="st5" points="82,59.3 82,75.7 74.4,69.7 74.6,53.7 				"/>
+			</g>
+		</g>
+		<g transform="translate(36.000000, 28.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="64.4,53.1 80.7,53.1 88.1,58.8 71.8,58.8 				"/>
+				<polygon class="st4" points="71.8,75.1 71.8,58.8 88.1,58.8 88.3,75.1 				"/>
+				<polygon class="st5" points="71.8,58.8 71.8,75.1 64.2,69.2 64.4,53.1 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="66.4,53.1 82.7,53.1 90.1,58.8 73.8,58.8 				"/>
+				<polygon class="st4" points="73.8,75.1 73.8,58.8 90.1,58.8 90.3,75.1 				"/>
+				<polygon class="st5" points="73.8,58.8 73.8,75.1 66.2,69.2 66.4,53.1 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="69,53.1 85.4,53.1 92.8,58.8 76.5,58.8 				"/>
+				<polygon class="st4" points="76.5,75.1 76.5,58.8 92.8,58.8 93,75.1 				"/>
+				<polygon class="st5" points="76.5,58.8 76.5,75.1 68.8,69.2 69,53.1 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="71.2,53.1 87.5,53.1 94.9,58.8 78.6,58.8 				"/>
+				<polygon class="st4" points="78.6,75.1 78.6,58.8 94.9,58.8 95.1,75.1 				"/>
+				<polygon class="st5" points="78.6,58.8 78.6,75.1 71,69.2 71.2,53.1 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="73.3,53.1 89.6,53.1 97.1,58.8 80.7,58.8 				"/>
+				<polygon class="st4" points="80.8,75.1 80.7,58.8 97.1,58.8 97.2,75.1 				"/>
+				<polygon class="st5" points="80.7,58.8 80.8,75.1 73.1,69.2 73.3,53.1 				"/>
+			</g>
+		</g>
+		<g transform="translate(48.000000, 38.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="63.1,51.6 79.4,51.6 86.8,57.3 70.5,57.3 				"/>
+				<polygon class="st4" points="70.5,73.6 70.5,57.3 86.8,57.3 87,73.6 				"/>
+				<polygon class="st5" points="70.5,57.3 70.5,73.6 62.9,67.6 63.1,51.6 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="65.1,51.6 81.4,51.6 88.8,57.3 72.5,57.3 				"/>
+				<polygon class="st4" points="72.5,73.6 72.5,57.3 88.8,57.3 89,73.6 				"/>
+				<polygon class="st5" points="72.5,57.3 72.5,73.6 64.9,67.6 65.1,51.6 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="67.8,51.6 84.1,51.6 91.5,57.3 75.2,57.3 				"/>
+				<polygon class="st4" points="75.2,73.6 75.2,57.3 91.5,57.3 91.7,73.6 				"/>
+				<polygon class="st5" points="75.2,57.3 75.2,73.6 67.6,67.6 67.8,51.6 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="69.9,51.6 86.2,51.6 93.7,57.3 77.3,57.3 				"/>
+				<polygon class="st4" points="77.4,73.6 77.3,57.3 93.7,57.3 93.8,73.6 				"/>
+				<polygon class="st5" points="77.3,57.3 77.4,73.6 69.7,67.6 69.9,51.6 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="72,51.6 88.3,51.6 95.8,57.3 79.5,57.3 				"/>
+				<polygon class="st4" points="79.5,73.6 79.5,57.3 95.8,57.3 95.9,73.6 				"/>
+				<polygon class="st5" points="79.5,57.3 79.5,73.6 71.8,67.6 72,51.6 				"/>
+			</g>
+		</g>
+	</g>
+	<g id="Shape_4_" class="st2">
+		<g>
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="68.2,57.4 84.5,57.4 92,63.1 75.6,63.1 				"/>
+				<polygon class="st4" points="75.7,79.4 75.6,63.1 92,63.1 92.1,79.4 				"/>
+				<polygon class="st5" points="75.6,63.1 75.7,79.4 68,73.5 68.2,57.4 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="70.2,57.4 86.5,57.4 94,63.1 77.7,63.1 				"/>
+				<polygon class="st4" points="77.7,79.4 77.7,63.1 94,63.1 94.1,79.4 				"/>
+				<polygon class="st5" points="77.7,63.1 77.7,79.4 70,73.5 70.2,57.4 				"/>
+			</g>
+			<g transform="translate(47.000000, 0.000000)">
+				<polygon class="st3" points="71.9,57.4 88.2,57.4 95.6,63.1 79.3,63.1 				"/>
+				<polygon class="st4" points="79.4,79.4 79.3,63.1 95.6,63.1 95.8,79.4 				"/>
+				<polygon class="st5" points="79.3,63.1 79.4,79.4 71.7,73.5 71.9,57.4 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="75,57.4 91.3,57.4 98.8,63.1 82.5,63.1 				"/>
+				<polygon class="st4" points="82.5,79.4 82.5,63.1 98.8,63.1 98.9,79.4 				"/>
+				<polygon class="st5" points="82.5,63.1 82.5,79.4 74.8,73.5 75,57.4 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="77.1,57.4 93.5,57.4 100.9,63.1 84.6,63.1 				"/>
+				<polygon class="st4" points="84.6,79.4 84.6,63.1 100.9,63.1 101.1,79.4 				"/>
+				<polygon class="st5" points="84.6,63.1 84.6,79.4 76.9,73.5 77.1,57.4 				"/>
+			</g>
+		</g>
+		<g transform="translate(12.000000, 9.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="66.9,56.9 83.2,56.9 90.7,62.6 74.4,62.6 				"/>
+				<polygon class="st4" points="74.4,78.9 74.4,62.6 90.7,62.6 90.8,78.9 				"/>
+				<polygon class="st5" points="74.4,62.6 74.4,78.9 66.7,72.9 66.9,56.9 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="68.9,56.9 85.2,56.9 92.7,62.6 76.4,62.6 				"/>
+				<polygon class="st4" points="76.4,78.9 76.4,62.6 92.7,62.6 92.8,78.9 				"/>
+				<polygon class="st5" points="76.4,62.6 76.4,78.9 68.7,72.9 68.9,56.9 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="71.6,56.9 87.9,56.9 95.4,62.6 79.1,62.6 				"/>
+				<polygon class="st4" points="79.1,78.9 79.1,62.6 95.4,62.6 95.5,78.9 				"/>
+				<polygon class="st5" points="79.1,62.6 79.1,78.9 71.4,72.9 71.6,56.9 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="73.7,56.9 90,56.9 97.5,62.6 81.2,62.6 				"/>
+				<polygon class="st4" points="81.2,78.9 81.2,62.6 97.5,62.6 97.7,78.9 				"/>
+				<polygon class="st5" points="81.2,62.6 81.2,78.9 73.5,72.9 73.7,56.9 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="75.9,56.9 92.2,56.9 99.6,62.6 83.3,62.6 				"/>
+				<polygon class="st4" points="83.3,78.9 83.3,62.6 99.6,62.6 99.8,78.9 				"/>
+				<polygon class="st5" points="83.3,62.6 83.3,78.9 75.7,72.9 75.9,56.9 				"/>
+			</g>
+		</g>
+		<g transform="translate(24.000000, 19.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="65.6,55.4 82,55.4 89.4,61 73.1,61 				"/>
+				<polygon class="st4" points="73.1,77.4 73.1,61 89.4,61 89.6,77.3 				"/>
+				<polygon class="st5" points="73.1,61 73.1,77.4 65.4,71.4 65.6,55.4 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="67.6,55.4 83.9,55.4 91.4,61 75.1,61 				"/>
+				<polygon class="st4" points="75.1,77.4 75.1,61 91.4,61 91.6,77.3 				"/>
+				<polygon class="st5" points="75.1,61 75.1,77.4 67.4,71.4 67.6,55.4 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="70.3,55.4 86.6,55.4 94.1,61 77.8,61 				"/>
+				<polygon class="st4" points="77.8,77.4 77.8,61 94.1,61 94.2,77.3 				"/>
+				<polygon class="st5" points="77.8,61 77.8,77.4 70.1,71.4 70.3,55.4 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="72.5,55.4 88.8,55.4 96.2,61 79.9,61 				"/>
+				<polygon class="st4" points="79.9,77.4 79.9,61 96.2,61 96.4,77.3 				"/>
+				<polygon class="st5" points="79.9,61 79.9,77.4 72.3,71.4 72.5,55.4 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="74.6,55.4 90.9,55.4 98.3,61 82,61 				"/>
+				<polygon class="st4" points="82,77.4 82,61 98.3,61 98.5,77.3 				"/>
+				<polygon class="st5" points="82,61 82,77.4 74.4,71.4 74.6,55.4 				"/>
+			</g>
+		</g>
+		<g transform="translate(36.000000, 28.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="64.4,54.8 80.7,54.8 88.1,60.5 71.8,60.5 				"/>
+				<polygon class="st4" points="71.8,76.8 71.8,60.5 88.1,60.5 88.3,76.8 				"/>
+				<polygon class="st5" points="71.8,60.5 71.8,76.8 64.2,70.9 64.4,54.8 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="66.4,54.8 82.7,54.8 90.1,60.5 73.8,60.5 				"/>
+				<polygon class="st4" points="73.8,76.8 73.8,60.5 90.1,60.5 90.3,76.8 				"/>
+				<polygon class="st5" points="73.8,60.5 73.8,76.8 66.2,70.9 66.4,54.8 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="69,54.8 85.4,54.8 92.8,60.5 76.5,60.5 				"/>
+				<polygon class="st4" points="76.5,76.8 76.5,60.5 92.8,60.5 93,76.8 				"/>
+				<polygon class="st5" points="76.5,60.5 76.5,76.8 68.8,70.9 69,54.8 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="71.2,54.8 87.5,54.8 94.9,60.5 78.6,60.5 				"/>
+				<polygon class="st4" points="78.6,76.8 78.6,60.5 94.9,60.5 95.1,76.8 				"/>
+				<polygon class="st5" points="78.6,60.5 78.6,76.8 71,70.9 71.2,54.8 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="73.3,54.8 89.6,54.8 97.1,60.5 80.7,60.5 				"/>
+				<polygon class="st4" points="80.8,76.8 80.7,60.5 97.1,60.5 97.2,76.8 				"/>
+				<polygon class="st5" points="80.7,60.5 80.8,76.8 73.1,70.9 73.3,54.8 				"/>
+			</g>
+		</g>
+		<g transform="translate(48.000000, 37.000000)">
+			<g transform="translate(93.000000, 0.000000)">
+				<polygon class="st3" points="63.1,54.3 79.4,54.3 86.8,59.9 70.5,59.9 				"/>
+				<polygon class="st4" points="70.5,76.3 70.5,59.9 86.8,59.9 87,76.3 				"/>
+				<polygon class="st5" points="70.5,59.9 70.5,76.3 62.9,70.3 63.1,54.3 				"/>
+			</g>
+			<g transform="translate(69.000000, 0.000000)">
+				<polygon class="st3" points="65.1,54.3 81.4,54.3 88.8,59.9 72.5,59.9 				"/>
+				<polygon class="st4" points="72.5,76.3 72.5,59.9 88.8,59.9 89,76.3 				"/>
+				<polygon class="st5" points="72.5,59.9 72.5,76.3 64.9,70.3 65.1,54.3 				"/>
+			</g>
+			<g transform="translate(46.000000, 0.000000)">
+				<polygon class="st3" points="67.8,54.3 84.1,54.3 91.5,59.9 75.2,59.9 				"/>
+				<polygon class="st4" points="75.2,76.3 75.2,59.9 91.5,59.9 91.7,76.3 				"/>
+				<polygon class="st5" points="75.2,59.9 75.2,76.3 67.6,70.3 67.8,54.3 				"/>
+			</g>
+			<g transform="translate(23.000000, 0.000000)">
+				<polygon class="st3" points="69.9,54.3 86.2,54.3 93.7,59.9 77.3,59.9 				"/>
+				<polygon class="st4" points="77.4,76.3 77.3,59.9 93.7,59.9 93.8,76.3 				"/>
+				<polygon class="st5" points="77.3,59.9 77.4,76.3 69.7,70.3 69.9,54.3 				"/>
+			</g>
+			<g>
+				<polygon class="st3" points="72,54.3 88.3,54.3 95.8,59.9 79.5,59.9 				"/>
+				<polygon class="st4" points="79.5,76.3 79.5,59.9 95.8,59.9 95.9,76.3 				"/>
+				<polygon class="st5" points="79.5,59.9 79.5,76.3 71.8,70.3 72,54.3 				"/>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 76.3706 36.6328)" class="st6 st7 st8">Individual Neurons</text>
+	<g id="Shape_5_" class="st2">
+		<g transform="translate(92.000000, 0.000000)">
+			<polygon class="st4" points="285.2,160.4 301.5,160.4 301.3,63.1 285,63.1 			"/>
+			<polygon class="st3" points="285,63.1 301.3,63.1 293.9,57.4 277.6,57.4 			"/>
+			<polygon class="st5" points="285.2,160.4 285,63.1 277.6,57.4 277.4,153.1 			"/>
+		</g>
+		<g transform="translate(69.000000, 0.000000)">
+			<polygon class="st4" points="287.3,160.4 303.6,160.4 303.5,63.1 287.2,63.1 			"/>
+			<polygon class="st3" points="287.2,63.1 303.5,63.1 296,57.4 279.7,57.4 			"/>
+			<polygon class="st5" points="287.3,160.4 287.2,63.1 279.7,57.4 279.5,153.1 			"/>
+		</g>
+		<g transform="translate(46.000000, 0.000000)">
+			<polygon class="st4" points="289.5,160.4 305.8,160.4 305.6,63.1 289.3,63.1 			"/>
+			<polygon class="st3" points="289.3,63.1 305.6,63.1 298.1,57.4 281.8,57.4 			"/>
+			<polygon class="st5" points="289.5,160.4 289.3,63.1 281.8,57.4 281.7,153.1 			"/>
+		</g>
+		<g transform="translate(23.000000, 0.000000)">
+			<polygon class="st4" points="291.6,160.4 307.9,160.4 307.7,63.1 291.4,63.1 			"/>
+			<polygon class="st3" points="291.4,63.1 307.7,63.1 300.3,57.4 284,57.4 			"/>
+			<polygon class="st5" points="291.6,160.4 291.4,63.1 284,57.4 283.8,153.1 			"/>
+		</g>
+		<g>
+			<polygon class="st4" points="293.7,160.4 310,160.4 309.8,63.1 293.5,63.1 			"/>
+			<polygon class="st3" points="293.5,63.1 309.8,63.1 302.4,57.4 286.1,57.4 			"/>
+			<polygon class="st5" points="293.7,160.4 293.5,63.1 286.1,57.4 285.9,153.1 			"/>
+		</g>
+	</g>
+	<g id="Shape_6_" transform="translate(11.000000, 9.000000)" class="st2">
+		<g transform="translate(93.000000, 0.000000)">
+			<polygon class="st4" points="283.4,159.3 299.7,159.3 299.5,62 283.2,62 			"/>
+			<polygon class="st3" points="283.2,62 299.5,62 292,56.3 275.7,56.3 			"/>
+			<polygon class="st5" points="283.4,159.3 283.2,62 275.7,56.3 275.6,152 			"/>
+		</g>
+		<g transform="translate(69.000000, 0.000000)">
+			<polygon class="st4" points="286.5,159.3 302.8,159.3 302.6,62 286.3,62 			"/>
+			<polygon class="st3" points="286.3,62 302.6,62 295.2,56.3 278.9,56.3 			"/>
+			<polygon class="st5" points="286.5,159.3 286.3,62 278.9,56.3 278.7,152 			"/>
+		</g>
+		<g transform="translate(46.000000, 0.000000)">
+			<polygon class="st4" points="288.6,159.3 304.9,159.3 304.7,62 288.4,62 			"/>
+			<polygon class="st3" points="288.4,62 304.7,62 297.3,56.3 281,56.3 			"/>
+			<polygon class="st5" points="288.6,159.3 288.4,62 281,56.3 280.8,152 			"/>
+		</g>
+		<g transform="translate(23.000000, 0.000000)">
+			<polygon class="st4" points="290.7,159.3 307,159.3 306.9,62 290.6,62 			"/>
+			<polygon class="st3" points="290.6,62 306.9,62 299.4,56.3 283.1,56.3 			"/>
+			<polygon class="st5" points="290.7,159.3 290.6,62 283.1,56.3 282.9,152 			"/>
+		</g>
+		<g>
+			<polygon class="st4" points="292.8,159.3 309.2,159.3 309,62 292.7,62 			"/>
+			<polygon class="st3" points="292.7,62 309,62 301.6,56.3 285.2,56.3 			"/>
+			<polygon class="st5" points="292.8,159.3 292.7,62 285.2,56.3 285.1,152 			"/>
+		</g>
+	</g>
+	<g id="Shape_7_" transform="translate(22.000000, 17.000000)" class="st2">
+		<g transform="translate(93.000000, 0.000000)">
+			<polygon class="st4" points="282.5,159.2 298.8,159.2 298.7,61.9 282.3,61.9 			"/>
+			<polygon class="st3" points="282.3,61.9 298.7,61.9 291.2,56.2 274.9,56.2 			"/>
+			<polygon class="st5" points="282.5,159.2 282.3,61.9 274.9,56.2 274.7,151.9 			"/>
+		</g>
+		<g transform="translate(70.000000, 0.000000)">
+			<polygon class="st4" points="284.6,159.2 300.9,159.2 300.8,61.9 284.5,61.9 			"/>
+			<polygon class="st3" points="284.5,61.9 300.8,61.9 293.3,56.2 277,56.2 			"/>
+			<polygon class="st5" points="284.6,159.2 284.5,61.9 277,56.2 276.8,151.9 			"/>
+		</g>
+		<g transform="translate(46.000000, 0.000000)">
+			<polygon class="st4" points="287.8,159.2 304.1,159.2 303.9,61.9 287.6,61.9 			"/>
+			<polygon class="st3" points="287.6,61.9 303.9,61.9 296.5,56.2 280.1,56.2 			"/>
+			<polygon class="st5" points="287.8,159.2 287.6,61.9 280.1,56.2 280,151.9 			"/>
+		</g>
+		<g transform="translate(23.000000, 0.000000)">
+			<polygon class="st4" points="289.9,159.2 306.2,159.2 306,61.9 289.7,61.9 			"/>
+			<polygon class="st3" points="289.7,61.9 306,61.9 298.6,56.2 282.3,56.2 			"/>
+			<polygon class="st5" points="289.9,159.2 289.7,61.9 282.3,56.2 282.1,151.9 			"/>
+		</g>
+		<g>
+			<polygon class="st4" points="292,159.2 308.3,159.2 308.2,61.9 291.8,61.9 			"/>
+			<polygon class="st3" points="291.8,61.9 308.2,61.9 300.7,56.2 284.4,56.2 			"/>
+			<polygon class="st5" points="292,159.2 291.8,61.9 284.4,56.2 284.2,151.9 			"/>
+		</g>
+	</g>
+	<g id="Shape_8_" transform="translate(33.000000, 26.000000)" class="st2">
+		<g transform="translate(93.000000, 0.000000)">
+			<polygon class="st4" points="281.7,158.1 298,158.1 297.8,60.8 281.5,60.8 			"/>
+			<polygon class="st3" points="281.5,60.8 297.8,60.8 290.4,55.1 274.1,55.1 			"/>
+			<polygon class="st5" points="281.7,158.1 281.5,60.8 274.1,55.1 273.9,150.8 			"/>
+		</g>
+		<g transform="translate(70.000000, 0.000000)">
+			<polygon class="st4" points="283.8,158.1 300.1,158.1 299.9,60.8 283.6,60.8 			"/>
+			<polygon class="st3" points="283.6,60.8 299.9,60.8 292.5,55.1 276.2,55.1 			"/>
+			<polygon class="st5" points="283.8,158.1 283.6,60.8 276.2,55.1 276,150.8 			"/>
+		</g>
+		<g transform="translate(47.000000, 0.000000)">
+			<polygon class="st4" points="285.9,158.1 302.2,158.1 302.1,60.8 285.8,60.8 			"/>
+			<polygon class="st3" points="285.8,60.8 302.1,60.8 294.6,55.1 278.3,55.1 			"/>
+			<polygon class="st5" points="285.9,158.1 285.8,60.8 278.3,55.1 278.1,150.8 			"/>
+		</g>
+		<g transform="translate(24.000000, 0.000000)">
+			<polygon class="st4" points="288,158.1 304.3,158.1 304.2,60.8 287.9,60.8 			"/>
+			<polygon class="st3" points="287.9,60.8 304.2,60.8 296.7,55.1 280.4,55.1 			"/>
+			<polygon class="st5" points="288,158.1 287.9,60.8 280.4,55.1 280.3,150.8 			"/>
+		</g>
+		<g>
+			<polygon class="st4" points="291.2,158.1 307.5,158.1 307.3,60.8 291,60.8 			"/>
+			<polygon class="st3" points="291,60.8 307.3,60.8 299.9,55.1 283.5,55.1 			"/>
+			<polygon class="st5" points="291.2,158.1 291,60.8 283.5,55.1 283.4,150.8 			"/>
+		</g>
+	</g>
+	<g id="Shape_9_" transform="translate(45.000000, 35.000000)" class="st2">
+		<g transform="translate(92.000000, 0.000000)">
+			<polygon class="st4" points="280.8,157 297.1,157 297,59.7 280.7,59.7 			"/>
+			<polygon class="st3" points="280.7,59.7 297,59.7 289.5,54 273.2,54 			"/>
+			<polygon class="st5" points="280.8,157 280.7,59.7 273.2,54 273,149.7 			"/>
+		</g>
+		<g transform="translate(69.000000, 0.000000)">
+			<polygon class="st4" points="282.9,157 299.3,157 299.1,59.7 282.8,59.7 			"/>
+			<polygon class="st3" points="282.8,59.7 299.1,59.7 291.6,54 275.3,54 			"/>
+			<polygon class="st5" points="282.9,157 282.8,59.7 275.3,54 275.2,149.7 			"/>
+		</g>
+		<g transform="translate(46.000000, 0.000000)">
+			<polygon class="st4" points="285.1,157 301.4,157 301.2,59.7 284.9,59.7 			"/>
+			<polygon class="st3" points="284.9,59.7 301.2,59.7 293.8,54 277.5,54 			"/>
+			<polygon class="st5" points="285.1,157 284.9,59.7 277.5,54 277.3,149.7 			"/>
+		</g>
+		<g transform="translate(23.000000, 0.000000)">
+			<polygon class="st4" points="287.2,157 303.5,157 303.3,59.7 287,59.7 			"/>
+			<polygon class="st3" points="287,59.7 303.3,59.7 295.9,54 279.6,54 			"/>
+			<polygon class="st5" points="287.2,157 287,59.7 279.6,54 279.4,149.7 			"/>
+		</g>
+		<g>
+			<polygon class="st4" points="289.3,157 305.6,157 305.5,59.7 289.2,59.7 			"/>
+			<polygon class="st3" points="289.2,59.7 305.5,59.7 298,54 281.7,54 			"/>
+			<polygon class="st5" points="289.3,157 289.2,59.7 281.7,54 281.5,149.7 			"/>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 286.0818 36.6328)" class="st6 st7 st8">Spatial Activations</text>
+	<g id="Shape_10_" transform="translate(0.000000, 94.000000)" class="st2">
+		<polygon class="st3" points="591.8,48.4 637.1,82.8 539.5,82.8 494.3,48.4 		"/>
+		<polygon class="st4" points="637.3,99.1 637.1,82.8 539.5,82.8 539.6,99.1 		"/>
+		<polygon class="st5" points="539.6,99.1 539.5,82.8 494.3,48.3 494.3,64.2 		"/>
+	</g>
+	<g id="Shape_11_" transform="translate(0.000000, 70.000000)" class="st2">
+		<polygon class="st3" points="591.8,51.2 637.1,85.6 539.5,85.6 494.3,51.2 		"/>
+		<polygon class="st4" points="637.3,101.9 637.1,85.6 539.5,85.6 539.6,101.9 		"/>
+		<polygon class="st5" points="539.6,101.9 539.5,85.6 494.3,51.1 494.3,67 		"/>
+	</g>
+	<g id="Shape_12_" transform="translate(0.000000, 47.000000)" class="st2">
+		<polygon class="st3" points="591.8,52.9 637.1,87.3 539.5,87.3 494.3,52.9 		"/>
+		<polygon class="st4" points="637.3,103.7 637.1,87.3 539.5,87.3 539.6,103.7 		"/>
+		<polygon class="st5" points="539.6,103.7 539.5,87.3 494.3,52.9 494.3,68.8 		"/>
+	</g>
+	<g id="Shape_13_" transform="translate(0.000000, 23.000000)" class="st2">
+		<polygon class="st3" points="591.8,55.7 637.1,90.1 539.5,90.1 494.3,55.7 		"/>
+		<polygon class="st4" points="637.3,106.5 637.1,90.1 539.5,90.1 539.6,106.5 		"/>
+		<polygon class="st5" points="539.6,106.5 539.5,90.1 494.3,55.6 494.3,71.6 		"/>
+	</g>
+	<g id="Shape_14_" class="st2">
+		<polygon class="st3" points="591.8,57.5 637.1,91.9 539.5,91.9 494.3,57.5 		"/>
+		<polygon class="st4" points="637.3,108.2 637.1,91.9 539.5,91.9 539.6,108.3 		"/>
+		<polygon class="st5" points="539.6,108.3 539.5,91.9 494.3,57.4 494.3,73.4 		"/>
+	</g>
+	<text transform="matrix(1 0 0 1 494.459 36.6328)" class="st6 st7 st8">Channel Activations</text>
+	<text transform="matrix(1 0 0 1 696.1807 36.6328)" class="st6 st7 st8">Neuron Groups</text>
+	<g id="Shape_15_" transform="translate(47.000000, 46.000000)" class="st2">
+		<path class="st3" d="M750.3,53.1l50.3,39.5H742l-50.4-39.5C690.9,52.3,750.3,53.1,750.3,53.1z"/>
+		<polygon class="st4" points="800.8,149.5 800.6,92.6 742,92.6 742,149.6 		"/>
+		<polygon class="st5" points="742,149.6 742,92.6 691.7,53.1 691.5,109.7 		"/>
+	</g>
+	<g id="Shape_16_" transform="translate(0.000000, 45.000000)" class="st2">
+		<polygon class="st3" points="733.1,53.6 762,76.2 724.8,76.2 695.9,53.6 		"/>
+		<polygon class="st4" points="762.1,133.1 762,76.2 724.8,76.2 724.8,133.1 		"/>
+		<polygon class="st5" points="724.8,76.2 724.8,133.1 695.7,110.2 695.9,53.6 		"/>
+	</g>
+	<g class="st2">
+		<polygon id="Shape_17_" class="st3" points="696.2,58 796.6,58 846.9,97.5 788.3,97.5 766.8,80.6 725.1,80.6 		"/>
+		<rect id="Rectangle-path" x="725.1" y="80.6" class="st4" width="41.7" height="36.7"/>
+		<polygon id="Shape_18_" class="st4" points="788.3,97.5 846.9,97.5 847,134.1 788.3,134.1 		"/>
+		<polygon id="Shape_19_" class="st5" points="788.3,134.1 788.3,97.5 766.8,80.6 766.8,117.2 		"/>
+		<polygon id="Shape_20_" class="st5" points="725.1,80.6 725.1,117.2 696,94.3 696.2,58 		"/>
+	</g>
+	<g id="Shape_21_" transform="translate(37.000000, 96.000000)" class="st2">
+		<polygon class="st3" points="729.1,48.5 747.3,62.6 710.1,62.6 691.9,48.5 		"/>
+		<polygon class="st5" points="710.1,99.3 710.1,62.6 691.9,48.5 691.7,84.8 		"/>
+		<polygon class="st4" points="710.1,99.3 710.1,62.6 747.3,62.6 747.4,99.2 		"/>
+	</g>
+	<g id="Shape_22_" transform="translate(36.000000, 27.000000)" class="st2">
+		<polygon class="st3" points="729.5,55.3 747.7,69.5 710.5,69.5 692.3,55.3 		"/>
+		<polygon class="st4" points="747.9,126.4 747.7,69.5 710.5,69.5 710.5,126.4 		"/>
+		<polygon class="st5" points="710.5,126.4 710.5,69.5 692.3,55.3 692.1,112 		"/>
+	</g>
+	<g>
+		<line class="st9" x1="66.7" y1="83.2" x2="60.3" y2="83.2"/>
+		<line class="st9" x1="66.7" y1="103.8" x2="60.3" y2="103.8"/>
+		<line class="st9" x1="66.7" y1="124.4" x2="60.3" y2="124.4"/>
+	</g>
+	<text transform="matrix(1 0 0 1 5.2166 65.4725)" class="st10 st11 st12">channel 1</text>
+	<text transform="matrix(1 0 0 1 46.8049 86.0669)" class="st10 st11 st12">2</text>
+	<text transform="matrix(1 0 0 1 46.8049 106.6608)" class="st10 st11 st12">3</text>
+	<text transform="matrix(1 0 0 1 46.8049 127.2551)" class="st10 st11 st12">4</text>
+	<text transform="matrix(1 0 0 1 46.8049 147.8485)" class="st10 st11 st12">5</text>
+	<g>
+		<g>
+			<line class="st13" x1="69.9" y1="191.6" x2="63.6" y2="191.6"/>
+			<line class="st13" x1="82.6" y1="201.4" x2="76.3" y2="201.4"/>
+			<g>
+				<line class="st13" x1="95.5" y1="211.2" x2="89.2" y2="211.2"/>
+				<polyline class="st13" points="102.1,220.9 108.4,220.9 108.4,220.9 57,181.8 50.5,181.8 				"/>
+			</g>
+		</g>
+		<g>
+			<line class="st13" x1="157" y1="227.9" x2="162" y2="231.3"/>
+			<line class="st13" x1="184.6" y1="227.9" x2="189.6" y2="231.3"/>
+			<line class="st13" x1="212.2" y1="227.9" x2="217.2" y2="231.3"/>
+			<polyline class="st13" points="134.4,231.3 129.4,227.9 239.8,227.9 244.8,231.3 			"/>
+		</g>
+	</g>
+	<polyline class="st13" points="60.3,62.6 66.7,62.6 66.7,145 60.3,145 	"/>
+</g>
+</svg>
