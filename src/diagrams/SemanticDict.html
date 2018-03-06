@@ -75,11 +75,10 @@
       <a on:click="store.set({dict_pos: [8,12]})" 
         class="{{pos_in_box([0,12], [12,13])? 'selected' : ''}}">
         grass</a>.
-      <br>
       {{#if pos_in_box([0,2], [3,5])}}
         GoogLeNet has a rich variety of ear detectors which help it distinguish between 100 species of dog.
       {{elseif pos_in_box([0,12], [12,13])}}
-        Despite there being detectors for grass, they fire very weakly, suggesting it isn't very "interesting."
+        Despite there being detectors for grass, they fire very weakly.
       {{else}}
         <br>
       {{/if}}
