@@ -8,7 +8,7 @@
       <div class="sprite {{hoveredLayer && hoveredLayer !== 'logit' ? 'active' : ''}}">
         <div class="outline"></div>
         <Sprite
-          bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          bg_img="{{bg_url}}"
           sprite_size={{224}} size={{250}} y={{$groups_sprite_y}} x={{mask_sprite_x}}
         ></Sprite>
       </div>
@@ -334,6 +334,13 @@
     },
 
     computed: {
+      bg_url($example, hoveredLayer) {
+        if (hoveredLayer !== "logit") {
+          return `examples/groups/${$example}/sprite_${hoveredLayer}_dream_overlay_vlight.jpeg`;
+        } else {
+          return '';
+        }
+      },
       neuron_sprite_url_4d($example, neuron_sprite) {
         return neuron_sprite ||
           `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
