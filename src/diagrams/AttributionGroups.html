@@ -8,12 +8,13 @@
       <div class="sprite {{hoveredLayer && hoveredLayer !== 'logit' ? 'active' : ''}}">
         <div class="outline"></div>
         <Sprite
-          bg_img="{{base_path}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
-          sprite_size={{224}} size={{250}} y={{0}} x={{hovered.split('|')[2]}}
+          bg_img="examples/groups/{{$example}}/sprite_{{hoveredLayer}}_dream_overlay_vlight.jpeg"
+          sprite_size={{224}} size={{250}} y={{$groups_sprite_y}} x={{mask_sprite_x}}
         ></Sprite>
       </div>
     </div>
     <figcaption>
+<<<<<<< HEAD
        To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
       earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
       for.
@@ -30,6 +31,15 @@
       {{/if}}
 
 
+=======
+      {{#if hoveredElement != null && hoveredLayer != 'logit'}}
+        The image above is a visualization of the group optimized on top of the input image, only in the locations where it activated.
+      {{else}}
+        To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
+        earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
+        for.
+      {{/if}}
+>>>>>>> as/groupsMultiplex
       <div class="key">
         <div><svg width="20" height="10"><line stroke="black" stroke-width="4" x1=0 y1=7 x2=20 y2=7></line></svg> positive influence</div>
         <div><svg width="20" height="10"><line stroke="black" stroke-width="4" stroke-dasharray="1 2" x1=0 y1=7 x2=20 y2=7></line></svg> negative influence</div>
@@ -40,16 +50,42 @@
   <div class="paths" ref:paths>
     <h4>
       Attribution by Factorized Groups
+
+      
     </h4>
 
     <div class="container">
       <div class="paths_headers">
-        <h5>Mixed4a</h5>
-        <h5>Mixed4d</h5>
-        <h5>Output class</h5>
+        <div>
+        <h5>
+          Mixed4a
+        </h5>
+        <div style="display: flex;">
+          <input style="width: 80px;" type="range" min={{$min_4a}} max={{$max_4a}} step="2" ticks bind:value=$num_4a />
+          <label style="margin-left: 10px;">{{$num_4a}} groups</label>
+        </div>
+        </div>
+
+        <div>
+        <h5>
+          Mixed4d
+        </h5>
+        <div style="display: flex;">
+          <input style="width: 80px;" type="range" min={{$min_4d}} max={{$max_4d}} step="2" ticks bind:value=$num_4d />
+          <label style="margin-left: 10px;">{{$num_4d}} groups</label>
+        </div>
+        </div>
+
+        <div>
+          <h5>Output class</h5>
+          <div style="font-weight: normal; text-transform: none;">
+            <label>
+              <input type="checkbox" bind:checked=$groups_align /> Align layer factors</label>
+          </div>
+        </div>
       </div>
       <div class="stage" style="width: {{width}}px; height: {{height}}px;">
-       {{#if group_data}}
+       {{#if $groups_attr}}
           <!-- SVG -->
           <svg class="graph" ref:graph>
             {{#each links as line,i}}
@@ -67,11 +103,13 @@
                 style="width: {{node.w}}px; height: {{node.w}}px; transform: translate({{node.x - 2}}px, {{node.y - (node.layer== 'logit' ? 15 : node.px)}}px)"
               >
                 {{#if node.layer == 'mixed4a'}}
-                  <Sprite bg_img="{{neuron_sprite_url_4a}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                  <Sprite bg_img="{{neuron_sprite_url_4a}}" sprite_size={{110}} size={{node.w}}
+                     y={{$groups_sprite_y}} x={{($groups_sprite_x * $max_4a) + node.i}} />
                 {{elseif node.layer == 'mixed4d'}}
-                  <Sprite bg_img="{{neuron_sprite_url_4d}}" x={{node.i}} sprite_size={{110}} size={{node.w}} />
+                  <Sprite bg_img="{{neuron_sprite_url_4d}}" sprite_size={{110}} size={{node.w}}
+                     y={{$groups_sprite_y}} x={{($groups_sprite_x * $max_4d) + node.i}} />
                 {{elseif node.layer == 'logit'}}
-                  <div>{{node.logit.name}}</div>
+                  <div>{{$labels[node.logit.name]}}</div>
                 {{/if}}
               </div>
             {{/each}}
@@ -131,7 +169,7 @@
   h5 {
     margin: 0;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 13px;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 3px;
@@ -157,6 +195,10 @@
     stroke: #a1adb7;
   }
 
+  label {
+    font-size: 12px;
+    opacity: 0.8;
+  }
   .sprite {
     opacity: 0;
   }
@@ -306,55 +348,11 @@
         spacing: 30,
         width: 900,
         height: 600,
-        maskOpacity: 0,
+        align: true,
       }
-    },
-    
-    oncreate() {
-      const hl = this.get('hidden_layers');
-      
-      this.store.observe('example', (example) => {
-        const base_path = this.get('base_path');
-
-        // Prefetch sprites
-        // sprites.splice(0);
-        // for (const layer of hl) {
-        //   const img = new Image();
-        //   img.src = `${base_path}/sprite_${layer}_dream_overlay_vlight.jpeg`;
-        //   sprites.push(img);
-        // }
-      });
-
-      this.observe('selected', (selected) => {
-        const base_path = this.get('base_path');
-        var split = selected.split("|")
-        var example = split[0]
-        var selectedLayer = split[1]
-        var selectedElement = split[2]
-
-      });
-
-      this.observe('hovered', (hovered) => {
-        const base_path = this.get('base_path');
-        var split = hovered.split("|")
-        var example = split[0]
-        var hoveredLayer = split[1]
-        var hoveredElement = split[2]
-        if(hoveredLayer !== "logit") {
-          var maskUrl = `${base_path}/${hoveredLayer}/each_group/${hoveredElement}/dream_overlay_vlight.jpeg`
-          this.set({maskSource: maskUrl, maskOpacity: 1})
-        } else {
-          this.set({maskOpacity: 0})
-        }
-      });
-      
     },
 
     computed: {
-      base_path ($example) {
-        return `examples/groups/${$example}`;
-      },
-
       neuron_sprite_url_4d($example, neuron_sprite) {
         return neuron_sprite ||
           `examples/groups/${$example}/sprite_mixed4d_icon.jpeg`;
@@ -365,12 +363,17 @@
           `examples/groups/${$example}/sprite_mixed4a_icon.jpeg`;
       },
 
-      logits(group_data) {
-        if (!group_data) return null;
-        // console.log("computing", group_data)
-        var keys = Object.keys(group_data.output)
+      mask_sprite_x($groups_sprite_x, $max_4a, $max_4d, hoveredLayer, hovered) {
+        const max = hoveredLayer === 'mixed4a' ? $max_4a : $max_4d;
+        return ($groups_sprite_x * max) + hovered.split('|')[2];
+      },
+
+      logits($groups_attr, $labels) {
+        if (!$groups_attr) return null;
+        // console.log("computing", $groups_attr)
+        var keys = Object.keys($groups_attr.output)
         var logits = keys.map((key) => {
-          var d = group_data.output[key]
+          var d = $groups_attr.output[key]
           d.name = key
           return d
         }).sort(function(a,b) {
@@ -393,9 +396,9 @@
         return $example + "|" + selectedLayer + "|" + selectedElement
       },
 
-      // layout(group_data, logits, hidden_layers, $example, width, height, selected, hovered) {
-      nodesLayout(base_path, group_data, logits, hidden_layers, $example, width, height) {
-        if (!group_data) return {};
+      // layout($groups_attr, logits, hidden_layers, $example, width, height, selected, hovered) {
+      nodesLayout($groups_attr, logits, hidden_layers, $example, width, height) {
+        if (!$groups_attr) return {};
         var logitHeight = 40;
         var spacing = 5;
         var yscale = scaleBand()
@@ -408,21 +411,22 @@
         var nodes = []
         var nodesByLayer = {}
         hidden_layers.forEach(function(layer,j) {
-          var layer_n = group_data[layer].n_groups
+          var layer_n = $groups_attr[layer].n_groups
           yscale.domain(range(layer_n))
           // TODO: scale imagew by # of elements and height of graphic
           var imgw = height/layer_n - spacing;
           var layerNodes = range(layer_n).map(function(i) {
             var y = yscale(i);//i * (imgw + spacing) + spacing
+            const w = Math.min(100, yscale.bandwidth())
             return {
               layer: layer,
               i: i,
-              x: j * (layerWidth + yscale.bandwidth()/2) + spacing,
+              x: j * (layerWidth + w / 2) + spacing,
               y: y,
-              w: yscale.bandwidth(),//imgw,
-              h: yscale.bandwidth(),//imgw,
+              w: w,//imgw,
+              h: w,//imgw,
               px: 5,
-              url: `${base_path}/${layer}/each_group/${i}/icon.jpeg`
+              url: `examples/groups/${$example}/${layer}/each_group/${i}/icon.jpeg`
             }
           })
           nodesByLayer[layer] = layerNodes
@@ -454,9 +458,9 @@
         }
       },
 
-      links(group_data, nodesLayout, logits, hidden_layers, $example, width, height, selectedLayer, selectedElement) {
+      links($groups_attr, nodesLayout, logits, hidden_layers, $example, width, height, selectedLayer, selectedElement) {
         // console.log("hovered", selectedLayer, selectedElement)
-        // console.log("group_data", group_data)
+        // console.log("$groups_attr", $groups_attr)
 
 
         if(!nodesLayout.byLayer) return [];
@@ -468,7 +472,7 @@
             //last layer, lets connect it to the logits
             nodesByLayer.logits.forEach(function(l,i) {
               nodesByLayer[layer].forEach(function(a, j) {
-                var attr = group_data.output[l.logit.name].attribution[layer][j]
+                var attr = $groups_attr.output[l.logit.name].attribution[layer][j]
                 var link = {
                   i: i,
                   j: j,
@@ -486,14 +490,14 @@
           var layerA = layer;
           var layerB = hidden_layers[i+1]
           nodesByLayer[layerB].forEach(function(b, i) {
-            var group = group_data[layerB].each_group[i]
+            var group = $groups_attr[layerB].each_group[i]
             nodesByLayer[layerA].forEach(function(a, j) {
               var attr = group.attribution[layerA][j]
               var logitAttr = 0;
               if(selectedLayer == "logit") {
                 var logit = nodesByLayer.logits[selectedElement].logit
-                var sourceLogitAttr = group_data.output[logit.name].attribution[layerA][j]
-                var targetLogitAttr = group_data.output[logit.name].attribution[layerB][i]
+                var sourceLogitAttr = $groups_attr.output[logit.name].attribution[layerA][j]
+                var targetLogitAttr = $groups_attr.output[logit.name].attribution[layerB][i]
               }
               var link = {
                 i: i,
@@ -518,7 +522,7 @@
         var maxLogitAttr = max(links, function(l) { return Math.abs(l.sourceLogitAttr) })
         if(selectedLayer && selectedLayer != "logit") {
           var maxHoveredLogitAttr = max(nodesByLayer.logits, function(d) { 
-            return Math.abs(group_data.output[d.logit.name].attribution[selectedLayer][selectedElement])
+            return Math.abs($groups_attr.output[d.logit.name].attribution[selectedLayer][selectedElement])
           })
           var maxHoveredAttr = max(links, function(d) { 
             if(d.source.layer != selectedLayer) return 0;
@@ -615,7 +619,7 @@
                   // if the links are for a later layer, scale their attribution by the hovered group's attribution to the logit
                   // as well as 
                   // TODO this will break with more than 2 hidden layers, we'd need to cascade the attribution thru
-                  var hoveredLogitAttr = group_data.output[link.target.logit.name].attribution[selectedLayer][selectedElement]
+                  var hoveredLogitAttr = $groups_attr.output[link.target.logit.name].attribution[selectedLayer][selectedElement]
                   var hoveredSourceLink = links.filter(function(l) { 
                     return l.source.layer == selectedLayer && l.source.i == selectedElement && l.target.i == link.source.i
                   })[0]

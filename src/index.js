@@ -1,5 +1,6 @@
 import {json as loadJSON} from 'd3-request';
 import {json as fetchJSON, buffer as fetchBuffer} from 'd3-fetch';
+import {min, max} from 'd3';
 import {fromArrayBuffer} from 'numpy-parser';
 import {default as ndarray} from 'ndarray';
 
@@ -123,43 +124,44 @@ initialize(
   }
 );
 
+initializeGroups();
 
-initialize(
-  'ActivationGroups',
-  ActivationGroups,
-  store,
-  function (example) {
-    return [
-      fetchJSON(`examples/activations/${example}/mixed4d_nmf.json`),
-      fetchBuffer(`examples/npy/${example}_mixed4d_nmf.npy`)
-    ];
-  },
-    function (values) {
-  const attr_raw = fromArrayBuffer(values[1]);
-  const attr = ndarray(attr_raw.data, attr_raw.shape);
-    return {
-      groups: values[0],
-      attr
-    };
-  }
-);
+// initialize(
+//   'ActivationGroups',
+//   ActivationGroups,
+//   store,
+//   function (example) {
+//     return [
+//       fetchJSON(`examples/activations/${example}/mixed4d_nmf.json`),
+//       fetchBuffer(`examples/npy/${example}_mixed4d_nmf.npy`)
+//     ];
+//   },
+//     function (values) {
+//   const attr_raw = fromArrayBuffer(values[1]);
+//   const attr = ndarray(attr_raw.data, attr_raw.shape);
+//     return {
+//       groups: values[0],
+//       attr
+//     };
+//   }
+// );
 
 
-initialize(
-  'AttributionGroups',
-  AttributionGroups,
-  store,
-  function (example) {
-    return [
-      fetchJSON(`examples/groups/${example}/info.json`)
-    ];
-  },
-  function (values) {
-    return {
-      group_data: values[0]
-    };
-  }
-);
+// initialize(
+//   'AttributionGroups',
+//   AttributionGroups,
+//   store,
+//   function (example) {
+//     return [
+//       fetchJSON(`examples/groups/${example}/info.json`)
+//     ];
+//   },
+//   function (values) {
+//     return {
+//       full_data: values[0]
+//     };
+//   }
+// );
 
 const atoms = new Atoms({
   target: document.getElementById('Atoms'),
@@ -181,15 +183,13 @@ const cubeNatural = new CubeNatural({
   store
 });
 
-
-
-
 // Initializes a component with custom fetchers for data
 function initialize(id, component, store, promisesGenerator, parse) {
   const el = document.getElementById(id);
   const loader = new Loading({target: el});
   let instance = null;
   el.addEventListener('ready', () => {
+<<<<<<< HEAD
     store.observe('example', example => {
       Promise.all(promisesGenerator(example))
       .then(values => {
@@ -210,6 +210,16 @@ function initialize(id, component, store, promisesGenerator, parse) {
             if (instance.measure) {
               instance.measure();
             }
+=======
+    store.observe('example', (example) => {
+      Promise.all(promisesGenerator(example)).then((values) => {
+        const data = parse(values, example);
+        data.loaded = true;
+        if (instance != null) {
+          instance.set(data)
+          if (instance.measure) {
+            instance.measure();
+>>>>>>> as/groupsMultiplex
           }
         })
         .catch(reason => {
@@ -217,4 +227,112 @@ function initialize(id, component, store, promisesGenerator, parse) {
         });
     })
   })
+}
+
+function initializeGroups() {
+  const numComponents = 2;
+  const cmpts = [ActivationGroups, AttributionGroups];
+  const els = [
+    document.getElementById('ActivationGroups'),
+    document.getElementById('AttributionGroups')
+  ];
+  const sprite_urls = [
+    'sprite_mixed4a_dream_overlay_vlight',
+    'sprite_mixed4a_icon',
+    'sprite_mixed4d_dream_overlay_vlight',
+    'sprite_mixed4d_icon'
+  ];
+  
+  let groupsInitialized = false;
+  const instances = [null, null];
+  const sprite_instances = [];
+
+  function preload_sprites() {
+    const example = store.get('example');
+    sprite_instances.splice(0);
+    for (const url of sprite_urls) {
+      const img = new Image();
+      img.src = `examples/groups/${example}/${url}.jpeg`;
+      sprite_instances.push(img);
+    }
+  }
+
+  els.forEach((el) => {
+    el.addEventListener('ready', () => {
+      // Only add one store observer to coordinate the two diagrams.
+      if (groupsInitialized) return;  
+
+      store.observe('example', (example) => {
+        Promise.all([
+          fetchJSON(`examples/groups/${example}/info.json`),
+          fetchBuffer(`examples/npy/${example}_mixed4d_nmf.npy`)
+        ]).then((values) => {
+          const all_groups_attr = values[0];
+          const mixed4d_raw = fromArrayBuffer(values[1]);
+          const all_groups_mixed4d = ndarray(mixed4d_raw.data, mixed4d_raw.shape);
+
+          store.set({
+            all_groups_attr, 
+            all_groups_mixed4d, 
+            groups_align: true,
+
+            num_4a: all_groups_attr.default[0],
+            num_4d: all_groups_attr.default[1],
+            card_4a: all_groups_attr.num_4a.length,
+            card_4d: all_groups_attr.num_4d.length,
+            min_4a: min(all_groups_attr.num_4a),
+            min_4d: min(all_groups_attr.num_4d),
+            max_4a: max(all_groups_attr.num_4a),
+            max_4d: max(all_groups_attr.num_4d)
+          });
+
+          for (let i = 0; i < cmpts.length; i++) {
+            if (instances[i] === null) instances[i] = new cmpts[i]({target: els[i], store});
+            if (instances[i].measure)  instances[i].measure();
+          }
+
+          preload_sprites();
+        });
+      });
+
+      store.observe('num_4a', preload_sprites);
+      store.observe('num_4d', preload_sprites);
+
+      store.compute(
+        'idx_4a', 
+        ['all_groups_attr', 'num_4a'], 
+        (all_groups_attr, num_4a) => all_groups_attr && all_groups_attr.num_4a.indexOf(num_4a)
+      );
+
+      store.compute(
+        'idx_4d',
+        ['all_groups_attr', 'num_4d'],
+        (all_groups_attr, num_4d) => all_groups_attr && all_groups_attr.num_4d.indexOf(num_4d)
+      );
+
+      store.compute(
+        'groups_sprite_x',
+        ['groups_align'],
+        (groups_align) => groups_align === true ? 1 : 0
+      );
+
+      store.compute(
+        'groups_sprite_y',
+        ['idx_4a', 'idx_4d', 'card_4d'],
+        (idx_4a, idx_4d, card_4d) => (idx_4a * card_4d) + idx_4d
+      );
+
+      store.compute(
+        'groups_attr',
+        ['all_groups_attr', 'card_4a', 'card_4d', 
+          'groups_sprite_x', 'groups_sprite_y'],
+        (all_groups_attr, card_4a, card_4d, 
+          groups_sprite_x, groups_sprite_y) => {
+            return all_groups_attr && all_groups_attr.data[(groups_sprite_x * card_4a * card_4d) + groups_sprite_y];
+          }
+      );
+
+      groupsInitialized = true;
+    });
+  });
 }

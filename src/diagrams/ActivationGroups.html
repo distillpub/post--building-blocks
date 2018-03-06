@@ -53,7 +53,17 @@
 
     </div>
 
-    <h4>Neuron groups <span>based on matrix factorization of mixed4d layer</span></h4>
+    <h4>
+      neuron groups <span>based on matrix factorization of mixed4d layer</span>
+
+      <div style="float: right; display: flex;">
+        <div style="width: 100px; margin-right: 5px; position: relative;">
+          <input style="width: 100%;" type="range" min={{$min_4d}} max={{$max_4d}} step="2" 
+            ticks bind:value=$num_4d />
+        </div>
+          <span style="font-size: 12px; width: 65px; text-align: right; opacity: 0.8;">{{$num_4d}} groups</span>
+      </div>
+    </h4>
     <div class="colors">
       <div class="label cell">color key</div>
       <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
@@ -78,7 +88,8 @@
       <div class="content " on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
         {{#each groupsData as g}}
           <div class="neuron cell {{hover_group === g.i ? 'hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;opacity: {{hover_location != null ? Math.abs(hover_location.groups[g.i].value) /10 : ''}}">
-            <Sprite bg_img="{{neuron_sprite_url}}" x={{g.i}} sprite_size={{110}} size={{neuronWidth}} />
+            <Sprite bg_img="{{neuron_sprite_url}}" sprite_size={{110}} size={{neuronWidth}}
+              y={{$groups_sprite_y}} x={{($groups_sprite_x * $max_4d) + g.i}} />
           </div>
         {{/each}}
       </div>
@@ -98,8 +109,8 @@
           <div>
             {{#each attr as a}}
               <div class="cell value">
-                {{format(a)}}
-                <div class="swatch {{ a > 0 ? 'positive' : 'negative' }}" style="opacity: {{Math.abs(a) * 2}};"></div>
+                <span style="z-index: 10; position: relative;">{{format(a)}}</span>
+                <div class="swatch {{ a > 0 ? 'positive' : 'negative' }}" style="opacity: {{Math.abs(a) / 6}};"></div>
               </div>
             {{/each}}
           </div>
@@ -270,7 +281,6 @@
 
   .cell.value {
     text-align: center;
-    font-size: 12px;
   }
 
   .output .swatch {
@@ -304,8 +314,7 @@
         nmf_data: undefined,
         // collab hooks
         heatmap_sprite: undefined, 
-        neuron_sprite: undefined,
-        numColumns: 6
+        neuron_sprite: undefined
       };
     },
 
@@ -313,9 +322,23 @@
     },
 
     computed: {
-      numGroups(spatialActivationsShape) {
-        return spatialActivationsShape[2];
+      groups($all_groups_attr, $groups_attr, $num_4d) {
+        const labels = $all_groups_attr.labels;
+
+        return {
+          labels,
+          attr: range($num_4d).map((i) => {
+            return labels.map((l) => $groups_attr.output[l].attribution.mixed4d[i])
+          })
+        };
       },
+
+      attr($all_groups_mixed4d, $groups_sprite_x, $groups_sprite_y) {
+        return $all_groups_mixed4d.pick(
+          $groups_sprite_x, $groups_sprite_y, null, null, null);
+      },
+
+      numGroups: ($num_4d) => $num_4d,
 
       groupsData(numGroups) {
         return range(numGroups).map((groupIndex) => { 
@@ -328,9 +351,11 @@
           };
         });
       },
+
       spatialActivationsShape(attr) {
         return attr != null ? attr.shape : [0, 0, 0]
       },
+
       spatialActivations(attr, numGroups, groupsData) {
         const activations = [];
         let i = 0;
@@ -339,7 +364,7 @@
           for (let y = 0; y < shape[0]; y++) {
             for (let x = 0; x < shape[1]; x++) {
               const groups = [];
-              for (let g = 0; g < shape[2]; g++) {
+              for (let g = 0; g < numGroups; g++) {
                 const value = attr.get(y, x, g);
                 groups.push({
                   x,
@@ -361,8 +386,6 @@
               
               const meanValue2 = mean(groups, h => h.value * h.value);
               const saturation = Math.sqrt(meanHueX * meanHueX + meanHueY * meanHueY) / meanValue2;
-              console.log(saturation)
-              
               
               activations.push({groups, x, y, i, color: hcl(meanHue, meanValue * 5 * saturation * saturation, meanValue * 3).toString()});
               i++;
@@ -379,13 +402,14 @@
 
       // imageWidth: (stageWidth) => (stageWidth - 10) / 2,
 
+      numColumns: (numGroups) => Math.max(numGroups, 6),
+
       neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
     components: {Sprite, ColabLink},
     methods: {
       measure: function() {
-        console.log(this.refs.inputImage)
         this.set({
           stageWidth: this.refs.content.clientWidth,
           imageWidth: this.refs.inputImage.clientWidth
