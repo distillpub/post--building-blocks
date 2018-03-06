@@ -14,24 +14,6 @@
       </div>
     </div>
     <figcaption>
-<<<<<<< HEAD
-       To understand multiple layers together, we would like each layer's factorization to be "compatible"—to have the groups of
-      earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
-      for.
-
-      {{#if $example == 'dog_cat'}} 
-       <!-- Well-defined <a>Floppy ears</a> seem to be the most influential signal for "Labrador retriever".  -->
-      {{elseif $example == 'flowers'}} 
-        <!-- A <a>"vase" classification</a> seems to be influenced most heavily by the <a>background</a> of the image.  -->
-      {{elseif $example == 'bowtie_guy'}} 
-      {{elseif $example == 'pig'}} 
-      {{elseif $example == 'beer'}} 
-      {{elseif $example == 'chain'}} 
-        <!-- The <a>top of the bird</a> is very influential in singling out "house finches". There is a strong <a>chain detector</a> that lessens the likelihood of all birds. -->
-      {{/if}}
-
-
-=======
       {{#if hoveredElement != null && hoveredLayer != 'logit'}}
         The image above is a visualization of the group optimized on top of the input image, only in the locations where it activated.
       {{else}}
@@ -39,7 +21,6 @@
         earlier layers naturally compose into the groups of later layers. This is also something we can optimize the factorization
         for.
       {{/if}}
->>>>>>> as/groupsMultiplex
       <div class="key">
         <div><svg width="20" height="10"><line stroke="black" stroke-width="4" x1=0 y1=7 x2=20 y2=7></line></svg> positive influence</div>
         <div><svg width="20" height="10"><line stroke="black" stroke-width="4" stroke-dasharray="1 2" x1=0 y1=7 x2=20 y2=7></line></svg> negative influence</div>
