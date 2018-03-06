@@ -253,9 +253,9 @@
   </figcaption>
 
   <p>
-    In this article, we use GoogLeNet<d-cite key="szegedy2015going"></d-cite>, an image classification model, to demonstrate our interface ideas because its neurons seem unusually semantically meaningful.<d-footnote>We're actively investigating why this is, and hope to uncover principles for designing interpretable models. In the mean time, while we demonstrate our techniques on GoogLeNet, we provide code for you to try them on other models.</d-footnote>
+    In this article, we use GoogLeNet<d-cite key="szegedy2015going"></d-cite>, an image classification model, to demonstrate our interface ideas because its neurons seem unusually semantically meaningful.<d-footnote>We're actively investigating why this is, and hope to uncover principles for designing interpretable models. In the meantime, while we demonstrate our techniques on GoogLeNet, we provide code for you to try them on other models.</d-footnote>
 
-    Despite this, the basic abstractions and patterns for combining them that we present can be applied to neural networks in other domains.
+    Although here we've made a specific choice of task and network, the basic abstractions and patterns for combining them that we present can be applied to neural networks in other domains.
   </p>
 
   <h2>Making Sense of Hidden Layers</h2>
@@ -312,7 +312,9 @@
 
     For instance, GoogLeNet has multiple floppy ear detectors that appear to detect slightly different levels of droopiness, length, and surrounding context to the ears.
 
-    Moreover, the network may also learn new abstractions that appear alien to us -- here, natural language would fail us entirely!
+    There also may exist abstractions which are visually familiar, yet that we lack good natural language descriptions for: for example, take the particular column of shimmering light where sun hits rippling water.
+
+    Moreover, the network may learn new abstractions that appear alien to us -- here, natural language would fail us entirely!
 
     In general, canonical examples are a more natural way to represent the foreign abstractions that neural networks learn than native human language.
   </p>
@@ -398,7 +400,7 @@
 
     We think there's a lot of important research to be done on attribution methods, but for the purposes of this article the exact approach taken to attribution doesn't matter.
 
-    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces. That is, we estimate that effect of a neuron on the output is it's activation times the rate at which increasing its activation increases the output. When we talk about a linear combination of activations, the attribution can be thought of as the linear combination of the attributions of the units, or equivalently as the dot product between the activation of that combination and the gradient.<br><br> For spatial attribution, we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.<br><br>The notebooks attached to diagrams provide reference implementations.</d-footnote>, but could easily substitute in essentially any other technique.
+    We use a fairly simple method, linearly approximating the relationship<d-footnote>We do attribution by linear approximation in all of our interfaces. That is, we estimate the effect of a neuron on the output is its activation times the rate at which increasing its activation increases the output. When we talk about a linear combination of activations, the attribution can be thought of as the linear combination of the attributions of the units, or equivalently as the dot product between the activation of that combination and the gradient.<br><br> For spatial attribution, we do an additional trick. GoogLeNet's strided max pooling introduces a lot of noise and checkerboard patterns to it's gradients<d-cite key="odena2016deconvolution"></d-cite>. To avoid our interface demonstrations being dominated by this noise, we (a) do a relaxation of the gradient of max pooling, distributing gradient to inputs proportional to their activation instead of winner takes all and (b) cancel out the checkerboard patterns.<br><br>The notebooks attached to diagrams provide reference implementations.</d-footnote>, but could easily substitute in essentially any other technique.
 
     Future improvements to attribution will, of course, correspondingly improve the interfaces built on top of them.
   </p>
@@ -539,7 +541,7 @@
     If we want to make useful interfaces into neural networks, it isn't enough to make things meaningful.
     We need to make them human scale, rather than overwhelming dumps of information.
     The key to doing so is finding more meaningful ways of breaking up our activations.
-    There's a lot of reason to believe that such decompositions exist.
+    There is good reason to believe that such decompositions exist.
     Often, many channels or spatial positions will work together in a highly correlated way and are most useful to think of as one unit.
     Other channels or positions will have very little activity, and can be ignored for a high-level overview.
     So, it seems like we ought to be able to find better decompositions if we had the right tools.
@@ -572,7 +574,7 @@
 
   <p>
     In the following diagram, we've constructed groups that prioritize the activations, by factorizing the activations
-        <d-footnote>Most matrix factorization algorithms and libraries are set up to minimize the mean squared error of the reconstruction of a matrix you give them, so if you just want to optimize for one thing -- in this case, the activations -- it's quite straightforward. There's ways to hack such libraries to do more general things with clever manipulations of the matrix you give it, as we'll see below. More broadly matrix factorization is just optimization, and with custom tools you can do all sorts of things.</d-footnote>
+        <d-footnote>Most matrix factorization algorithms and libraries are set up to minimize the mean squared error of the reconstruction of a matrix you give them. There are ways to hack such libraries to achieve more general objectives through clever manipulations of the provided matrix, as we will see below. More broadly, matrix factorization is an optimization problem, and with custom tools you can achieve all sorts of custom factorizations.</d-footnote>
      with non-negative matrix factorization
         <d-footnote>As the name suggests, non-negative matrix factorization (NMF) constrains its factors to be positive. This is fine for the activations of a ReLU network, which must be positive as well. Our experience is that the groups we get from NMF seem more independent and semantically meaningful than those without this constraint. Because of this constraints, groups from NMF are a less efficient at representing the activations than they would be without, but our experience is that they seem more independent and semantically meaningful.</d-footnote>
      .
@@ -602,11 +604,11 @@
   <p>
     In this section, we recognize that the way in which we break apart the cube of activations is an important interface decision. Rather than resigning ourselves to the natural slices of the cube of activations, we construct more optimal groupings of neurons. These improved groupings are both more meaningful and more human-scale, making it less tedious for users to understand the behavior of the network.
   </p>
-  
+
   <p>
-    Our visualizations have only begun to explore the potential of alternate bases in providing better atoms for understanding neural networks. 
+    Our visualizations have only begun to explore the potential of alternate bases in providing better atoms for understanding neural networks.
     For example, while we focus on creating smaller numbers of directions to explain individual examples, there's recently been exciting work finding "globally" meaningful directions <d-cite key="raghu2017svcca,kim2017tcav,fong2018net2vec"></d-cite>
-    -- such bases could especially helpful when trying to understand multiple examples at a time, or in comparing models.
+    -- such bases could be especially helpful when trying to understand multiple examples at a time, or in comparing models.
     <d-footnote>The recent <a href="https://sites.google.com/corp/view/disentanglenips2017">NIPS disentangling workshop</a> provides other promising directions. We're excited to see a venue for this developing area of research.</d-footnote>
   </p>
 
@@ -762,8 +764,8 @@
     However, even with human feedback, it may still be hard to train models to behave the way we want if the problematic aspect of the model doesn't surface strongly in the training regime where humans are giving feedback.
     
     <d-footnote>
-      There's lots of reasons why problematic behavior may not surface or may be hard for an evaluator to give feedback on.
-      
+      There are lots of reasons why problematic behavior may not surface or may be hard for an evaluator to give feedback on.
+
       For example, discrimination and bias may be subtly present throughout the model's behavior, such that it's hard for a human evaluator to critique.
       
       Or the model may be making a decision in a way that has problematic consequences, but those consequences never play out in the problems we're training it on.
@@ -809,8 +811,8 @@
 
     We perceive two concerns with the set of building blocks we currently use.
 
-    First, do neurons have a relatively consistent meaning, and is it accurately reified by feature visualization?
-  
+    First, do neurons have a relatively consistent meaning across different input images, and is that meaning accurately reified by feature visualization?
+
     Semantic dictionaries, and the interfaces that build on top of them, are premised off this question being true.
 
     Second, does attribution make sense and do we trust any of the attribution methods we presently have?
