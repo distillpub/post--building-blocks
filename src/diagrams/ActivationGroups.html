@@ -57,11 +57,11 @@
       {{$num_4d}} neuron groups <span>based on matrix factorization of mixed4d layer</span>
 
       <div style="float: right; display: flex;">
-        <div style="width: 100px; margin-right: 20px;">
+        <div style="width: 100px; margin-right: 5px;">
           <d-slider type="range" min={{$min_4d}} max={{$max_4d}} step="2" 
             ticks value={{$num_4d}} on:input="store.set({num_4d: this.value})"></d-slider>
         </div>
-          <span>({{$num_4d}} groups)</span>
+          <span style="font-size: 12px; width: 65px; text-align: right; opacity: 0.8;">{{$num_4d}} groups</span>
       </div>
     </h4>
     <div class="colors">
@@ -109,8 +109,8 @@
           <div>
             {{#each attr as a}}
               <div class="cell value">
-                {{format(a)}}
-                <div class="swatch {{ a > 0 ? 'positive' : 'negative' }}" style="opacity: {{Math.abs(a) * 2}};"></div>
+                <span style="z-index: 10; position: relative;">{{format(a)}}</span>
+                <div class="swatch {{ a > 0 ? 'positive' : 'negative' }}" style="opacity: {{Math.abs(a) / 6}};"></div>
               </div>
             {{/each}}
           </div>
@@ -281,7 +281,6 @@
 
   .cell.value {
     text-align: center;
-    font-size: 12px;
   }
 
   .output .swatch {
