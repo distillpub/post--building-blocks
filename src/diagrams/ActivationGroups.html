@@ -56,11 +56,17 @@
     <h4>
       {{$num_4d}} neuron groups <span>based on matrix factorization of mixed4d layer</span>
 
-      <input type="range" min={{$min_4d}} max={{$max_4d}} step="2" bind:value=$num_4d />
+      <div style="float: right; display: flex;">
+        <div style="width: 100px; margin-right: 20px;">
+          <d-slider type="range" min={{$min_4d}} max={{$max_4d}} step="2" 
+            ticks value={{$num_4d}} on:input="store.set({num_4d: this.value})"></d-slider>
+        </div>
+          <span>({{$num_4d}} groups)</span>
+      </div>
     </h4>
     <div class="colors">
       <div class="label cell">color key</div>
-      <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numGroups}}, 1fr);">
+      <div ref:content class="content" on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
         {{#each groupsData as g}}
           <div class="cell" on:mouseover="set({hover_group: g.i})">
             <div class="legend {{hover_group === g.i ? 'hover' : ''}}" style="background-color: {{g.color}};opacity: {{hover_location != null ? Math.abs(hover_location.groups[g.i].value) /10 : ''}};"></div>
@@ -79,7 +85,7 @@
           </svg>
         </div>
       </div>
-      <div class="content " on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numGroups}}, 1fr);">
+      <div class="content " on:mouseleave="set({hover_group: null})" style="cursor: pointer;grid-template-columns: repeat({{numColumns}}, 1fr);">
         {{#each groupsData as g}}
           <div class="neuron cell {{hover_group === g.i ? 'hover' : ''}}" on:mouseover="set({hover_group: g.i})" style="height: {{neuronWidth}}px;opacity: {{hover_location != null ? Math.abs(hover_location.groups[g.i].value) /10 : ''}}">
             <Sprite bg_img="{{neuron_sprite_url}}" sprite_size={{110}} size={{neuronWidth}}
@@ -98,7 +104,7 @@
         {{/each}}
       </div>
 
-      <div class="content" style="grid-template-columns: repeat({{numGroups}}, 1fr);">
+      <div class="content" style="grid-template-columns: repeat({{numColumns}}, 1fr);">
         {{#each groups.attr as attr}}
           <div>
             {{#each attr as a}}
@@ -397,7 +403,9 @@
 
       // imageWidth: (stageWidth) => (stageWidth - 10) / 2,
 
-      neuronWidth: (stageWidth, numGroups) => (stageWidth - 10 * (numGroups - 1)) / numGroups
+      numColumns: (numGroups) => Math.max(numGroups, 6),
+
+      neuronWidth: (stageWidth, numColumns) => (stageWidth - 10 * (numColumns - 1)) / numColumns
     },
 
     components: {Sprite, ColabLink},

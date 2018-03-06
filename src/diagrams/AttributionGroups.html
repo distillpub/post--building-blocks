@@ -27,6 +27,10 @@
   <div class="paths" ref:paths>
     <h4>
       Attribution by Factorized Groups
+
+      <div style="float: right; font-weight: normal; text-transform: none;">
+        <label><input type="checkbox" bind:checked=$groups_align /> Align layer factors</label>
+      </div>
     </h4>
 
     <div class="container">
@@ -34,13 +38,23 @@
         <h5>
           Mixed4a
 
-          <input type="range" min={{$min_4a}} max={{$max_4a}} step="2" bind:value=$num_4a />
+          <div style="float: right; display: flex;">
+            <div style="width: 100px;">
+              <d-slider type="range" min={{$min_4a}} max={{$max_4a}} 
+                step="2" ticks value={{$num_4a}} on:input="store.set({num_4a: this.value})"></d-slider>
+            </div>
+          </div>
         </h5>
 
         <h5>
           Mixed4d
 
-          <input type="range" min={{$min_4d}} max={{$max_4d}} step="2" bind:value=$num_4d />
+          <div style="float: right; display: flex;">
+            <div style="width: 100px;">
+              <d-slider type="range" min={{$min_4d}} max={{$max_4d}} 
+                step="2" ticks value={{$num_4d}} on:input="store.set({num_4d: this.value})"></d-slider>
+            </div>
+          </div>
         </h5>
 
         <h5>Output class</h5>

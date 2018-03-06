@@ -229,6 +229,16 @@ function initializeGroups() {
   const instances = [null, null];
   const sprite_instances = [];
 
+  function preload_sprites() {
+    const example = store.get('example');
+    sprite_instances.splice(0);
+    for (const url of sprite_urls) {
+      const img = new Image();
+      img.src = `examples/groups/${example}/${url}.jpeg`;
+      sprite_instances.push(img);
+    }
+  }
+
   els.forEach((el) => {
     el.addEventListener('ready', () => {
       // Only add one store observer to coordinate the two diagrams.
@@ -263,14 +273,12 @@ function initializeGroups() {
             if (instances[i].measure)  instances[i].measure();
           }
 
-          sprite_instances.splice(0);
-          for (const url of sprite_urls) {
-            const img = new Image();
-            img.src = `examples/groups/${example}/${url}.jpeg`;
-            sprite_instances.push(img);
-          }
+          preload_sprites();
         });
       });
+
+      store.observe('num_4a', preload_sprites);
+      store.observe('num_4d', preload_sprites);
 
       store.compute(
         'idx_4a', 
@@ -286,8 +294,8 @@ function initializeGroups() {
 
       store.compute(
         'groups_sprite_x',
-        ['align'],
-        (align) => align === true ? 1 : 0
+        ['groups_align'],
+        (groups_align) => groups_align === true ? 1 : 0
       );
 
       store.compute(
