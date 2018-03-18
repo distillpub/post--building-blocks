@@ -2,38 +2,38 @@
 
 {{#if attr_data && $labels}}
 <div class="root" ref:root>
-  <div class="side_labels">
-    <div>
-      <h4>Input Image</h4>
-    
-      <div class="input_image" ref:input_image>
-        <img src="examples/input_images/{{$example}}.jpeg" /> 
-        <div class="image_overlay">
-          {{#if hover.length || selected !== 'output'}}
-            <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
-              bg_img="examples/activations/{{$example}}/sprite_{{hover[0] || selected[0]}}_activations.png"
-              n={{hover[1] || selected[1]}} 
-              sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="{{input_image_size}}" /> 
-          {{/if}}
-        </div>
+
+  <div class="input">
+    <h4>Input Image</h4>
+  
+    <div class="input_image" ref:input_image>
+      <img src="examples/input_images/{{$example}}.jpeg" /> 
+      <div class="image_overlay">
+        {{#if hover.length || selected !== 'output'}}
+          <Sprite src_class="sprite_{{hover[0] || selected[0]}}_activations" 
+            bg_img="examples/activations/{{$example}}/sprite_{{hover[0] || selected[0]}}_activations.png"
+            n={{hover[1] || selected[1]}} 
+            sprite_size={{all_layers[hover[0] || selected[0]][0]}} size="{{input_image_size}}" /> 
+        {{/if}}
       </div>
-
     </div>
 
-    <div class="channels">
-      <h4>Output Classes</h4>
-      <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
-        {{#each hover_data.l.slice(0, 5) as attr, i}}
-        <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
-          <span>{{$labels[attr.c]}}</span>
-          <div class="scent">
-            <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
-          </div>
-        </li>
-        {{/each}}
-      </ul>
-    </div>
   </div>
+
+  <div class="output">
+    <h4>Output Classes</h4>
+    <ul class="output_classes attribution_list" on:mouseout="set({layer_hover: undefined, pos_hover: undefined})">
+      {{#each hover_data.l.slice(0, 5) as attr, i}}
+      <li on:mouseover="set({layer_hover: 'output', pos_hover: [0, i]})">
+        <span>{{$labels[attr.c]}}</span>
+        <div class="scent">
+          <div style="width: {{100 * (attr.v / max_attr(hover_data.l))}}%;"></div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
 
   <div class="columns">
     <h4>
@@ -96,12 +96,30 @@
     padding: 0 20px;
     margin: 20px auto;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 30px;
+    grid-template: 
+      "input output" min-content
+      "channels channels" auto / min-content auto;
+  }
+  
+  @media (min-width: 768px) {
+    .root {
+      grid-template: 
+        "input channels" 264px
+        "output channels" auto / min-content auto;;
+    }
+  }
+  
+  .input {
+    grid-area: input;
   }
 
   .columns {
-    grid-column: 2/7;
+    grid-area: channels;
+  }
+  
+  .output {
+    grid-area: output;
   }
 
   h4 {
@@ -297,8 +315,6 @@
 
   .input_image {
     position: relative;
-    margin-bottom: 20px;
-    margin-top: 10px;
   }
 
   .input_image img { 
