@@ -249,10 +249,10 @@
       <text transform="translate(798.84 212.93793)" fill="white">
         <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
       </text>
-      <circle cx="849.8645" cy="284.23028" r="9.200015" fill="#718c01"/>
+      <!-- <circle cx="849.8645" cy="284.23028" r="9.200015" fill="#718c01"/>
       <text transform="translate(842.5045 277.06228)" fill="white">
         <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
-      </text>
+      </text> -->
       <path d="M 797.5277 249.1466 C 790.1665 246.14995 780.7902 241.24813 780.7902 235.72077 C 780.7902 232.3685 784.239 229.3669 788.5955 226.91258" marker-end="url(#UMLInheritance_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="4,4"/>
       <text transform="translate(718 330.29695)" fill="black" fill-opacity=".8">
         <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="black" fill-opacity=".8" x="0" y="14">3. Drill Down on Hover</tspan>
@@ -273,10 +273,10 @@
       <text transform="translate(552.6868 245.05594)" fill="white">
         <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
       </text>
-      <circle cx="836.2" cy="284.23028" r="9.200015" fill="#4271ae"/>
+      <!-- <circle cx="836.2" cy="284.23028" r="9.200015" fill="#4271ae"/>
       <text transform="translate(828.84 277.06228)" fill="white">
         <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="5.806" y="11">I</tspan>
-      </text>
+      </text> -->
       <text transform="translate(982.7 109.29695)" fill="#718c00">
         <tspan font-family="Helvetica Neue" font-size="14" font-weight="bold" fill="#718c00" x="0" y="14">Content</tspan>
       </text>
@@ -320,7 +320,7 @@
         <tspan font-family="Helvetica Neue" font-size="12" font-weight="normal" fill="white" x="3.916" y="11">T</tspan>
       </text>
       <line x1="1066.95" y1="179.75" x2="1088.8" y2="179.75" marker-end="url(#FilledArrow_Marker_3)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line x1="891.308" y1="284.23028" x2="869.0845" y2="284.23028" marker-end="url(#FilledArrow_Marker_2)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <!-- <line x1="891.308" y1="284.23028" x2="869.0845" y2="284.23028" marker-end="url(#FilledArrow_Marker_2)" stroke="#718c01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/> -->
     </g>
   </g>
 </svg>
