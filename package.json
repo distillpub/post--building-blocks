@@ -25,7 +25,7 @@
     "ndarray-ops": "^1.2.2",
     "numpy-loader": "^1.2.0",
     "numpy-parser": "^1.0.1",
-    "svelte": "^1.50.1",
+    "svelte": "^3.49.0",
     "svelte-extras": "^1.6.0",
     "svelte-hot-loader": "^1.5.0",
     "svelte-loader": "^2.1.0",
